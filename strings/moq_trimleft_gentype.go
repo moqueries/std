@@ -13,7 +13,7 @@ import (
 
 // TrimLeft_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type TrimLeft_genType func(s string, cutset string) string
+type TrimLeft_genType func(s, cutset string) string
 
 // MoqTrimLeft_genType holds the state of a moq of the TrimLeft_genType type
 type MoqTrimLeft_genType struct {
@@ -38,22 +38,13 @@ type MoqTrimLeft_genType_mock struct {
 }
 
 // MoqTrimLeft_genType_params holds the params of the TrimLeft_genType type
-type MoqTrimLeft_genType_params struct {
-	S      string
-	Cutset string
-}
+type MoqTrimLeft_genType_params struct{ S, Cutset string }
 
 // MoqTrimLeft_genType_paramsKey holds the map key params of the
 // TrimLeft_genType type
 type MoqTrimLeft_genType_paramsKey struct {
-	Params struct {
-		S      string
-		Cutset string
-	}
-	Hashes struct {
-		S      hash.Hash
-		Cutset hash.Hash
-	}
+	Params struct{ S, Cutset string }
+	Hashes struct{ S, Cutset hash.Hash }
 }
 
 // MoqTrimLeft_genType_resultsByParams contains the results for a given set of
@@ -66,11 +57,11 @@ type MoqTrimLeft_genType_resultsByParams struct {
 
 // MoqTrimLeft_genType_doFn defines the type of function needed when calling
 // AndDo for the TrimLeft_genType type
-type MoqTrimLeft_genType_doFn func(s string, cutset string)
+type MoqTrimLeft_genType_doFn func(s, cutset string)
 
 // MoqTrimLeft_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the TrimLeft_genType type
-type MoqTrimLeft_genType_doReturnFn func(s string, cutset string) string
+type MoqTrimLeft_genType_doReturnFn func(s, cutset string) string
 
 // MoqTrimLeft_genType_results holds the results of the TrimLeft_genType type
 type MoqTrimLeft_genType_results struct {
@@ -134,14 +125,14 @@ func NewMoqTrimLeft_genType(scene *moq.Scene, config *moq.Config) *MoqTrimLeft_g
 
 // Mock returns the moq implementation of the TrimLeft_genType type
 func (m *MoqTrimLeft_genType) Mock() TrimLeft_genType {
-	return func(s string, cutset string) string {
+	return func(s, cutset string) string {
 		m.Scene.T.Helper()
 		moq := &MoqTrimLeft_genType_mock{Moq: m}
 		return moq.Fn(s, cutset)
 	}
 }
 
-func (m *MoqTrimLeft_genType_mock) Fn(s string, cutset string) (result1 string) {
+func (m *MoqTrimLeft_genType_mock) Fn(s, cutset string) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTrimLeft_genType_params{
 		S:      s,
@@ -195,7 +186,7 @@ func (m *MoqTrimLeft_genType_mock) Fn(s string, cutset string) (result1 string) 
 	return
 }
 
-func (m *MoqTrimLeft_genType) OnCall(s string, cutset string) *MoqTrimLeft_genType_fnRecorder {
+func (m *MoqTrimLeft_genType) OnCall(s, cutset string) *MoqTrimLeft_genType_fnRecorder {
 	return &MoqTrimLeft_genType_fnRecorder{
 		Params: MoqTrimLeft_genType_params{
 			S:      s,
@@ -404,17 +395,11 @@ func (m *MoqTrimLeft_genType) ParamsKey(params MoqTrimLeft_genType_params, anyPa
 		}
 	}
 	return MoqTrimLeft_genType_paramsKey{
-		Params: struct {
-			S      string
-			Cutset string
-		}{
+		Params: struct{ S, Cutset string }{
 			S:      sUsed,
 			Cutset: cutsetUsed,
 		},
-		Hashes: struct {
-			S      hash.Hash
-			Cutset hash.Hash
-		}{
+		Hashes: struct{ S, Cutset hash.Hash }{
 			S:      sUsedHash,
 			Cutset: cutsetUsedHash,
 		},

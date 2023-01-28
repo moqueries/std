@@ -29,6 +29,7 @@ type DB_starGenType interface {
 	SetMaxIdleConns(n int)
 	SetMaxOpenConns(n int)
 	SetConnMaxLifetime(d time.Duration)
+	SetConnMaxIdleTime(d time.Duration)
 	Stats() sql.DBStats
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
 	Prepare(query string) (*sql.Stmt, error)
@@ -56,6 +57,7 @@ type MoqDB_starGenType struct {
 	ResultsByParams_SetMaxIdleConns    []MoqDB_starGenType_SetMaxIdleConns_resultsByParams
 	ResultsByParams_SetMaxOpenConns    []MoqDB_starGenType_SetMaxOpenConns_resultsByParams
 	ResultsByParams_SetConnMaxLifetime []MoqDB_starGenType_SetConnMaxLifetime_resultsByParams
+	ResultsByParams_SetConnMaxIdleTime []MoqDB_starGenType_SetConnMaxIdleTime_resultsByParams
 	ResultsByParams_Stats              []MoqDB_starGenType_Stats_resultsByParams
 	ResultsByParams_PrepareContext     []MoqDB_starGenType_PrepareContext_resultsByParams
 	ResultsByParams_Prepare            []MoqDB_starGenType_Prepare_resultsByParams
@@ -84,6 +86,9 @@ type MoqDB_starGenType struct {
 				N moq.ParamIndexing
 			}
 			SetConnMaxLifetime struct {
+				D moq.ParamIndexing
+			}
+			SetConnMaxIdleTime struct {
 				D moq.ParamIndexing
 			}
 			Stats          struct{}
@@ -488,6 +493,63 @@ type MoqDB_starGenType_SetConnMaxLifetime_fnRecorder struct {
 // functions of the DB_starGenType type
 type MoqDB_starGenType_SetConnMaxLifetime_anyParams struct {
 	Recorder *MoqDB_starGenType_SetConnMaxLifetime_fnRecorder
+}
+
+// MoqDB_starGenType_SetConnMaxIdleTime_params holds the params of the
+// DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_params struct{ D time.Duration }
+
+// MoqDB_starGenType_SetConnMaxIdleTime_paramsKey holds the map key params of
+// the DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_paramsKey struct {
+	Params struct{ D time.Duration }
+	Hashes struct{ D hash.Hash }
+}
+
+// MoqDB_starGenType_SetConnMaxIdleTime_resultsByParams contains the results
+// for a given set of parameters for the DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqDB_starGenType_SetConnMaxIdleTime_paramsKey]*MoqDB_starGenType_SetConnMaxIdleTime_results
+}
+
+// MoqDB_starGenType_SetConnMaxIdleTime_doFn defines the type of function
+// needed when calling AndDo for the DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_doFn func(d time.Duration)
+
+// MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn func(d time.Duration)
+
+// MoqDB_starGenType_SetConnMaxIdleTime_results holds the results of the
+// DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_results struct {
+	Params  MoqDB_starGenType_SetConnMaxIdleTime_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqDB_starGenType_SetConnMaxIdleTime_doFn
+		DoReturnFn MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder routes recorded function
+// calls to the MoqDB_starGenType moq
+type MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder struct {
+	Params    MoqDB_starGenType_SetConnMaxIdleTime_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqDB_starGenType_SetConnMaxIdleTime_results
+	Moq       *MoqDB_starGenType
+}
+
+// MoqDB_starGenType_SetConnMaxIdleTime_anyParams isolates the any params
+// functions of the DB_starGenType type
+type MoqDB_starGenType_SetConnMaxIdleTime_anyParams struct {
+	Recorder *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder
 }
 
 // MoqDB_starGenType_Stats_params holds the params of the DB_starGenType type
@@ -1348,6 +1410,9 @@ func NewMoqDB_starGenType(scene *moq.Scene, config *moq.Config) *MoqDB_starGenTy
 				SetConnMaxLifetime struct {
 					D moq.ParamIndexing
 				}
+				SetConnMaxIdleTime struct {
+					D moq.ParamIndexing
+				}
 				Stats          struct{}
 				PrepareContext struct {
 					Ctx   moq.ParamIndexing
@@ -1406,6 +1471,9 @@ func NewMoqDB_starGenType(scene *moq.Scene, config *moq.Config) *MoqDB_starGenTy
 				N moq.ParamIndexing
 			}
 			SetConnMaxLifetime struct {
+				D moq.ParamIndexing
+			}
+			SetConnMaxIdleTime struct {
 				D moq.ParamIndexing
 			}
 			Stats          struct{}
@@ -1471,6 +1539,11 @@ func NewMoqDB_starGenType(scene *moq.Scene, config *moq.Config) *MoqDB_starGenTy
 				N: moq.ParamIndexByValue,
 			},
 			SetConnMaxLifetime: struct {
+				D moq.ParamIndexing
+			}{
+				D: moq.ParamIndexByValue,
+			},
+			SetConnMaxIdleTime: struct {
 				D moq.ParamIndexing
 			}{
 				D: moq.ParamIndexByValue,
@@ -1853,6 +1926,56 @@ func (m *MoqDB_starGenType_mock) SetConnMaxLifetime(d time.Duration) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_SetConnMaxLifetime(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(d)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(d)
+	}
+	return
+}
+
+func (m *MoqDB_starGenType_mock) SetConnMaxIdleTime(d time.Duration) {
+	m.Moq.Scene.T.Helper()
+	params := MoqDB_starGenType_SetConnMaxIdleTime_params{
+		D: d,
+	}
+	var results *MoqDB_starGenType_SetConnMaxIdleTime_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_SetConnMaxIdleTime {
+		paramsKey := m.Moq.ParamsKey_SetConnMaxIdleTime(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_SetConnMaxIdleTime(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_SetConnMaxIdleTime(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_SetConnMaxIdleTime(params))
 		}
 	}
 
@@ -3715,6 +3838,199 @@ func (m *MoqDB_starGenType) ParamsKey_SetConnMaxLifetime(params MoqDB_starGenTyp
 		}
 	}
 	return MoqDB_starGenType_SetConnMaxLifetime_paramsKey{
+		Params: struct{ D time.Duration }{
+			D: dUsed,
+		},
+		Hashes: struct{ D hash.Hash }{
+			D: dUsedHash,
+		},
+	}
+}
+
+func (m *MoqDB_starGenType_recorder) SetConnMaxIdleTime(d time.Duration) *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	return &MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder{
+		Params: MoqDB_starGenType_SetConnMaxIdleTime_params{
+			D: d,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) Any() *MoqDB_starGenType_SetConnMaxIdleTime_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetConnMaxIdleTime(r.Params))
+		return nil
+	}
+	return &MoqDB_starGenType_SetConnMaxIdleTime_anyParams{Recorder: r}
+}
+
+func (a *MoqDB_starGenType_SetConnMaxIdleTime_anyParams) D() *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) Seq() *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetConnMaxIdleTime(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) NoSeq() *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetConnMaxIdleTime(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) ReturnResults() *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqDB_starGenType_SetConnMaxIdleTime_doFn
+		DoReturnFn MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) AndDo(fn MoqDB_starGenType_SetConnMaxIdleTime_doFn) *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) DoReturnResults(fn MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn) *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqDB_starGenType_SetConnMaxIdleTime_doFn
+		DoReturnFn MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqDB_starGenType_SetConnMaxIdleTime_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_SetConnMaxIdleTime {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqDB_starGenType_SetConnMaxIdleTime_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqDB_starGenType_SetConnMaxIdleTime_paramsKey]*MoqDB_starGenType_SetConnMaxIdleTime_results{},
+		}
+		r.Moq.ResultsByParams_SetConnMaxIdleTime = append(r.Moq.ResultsByParams_SetConnMaxIdleTime, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_SetConnMaxIdleTime) {
+			copy(r.Moq.ResultsByParams_SetConnMaxIdleTime[insertAt+1:], r.Moq.ResultsByParams_SetConnMaxIdleTime[insertAt:0])
+			r.Moq.ResultsByParams_SetConnMaxIdleTime[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_SetConnMaxIdleTime(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqDB_starGenType_SetConnMaxIdleTime_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqDB_starGenType_SetConnMaxIdleTime_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqDB_starGenType_SetConnMaxIdleTime_doFn
+				DoReturnFn MoqDB_starGenType_SetConnMaxIdleTime_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqDB_starGenType) PrettyParams_SetConnMaxIdleTime(params MoqDB_starGenType_SetConnMaxIdleTime_params) string {
+	return fmt.Sprintf("SetConnMaxIdleTime(%#v)", params.D)
+}
+
+func (m *MoqDB_starGenType) ParamsKey_SetConnMaxIdleTime(params MoqDB_starGenType_SetConnMaxIdleTime_params, anyParams uint64) MoqDB_starGenType_SetConnMaxIdleTime_paramsKey {
+	m.Scene.T.Helper()
+	var dUsed time.Duration
+	var dUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.SetConnMaxIdleTime.D == moq.ParamIndexByValue {
+			dUsed = params.D
+		} else {
+			dUsedHash = hash.DeepHash(params.D)
+		}
+	}
+	return MoqDB_starGenType_SetConnMaxIdleTime_paramsKey{
 		Params: struct{ D time.Duration }{
 			D: dUsed,
 		},
@@ -6567,6 +6883,7 @@ func (m *MoqDB_starGenType) Reset() {
 	m.ResultsByParams_SetMaxIdleConns = nil
 	m.ResultsByParams_SetMaxOpenConns = nil
 	m.ResultsByParams_SetConnMaxLifetime = nil
+	m.ResultsByParams_SetConnMaxIdleTime = nil
 	m.ResultsByParams_Stats = nil
 	m.ResultsByParams_PrepareContext = nil
 	m.ResultsByParams_Prepare = nil
@@ -6630,6 +6947,14 @@ func (m *MoqDB_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetConnMaxLifetime(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_SetConnMaxIdleTime {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetConnMaxIdleTime(results.Params))
 			}
 		}
 	}

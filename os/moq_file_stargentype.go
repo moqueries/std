@@ -4,6 +4,7 @@ package os
 
 import (
 	"fmt"
+	"io"
 	"math/bits"
 	"os"
 	"sync/atomic"
@@ -27,6 +28,7 @@ type File_starGenType interface {
 	Name() string
 	Read(b []byte) (n int, err error)
 	ReadAt(b []byte, off int64) (n int, err error)
+	ReadFrom(r io.Reader) (n int64, err error)
 	Write(b []byte) (n int, err error)
 	WriteAt(b []byte, off int64) (n int, err error)
 	Seek(offset int64, whence int) (ret int64, err error)
@@ -36,12 +38,12 @@ type File_starGenType interface {
 	SetReadDeadline(t time.Time) error
 	SetWriteDeadline(t time.Time) error
 	SyscallConn() (syscall.RawConn, error)
+	Close() error
 	Chown(uid, gid int) error
 	Truncate(size int64) error
 	Sync() error
 	Chdir() error
 	Fd() uintptr
-	Close() error
 	Stat() (os.FileInfo, error)
 }
 
@@ -56,6 +58,7 @@ type MoqFile_starGenType struct {
 	ResultsByParams_Name             []MoqFile_starGenType_Name_resultsByParams
 	ResultsByParams_Read             []MoqFile_starGenType_Read_resultsByParams
 	ResultsByParams_ReadAt           []MoqFile_starGenType_ReadAt_resultsByParams
+	ResultsByParams_ReadFrom         []MoqFile_starGenType_ReadFrom_resultsByParams
 	ResultsByParams_Write            []MoqFile_starGenType_Write_resultsByParams
 	ResultsByParams_WriteAt          []MoqFile_starGenType_WriteAt_resultsByParams
 	ResultsByParams_Seek             []MoqFile_starGenType_Seek_resultsByParams
@@ -65,12 +68,12 @@ type MoqFile_starGenType struct {
 	ResultsByParams_SetReadDeadline  []MoqFile_starGenType_SetReadDeadline_resultsByParams
 	ResultsByParams_SetWriteDeadline []MoqFile_starGenType_SetWriteDeadline_resultsByParams
 	ResultsByParams_SyscallConn      []MoqFile_starGenType_SyscallConn_resultsByParams
+	ResultsByParams_Close            []MoqFile_starGenType_Close_resultsByParams
 	ResultsByParams_Chown            []MoqFile_starGenType_Chown_resultsByParams
 	ResultsByParams_Truncate         []MoqFile_starGenType_Truncate_resultsByParams
 	ResultsByParams_Sync             []MoqFile_starGenType_Sync_resultsByParams
 	ResultsByParams_Chdir            []MoqFile_starGenType_Chdir_resultsByParams
 	ResultsByParams_Fd               []MoqFile_starGenType_Fd_resultsByParams
-	ResultsByParams_Close            []MoqFile_starGenType_Close_resultsByParams
 	ResultsByParams_Stat             []MoqFile_starGenType_Stat_resultsByParams
 
 	Runtime struct {
@@ -88,6 +91,9 @@ type MoqFile_starGenType struct {
 			ReadAt struct {
 				B   moq.ParamIndexing
 				Off moq.ParamIndexing
+			}
+			ReadFrom struct {
+				Param1 moq.ParamIndexing
 			}
 			Write struct {
 				B moq.ParamIndexing
@@ -116,6 +122,7 @@ type MoqFile_starGenType struct {
 				T moq.ParamIndexing
 			}
 			SyscallConn struct{}
+			Close       struct{}
 			Chown       struct {
 				Uid moq.ParamIndexing
 				Gid moq.ParamIndexing
@@ -126,7 +133,6 @@ type MoqFile_starGenType struct {
 			Sync  struct{}
 			Chdir struct{}
 			Fd    struct{}
-			Close struct{}
 			Stat  struct{}
 		}
 	}
@@ -447,6 +453,66 @@ type MoqFile_starGenType_ReadAt_fnRecorder struct {
 // the File_starGenType type
 type MoqFile_starGenType_ReadAt_anyParams struct {
 	Recorder *MoqFile_starGenType_ReadAt_fnRecorder
+}
+
+// MoqFile_starGenType_ReadFrom_params holds the params of the File_starGenType
+// type
+type MoqFile_starGenType_ReadFrom_params struct{ Param1 io.Reader }
+
+// MoqFile_starGenType_ReadFrom_paramsKey holds the map key params of the
+// File_starGenType type
+type MoqFile_starGenType_ReadFrom_paramsKey struct {
+	Params struct{ Param1 io.Reader }
+	Hashes struct{ Param1 hash.Hash }
+}
+
+// MoqFile_starGenType_ReadFrom_resultsByParams contains the results for a
+// given set of parameters for the File_starGenType type
+type MoqFile_starGenType_ReadFrom_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqFile_starGenType_ReadFrom_paramsKey]*MoqFile_starGenType_ReadFrom_results
+}
+
+// MoqFile_starGenType_ReadFrom_doFn defines the type of function needed when
+// calling AndDo for the File_starGenType type
+type MoqFile_starGenType_ReadFrom_doFn func(r io.Reader)
+
+// MoqFile_starGenType_ReadFrom_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the File_starGenType type
+type MoqFile_starGenType_ReadFrom_doReturnFn func(r io.Reader) (n int64, err error)
+
+// MoqFile_starGenType_ReadFrom_results holds the results of the
+// File_starGenType type
+type MoqFile_starGenType_ReadFrom_results struct {
+	Params  MoqFile_starGenType_ReadFrom_params
+	Results []struct {
+		Values *struct {
+			N   int64
+			Err error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadFrom_doFn
+		DoReturnFn MoqFile_starGenType_ReadFrom_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqFile_starGenType_ReadFrom_fnRecorder routes recorded function calls to
+// the MoqFile_starGenType moq
+type MoqFile_starGenType_ReadFrom_fnRecorder struct {
+	Params    MoqFile_starGenType_ReadFrom_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqFile_starGenType_ReadFrom_results
+	Moq       *MoqFile_starGenType
+}
+
+// MoqFile_starGenType_ReadFrom_anyParams isolates the any params functions of
+// the File_starGenType type
+type MoqFile_starGenType_ReadFrom_anyParams struct {
+	Recorder *MoqFile_starGenType_ReadFrom_fnRecorder
 }
 
 // MoqFile_starGenType_Write_params holds the params of the File_starGenType
@@ -1000,6 +1066,65 @@ type MoqFile_starGenType_SyscallConn_anyParams struct {
 	Recorder *MoqFile_starGenType_SyscallConn_fnRecorder
 }
 
+// MoqFile_starGenType_Close_params holds the params of the File_starGenType
+// type
+type MoqFile_starGenType_Close_params struct{}
+
+// MoqFile_starGenType_Close_paramsKey holds the map key params of the
+// File_starGenType type
+type MoqFile_starGenType_Close_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqFile_starGenType_Close_resultsByParams contains the results for a given
+// set of parameters for the File_starGenType type
+type MoqFile_starGenType_Close_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqFile_starGenType_Close_paramsKey]*MoqFile_starGenType_Close_results
+}
+
+// MoqFile_starGenType_Close_doFn defines the type of function needed when
+// calling AndDo for the File_starGenType type
+type MoqFile_starGenType_Close_doFn func()
+
+// MoqFile_starGenType_Close_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the File_starGenType type
+type MoqFile_starGenType_Close_doReturnFn func() error
+
+// MoqFile_starGenType_Close_results holds the results of the File_starGenType
+// type
+type MoqFile_starGenType_Close_results struct {
+	Params  MoqFile_starGenType_Close_params
+	Results []struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_Close_doFn
+		DoReturnFn MoqFile_starGenType_Close_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqFile_starGenType_Close_fnRecorder routes recorded function calls to the
+// MoqFile_starGenType moq
+type MoqFile_starGenType_Close_fnRecorder struct {
+	Params    MoqFile_starGenType_Close_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqFile_starGenType_Close_results
+	Moq       *MoqFile_starGenType
+}
+
+// MoqFile_starGenType_Close_anyParams isolates the any params functions of the
+// File_starGenType type
+type MoqFile_starGenType_Close_anyParams struct {
+	Recorder *MoqFile_starGenType_Close_fnRecorder
+}
+
 // MoqFile_starGenType_Chown_params holds the params of the File_starGenType
 // type
 type MoqFile_starGenType_Chown_params struct{ Uid, Gid int }
@@ -1294,65 +1419,6 @@ type MoqFile_starGenType_Fd_anyParams struct {
 	Recorder *MoqFile_starGenType_Fd_fnRecorder
 }
 
-// MoqFile_starGenType_Close_params holds the params of the File_starGenType
-// type
-type MoqFile_starGenType_Close_params struct{}
-
-// MoqFile_starGenType_Close_paramsKey holds the map key params of the
-// File_starGenType type
-type MoqFile_starGenType_Close_paramsKey struct {
-	Params struct{}
-	Hashes struct{}
-}
-
-// MoqFile_starGenType_Close_resultsByParams contains the results for a given
-// set of parameters for the File_starGenType type
-type MoqFile_starGenType_Close_resultsByParams struct {
-	AnyCount  int
-	AnyParams uint64
-	Results   map[MoqFile_starGenType_Close_paramsKey]*MoqFile_starGenType_Close_results
-}
-
-// MoqFile_starGenType_Close_doFn defines the type of function needed when
-// calling AndDo for the File_starGenType type
-type MoqFile_starGenType_Close_doFn func()
-
-// MoqFile_starGenType_Close_doReturnFn defines the type of function needed
-// when calling DoReturnResults for the File_starGenType type
-type MoqFile_starGenType_Close_doReturnFn func() error
-
-// MoqFile_starGenType_Close_results holds the results of the File_starGenType
-// type
-type MoqFile_starGenType_Close_results struct {
-	Params  MoqFile_starGenType_Close_params
-	Results []struct {
-		Values *struct {
-			Result1 error
-		}
-		Sequence   uint32
-		DoFn       MoqFile_starGenType_Close_doFn
-		DoReturnFn MoqFile_starGenType_Close_doReturnFn
-	}
-	Index  uint32
-	Repeat *moq.RepeatVal
-}
-
-// MoqFile_starGenType_Close_fnRecorder routes recorded function calls to the
-// MoqFile_starGenType moq
-type MoqFile_starGenType_Close_fnRecorder struct {
-	Params    MoqFile_starGenType_Close_params
-	AnyParams uint64
-	Sequence  bool
-	Results   *MoqFile_starGenType_Close_results
-	Moq       *MoqFile_starGenType
-}
-
-// MoqFile_starGenType_Close_anyParams isolates the any params functions of the
-// File_starGenType type
-type MoqFile_starGenType_Close_anyParams struct {
-	Recorder *MoqFile_starGenType_Close_fnRecorder
-}
-
 // MoqFile_starGenType_Stat_params holds the params of the File_starGenType
 // type
 type MoqFile_starGenType_Stat_params struct{}
@@ -1439,6 +1505,9 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 					B   moq.ParamIndexing
 					Off moq.ParamIndexing
 				}
+				ReadFrom struct {
+					Param1 moq.ParamIndexing
+				}
 				Write struct {
 					B moq.ParamIndexing
 				}
@@ -1466,6 +1535,7 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 					T moq.ParamIndexing
 				}
 				SyscallConn struct{}
+				Close       struct{}
 				Chown       struct {
 					Uid moq.ParamIndexing
 					Gid moq.ParamIndexing
@@ -1476,7 +1546,6 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				Sync  struct{}
 				Chdir struct{}
 				Fd    struct{}
-				Close struct{}
 				Stat  struct{}
 			}
 		}{ParameterIndexing: struct {
@@ -1493,6 +1562,9 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 			ReadAt struct {
 				B   moq.ParamIndexing
 				Off moq.ParamIndexing
+			}
+			ReadFrom struct {
+				Param1 moq.ParamIndexing
 			}
 			Write struct {
 				B moq.ParamIndexing
@@ -1521,6 +1593,7 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				T moq.ParamIndexing
 			}
 			SyscallConn struct{}
+			Close       struct{}
 			Chown       struct {
 				Uid moq.ParamIndexing
 				Gid moq.ParamIndexing
@@ -1531,7 +1604,6 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 			Sync  struct{}
 			Chdir struct{}
 			Fd    struct{}
-			Close struct{}
 			Stat  struct{}
 		}{
 			Readdir: struct {
@@ -1556,6 +1628,11 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 			}{
 				B:   moq.ParamIndexByHash,
 				Off: moq.ParamIndexByValue,
+			},
+			ReadFrom: struct {
+				Param1 moq.ParamIndexing
+			}{
+				Param1: moq.ParamIndexByHash,
 			},
 			Write: struct {
 				B moq.ParamIndexing
@@ -1602,6 +1679,7 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				T: moq.ParamIndexByHash,
 			},
 			SyscallConn: struct{}{},
+			Close:       struct{}{},
 			Chown: struct {
 				Uid moq.ParamIndexing
 				Gid moq.ParamIndexing
@@ -1617,7 +1695,6 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 			Sync:  struct{}{},
 			Chdir: struct{}{},
 			Fd:    struct{}{},
-			Close: struct{}{},
 			Stat:  struct{}{},
 		}},
 	}
@@ -1894,6 +1971,60 @@ func (m *MoqFile_starGenType_mock) ReadAt(b []byte, off int64) (n int, err error
 	}
 	if result.DoReturnFn != nil {
 		n, err = result.DoReturnFn(b, off)
+	}
+	return
+}
+
+func (m *MoqFile_starGenType_mock) ReadFrom(param1 io.Reader) (n int64, err error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqFile_starGenType_ReadFrom_params{
+		Param1: param1,
+	}
+	var results *MoqFile_starGenType_ReadFrom_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_ReadFrom {
+		paramsKey := m.Moq.ParamsKey_ReadFrom(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_ReadFrom(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_ReadFrom(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_ReadFrom(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(param1)
+	}
+
+	if result.Values != nil {
+		n = result.Values.N
+		err = result.Values.Err
+	}
+	if result.DoReturnFn != nil {
+		n, err = result.DoReturnFn(param1)
 	}
 	return
 }
@@ -2380,6 +2511,57 @@ func (m *MoqFile_starGenType_mock) SyscallConn() (result1 syscall.RawConn, resul
 	return
 }
 
+func (m *MoqFile_starGenType_mock) Close() (result1 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqFile_starGenType_Close_params{}
+	var results *MoqFile_starGenType_Close_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Close {
+		paramsKey := m.Moq.ParamsKey_Close(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Close(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Close(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Close(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqFile_starGenType_mock) Chown(uid, gid int) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFile_starGenType_Chown_params{
@@ -2624,57 +2806,6 @@ func (m *MoqFile_starGenType_mock) Fd() (result1 uintptr) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Fd(params))
-		}
-	}
-
-	if result.DoFn != nil {
-		result.DoFn()
-	}
-
-	if result.Values != nil {
-		result1 = result.Values.Result1
-	}
-	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn()
-	}
-	return
-}
-
-func (m *MoqFile_starGenType_mock) Close() (result1 error) {
-	m.Moq.Scene.T.Helper()
-	params := MoqFile_starGenType_Close_params{}
-	var results *MoqFile_starGenType_Close_results
-	for _, resultsByParams := range m.Moq.ResultsByParams_Close {
-		paramsKey := m.Moq.ParamsKey_Close(params, resultsByParams.AnyParams)
-		var ok bool
-		results, ok = resultsByParams.Results[paramsKey]
-		if ok {
-			break
-		}
-	}
-	if results == nil {
-		if m.Moq.Config.Expectation == moq.Strict {
-			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Close(params))
-		}
-		return
-	}
-
-	i := int(atomic.AddUint32(&results.Index, 1)) - 1
-	if i >= results.Repeat.ResultCount {
-		if !results.Repeat.AnyTimes {
-			if m.Moq.Config.Expectation == moq.Strict {
-				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Close(params))
-			}
-			return
-		}
-		i = results.Repeat.ResultCount - 1
-	}
-
-	result := results.Results[i]
-	if result.Sequence != 0 {
-		sequence := m.Moq.Scene.NextMockSequence()
-		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
-			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Close(params))
 		}
 	}
 
@@ -3774,6 +3905,214 @@ func (m *MoqFile_starGenType) ParamsKey_ReadAt(params MoqFile_starGenType_ReadAt
 		}{
 			B:   bUsedHash,
 			Off: offUsedHash,
+		},
+	}
+}
+
+func (m *MoqFile_starGenType_recorder) ReadFrom(param1 io.Reader) *MoqFile_starGenType_ReadFrom_fnRecorder {
+	return &MoqFile_starGenType_ReadFrom_fnRecorder{
+		Params: MoqFile_starGenType_ReadFrom_params{
+			Param1: param1,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) Any() *MoqFile_starGenType_ReadFrom_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadFrom(r.Params))
+		return nil
+	}
+	return &MoqFile_starGenType_ReadFrom_anyParams{Recorder: r}
+}
+
+func (a *MoqFile_starGenType_ReadFrom_anyParams) Param1() *MoqFile_starGenType_ReadFrom_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) Seq() *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadFrom(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) NoSeq() *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadFrom(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) ReturnResults(n int64, err error) *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			N   int64
+			Err error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadFrom_doFn
+		DoReturnFn MoqFile_starGenType_ReadFrom_doReturnFn
+	}{
+		Values: &struct {
+			N   int64
+			Err error
+		}{
+			N:   n,
+			Err: err,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) AndDo(fn MoqFile_starGenType_ReadFrom_doFn) *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) DoReturnResults(fn MoqFile_starGenType_ReadFrom_doReturnFn) *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			N   int64
+			Err error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadFrom_doFn
+		DoReturnFn MoqFile_starGenType_ReadFrom_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqFile_starGenType_ReadFrom_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_ReadFrom {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqFile_starGenType_ReadFrom_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqFile_starGenType_ReadFrom_paramsKey]*MoqFile_starGenType_ReadFrom_results{},
+		}
+		r.Moq.ResultsByParams_ReadFrom = append(r.Moq.ResultsByParams_ReadFrom, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_ReadFrom) {
+			copy(r.Moq.ResultsByParams_ReadFrom[insertAt+1:], r.Moq.ResultsByParams_ReadFrom[insertAt:0])
+			r.Moq.ResultsByParams_ReadFrom[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_ReadFrom(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqFile_starGenType_ReadFrom_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqFile_starGenType_ReadFrom_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_starGenType_ReadFrom_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					N   int64
+					Err error
+				}
+				Sequence   uint32
+				DoFn       MoqFile_starGenType_ReadFrom_doFn
+				DoReturnFn MoqFile_starGenType_ReadFrom_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqFile_starGenType) PrettyParams_ReadFrom(params MoqFile_starGenType_ReadFrom_params) string {
+	return fmt.Sprintf("ReadFrom(%#v)", params.Param1)
+}
+
+func (m *MoqFile_starGenType) ParamsKey_ReadFrom(params MoqFile_starGenType_ReadFrom_params, anyParams uint64) MoqFile_starGenType_ReadFrom_paramsKey {
+	m.Scene.T.Helper()
+	var param1Used io.Reader
+	var param1UsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.ReadFrom.Param1 == moq.ParamIndexByValue {
+			param1Used = params.Param1
+		} else {
+			param1UsedHash = hash.DeepHash(params.Param1)
+		}
+	}
+	return MoqFile_starGenType_ReadFrom_paramsKey{
+		Params: struct{ Param1 io.Reader }{
+			Param1: param1Used,
+		},
+		Hashes: struct{ Param1 hash.Hash }{
+			Param1: param1UsedHash,
 		},
 	}
 }
@@ -5646,6 +5985,189 @@ func (m *MoqFile_starGenType) ParamsKey_SyscallConn(params MoqFile_starGenType_S
 	}
 }
 
+func (m *MoqFile_starGenType_recorder) Close() *MoqFile_starGenType_Close_fnRecorder {
+	return &MoqFile_starGenType_Close_fnRecorder{
+		Params:   MoqFile_starGenType_Close_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) Any() *MoqFile_starGenType_Close_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
+		return nil
+	}
+	return &MoqFile_starGenType_Close_anyParams{Recorder: r}
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) Seq() *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) NoSeq() *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) ReturnResults(result1 error) *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_Close_doFn
+		DoReturnFn MoqFile_starGenType_Close_doReturnFn
+	}{
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) AndDo(fn MoqFile_starGenType_Close_doFn) *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) DoReturnResults(fn MoqFile_starGenType_Close_doReturnFn) *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_Close_doFn
+		DoReturnFn MoqFile_starGenType_Close_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqFile_starGenType_Close_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Close {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqFile_starGenType_Close_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqFile_starGenType_Close_paramsKey]*MoqFile_starGenType_Close_results{},
+		}
+		r.Moq.ResultsByParams_Close = append(r.Moq.ResultsByParams_Close, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Close) {
+			copy(r.Moq.ResultsByParams_Close[insertAt+1:], r.Moq.ResultsByParams_Close[insertAt:0])
+			r.Moq.ResultsByParams_Close[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Close(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqFile_starGenType_Close_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqFile_starGenType_Close_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_starGenType_Close_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 error
+				}
+				Sequence   uint32
+				DoFn       MoqFile_starGenType_Close_doFn
+				DoReturnFn MoqFile_starGenType_Close_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqFile_starGenType) PrettyParams_Close(params MoqFile_starGenType_Close_params) string {
+	return fmt.Sprintf("Close()")
+}
+
+func (m *MoqFile_starGenType) ParamsKey_Close(params MoqFile_starGenType_Close_params, anyParams uint64) MoqFile_starGenType_Close_paramsKey {
+	m.Scene.T.Helper()
+	return MoqFile_starGenType_Close_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqFile_starGenType_recorder) Chown(uid, gid int) *MoqFile_starGenType_Chown_fnRecorder {
 	return &MoqFile_starGenType_Chown_fnRecorder{
 		Params: MoqFile_starGenType_Chown_params{
@@ -6618,189 +7140,6 @@ func (m *MoqFile_starGenType) ParamsKey_Fd(params MoqFile_starGenType_Fd_params,
 	}
 }
 
-func (m *MoqFile_starGenType_recorder) Close() *MoqFile_starGenType_Close_fnRecorder {
-	return &MoqFile_starGenType_Close_fnRecorder{
-		Params:   MoqFile_starGenType_Close_params{},
-		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
-		Moq:      m.Moq,
-	}
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) Any() *MoqFile_starGenType_Close_anyParams {
-	r.Moq.Scene.T.Helper()
-	if r.Results != nil {
-		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
-		return nil
-	}
-	return &MoqFile_starGenType_Close_anyParams{Recorder: r}
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) Seq() *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	if r.Results != nil {
-		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
-		return nil
-	}
-	r.Sequence = true
-	return r
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) NoSeq() *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	if r.Results != nil {
-		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Close(r.Params))
-		return nil
-	}
-	r.Sequence = false
-	return r
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) ReturnResults(result1 error) *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	r.FindResults()
-
-	var sequence uint32
-	if r.Sequence {
-		sequence = r.Moq.Scene.NextRecorderSequence()
-	}
-
-	r.Results.Results = append(r.Results.Results, struct {
-		Values *struct {
-			Result1 error
-		}
-		Sequence   uint32
-		DoFn       MoqFile_starGenType_Close_doFn
-		DoReturnFn MoqFile_starGenType_Close_doReturnFn
-	}{
-		Values: &struct {
-			Result1 error
-		}{
-			Result1: result1,
-		},
-		Sequence: sequence,
-	})
-	return r
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) AndDo(fn MoqFile_starGenType_Close_doFn) *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	if r.Results == nil {
-		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
-		return nil
-	}
-	last := &r.Results.Results[len(r.Results.Results)-1]
-	last.DoFn = fn
-	return r
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) DoReturnResults(fn MoqFile_starGenType_Close_doReturnFn) *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	r.FindResults()
-
-	var sequence uint32
-	if r.Sequence {
-		sequence = r.Moq.Scene.NextRecorderSequence()
-	}
-
-	r.Results.Results = append(r.Results.Results, struct {
-		Values *struct {
-			Result1 error
-		}
-		Sequence   uint32
-		DoFn       MoqFile_starGenType_Close_doFn
-		DoReturnFn MoqFile_starGenType_Close_doReturnFn
-	}{Sequence: sequence, DoReturnFn: fn})
-	return r
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) FindResults() {
-	r.Moq.Scene.T.Helper()
-	if r.Results != nil {
-		r.Results.Repeat.Increment(r.Moq.Scene.T)
-		return
-	}
-
-	anyCount := bits.OnesCount64(r.AnyParams)
-	insertAt := -1
-	var results *MoqFile_starGenType_Close_resultsByParams
-	for n, res := range r.Moq.ResultsByParams_Close {
-		if res.AnyParams == r.AnyParams {
-			results = &res
-			break
-		}
-		if res.AnyCount > anyCount {
-			insertAt = n
-		}
-	}
-	if results == nil {
-		results = &MoqFile_starGenType_Close_resultsByParams{
-			AnyCount:  anyCount,
-			AnyParams: r.AnyParams,
-			Results:   map[MoqFile_starGenType_Close_paramsKey]*MoqFile_starGenType_Close_results{},
-		}
-		r.Moq.ResultsByParams_Close = append(r.Moq.ResultsByParams_Close, *results)
-		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Close) {
-			copy(r.Moq.ResultsByParams_Close[insertAt+1:], r.Moq.ResultsByParams_Close[insertAt:0])
-			r.Moq.ResultsByParams_Close[insertAt] = *results
-		}
-	}
-
-	paramsKey := r.Moq.ParamsKey_Close(r.Params, r.AnyParams)
-
-	var ok bool
-	r.Results, ok = results.Results[paramsKey]
-	if !ok {
-		r.Results = &MoqFile_starGenType_Close_results{
-			Params:  r.Params,
-			Results: nil,
-			Index:   0,
-			Repeat:  &moq.RepeatVal{},
-		}
-		results.Results[paramsKey] = r.Results
-	}
-
-	r.Results.Repeat.Increment(r.Moq.Scene.T)
-}
-
-func (r *MoqFile_starGenType_Close_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_starGenType_Close_fnRecorder {
-	r.Moq.Scene.T.Helper()
-	if r.Results == nil {
-		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
-		return nil
-	}
-	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
-	last := r.Results.Results[len(r.Results.Results)-1]
-	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
-		if r.Sequence {
-			last = struct {
-				Values *struct {
-					Result1 error
-				}
-				Sequence   uint32
-				DoFn       MoqFile_starGenType_Close_doFn
-				DoReturnFn MoqFile_starGenType_Close_doReturnFn
-			}{
-				Values:   last.Values,
-				Sequence: r.Moq.Scene.NextRecorderSequence(),
-			}
-		}
-		r.Results.Results = append(r.Results.Results, last)
-	}
-	return r
-}
-
-func (m *MoqFile_starGenType) PrettyParams_Close(params MoqFile_starGenType_Close_params) string {
-	return fmt.Sprintf("Close()")
-}
-
-func (m *MoqFile_starGenType) ParamsKey_Close(params MoqFile_starGenType_Close_params, anyParams uint64) MoqFile_starGenType_Close_paramsKey {
-	m.Scene.T.Helper()
-	return MoqFile_starGenType_Close_paramsKey{
-		Params: struct{}{},
-		Hashes: struct{}{},
-	}
-}
-
 func (m *MoqFile_starGenType_recorder) Stat() *MoqFile_starGenType_Stat_fnRecorder {
 	return &MoqFile_starGenType_Stat_fnRecorder{
 		Params:   MoqFile_starGenType_Stat_params{},
@@ -6996,6 +7335,7 @@ func (m *MoqFile_starGenType) Reset() {
 	m.ResultsByParams_Name = nil
 	m.ResultsByParams_Read = nil
 	m.ResultsByParams_ReadAt = nil
+	m.ResultsByParams_ReadFrom = nil
 	m.ResultsByParams_Write = nil
 	m.ResultsByParams_WriteAt = nil
 	m.ResultsByParams_Seek = nil
@@ -7005,12 +7345,12 @@ func (m *MoqFile_starGenType) Reset() {
 	m.ResultsByParams_SetReadDeadline = nil
 	m.ResultsByParams_SetWriteDeadline = nil
 	m.ResultsByParams_SyscallConn = nil
+	m.ResultsByParams_Close = nil
 	m.ResultsByParams_Chown = nil
 	m.ResultsByParams_Truncate = nil
 	m.ResultsByParams_Sync = nil
 	m.ResultsByParams_Chdir = nil
 	m.ResultsByParams_Fd = nil
-	m.ResultsByParams_Close = nil
 	m.ResultsByParams_Stat = nil
 }
 
@@ -7054,6 +7394,14 @@ func (m *MoqFile_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_ReadAt(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_ReadFrom {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_ReadFrom(results.Params))
 			}
 		}
 	}
@@ -7129,6 +7477,14 @@ func (m *MoqFile_starGenType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_Close {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Close(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_Chown {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -7166,14 +7522,6 @@ func (m *MoqFile_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Fd(results.Params))
-			}
-		}
-	}
-	for _, res := range m.ResultsByParams_Close {
-		for _, results := range res.Results {
-			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
-			if missing > 0 {
-				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Close(results.Params))
 			}
 		}
 	}

@@ -15,7 +15,7 @@ import (
 
 // VerifyPSS_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type VerifyPSS_genType func(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions) error
+type VerifyPSS_genType func(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions) error
 
 // MoqVerifyPSS_genType holds the state of a moq of the VerifyPSS_genType type
 type MoqVerifyPSS_genType struct {
@@ -29,7 +29,7 @@ type MoqVerifyPSS_genType struct {
 		ParameterIndexing struct {
 			Pub    moq.ParamIndexing
 			Hash   moq.ParamIndexing
-			Hashed moq.ParamIndexing
+			Digest moq.ParamIndexing
 			Sig    moq.ParamIndexing
 			Opts   moq.ParamIndexing
 		}
@@ -46,7 +46,7 @@ type MoqVerifyPSS_genType_mock struct {
 type MoqVerifyPSS_genType_params struct {
 	Pub    *rsa.PublicKey
 	Hash   crypto.Hash
-	Hashed []byte
+	Digest []byte
 	Sig    []byte
 	Opts   *rsa.PSSOptions
 }
@@ -62,7 +62,7 @@ type MoqVerifyPSS_genType_paramsKey struct {
 	Hashes struct {
 		Pub    hash.Hash
 		Hash   hash.Hash
-		Hashed hash.Hash
+		Digest hash.Hash
 		Sig    hash.Hash
 		Opts   hash.Hash
 	}
@@ -78,11 +78,11 @@ type MoqVerifyPSS_genType_resultsByParams struct {
 
 // MoqVerifyPSS_genType_doFn defines the type of function needed when calling
 // AndDo for the VerifyPSS_genType type
-type MoqVerifyPSS_genType_doFn func(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions)
+type MoqVerifyPSS_genType_doFn func(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions)
 
 // MoqVerifyPSS_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the VerifyPSS_genType type
-type MoqVerifyPSS_genType_doReturnFn func(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions) error
+type MoqVerifyPSS_genType_doReturnFn func(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions) error
 
 // MoqVerifyPSS_genType_results holds the results of the VerifyPSS_genType type
 type MoqVerifyPSS_genType_results struct {
@@ -129,20 +129,20 @@ func NewMoqVerifyPSS_genType(scene *moq.Scene, config *moq.Config) *MoqVerifyPSS
 			ParameterIndexing struct {
 				Pub    moq.ParamIndexing
 				Hash   moq.ParamIndexing
-				Hashed moq.ParamIndexing
+				Digest moq.ParamIndexing
 				Sig    moq.ParamIndexing
 				Opts   moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
 			Pub    moq.ParamIndexing
 			Hash   moq.ParamIndexing
-			Hashed moq.ParamIndexing
+			Digest moq.ParamIndexing
 			Sig    moq.ParamIndexing
 			Opts   moq.ParamIndexing
 		}{
 			Pub:    moq.ParamIndexByHash,
 			Hash:   moq.ParamIndexByValue,
-			Hashed: moq.ParamIndexByHash,
+			Digest: moq.ParamIndexByHash,
 			Sig:    moq.ParamIndexByHash,
 			Opts:   moq.ParamIndexByHash,
 		}},
@@ -155,19 +155,19 @@ func NewMoqVerifyPSS_genType(scene *moq.Scene, config *moq.Config) *MoqVerifyPSS
 
 // Mock returns the moq implementation of the VerifyPSS_genType type
 func (m *MoqVerifyPSS_genType) Mock() VerifyPSS_genType {
-	return func(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions) error {
+	return func(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions) error {
 		m.Scene.T.Helper()
 		moq := &MoqVerifyPSS_genType_mock{Moq: m}
-		return moq.Fn(pub, hash, hashed, sig, opts)
+		return moq.Fn(pub, hash, digest, sig, opts)
 	}
 }
 
-func (m *MoqVerifyPSS_genType_mock) Fn(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions) (result1 error) {
+func (m *MoqVerifyPSS_genType_mock) Fn(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqVerifyPSS_genType_params{
 		Pub:    pub,
 		Hash:   hash,
-		Hashed: hashed,
+		Digest: digest,
 		Sig:    sig,
 		Opts:   opts,
 	}
@@ -207,24 +207,24 @@ func (m *MoqVerifyPSS_genType_mock) Fn(pub *rsa.PublicKey, hash crypto.Hash, has
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(pub, hash, hashed, sig, opts)
+		result.DoFn(pub, hash, digest, sig, opts)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(pub, hash, hashed, sig, opts)
+		result1 = result.DoReturnFn(pub, hash, digest, sig, opts)
 	}
 	return
 }
 
-func (m *MoqVerifyPSS_genType) OnCall(pub *rsa.PublicKey, hash crypto.Hash, hashed []byte, sig []byte, opts *rsa.PSSOptions) *MoqVerifyPSS_genType_fnRecorder {
+func (m *MoqVerifyPSS_genType) OnCall(pub *rsa.PublicKey, hash crypto.Hash, digest []byte, sig []byte, opts *rsa.PSSOptions) *MoqVerifyPSS_genType_fnRecorder {
 	return &MoqVerifyPSS_genType_fnRecorder{
 		Params: MoqVerifyPSS_genType_params{
 			Pub:    pub,
 			Hash:   hash,
-			Hashed: hashed,
+			Digest: digest,
 			Sig:    sig,
 			Opts:   opts,
 		},
@@ -252,7 +252,7 @@ func (a *MoqVerifyPSS_genType_anyParams) Hash() *MoqVerifyPSS_genType_fnRecorder
 	return a.Recorder
 }
 
-func (a *MoqVerifyPSS_genType_anyParams) Hashed() *MoqVerifyPSS_genType_fnRecorder {
+func (a *MoqVerifyPSS_genType_anyParams) Digest() *MoqVerifyPSS_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 2
 	return a.Recorder
 }
@@ -422,7 +422,7 @@ func (r *MoqVerifyPSS_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *Moq
 }
 
 func (m *MoqVerifyPSS_genType) PrettyParams(params MoqVerifyPSS_genType_params) string {
-	return fmt.Sprintf("VerifyPSS_genType(%#v, %#v, %#v, %#v, %#v)", params.Pub, params.Hash, params.Hashed, params.Sig, params.Opts)
+	return fmt.Sprintf("VerifyPSS_genType(%#v, %#v, %#v, %#v, %#v)", params.Pub, params.Hash, params.Digest, params.Sig, params.Opts)
 }
 
 func (m *MoqVerifyPSS_genType) ParamsKey(params MoqVerifyPSS_genType_params, anyParams uint64) MoqVerifyPSS_genType_paramsKey {
@@ -445,12 +445,12 @@ func (m *MoqVerifyPSS_genType) ParamsKey(params MoqVerifyPSS_genType_params, any
 			hashUsedHash = hash.DeepHash(params.Hash)
 		}
 	}
-	var hashedUsedHash hash.Hash
+	var digestUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
-		if m.Runtime.ParameterIndexing.Hashed == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The hashed parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.Digest == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The digest parameter can't be indexed by value")
 		}
-		hashedUsedHash = hash.DeepHash(params.Hashed)
+		digestUsedHash = hash.DeepHash(params.Digest)
 	}
 	var sigUsedHash hash.Hash
 	if anyParams&(1<<3) == 0 {
@@ -481,13 +481,13 @@ func (m *MoqVerifyPSS_genType) ParamsKey(params MoqVerifyPSS_genType_params, any
 		Hashes: struct {
 			Pub    hash.Hash
 			Hash   hash.Hash
-			Hashed hash.Hash
+			Digest hash.Hash
 			Sig    hash.Hash
 			Opts   hash.Hash
 		}{
 			Pub:    pubUsedHash,
 			Hash:   hashUsedHash,
-			Hashed: hashedUsedHash,
+			Digest: digestUsedHash,
 			Sig:    sigUsedHash,
 			Opts:   optsUsedHash,
 		},

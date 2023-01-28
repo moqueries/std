@@ -7,6 +7,7 @@ import (
 	"math/bits"
 	"sync/atomic"
 	"testing"
+	"time"
 
 	"moqueries.org/runtime/hash"
 	"moqueries.org/runtime/moq"
@@ -22,6 +23,7 @@ var _ T_starGenType = (*MoqT_starGenType_mock)(nil)
 type T_starGenType interface {
 	Parallel()
 	Run(name string, f func(t *testing.T)) bool
+	Deadline() (deadline time.Time, ok bool)
 }
 
 // MoqT_starGenType holds the state of a moq of the T_starGenType type
@@ -32,6 +34,7 @@ type MoqT_starGenType struct {
 
 	ResultsByParams_Parallel []MoqT_starGenType_Parallel_resultsByParams
 	ResultsByParams_Run      []MoqT_starGenType_Run_resultsByParams
+	ResultsByParams_Deadline []MoqT_starGenType_Deadline_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
@@ -40,11 +43,12 @@ type MoqT_starGenType struct {
 				Name moq.ParamIndexing
 				F    moq.ParamIndexing
 			}
+			Deadline struct{}
 		}
 	}
-	// MoqT_starGenType_mock isolates the mock interface of the T_starGenType type
 }
 
+// MoqT_starGenType_mock isolates the mock interface of the T_starGenType type
 type MoqT_starGenType_mock struct {
 	Moq *MoqT_starGenType
 }
@@ -174,6 +178,65 @@ type MoqT_starGenType_Run_anyParams struct {
 	Recorder *MoqT_starGenType_Run_fnRecorder
 }
 
+// MoqT_starGenType_Deadline_params holds the params of the T_starGenType type
+type MoqT_starGenType_Deadline_params struct{}
+
+// MoqT_starGenType_Deadline_paramsKey holds the map key params of the
+// T_starGenType type
+type MoqT_starGenType_Deadline_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqT_starGenType_Deadline_resultsByParams contains the results for a given
+// set of parameters for the T_starGenType type
+type MoqT_starGenType_Deadline_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqT_starGenType_Deadline_paramsKey]*MoqT_starGenType_Deadline_results
+}
+
+// MoqT_starGenType_Deadline_doFn defines the type of function needed when
+// calling AndDo for the T_starGenType type
+type MoqT_starGenType_Deadline_doFn func()
+
+// MoqT_starGenType_Deadline_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the T_starGenType type
+type MoqT_starGenType_Deadline_doReturnFn func() (deadline time.Time, ok bool)
+
+// MoqT_starGenType_Deadline_results holds the results of the T_starGenType
+// type
+type MoqT_starGenType_Deadline_results struct {
+	Params  MoqT_starGenType_Deadline_params
+	Results []struct {
+		Values *struct {
+			Deadline time.Time
+			Ok       bool
+		}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Deadline_doFn
+		DoReturnFn MoqT_starGenType_Deadline_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqT_starGenType_Deadline_fnRecorder routes recorded function calls to the
+// MoqT_starGenType moq
+type MoqT_starGenType_Deadline_fnRecorder struct {
+	Params    MoqT_starGenType_Deadline_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqT_starGenType_Deadline_results
+	Moq       *MoqT_starGenType
+}
+
+// MoqT_starGenType_Deadline_anyParams isolates the any params functions of the
+// T_starGenType type
+type MoqT_starGenType_Deadline_anyParams struct {
+	Recorder *MoqT_starGenType_Deadline_fnRecorder
+}
+
 // NewMoqT_starGenType creates a new moq of the T_starGenType type
 func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType {
 	if config == nil {
@@ -191,6 +254,7 @@ func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType
 					Name moq.ParamIndexing
 					F    moq.ParamIndexing
 				}
+				Deadline struct{}
 			}
 		}{ParameterIndexing: struct {
 			Parallel struct{}
@@ -198,6 +262,7 @@ func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType
 				Name moq.ParamIndexing
 				F    moq.ParamIndexing
 			}
+			Deadline struct{}
 		}{
 			Parallel: struct{}{},
 			Run: struct {
@@ -207,6 +272,7 @@ func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType
 				Name: moq.ParamIndexByValue,
 				F:    moq.ParamIndexByHash,
 			},
+			Deadline: struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -316,6 +382,58 @@ func (m *MoqT_starGenType_mock) Run(name string, f func(t *testing.T)) (result1 
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn(name, f)
+	}
+	return
+}
+
+func (m *MoqT_starGenType_mock) Deadline() (deadline time.Time, ok bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqT_starGenType_Deadline_params{}
+	var results *MoqT_starGenType_Deadline_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Deadline {
+		paramsKey := m.Moq.ParamsKey_Deadline(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Deadline(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Deadline(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Deadline(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		deadline = result.Values.Deadline
+		ok = result.Values.Ok
+	}
+	if result.DoReturnFn != nil {
+		deadline, ok = result.DoReturnFn()
 	}
 	return
 }
@@ -720,8 +838,200 @@ func (m *MoqT_starGenType) ParamsKey_Run(params MoqT_starGenType_Run_params, any
 	}
 }
 
+func (m *MoqT_starGenType_recorder) Deadline() *MoqT_starGenType_Deadline_fnRecorder {
+	return &MoqT_starGenType_Deadline_fnRecorder{
+		Params:   MoqT_starGenType_Deadline_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) Any() *MoqT_starGenType_Deadline_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Deadline(r.Params))
+		return nil
+	}
+	return &MoqT_starGenType_Deadline_anyParams{Recorder: r}
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) Seq() *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Deadline(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) NoSeq() *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Deadline(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) ReturnResults(deadline time.Time, ok bool) *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Deadline time.Time
+			Ok       bool
+		}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Deadline_doFn
+		DoReturnFn MoqT_starGenType_Deadline_doReturnFn
+	}{
+		Values: &struct {
+			Deadline time.Time
+			Ok       bool
+		}{
+			Deadline: deadline,
+			Ok:       ok,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) AndDo(fn MoqT_starGenType_Deadline_doFn) *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) DoReturnResults(fn MoqT_starGenType_Deadline_doReturnFn) *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Deadline time.Time
+			Ok       bool
+		}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Deadline_doFn
+		DoReturnFn MoqT_starGenType_Deadline_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqT_starGenType_Deadline_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Deadline {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqT_starGenType_Deadline_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqT_starGenType_Deadline_paramsKey]*MoqT_starGenType_Deadline_results{},
+		}
+		r.Moq.ResultsByParams_Deadline = append(r.Moq.ResultsByParams_Deadline, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Deadline) {
+			copy(r.Moq.ResultsByParams_Deadline[insertAt+1:], r.Moq.ResultsByParams_Deadline[insertAt:0])
+			r.Moq.ResultsByParams_Deadline[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Deadline(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqT_starGenType_Deadline_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqT_starGenType_Deadline_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqT_starGenType_Deadline_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Deadline time.Time
+					Ok       bool
+				}
+				Sequence   uint32
+				DoFn       MoqT_starGenType_Deadline_doFn
+				DoReturnFn MoqT_starGenType_Deadline_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqT_starGenType) PrettyParams_Deadline(params MoqT_starGenType_Deadline_params) string {
+	return fmt.Sprintf("Deadline()")
+}
+
+func (m *MoqT_starGenType) ParamsKey_Deadline(params MoqT_starGenType_Deadline_params, anyParams uint64) MoqT_starGenType_Deadline_paramsKey {
+	m.Scene.T.Helper()
+	return MoqT_starGenType_Deadline_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 // Reset resets the state of the moq
-func (m *MoqT_starGenType) Reset() { m.ResultsByParams_Parallel = nil; m.ResultsByParams_Run = nil }
+func (m *MoqT_starGenType) Reset() {
+	m.ResultsByParams_Parallel = nil
+	m.ResultsByParams_Run = nil
+	m.ResultsByParams_Deadline = nil
+}
 
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqT_starGenType) AssertExpectationsMet() {
@@ -739,6 +1049,14 @@ func (m *MoqT_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Run(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Deadline {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Deadline(results.Params))
 			}
 		}
 	}
