@@ -29,6 +29,7 @@ type TB_reduced interface {
 	Log(args ...interface{})
 	Logf(format string, args ...interface{})
 	Name() string
+	Setenv(key, value string)
 	Skip(args ...interface{})
 	SkipNow()
 	Skipf(format string, args ...interface{})
@@ -54,6 +55,7 @@ type MoqTB struct {
 	ResultsByParams_Log     []MoqTB_Log_resultsByParams
 	ResultsByParams_Logf    []MoqTB_Logf_resultsByParams
 	ResultsByParams_Name    []MoqTB_Name_resultsByParams
+	ResultsByParams_Setenv  []MoqTB_Setenv_resultsByParams
 	ResultsByParams_Skip    []MoqTB_Skip_resultsByParams
 	ResultsByParams_SkipNow []MoqTB_SkipNow_resultsByParams
 	ResultsByParams_Skipf   []MoqTB_Skipf_resultsByParams
@@ -90,7 +92,11 @@ type MoqTB struct {
 				Format moq.ParamIndexing
 				Args   moq.ParamIndexing
 			}
-			Name struct{}
+			Name   struct{}
+			Setenv struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}
 			Skip struct {
 				Args moq.ParamIndexing
 			}
@@ -761,6 +767,58 @@ type MoqTB_Name_anyParams struct {
 	Recorder *MoqTB_Name_fnRecorder
 }
 
+// MoqTB_Setenv_params holds the params of the TB type
+type MoqTB_Setenv_params struct{ Key, Value string }
+
+// MoqTB_Setenv_paramsKey holds the map key params of the TB type
+type MoqTB_Setenv_paramsKey struct {
+	Params struct{ Key, Value string }
+	Hashes struct{ Key, Value hash.Hash }
+}
+
+// MoqTB_Setenv_resultsByParams contains the results for a given set of
+// parameters for the TB type
+type MoqTB_Setenv_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTB_Setenv_paramsKey]*MoqTB_Setenv_results
+}
+
+// MoqTB_Setenv_doFn defines the type of function needed when calling AndDo for
+// the TB type
+type MoqTB_Setenv_doFn func(key, value string)
+
+// MoqTB_Setenv_doReturnFn defines the type of function needed when calling
+// DoReturnResults for the TB type
+type MoqTB_Setenv_doReturnFn func(key, value string)
+
+// MoqTB_Setenv_results holds the results of the TB type
+type MoqTB_Setenv_results struct {
+	Params  MoqTB_Setenv_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqTB_Setenv_doFn
+		DoReturnFn MoqTB_Setenv_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTB_Setenv_fnRecorder routes recorded function calls to the MoqTB moq
+type MoqTB_Setenv_fnRecorder struct {
+	Params    MoqTB_Setenv_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTB_Setenv_results
+	Moq       *MoqTB
+}
+
+// MoqTB_Setenv_anyParams isolates the any params functions of the TB type
+type MoqTB_Setenv_anyParams struct {
+	Recorder *MoqTB_Setenv_fnRecorder
+}
+
 // MoqTB_Skip_params holds the params of the TB type
 type MoqTB_Skip_params struct{ Args []interface{} }
 
@@ -1071,7 +1129,11 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 					Format moq.ParamIndexing
 					Args   moq.ParamIndexing
 				}
-				Name struct{}
+				Name   struct{}
+				Setenv struct {
+					Key   moq.ParamIndexing
+					Value moq.ParamIndexing
+				}
 				Skip struct {
 					Args moq.ParamIndexing
 				}
@@ -1112,7 +1174,11 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 				Format moq.ParamIndexing
 				Args   moq.ParamIndexing
 			}
-			Name struct{}
+			Name   struct{}
+			Setenv struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}
 			Skip struct {
 				Args moq.ParamIndexing
 			}
@@ -1170,6 +1236,13 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 				Args:   moq.ParamIndexByHash,
 			},
 			Name: struct{}{},
+			Setenv: struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}{
+				Key:   moq.ParamIndexByValue,
+				Value: moq.ParamIndexByValue,
+			},
 			Skip: struct {
 				Args moq.ParamIndexing
 			}{
@@ -1791,6 +1864,57 @@ func (m *MoqTB_mock) Name() (result1 string) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqTB_mock) Setenv(key, value string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTB_Setenv_params{
+		Key:   key,
+		Value: value,
+	}
+	var results *MoqTB_Setenv_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Setenv {
+		paramsKey := m.Moq.ParamsKey_Setenv(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Setenv(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Setenv(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Setenv(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(key, value)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(key, value)
 	}
 	return
 }
@@ -4320,6 +4444,216 @@ func (m *MoqTB) ParamsKey_Name(params MoqTB_Name_params, anyParams uint64) MoqTB
 	}
 }
 
+func (m *MoqTB_recorder) Setenv(key, value string) *MoqTB_Setenv_fnRecorder {
+	return &MoqTB_Setenv_fnRecorder{
+		Params: MoqTB_Setenv_params{
+			Key:   key,
+			Value: value,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTB_Setenv_fnRecorder) Any() *MoqTB_Setenv_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	return &MoqTB_Setenv_anyParams{Recorder: r}
+}
+
+func (a *MoqTB_Setenv_anyParams) Key() *MoqTB_Setenv_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqTB_Setenv_anyParams) Value() *MoqTB_Setenv_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqTB_Setenv_fnRecorder) Seq() *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTB_Setenv_fnRecorder) NoSeq() *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTB_Setenv_fnRecorder) ReturnResults() *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqTB_Setenv_doFn
+		DoReturnFn MoqTB_Setenv_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTB_Setenv_fnRecorder) AndDo(fn MoqTB_Setenv_doFn) *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTB_Setenv_fnRecorder) DoReturnResults(fn MoqTB_Setenv_doReturnFn) *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqTB_Setenv_doFn
+		DoReturnFn MoqTB_Setenv_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTB_Setenv_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTB_Setenv_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Setenv {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTB_Setenv_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTB_Setenv_paramsKey]*MoqTB_Setenv_results{},
+		}
+		r.Moq.ResultsByParams_Setenv = append(r.Moq.ResultsByParams_Setenv, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Setenv) {
+			copy(r.Moq.ResultsByParams_Setenv[insertAt+1:], r.Moq.ResultsByParams_Setenv[insertAt:0])
+			r.Moq.ResultsByParams_Setenv[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Setenv(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTB_Setenv_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTB_Setenv_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTB_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqTB_Setenv_doFn
+				DoReturnFn MoqTB_Setenv_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTB) PrettyParams_Setenv(params MoqTB_Setenv_params) string {
+	return fmt.Sprintf("Setenv(%#v, %#v)", params.Key, params.Value)
+}
+
+func (m *MoqTB) ParamsKey_Setenv(params MoqTB_Setenv_params, anyParams uint64) MoqTB_Setenv_paramsKey {
+	m.Scene.T.Helper()
+	var keyUsed string
+	var keyUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Setenv.Key == moq.ParamIndexByValue {
+			keyUsed = params.Key
+		} else {
+			keyUsedHash = hash.DeepHash(params.Key)
+		}
+	}
+	var valueUsed string
+	var valueUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.Setenv.Value == moq.ParamIndexByValue {
+			valueUsed = params.Value
+		} else {
+			valueUsedHash = hash.DeepHash(params.Value)
+		}
+	}
+	return MoqTB_Setenv_paramsKey{
+		Params: struct{ Key, Value string }{
+			Key:   keyUsed,
+			Value: valueUsed,
+		},
+		Hashes: struct{ Key, Value hash.Hash }{
+			Key:   keyUsedHash,
+			Value: valueUsedHash,
+		},
+	}
+}
+
 func (m *MoqTB_recorder) Skip(args ...interface{}) *MoqTB_Skip_fnRecorder {
 	return &MoqTB_Skip_fnRecorder{
 		Params: MoqTB_Skip_params{
@@ -5272,6 +5606,7 @@ func (m *MoqTB) Reset() {
 	m.ResultsByParams_Log = nil
 	m.ResultsByParams_Logf = nil
 	m.ResultsByParams_Name = nil
+	m.ResultsByParams_Setenv = nil
 	m.ResultsByParams_Skip = nil
 	m.ResultsByParams_SkipNow = nil
 	m.ResultsByParams_Skipf = nil
@@ -5375,6 +5710,14 @@ func (m *MoqTB) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Name(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Setenv {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Setenv(results.Params))
 			}
 		}
 	}

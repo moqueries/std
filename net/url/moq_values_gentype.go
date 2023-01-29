@@ -23,6 +23,7 @@ type Values_genType interface {
 	Set(key, value string)
 	Add(key, value string)
 	Del(key string)
+	Has(key string) bool
 	Encode() string
 }
 
@@ -36,6 +37,7 @@ type MoqValues_genType struct {
 	ResultsByParams_Set    []MoqValues_genType_Set_resultsByParams
 	ResultsByParams_Add    []MoqValues_genType_Add_resultsByParams
 	ResultsByParams_Del    []MoqValues_genType_Del_resultsByParams
+	ResultsByParams_Has    []MoqValues_genType_Has_resultsByParams
 	ResultsByParams_Encode []MoqValues_genType_Encode_resultsByParams
 
 	Runtime struct {
@@ -52,6 +54,9 @@ type MoqValues_genType struct {
 				Value moq.ParamIndexing
 			}
 			Del struct {
+				Key moq.ParamIndexing
+			}
+			Has struct {
 				Key moq.ParamIndexing
 			}
 			Encode struct{}
@@ -293,6 +298,63 @@ type MoqValues_genType_Del_anyParams struct {
 	Recorder *MoqValues_genType_Del_fnRecorder
 }
 
+// MoqValues_genType_Has_params holds the params of the Values_genType type
+type MoqValues_genType_Has_params struct{ Key string }
+
+// MoqValues_genType_Has_paramsKey holds the map key params of the
+// Values_genType type
+type MoqValues_genType_Has_paramsKey struct {
+	Params struct{ Key string }
+	Hashes struct{ Key hash.Hash }
+}
+
+// MoqValues_genType_Has_resultsByParams contains the results for a given set
+// of parameters for the Values_genType type
+type MoqValues_genType_Has_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValues_genType_Has_paramsKey]*MoqValues_genType_Has_results
+}
+
+// MoqValues_genType_Has_doFn defines the type of function needed when calling
+// AndDo for the Values_genType type
+type MoqValues_genType_Has_doFn func(key string)
+
+// MoqValues_genType_Has_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Values_genType type
+type MoqValues_genType_Has_doReturnFn func(key string) bool
+
+// MoqValues_genType_Has_results holds the results of the Values_genType type
+type MoqValues_genType_Has_results struct {
+	Params  MoqValues_genType_Has_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValues_genType_Has_doFn
+		DoReturnFn MoqValues_genType_Has_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValues_genType_Has_fnRecorder routes recorded function calls to the
+// MoqValues_genType moq
+type MoqValues_genType_Has_fnRecorder struct {
+	Params    MoqValues_genType_Has_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValues_genType_Has_results
+	Moq       *MoqValues_genType
+}
+
+// MoqValues_genType_Has_anyParams isolates the any params functions of the
+// Values_genType type
+type MoqValues_genType_Has_anyParams struct {
+	Recorder *MoqValues_genType_Has_fnRecorder
+}
+
 // MoqValues_genType_Encode_params holds the params of the Values_genType type
 type MoqValues_genType_Encode_params struct{}
 
@@ -377,6 +439,9 @@ func NewMoqValues_genType(scene *moq.Scene, config *moq.Config) *MoqValues_genTy
 				Del struct {
 					Key moq.ParamIndexing
 				}
+				Has struct {
+					Key moq.ParamIndexing
+				}
 				Encode struct{}
 			}
 		}{ParameterIndexing: struct {
@@ -392,6 +457,9 @@ func NewMoqValues_genType(scene *moq.Scene, config *moq.Config) *MoqValues_genTy
 				Value moq.ParamIndexing
 			}
 			Del struct {
+				Key moq.ParamIndexing
+			}
+			Has struct {
 				Key moq.ParamIndexing
 			}
 			Encode struct{}
@@ -416,6 +484,11 @@ func NewMoqValues_genType(scene *moq.Scene, config *moq.Config) *MoqValues_genTy
 				Value: moq.ParamIndexByValue,
 			},
 			Del: struct {
+				Key moq.ParamIndexing
+			}{
+				Key: moq.ParamIndexByValue,
+			},
+			Has: struct {
 				Key moq.ParamIndexing
 			}{
 				Key: moq.ParamIndexByValue,
@@ -633,6 +706,59 @@ func (m *MoqValues_genType_mock) Del(key string) {
 
 	if result.DoReturnFn != nil {
 		result.DoReturnFn(key)
+	}
+	return
+}
+
+func (m *MoqValues_genType_mock) Has(key string) (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValues_genType_Has_params{
+		Key: key,
+	}
+	var results *MoqValues_genType_Has_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Has {
+		paramsKey := m.Moq.ParamsKey_Has(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Has(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Has(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Has(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(key)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(key)
 	}
 	return
 }
@@ -1511,6 +1637,209 @@ func (m *MoqValues_genType) ParamsKey_Del(params MoqValues_genType_Del_params, a
 	}
 }
 
+func (m *MoqValues_genType_recorder) Has(key string) *MoqValues_genType_Has_fnRecorder {
+	return &MoqValues_genType_Has_fnRecorder{
+		Params: MoqValues_genType_Has_params{
+			Key: key,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) Any() *MoqValues_genType_Has_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Has(r.Params))
+		return nil
+	}
+	return &MoqValues_genType_Has_anyParams{Recorder: r}
+}
+
+func (a *MoqValues_genType_Has_anyParams) Key() *MoqValues_genType_Has_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) Seq() *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Has(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) NoSeq() *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Has(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) ReturnResults(result1 bool) *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValues_genType_Has_doFn
+		DoReturnFn MoqValues_genType_Has_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) AndDo(fn MoqValues_genType_Has_doFn) *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) DoReturnResults(fn MoqValues_genType_Has_doReturnFn) *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValues_genType_Has_doFn
+		DoReturnFn MoqValues_genType_Has_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValues_genType_Has_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Has {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValues_genType_Has_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValues_genType_Has_paramsKey]*MoqValues_genType_Has_results{},
+		}
+		r.Moq.ResultsByParams_Has = append(r.Moq.ResultsByParams_Has, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Has) {
+			copy(r.Moq.ResultsByParams_Has[insertAt+1:], r.Moq.ResultsByParams_Has[insertAt:0])
+			r.Moq.ResultsByParams_Has[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Has(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValues_genType_Has_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValues_genType_Has_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValues_genType_Has_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqValues_genType_Has_doFn
+				DoReturnFn MoqValues_genType_Has_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValues_genType) PrettyParams_Has(params MoqValues_genType_Has_params) string {
+	return fmt.Sprintf("Has(%#v)", params.Key)
+}
+
+func (m *MoqValues_genType) ParamsKey_Has(params MoqValues_genType_Has_params, anyParams uint64) MoqValues_genType_Has_paramsKey {
+	m.Scene.T.Helper()
+	var keyUsed string
+	var keyUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Has.Key == moq.ParamIndexByValue {
+			keyUsed = params.Key
+		} else {
+			keyUsedHash = hash.DeepHash(params.Key)
+		}
+	}
+	return MoqValues_genType_Has_paramsKey{
+		Params: struct{ Key string }{
+			Key: keyUsed,
+		},
+		Hashes: struct{ Key hash.Hash }{
+			Key: keyUsedHash,
+		},
+	}
+}
+
 func (m *MoqValues_genType_recorder) Encode() *MoqValues_genType_Encode_fnRecorder {
 	return &MoqValues_genType_Encode_fnRecorder{
 		Params:   MoqValues_genType_Encode_params{},
@@ -1700,6 +2029,7 @@ func (m *MoqValues_genType) Reset() {
 	m.ResultsByParams_Set = nil
 	m.ResultsByParams_Add = nil
 	m.ResultsByParams_Del = nil
+	m.ResultsByParams_Has = nil
 	m.ResultsByParams_Encode = nil
 }
 
@@ -1735,6 +2065,14 @@ func (m *MoqValues_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Del(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Has {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Has(results.Params))
 			}
 		}
 	}

@@ -3,6 +3,7 @@
 package tls
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
 	"math/bits"
@@ -32,6 +33,7 @@ type Conn_starGenType interface {
 	Close() error
 	CloseWrite() error
 	Handshake() error
+	HandshakeContext(ctx context.Context) error
 	ConnectionState() tls.ConnectionState
 	OCSPResponse() []byte
 	VerifyHostname(host string) error
@@ -53,6 +55,7 @@ type MoqConn_starGenType struct {
 	ResultsByParams_Close            []MoqConn_starGenType_Close_resultsByParams
 	ResultsByParams_CloseWrite       []MoqConn_starGenType_CloseWrite_resultsByParams
 	ResultsByParams_Handshake        []MoqConn_starGenType_Handshake_resultsByParams
+	ResultsByParams_HandshakeContext []MoqConn_starGenType_HandshakeContext_resultsByParams
 	ResultsByParams_ConnectionState  []MoqConn_starGenType_ConnectionState_resultsByParams
 	ResultsByParams_OCSPResponse     []MoqConn_starGenType_OCSPResponse_resultsByParams
 	ResultsByParams_VerifyHostname   []MoqConn_starGenType_VerifyHostname_resultsByParams
@@ -76,9 +79,12 @@ type MoqConn_starGenType struct {
 			Read struct {
 				B moq.ParamIndexing
 			}
-			Close           struct{}
-			CloseWrite      struct{}
-			Handshake       struct{}
+			Close            struct{}
+			CloseWrite       struct{}
+			Handshake        struct{}
+			HandshakeContext struct {
+				Ctx moq.ParamIndexing
+			}
 			ConnectionState struct{}
 			OCSPResponse    struct{}
 			VerifyHostname  struct {
@@ -692,6 +698,65 @@ type MoqConn_starGenType_Handshake_anyParams struct {
 	Recorder *MoqConn_starGenType_Handshake_fnRecorder
 }
 
+// MoqConn_starGenType_HandshakeContext_params holds the params of the
+// Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_params struct{ Ctx context.Context }
+
+// MoqConn_starGenType_HandshakeContext_paramsKey holds the map key params of
+// the Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_paramsKey struct {
+	Params struct{ Ctx context.Context }
+	Hashes struct{ Ctx hash.Hash }
+}
+
+// MoqConn_starGenType_HandshakeContext_resultsByParams contains the results
+// for a given set of parameters for the Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqConn_starGenType_HandshakeContext_paramsKey]*MoqConn_starGenType_HandshakeContext_results
+}
+
+// MoqConn_starGenType_HandshakeContext_doFn defines the type of function
+// needed when calling AndDo for the Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_doFn func(ctx context.Context)
+
+// MoqConn_starGenType_HandshakeContext_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_doReturnFn func(ctx context.Context) error
+
+// MoqConn_starGenType_HandshakeContext_results holds the results of the
+// Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_results struct {
+	Params  MoqConn_starGenType_HandshakeContext_params
+	Results []struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_HandshakeContext_doFn
+		DoReturnFn MoqConn_starGenType_HandshakeContext_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqConn_starGenType_HandshakeContext_fnRecorder routes recorded function
+// calls to the MoqConn_starGenType moq
+type MoqConn_starGenType_HandshakeContext_fnRecorder struct {
+	Params    MoqConn_starGenType_HandshakeContext_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqConn_starGenType_HandshakeContext_results
+	Moq       *MoqConn_starGenType
+}
+
+// MoqConn_starGenType_HandshakeContext_anyParams isolates the any params
+// functions of the Conn_starGenType type
+type MoqConn_starGenType_HandshakeContext_anyParams struct {
+	Recorder *MoqConn_starGenType_HandshakeContext_fnRecorder
+}
+
 // MoqConn_starGenType_ConnectionState_params holds the params of the
 // Conn_starGenType type
 type MoqConn_starGenType_ConnectionState_params struct{}
@@ -898,9 +963,12 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 				Read struct {
 					B moq.ParamIndexing
 				}
-				Close           struct{}
-				CloseWrite      struct{}
-				Handshake       struct{}
+				Close            struct{}
+				CloseWrite       struct{}
+				Handshake        struct{}
+				HandshakeContext struct {
+					Ctx moq.ParamIndexing
+				}
 				ConnectionState struct{}
 				OCSPResponse    struct{}
 				VerifyHostname  struct {
@@ -925,9 +993,12 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 			Read struct {
 				B moq.ParamIndexing
 			}
-			Close           struct{}
-			CloseWrite      struct{}
-			Handshake       struct{}
+			Close            struct{}
+			CloseWrite       struct{}
+			Handshake        struct{}
+			HandshakeContext struct {
+				Ctx moq.ParamIndexing
+			}
 			ConnectionState struct{}
 			OCSPResponse    struct{}
 			VerifyHostname  struct {
@@ -961,9 +1032,14 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 			}{
 				B: moq.ParamIndexByHash,
 			},
-			Close:           struct{}{},
-			CloseWrite:      struct{}{},
-			Handshake:       struct{}{},
+			Close:      struct{}{},
+			CloseWrite: struct{}{},
+			Handshake:  struct{}{},
+			HandshakeContext: struct {
+				Ctx moq.ParamIndexing
+			}{
+				Ctx: moq.ParamIndexByHash,
+			},
 			ConnectionState: struct{}{},
 			OCSPResponse:    struct{}{},
 			VerifyHostname: struct {
@@ -1500,6 +1576,59 @@ func (m *MoqConn_starGenType_mock) Handshake() (result1 error) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqConn_starGenType_mock) HandshakeContext(ctx context.Context) (result1 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqConn_starGenType_HandshakeContext_params{
+		Ctx: ctx,
+	}
+	var results *MoqConn_starGenType_HandshakeContext_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_HandshakeContext {
+		paramsKey := m.Moq.ParamsKey_HandshakeContext(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_HandshakeContext(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_HandshakeContext(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_HandshakeContext(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(ctx)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(ctx)
 	}
 	return
 }
@@ -3598,6 +3727,209 @@ func (m *MoqConn_starGenType) ParamsKey_Handshake(params MoqConn_starGenType_Han
 	}
 }
 
+func (m *MoqConn_starGenType_recorder) HandshakeContext(ctx context.Context) *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	return &MoqConn_starGenType_HandshakeContext_fnRecorder{
+		Params: MoqConn_starGenType_HandshakeContext_params{
+			Ctx: ctx,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) Any() *MoqConn_starGenType_HandshakeContext_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_HandshakeContext(r.Params))
+		return nil
+	}
+	return &MoqConn_starGenType_HandshakeContext_anyParams{Recorder: r}
+}
+
+func (a *MoqConn_starGenType_HandshakeContext_anyParams) Ctx() *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) Seq() *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_HandshakeContext(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) NoSeq() *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_HandshakeContext(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) ReturnResults(result1 error) *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_HandshakeContext_doFn
+		DoReturnFn MoqConn_starGenType_HandshakeContext_doReturnFn
+	}{
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) AndDo(fn MoqConn_starGenType_HandshakeContext_doFn) *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) DoReturnResults(fn MoqConn_starGenType_HandshakeContext_doReturnFn) *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_HandshakeContext_doFn
+		DoReturnFn MoqConn_starGenType_HandshakeContext_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqConn_starGenType_HandshakeContext_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_HandshakeContext {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqConn_starGenType_HandshakeContext_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqConn_starGenType_HandshakeContext_paramsKey]*MoqConn_starGenType_HandshakeContext_results{},
+		}
+		r.Moq.ResultsByParams_HandshakeContext = append(r.Moq.ResultsByParams_HandshakeContext, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_HandshakeContext) {
+			copy(r.Moq.ResultsByParams_HandshakeContext[insertAt+1:], r.Moq.ResultsByParams_HandshakeContext[insertAt:0])
+			r.Moq.ResultsByParams_HandshakeContext[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_HandshakeContext(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqConn_starGenType_HandshakeContext_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqConn_starGenType_HandshakeContext_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqConn_starGenType_HandshakeContext_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 error
+				}
+				Sequence   uint32
+				DoFn       MoqConn_starGenType_HandshakeContext_doFn
+				DoReturnFn MoqConn_starGenType_HandshakeContext_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqConn_starGenType) PrettyParams_HandshakeContext(params MoqConn_starGenType_HandshakeContext_params) string {
+	return fmt.Sprintf("HandshakeContext(%#v)", params.Ctx)
+}
+
+func (m *MoqConn_starGenType) ParamsKey_HandshakeContext(params MoqConn_starGenType_HandshakeContext_params, anyParams uint64) MoqConn_starGenType_HandshakeContext_paramsKey {
+	m.Scene.T.Helper()
+	var ctxUsed context.Context
+	var ctxUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.HandshakeContext.Ctx == moq.ParamIndexByValue {
+			ctxUsed = params.Ctx
+		} else {
+			ctxUsedHash = hash.DeepHash(params.Ctx)
+		}
+	}
+	return MoqConn_starGenType_HandshakeContext_paramsKey{
+		Params: struct{ Ctx context.Context }{
+			Ctx: ctxUsed,
+		},
+		Hashes: struct{ Ctx hash.Hash }{
+			Ctx: ctxUsedHash,
+		},
+	}
+}
+
 func (m *MoqConn_starGenType_recorder) ConnectionState() *MoqConn_starGenType_ConnectionState_fnRecorder {
 	return &MoqConn_starGenType_ConnectionState_fnRecorder{
 		Params:   MoqConn_starGenType_ConnectionState_params{},
@@ -4179,6 +4511,7 @@ func (m *MoqConn_starGenType) Reset() {
 	m.ResultsByParams_Close = nil
 	m.ResultsByParams_CloseWrite = nil
 	m.ResultsByParams_Handshake = nil
+	m.ResultsByParams_HandshakeContext = nil
 	m.ResultsByParams_ConnectionState = nil
 	m.ResultsByParams_OCSPResponse = nil
 	m.ResultsByParams_VerifyHostname = nil
@@ -4264,6 +4597,14 @@ func (m *MoqConn_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Handshake(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_HandshakeContext {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_HandshakeContext(results.Params))
 			}
 		}
 	}

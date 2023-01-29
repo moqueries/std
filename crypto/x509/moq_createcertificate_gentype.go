@@ -15,7 +15,7 @@ import (
 
 // CreateCertificate_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type CreateCertificate_genType func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) (cert []byte, err error)
+type CreateCertificate_genType func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) ([]byte, error)
 
 // MoqCreateCertificate_genType holds the state of a moq of the
 // CreateCertificate_genType type
@@ -80,7 +80,7 @@ type MoqCreateCertificate_genType_doFn func(rand io.Reader, template, parent *x5
 
 // MoqCreateCertificate_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the CreateCertificate_genType type
-type MoqCreateCertificate_genType_doReturnFn func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) (cert []byte, err error)
+type MoqCreateCertificate_genType_doReturnFn func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) ([]byte, error)
 
 // MoqCreateCertificate_genType_results holds the results of the
 // CreateCertificate_genType type
@@ -88,8 +88,8 @@ type MoqCreateCertificate_genType_results struct {
 	Params  MoqCreateCertificate_genType_params
 	Results []struct {
 		Values *struct {
-			Cert []byte
-			Err  error
+			Result1 []byte
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqCreateCertificate_genType_doFn
@@ -156,14 +156,14 @@ func NewMoqCreateCertificate_genType(scene *moq.Scene, config *moq.Config) *MoqC
 
 // Mock returns the moq implementation of the CreateCertificate_genType type
 func (m *MoqCreateCertificate_genType) Mock() CreateCertificate_genType {
-	return func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) (_ []byte, _ error) {
+	return func(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqCreateCertificate_genType_mock{Moq: m}
 		return moq.Fn(rand, template, parent, pub, priv)
 	}
 }
 
-func (m *MoqCreateCertificate_genType_mock) Fn(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) (cert []byte, err error) {
+func (m *MoqCreateCertificate_genType_mock) Fn(rand io.Reader, template, parent *x509.Certificate, pub, priv interface{}) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqCreateCertificate_genType_params{
 		Rand:     rand,
@@ -212,11 +212,11 @@ func (m *MoqCreateCertificate_genType_mock) Fn(rand io.Reader, template, parent 
 	}
 
 	if result.Values != nil {
-		cert = result.Values.Cert
-		err = result.Values.Err
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		cert, err = result.DoReturnFn(rand, template, parent, pub, priv)
+		result1, result2 = result.DoReturnFn(rand, template, parent, pub, priv)
 	}
 	return
 }
@@ -289,7 +289,7 @@ func (r *MoqCreateCertificate_genType_fnRecorder) NoSeq() *MoqCreateCertificate_
 	return r
 }
 
-func (r *MoqCreateCertificate_genType_fnRecorder) ReturnResults(cert []byte, err error) *MoqCreateCertificate_genType_fnRecorder {
+func (r *MoqCreateCertificate_genType_fnRecorder) ReturnResults(result1 []byte, result2 error) *MoqCreateCertificate_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -300,19 +300,19 @@ func (r *MoqCreateCertificate_genType_fnRecorder) ReturnResults(cert []byte, err
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cert []byte
-			Err  error
+			Result1 []byte
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqCreateCertificate_genType_doFn
 		DoReturnFn MoqCreateCertificate_genType_doReturnFn
 	}{
 		Values: &struct {
-			Cert []byte
-			Err  error
+			Result1 []byte
+			Result2 error
 		}{
-			Cert: cert,
-			Err:  err,
+			Result1: result1,
+			Result2: result2,
 		},
 		Sequence: sequence,
 	})
@@ -341,8 +341,8 @@ func (r *MoqCreateCertificate_genType_fnRecorder) DoReturnResults(fn MoqCreateCe
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cert []byte
-			Err  error
+			Result1 []byte
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqCreateCertificate_genType_doFn
@@ -412,8 +412,8 @@ func (r *MoqCreateCertificate_genType_fnRecorder) Repeat(repeaters ...moq.Repeat
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Cert []byte
-					Err  error
+					Result1 []byte
+					Result2 error
 				}
 				Sequence   uint32
 				DoFn       MoqCreateCertificate_genType_doFn

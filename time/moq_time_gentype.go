@@ -21,6 +21,7 @@ var _ Time_genType = (*MoqTime_genType_mock)(nil)
 // type)
 type Time_genType interface {
 	String() string
+	GoString() string
 	Format(layout string) string
 	AppendFormat(b []byte, layout string) []byte
 	After(u time.Time) bool
@@ -48,11 +49,14 @@ type Time_genType interface {
 	Location() *time.Location
 	Zone() (name string, offset int)
 	Unix() int64
+	UnixMilli() int64
+	UnixMicro() int64
 	UnixNano() int64
 	MarshalBinary() ([]byte, error)
 	GobEncode() ([]byte, error)
 	MarshalJSON() ([]byte, error)
 	MarshalText() ([]byte, error)
+	IsDST() bool
 	Truncate(d time.Duration) time.Time
 	Round(d time.Duration) time.Time
 }
@@ -64,6 +68,7 @@ type MoqTime_genType struct {
 	Moq    *MoqTime_genType_mock
 
 	ResultsByParams_String        []MoqTime_genType_String_resultsByParams
+	ResultsByParams_GoString      []MoqTime_genType_GoString_resultsByParams
 	ResultsByParams_Format        []MoqTime_genType_Format_resultsByParams
 	ResultsByParams_AppendFormat  []MoqTime_genType_AppendFormat_resultsByParams
 	ResultsByParams_After         []MoqTime_genType_After_resultsByParams
@@ -91,18 +96,22 @@ type MoqTime_genType struct {
 	ResultsByParams_Location      []MoqTime_genType_Location_resultsByParams
 	ResultsByParams_Zone          []MoqTime_genType_Zone_resultsByParams
 	ResultsByParams_Unix          []MoqTime_genType_Unix_resultsByParams
+	ResultsByParams_UnixMilli     []MoqTime_genType_UnixMilli_resultsByParams
+	ResultsByParams_UnixMicro     []MoqTime_genType_UnixMicro_resultsByParams
 	ResultsByParams_UnixNano      []MoqTime_genType_UnixNano_resultsByParams
 	ResultsByParams_MarshalBinary []MoqTime_genType_MarshalBinary_resultsByParams
 	ResultsByParams_GobEncode     []MoqTime_genType_GobEncode_resultsByParams
 	ResultsByParams_MarshalJSON   []MoqTime_genType_MarshalJSON_resultsByParams
 	ResultsByParams_MarshalText   []MoqTime_genType_MarshalText_resultsByParams
+	ResultsByParams_IsDST         []MoqTime_genType_IsDST_resultsByParams
 	ResultsByParams_Truncate      []MoqTime_genType_Truncate_resultsByParams
 	ResultsByParams_Round         []MoqTime_genType_Round_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
-			String struct{}
-			Format struct {
+			String   struct{}
+			GoString struct{}
+			Format   struct {
 				Layout moq.ParamIndexing
 			}
 			AppendFormat struct {
@@ -150,11 +159,14 @@ type MoqTime_genType struct {
 			Location      struct{}
 			Zone          struct{}
 			Unix          struct{}
+			UnixMilli     struct{}
+			UnixMicro     struct{}
 			UnixNano      struct{}
 			MarshalBinary struct{}
 			GobEncode     struct{}
 			MarshalJSON   struct{}
 			MarshalText   struct{}
+			IsDST         struct{}
 			Truncate      struct {
 				D moq.ParamIndexing
 			}
@@ -231,6 +243,63 @@ type MoqTime_genType_String_fnRecorder struct {
 // Time_genType type
 type MoqTime_genType_String_anyParams struct {
 	Recorder *MoqTime_genType_String_fnRecorder
+}
+
+// MoqTime_genType_GoString_params holds the params of the Time_genType type
+type MoqTime_genType_GoString_params struct{}
+
+// MoqTime_genType_GoString_paramsKey holds the map key params of the
+// Time_genType type
+type MoqTime_genType_GoString_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTime_genType_GoString_resultsByParams contains the results for a given
+// set of parameters for the Time_genType type
+type MoqTime_genType_GoString_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTime_genType_GoString_paramsKey]*MoqTime_genType_GoString_results
+}
+
+// MoqTime_genType_GoString_doFn defines the type of function needed when
+// calling AndDo for the Time_genType type
+type MoqTime_genType_GoString_doFn func()
+
+// MoqTime_genType_GoString_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Time_genType type
+type MoqTime_genType_GoString_doReturnFn func() string
+
+// MoqTime_genType_GoString_results holds the results of the Time_genType type
+type MoqTime_genType_GoString_results struct {
+	Params  MoqTime_genType_GoString_params
+	Results []struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_GoString_doFn
+		DoReturnFn MoqTime_genType_GoString_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTime_genType_GoString_fnRecorder routes recorded function calls to the
+// MoqTime_genType moq
+type MoqTime_genType_GoString_fnRecorder struct {
+	Params    MoqTime_genType_GoString_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTime_genType_GoString_results
+	Moq       *MoqTime_genType
+}
+
+// MoqTime_genType_GoString_anyParams isolates the any params functions of the
+// Time_genType type
+type MoqTime_genType_GoString_anyParams struct {
+	Recorder *MoqTime_genType_GoString_fnRecorder
 }
 
 // MoqTime_genType_Format_params holds the params of the Time_genType type
@@ -1792,6 +1861,120 @@ type MoqTime_genType_Unix_anyParams struct {
 	Recorder *MoqTime_genType_Unix_fnRecorder
 }
 
+// MoqTime_genType_UnixMilli_params holds the params of the Time_genType type
+type MoqTime_genType_UnixMilli_params struct{}
+
+// MoqTime_genType_UnixMilli_paramsKey holds the map key params of the
+// Time_genType type
+type MoqTime_genType_UnixMilli_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTime_genType_UnixMilli_resultsByParams contains the results for a given
+// set of parameters for the Time_genType type
+type MoqTime_genType_UnixMilli_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTime_genType_UnixMilli_paramsKey]*MoqTime_genType_UnixMilli_results
+}
+
+// MoqTime_genType_UnixMilli_doFn defines the type of function needed when
+// calling AndDo for the Time_genType type
+type MoqTime_genType_UnixMilli_doFn func()
+
+// MoqTime_genType_UnixMilli_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Time_genType type
+type MoqTime_genType_UnixMilli_doReturnFn func() int64
+
+// MoqTime_genType_UnixMilli_results holds the results of the Time_genType type
+type MoqTime_genType_UnixMilli_results struct {
+	Params  MoqTime_genType_UnixMilli_params
+	Results []struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMilli_doFn
+		DoReturnFn MoqTime_genType_UnixMilli_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTime_genType_UnixMilli_fnRecorder routes recorded function calls to the
+// MoqTime_genType moq
+type MoqTime_genType_UnixMilli_fnRecorder struct {
+	Params    MoqTime_genType_UnixMilli_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTime_genType_UnixMilli_results
+	Moq       *MoqTime_genType
+}
+
+// MoqTime_genType_UnixMilli_anyParams isolates the any params functions of the
+// Time_genType type
+type MoqTime_genType_UnixMilli_anyParams struct {
+	Recorder *MoqTime_genType_UnixMilli_fnRecorder
+}
+
+// MoqTime_genType_UnixMicro_params holds the params of the Time_genType type
+type MoqTime_genType_UnixMicro_params struct{}
+
+// MoqTime_genType_UnixMicro_paramsKey holds the map key params of the
+// Time_genType type
+type MoqTime_genType_UnixMicro_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTime_genType_UnixMicro_resultsByParams contains the results for a given
+// set of parameters for the Time_genType type
+type MoqTime_genType_UnixMicro_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTime_genType_UnixMicro_paramsKey]*MoqTime_genType_UnixMicro_results
+}
+
+// MoqTime_genType_UnixMicro_doFn defines the type of function needed when
+// calling AndDo for the Time_genType type
+type MoqTime_genType_UnixMicro_doFn func()
+
+// MoqTime_genType_UnixMicro_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Time_genType type
+type MoqTime_genType_UnixMicro_doReturnFn func() int64
+
+// MoqTime_genType_UnixMicro_results holds the results of the Time_genType type
+type MoqTime_genType_UnixMicro_results struct {
+	Params  MoqTime_genType_UnixMicro_params
+	Results []struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMicro_doFn
+		DoReturnFn MoqTime_genType_UnixMicro_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTime_genType_UnixMicro_fnRecorder routes recorded function calls to the
+// MoqTime_genType moq
+type MoqTime_genType_UnixMicro_fnRecorder struct {
+	Params    MoqTime_genType_UnixMicro_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTime_genType_UnixMicro_results
+	Moq       *MoqTime_genType
+}
+
+// MoqTime_genType_UnixMicro_anyParams isolates the any params functions of the
+// Time_genType type
+type MoqTime_genType_UnixMicro_anyParams struct {
+	Recorder *MoqTime_genType_UnixMicro_fnRecorder
+}
+
 // MoqTime_genType_UnixNano_params holds the params of the Time_genType type
 type MoqTime_genType_UnixNano_params struct{}
 
@@ -2085,6 +2268,63 @@ type MoqTime_genType_MarshalText_anyParams struct {
 	Recorder *MoqTime_genType_MarshalText_fnRecorder
 }
 
+// MoqTime_genType_IsDST_params holds the params of the Time_genType type
+type MoqTime_genType_IsDST_params struct{}
+
+// MoqTime_genType_IsDST_paramsKey holds the map key params of the Time_genType
+// type
+type MoqTime_genType_IsDST_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTime_genType_IsDST_resultsByParams contains the results for a given set
+// of parameters for the Time_genType type
+type MoqTime_genType_IsDST_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTime_genType_IsDST_paramsKey]*MoqTime_genType_IsDST_results
+}
+
+// MoqTime_genType_IsDST_doFn defines the type of function needed when calling
+// AndDo for the Time_genType type
+type MoqTime_genType_IsDST_doFn func()
+
+// MoqTime_genType_IsDST_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Time_genType type
+type MoqTime_genType_IsDST_doReturnFn func() bool
+
+// MoqTime_genType_IsDST_results holds the results of the Time_genType type
+type MoqTime_genType_IsDST_results struct {
+	Params  MoqTime_genType_IsDST_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_IsDST_doFn
+		DoReturnFn MoqTime_genType_IsDST_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTime_genType_IsDST_fnRecorder routes recorded function calls to the
+// MoqTime_genType moq
+type MoqTime_genType_IsDST_fnRecorder struct {
+	Params    MoqTime_genType_IsDST_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTime_genType_IsDST_results
+	Moq       *MoqTime_genType
+}
+
+// MoqTime_genType_IsDST_anyParams isolates the any params functions of the
+// Time_genType type
+type MoqTime_genType_IsDST_anyParams struct {
+	Recorder *MoqTime_genType_IsDST_fnRecorder
+}
+
 // MoqTime_genType_Truncate_params holds the params of the Time_genType type
 type MoqTime_genType_Truncate_params struct{ D time.Duration }
 
@@ -2211,8 +2451,9 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				String struct{}
-				Format struct {
+				String   struct{}
+				GoString struct{}
+				Format   struct {
 					Layout moq.ParamIndexing
 				}
 				AppendFormat struct {
@@ -2260,11 +2501,14 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 				Location      struct{}
 				Zone          struct{}
 				Unix          struct{}
+				UnixMilli     struct{}
+				UnixMicro     struct{}
 				UnixNano      struct{}
 				MarshalBinary struct{}
 				GobEncode     struct{}
 				MarshalJSON   struct{}
 				MarshalText   struct{}
+				IsDST         struct{}
 				Truncate      struct {
 					D moq.ParamIndexing
 				}
@@ -2273,8 +2517,9 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 				}
 			}
 		}{ParameterIndexing: struct {
-			String struct{}
-			Format struct {
+			String   struct{}
+			GoString struct{}
+			Format   struct {
 				Layout moq.ParamIndexing
 			}
 			AppendFormat struct {
@@ -2322,11 +2567,14 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 			Location      struct{}
 			Zone          struct{}
 			Unix          struct{}
+			UnixMilli     struct{}
+			UnixMicro     struct{}
 			UnixNano      struct{}
 			MarshalBinary struct{}
 			GobEncode     struct{}
 			MarshalJSON   struct{}
 			MarshalText   struct{}
+			IsDST         struct{}
 			Truncate      struct {
 				D moq.ParamIndexing
 			}
@@ -2334,7 +2582,8 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 				D moq.ParamIndexing
 			}
 		}{
-			String: struct{}{},
+			String:   struct{}{},
+			GoString: struct{}{},
 			Format: struct {
 				Layout moq.ParamIndexing
 			}{
@@ -2404,11 +2653,14 @@ func NewMoqTime_genType(scene *moq.Scene, config *moq.Config) *MoqTime_genType {
 			Location:      struct{}{},
 			Zone:          struct{}{},
 			Unix:          struct{}{},
+			UnixMilli:     struct{}{},
+			UnixMicro:     struct{}{},
 			UnixNano:      struct{}{},
 			MarshalBinary: struct{}{},
 			GobEncode:     struct{}{},
 			MarshalJSON:   struct{}{},
 			MarshalText:   struct{}{},
+			IsDST:         struct{}{},
 			Truncate: struct {
 				D moq.ParamIndexing
 			}{
@@ -2465,6 +2717,57 @@ func (m *MoqTime_genType_mock) String() (result1 string) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_String(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqTime_genType_mock) GoString() (result1 string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTime_genType_GoString_params{}
+	var results *MoqTime_genType_GoString_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_GoString {
+		paramsKey := m.Moq.ParamsKey_GoString(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_GoString(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_GoString(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_GoString(params))
 		}
 	}
 
@@ -3885,6 +4188,108 @@ func (m *MoqTime_genType_mock) Unix() (result1 int64) {
 	return
 }
 
+func (m *MoqTime_genType_mock) UnixMilli() (result1 int64) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTime_genType_UnixMilli_params{}
+	var results *MoqTime_genType_UnixMilli_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_UnixMilli {
+		paramsKey := m.Moq.ParamsKey_UnixMilli(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_UnixMilli(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_UnixMilli(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_UnixMilli(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqTime_genType_mock) UnixMicro() (result1 int64) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTime_genType_UnixMicro_params{}
+	var results *MoqTime_genType_UnixMicro_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_UnixMicro {
+		paramsKey := m.Moq.ParamsKey_UnixMicro(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_UnixMicro(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_UnixMicro(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_UnixMicro(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqTime_genType_mock) UnixNano() (result1 int64) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTime_genType_UnixNano_params{}
@@ -4140,6 +4545,57 @@ func (m *MoqTime_genType_mock) MarshalText() (result1 []byte, result2 error) {
 	}
 	if result.DoReturnFn != nil {
 		result1, result2 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqTime_genType_mock) IsDST() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTime_genType_IsDST_params{}
+	var results *MoqTime_genType_IsDST_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_IsDST {
+		paramsKey := m.Moq.ParamsKey_IsDST(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_IsDST(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_IsDST(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsDST(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -4435,6 +4891,189 @@ func (m *MoqTime_genType) PrettyParams_String(params MoqTime_genType_String_para
 func (m *MoqTime_genType) ParamsKey_String(params MoqTime_genType_String_params, anyParams uint64) MoqTime_genType_String_paramsKey {
 	m.Scene.T.Helper()
 	return MoqTime_genType_String_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqTime_genType_recorder) GoString() *MoqTime_genType_GoString_fnRecorder {
+	return &MoqTime_genType_GoString_fnRecorder{
+		Params:   MoqTime_genType_GoString_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) Any() *MoqTime_genType_GoString_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_GoString(r.Params))
+		return nil
+	}
+	return &MoqTime_genType_GoString_anyParams{Recorder: r}
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) Seq() *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_GoString(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) NoSeq() *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_GoString(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) ReturnResults(result1 string) *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_GoString_doFn
+		DoReturnFn MoqTime_genType_GoString_doReturnFn
+	}{
+		Values: &struct {
+			Result1 string
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) AndDo(fn MoqTime_genType_GoString_doFn) *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) DoReturnResults(fn MoqTime_genType_GoString_doReturnFn) *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_GoString_doFn
+		DoReturnFn MoqTime_genType_GoString_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTime_genType_GoString_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_GoString {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTime_genType_GoString_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTime_genType_GoString_paramsKey]*MoqTime_genType_GoString_results{},
+		}
+		r.Moq.ResultsByParams_GoString = append(r.Moq.ResultsByParams_GoString, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_GoString) {
+			copy(r.Moq.ResultsByParams_GoString[insertAt+1:], r.Moq.ResultsByParams_GoString[insertAt:0])
+			r.Moq.ResultsByParams_GoString[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_GoString(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTime_genType_GoString_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTime_genType_GoString_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTime_genType_GoString_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 string
+				}
+				Sequence   uint32
+				DoFn       MoqTime_genType_GoString_doFn
+				DoReturnFn MoqTime_genType_GoString_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTime_genType) PrettyParams_GoString(params MoqTime_genType_GoString_params) string {
+	return fmt.Sprintf("GoString()")
+}
+
+func (m *MoqTime_genType) ParamsKey_GoString(params MoqTime_genType_GoString_params, anyParams uint64) MoqTime_genType_GoString_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTime_genType_GoString_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -9622,6 +10261,372 @@ func (m *MoqTime_genType) ParamsKey_Unix(params MoqTime_genType_Unix_params, any
 	}
 }
 
+func (m *MoqTime_genType_recorder) UnixMilli() *MoqTime_genType_UnixMilli_fnRecorder {
+	return &MoqTime_genType_UnixMilli_fnRecorder{
+		Params:   MoqTime_genType_UnixMilli_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) Any() *MoqTime_genType_UnixMilli_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMilli(r.Params))
+		return nil
+	}
+	return &MoqTime_genType_UnixMilli_anyParams{Recorder: r}
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) Seq() *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMilli(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) NoSeq() *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMilli(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) ReturnResults(result1 int64) *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMilli_doFn
+		DoReturnFn MoqTime_genType_UnixMilli_doReturnFn
+	}{
+		Values: &struct {
+			Result1 int64
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) AndDo(fn MoqTime_genType_UnixMilli_doFn) *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) DoReturnResults(fn MoqTime_genType_UnixMilli_doReturnFn) *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMilli_doFn
+		DoReturnFn MoqTime_genType_UnixMilli_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTime_genType_UnixMilli_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_UnixMilli {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTime_genType_UnixMilli_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTime_genType_UnixMilli_paramsKey]*MoqTime_genType_UnixMilli_results{},
+		}
+		r.Moq.ResultsByParams_UnixMilli = append(r.Moq.ResultsByParams_UnixMilli, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_UnixMilli) {
+			copy(r.Moq.ResultsByParams_UnixMilli[insertAt+1:], r.Moq.ResultsByParams_UnixMilli[insertAt:0])
+			r.Moq.ResultsByParams_UnixMilli[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_UnixMilli(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTime_genType_UnixMilli_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTime_genType_UnixMilli_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTime_genType_UnixMilli_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 int64
+				}
+				Sequence   uint32
+				DoFn       MoqTime_genType_UnixMilli_doFn
+				DoReturnFn MoqTime_genType_UnixMilli_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTime_genType) PrettyParams_UnixMilli(params MoqTime_genType_UnixMilli_params) string {
+	return fmt.Sprintf("UnixMilli()")
+}
+
+func (m *MoqTime_genType) ParamsKey_UnixMilli(params MoqTime_genType_UnixMilli_params, anyParams uint64) MoqTime_genType_UnixMilli_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTime_genType_UnixMilli_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqTime_genType_recorder) UnixMicro() *MoqTime_genType_UnixMicro_fnRecorder {
+	return &MoqTime_genType_UnixMicro_fnRecorder{
+		Params:   MoqTime_genType_UnixMicro_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) Any() *MoqTime_genType_UnixMicro_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMicro(r.Params))
+		return nil
+	}
+	return &MoqTime_genType_UnixMicro_anyParams{Recorder: r}
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) Seq() *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMicro(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) NoSeq() *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnixMicro(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) ReturnResults(result1 int64) *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMicro_doFn
+		DoReturnFn MoqTime_genType_UnixMicro_doReturnFn
+	}{
+		Values: &struct {
+			Result1 int64
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) AndDo(fn MoqTime_genType_UnixMicro_doFn) *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) DoReturnResults(fn MoqTime_genType_UnixMicro_doReturnFn) *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 int64
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_UnixMicro_doFn
+		DoReturnFn MoqTime_genType_UnixMicro_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTime_genType_UnixMicro_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_UnixMicro {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTime_genType_UnixMicro_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTime_genType_UnixMicro_paramsKey]*MoqTime_genType_UnixMicro_results{},
+		}
+		r.Moq.ResultsByParams_UnixMicro = append(r.Moq.ResultsByParams_UnixMicro, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_UnixMicro) {
+			copy(r.Moq.ResultsByParams_UnixMicro[insertAt+1:], r.Moq.ResultsByParams_UnixMicro[insertAt:0])
+			r.Moq.ResultsByParams_UnixMicro[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_UnixMicro(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTime_genType_UnixMicro_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTime_genType_UnixMicro_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTime_genType_UnixMicro_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 int64
+				}
+				Sequence   uint32
+				DoFn       MoqTime_genType_UnixMicro_doFn
+				DoReturnFn MoqTime_genType_UnixMicro_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTime_genType) PrettyParams_UnixMicro(params MoqTime_genType_UnixMicro_params) string {
+	return fmt.Sprintf("UnixMicro()")
+}
+
+func (m *MoqTime_genType) ParamsKey_UnixMicro(params MoqTime_genType_UnixMicro_params, anyParams uint64) MoqTime_genType_UnixMicro_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTime_genType_UnixMicro_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqTime_genType_recorder) UnixNano() *MoqTime_genType_UnixNano_fnRecorder {
 	return &MoqTime_genType_UnixNano_fnRecorder{
 		Params:   MoqTime_genType_UnixNano_params{},
@@ -10557,6 +11562,189 @@ func (m *MoqTime_genType) ParamsKey_MarshalText(params MoqTime_genType_MarshalTe
 	}
 }
 
+func (m *MoqTime_genType_recorder) IsDST() *MoqTime_genType_IsDST_fnRecorder {
+	return &MoqTime_genType_IsDST_fnRecorder{
+		Params:   MoqTime_genType_IsDST_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) Any() *MoqTime_genType_IsDST_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsDST(r.Params))
+		return nil
+	}
+	return &MoqTime_genType_IsDST_anyParams{Recorder: r}
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) Seq() *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsDST(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) NoSeq() *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsDST(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) ReturnResults(result1 bool) *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_IsDST_doFn
+		DoReturnFn MoqTime_genType_IsDST_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) AndDo(fn MoqTime_genType_IsDST_doFn) *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) DoReturnResults(fn MoqTime_genType_IsDST_doReturnFn) *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqTime_genType_IsDST_doFn
+		DoReturnFn MoqTime_genType_IsDST_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTime_genType_IsDST_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_IsDST {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTime_genType_IsDST_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTime_genType_IsDST_paramsKey]*MoqTime_genType_IsDST_results{},
+		}
+		r.Moq.ResultsByParams_IsDST = append(r.Moq.ResultsByParams_IsDST, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_IsDST) {
+			copy(r.Moq.ResultsByParams_IsDST[insertAt+1:], r.Moq.ResultsByParams_IsDST[insertAt:0])
+			r.Moq.ResultsByParams_IsDST[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_IsDST(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTime_genType_IsDST_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTime_genType_IsDST_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTime_genType_IsDST_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqTime_genType_IsDST_doFn
+				DoReturnFn MoqTime_genType_IsDST_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTime_genType) PrettyParams_IsDST(params MoqTime_genType_IsDST_params) string {
+	return fmt.Sprintf("IsDST()")
+}
+
+func (m *MoqTime_genType) ParamsKey_IsDST(params MoqTime_genType_IsDST_params, anyParams uint64) MoqTime_genType_IsDST_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTime_genType_IsDST_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqTime_genType_recorder) Truncate(d time.Duration) *MoqTime_genType_Truncate_fnRecorder {
 	return &MoqTime_genType_Truncate_fnRecorder{
 		Params: MoqTime_genType_Truncate_params{
@@ -10966,6 +12154,7 @@ func (m *MoqTime_genType) ParamsKey_Round(params MoqTime_genType_Round_params, a
 // Reset resets the state of the moq
 func (m *MoqTime_genType) Reset() {
 	m.ResultsByParams_String = nil
+	m.ResultsByParams_GoString = nil
 	m.ResultsByParams_Format = nil
 	m.ResultsByParams_AppendFormat = nil
 	m.ResultsByParams_After = nil
@@ -10993,11 +12182,14 @@ func (m *MoqTime_genType) Reset() {
 	m.ResultsByParams_Location = nil
 	m.ResultsByParams_Zone = nil
 	m.ResultsByParams_Unix = nil
+	m.ResultsByParams_UnixMilli = nil
+	m.ResultsByParams_UnixMicro = nil
 	m.ResultsByParams_UnixNano = nil
 	m.ResultsByParams_MarshalBinary = nil
 	m.ResultsByParams_GobEncode = nil
 	m.ResultsByParams_MarshalJSON = nil
 	m.ResultsByParams_MarshalText = nil
+	m.ResultsByParams_IsDST = nil
 	m.ResultsByParams_Truncate = nil
 	m.ResultsByParams_Round = nil
 }
@@ -11010,6 +12202,14 @@ func (m *MoqTime_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_String(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_GoString {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_GoString(results.Params))
 			}
 		}
 	}
@@ -11229,6 +12429,22 @@ func (m *MoqTime_genType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_UnixMilli {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_UnixMilli(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_UnixMicro {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_UnixMicro(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_UnixNano {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -11266,6 +12482,14 @@ func (m *MoqTime_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_MarshalText(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_IsDST {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsDST(results.Params))
 			}
 		}
 	}

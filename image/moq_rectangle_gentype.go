@@ -36,6 +36,7 @@ type Rectangle_genType interface {
 	In(s image.Rectangle) bool
 	Canon() image.Rectangle
 	At(x, y int) color.Color
+	RGBA64At(x, y int) color.RGBA64
 	Bounds() image.Rectangle
 	ColorModel() color.Model
 }
@@ -61,6 +62,7 @@ type MoqRectangle_genType struct {
 	ResultsByParams_In         []MoqRectangle_genType_In_resultsByParams
 	ResultsByParams_Canon      []MoqRectangle_genType_Canon_resultsByParams
 	ResultsByParams_At         []MoqRectangle_genType_At_resultsByParams
+	ResultsByParams_RGBA64At   []MoqRectangle_genType_RGBA64At_resultsByParams
 	ResultsByParams_Bounds     []MoqRectangle_genType_Bounds_resultsByParams
 	ResultsByParams_ColorModel []MoqRectangle_genType_ColorModel_resultsByParams
 
@@ -97,6 +99,10 @@ type MoqRectangle_genType struct {
 			}
 			Canon struct{}
 			At    struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}
+			RGBA64At struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}
@@ -1003,6 +1009,65 @@ type MoqRectangle_genType_At_anyParams struct {
 	Recorder *MoqRectangle_genType_At_fnRecorder
 }
 
+// MoqRectangle_genType_RGBA64At_params holds the params of the
+// Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_params struct{ X, Y int }
+
+// MoqRectangle_genType_RGBA64At_paramsKey holds the map key params of the
+// Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_paramsKey struct {
+	Params struct{ X, Y int }
+	Hashes struct{ X, Y hash.Hash }
+}
+
+// MoqRectangle_genType_RGBA64At_resultsByParams contains the results for a
+// given set of parameters for the Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqRectangle_genType_RGBA64At_paramsKey]*MoqRectangle_genType_RGBA64At_results
+}
+
+// MoqRectangle_genType_RGBA64At_doFn defines the type of function needed when
+// calling AndDo for the Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_doFn func(x, y int)
+
+// MoqRectangle_genType_RGBA64At_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_doReturnFn func(x, y int) color.RGBA64
+
+// MoqRectangle_genType_RGBA64At_results holds the results of the
+// Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_results struct {
+	Params  MoqRectangle_genType_RGBA64At_params
+	Results []struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqRectangle_genType_RGBA64At_doFn
+		DoReturnFn MoqRectangle_genType_RGBA64At_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqRectangle_genType_RGBA64At_fnRecorder routes recorded function calls to
+// the MoqRectangle_genType moq
+type MoqRectangle_genType_RGBA64At_fnRecorder struct {
+	Params    MoqRectangle_genType_RGBA64At_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqRectangle_genType_RGBA64At_results
+	Moq       *MoqRectangle_genType
+}
+
+// MoqRectangle_genType_RGBA64At_anyParams isolates the any params functions of
+// the Rectangle_genType type
+type MoqRectangle_genType_RGBA64At_anyParams struct {
+	Recorder *MoqRectangle_genType_RGBA64At_fnRecorder
+}
+
 // MoqRectangle_genType_Bounds_params holds the params of the Rectangle_genType
 // type
 type MoqRectangle_genType_Bounds_params struct{}
@@ -1167,6 +1232,10 @@ func NewMoqRectangle_genType(scene *moq.Scene, config *moq.Config) *MoqRectangle
 					X moq.ParamIndexing
 					Y moq.ParamIndexing
 				}
+				RGBA64At struct {
+					X moq.ParamIndexing
+					Y moq.ParamIndexing
+				}
 				Bounds     struct{}
 				ColorModel struct{}
 			}
@@ -1202,6 +1271,10 @@ func NewMoqRectangle_genType(scene *moq.Scene, config *moq.Config) *MoqRectangle
 			}
 			Canon struct{}
 			At    struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}
+			RGBA64At struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}
@@ -1255,6 +1328,13 @@ func NewMoqRectangle_genType(scene *moq.Scene, config *moq.Config) *MoqRectangle
 			},
 			Canon: struct{}{},
 			At: struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}{
+				X: moq.ParamIndexByValue,
+				Y: moq.ParamIndexByValue,
+			},
+			RGBA64At: struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}{
@@ -2042,6 +2122,60 @@ func (m *MoqRectangle_genType_mock) At(x, y int) (result1 color.Color) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_At(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(x, y)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(x, y)
+	}
+	return
+}
+
+func (m *MoqRectangle_genType_mock) RGBA64At(x, y int) (result1 color.RGBA64) {
+	m.Moq.Scene.T.Helper()
+	params := MoqRectangle_genType_RGBA64At_params{
+		X: x,
+		Y: y,
+	}
+	var results *MoqRectangle_genType_RGBA64At_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_RGBA64At {
+		paramsKey := m.Moq.ParamsKey_RGBA64At(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_RGBA64At(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_RGBA64At(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_RGBA64At(params))
 		}
 	}
 
@@ -5109,6 +5243,226 @@ func (m *MoqRectangle_genType) ParamsKey_At(params MoqRectangle_genType_At_param
 	}
 }
 
+func (m *MoqRectangle_genType_recorder) RGBA64At(x, y int) *MoqRectangle_genType_RGBA64At_fnRecorder {
+	return &MoqRectangle_genType_RGBA64At_fnRecorder{
+		Params: MoqRectangle_genType_RGBA64At_params{
+			X: x,
+			Y: y,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) Any() *MoqRectangle_genType_RGBA64At_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	return &MoqRectangle_genType_RGBA64At_anyParams{Recorder: r}
+}
+
+func (a *MoqRectangle_genType_RGBA64At_anyParams) X() *MoqRectangle_genType_RGBA64At_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqRectangle_genType_RGBA64At_anyParams) Y() *MoqRectangle_genType_RGBA64At_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) Seq() *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) NoSeq() *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) ReturnResults(result1 color.RGBA64) *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqRectangle_genType_RGBA64At_doFn
+		DoReturnFn MoqRectangle_genType_RGBA64At_doReturnFn
+	}{
+		Values: &struct {
+			Result1 color.RGBA64
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) AndDo(fn MoqRectangle_genType_RGBA64At_doFn) *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) DoReturnResults(fn MoqRectangle_genType_RGBA64At_doReturnFn) *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqRectangle_genType_RGBA64At_doFn
+		DoReturnFn MoqRectangle_genType_RGBA64At_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqRectangle_genType_RGBA64At_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_RGBA64At {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqRectangle_genType_RGBA64At_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqRectangle_genType_RGBA64At_paramsKey]*MoqRectangle_genType_RGBA64At_results{},
+		}
+		r.Moq.ResultsByParams_RGBA64At = append(r.Moq.ResultsByParams_RGBA64At, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_RGBA64At) {
+			copy(r.Moq.ResultsByParams_RGBA64At[insertAt+1:], r.Moq.ResultsByParams_RGBA64At[insertAt:0])
+			r.Moq.ResultsByParams_RGBA64At[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_RGBA64At(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqRectangle_genType_RGBA64At_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqRectangle_genType_RGBA64At_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRectangle_genType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 color.RGBA64
+				}
+				Sequence   uint32
+				DoFn       MoqRectangle_genType_RGBA64At_doFn
+				DoReturnFn MoqRectangle_genType_RGBA64At_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqRectangle_genType) PrettyParams_RGBA64At(params MoqRectangle_genType_RGBA64At_params) string {
+	return fmt.Sprintf("RGBA64At(%#v, %#v)", params.X, params.Y)
+}
+
+func (m *MoqRectangle_genType) ParamsKey_RGBA64At(params MoqRectangle_genType_RGBA64At_params, anyParams uint64) MoqRectangle_genType_RGBA64At_paramsKey {
+	m.Scene.T.Helper()
+	var xUsed int
+	var xUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.RGBA64At.X == moq.ParamIndexByValue {
+			xUsed = params.X
+		} else {
+			xUsedHash = hash.DeepHash(params.X)
+		}
+	}
+	var yUsed int
+	var yUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.RGBA64At.Y == moq.ParamIndexByValue {
+			yUsed = params.Y
+		} else {
+			yUsedHash = hash.DeepHash(params.Y)
+		}
+	}
+	return MoqRectangle_genType_RGBA64At_paramsKey{
+		Params: struct{ X, Y int }{
+			X: xUsed,
+			Y: yUsed,
+		},
+		Hashes: struct{ X, Y hash.Hash }{
+			X: xUsedHash,
+			Y: yUsedHash,
+		},
+	}
+}
+
 func (m *MoqRectangle_genType_recorder) Bounds() *MoqRectangle_genType_Bounds_fnRecorder {
 	return &MoqRectangle_genType_Bounds_fnRecorder{
 		Params:   MoqRectangle_genType_Bounds_params{},
@@ -5492,6 +5846,7 @@ func (m *MoqRectangle_genType) Reset() {
 	m.ResultsByParams_In = nil
 	m.ResultsByParams_Canon = nil
 	m.ResultsByParams_At = nil
+	m.ResultsByParams_RGBA64At = nil
 	m.ResultsByParams_Bounds = nil
 	m.ResultsByParams_ColorModel = nil
 }
@@ -5616,6 +5971,14 @@ func (m *MoqRectangle_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_At(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_RGBA64At {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_RGBA64At(results.Params))
 			}
 		}
 	}

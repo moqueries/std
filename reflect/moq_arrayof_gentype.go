@@ -14,7 +14,7 @@ import (
 
 // ArrayOf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type ArrayOf_genType func(count int, elem reflect.Type) reflect.Type
+type ArrayOf_genType func(length int, elem reflect.Type) reflect.Type
 
 // MoqArrayOf_genType holds the state of a moq of the ArrayOf_genType type
 type MoqArrayOf_genType struct {
@@ -26,8 +26,8 @@ type MoqArrayOf_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Count moq.ParamIndexing
-			Elem  moq.ParamIndexing
+			Length moq.ParamIndexing
+			Elem   moq.ParamIndexing
 		}
 	}
 }
@@ -40,20 +40,20 @@ type MoqArrayOf_genType_mock struct {
 
 // MoqArrayOf_genType_params holds the params of the ArrayOf_genType type
 type MoqArrayOf_genType_params struct {
-	Count int
-	Elem  reflect.Type
+	Length int
+	Elem   reflect.Type
 }
 
 // MoqArrayOf_genType_paramsKey holds the map key params of the ArrayOf_genType
 // type
 type MoqArrayOf_genType_paramsKey struct {
 	Params struct {
-		Count int
-		Elem  reflect.Type
+		Length int
+		Elem   reflect.Type
 	}
 	Hashes struct {
-		Count hash.Hash
-		Elem  hash.Hash
+		Length hash.Hash
+		Elem   hash.Hash
 	}
 }
 
@@ -67,11 +67,11 @@ type MoqArrayOf_genType_resultsByParams struct {
 
 // MoqArrayOf_genType_doFn defines the type of function needed when calling
 // AndDo for the ArrayOf_genType type
-type MoqArrayOf_genType_doFn func(count int, elem reflect.Type)
+type MoqArrayOf_genType_doFn func(length int, elem reflect.Type)
 
 // MoqArrayOf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the ArrayOf_genType type
-type MoqArrayOf_genType_doReturnFn func(count int, elem reflect.Type) reflect.Type
+type MoqArrayOf_genType_doReturnFn func(length int, elem reflect.Type) reflect.Type
 
 // MoqArrayOf_genType_results holds the results of the ArrayOf_genType type
 type MoqArrayOf_genType_results struct {
@@ -116,15 +116,15 @@ func NewMoqArrayOf_genType(scene *moq.Scene, config *moq.Config) *MoqArrayOf_gen
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Count moq.ParamIndexing
-				Elem  moq.ParamIndexing
+				Length moq.ParamIndexing
+				Elem   moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Count moq.ParamIndexing
-			Elem  moq.ParamIndexing
+			Length moq.ParamIndexing
+			Elem   moq.ParamIndexing
 		}{
-			Count: moq.ParamIndexByValue,
-			Elem:  moq.ParamIndexByHash,
+			Length: moq.ParamIndexByValue,
+			Elem:   moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -135,18 +135,18 @@ func NewMoqArrayOf_genType(scene *moq.Scene, config *moq.Config) *MoqArrayOf_gen
 
 // Mock returns the moq implementation of the ArrayOf_genType type
 func (m *MoqArrayOf_genType) Mock() ArrayOf_genType {
-	return func(count int, elem reflect.Type) reflect.Type {
+	return func(length int, elem reflect.Type) reflect.Type {
 		m.Scene.T.Helper()
 		moq := &MoqArrayOf_genType_mock{Moq: m}
-		return moq.Fn(count, elem)
+		return moq.Fn(length, elem)
 	}
 }
 
-func (m *MoqArrayOf_genType_mock) Fn(count int, elem reflect.Type) (result1 reflect.Type) {
+func (m *MoqArrayOf_genType_mock) Fn(length int, elem reflect.Type) (result1 reflect.Type) {
 	m.Moq.Scene.T.Helper()
 	params := MoqArrayOf_genType_params{
-		Count: count,
-		Elem:  elem,
+		Length: length,
+		Elem:   elem,
 	}
 	var results *MoqArrayOf_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -184,23 +184,23 @@ func (m *MoqArrayOf_genType_mock) Fn(count int, elem reflect.Type) (result1 refl
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(count, elem)
+		result.DoFn(length, elem)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(count, elem)
+		result1 = result.DoReturnFn(length, elem)
 	}
 	return
 }
 
-func (m *MoqArrayOf_genType) OnCall(count int, elem reflect.Type) *MoqArrayOf_genType_fnRecorder {
+func (m *MoqArrayOf_genType) OnCall(length int, elem reflect.Type) *MoqArrayOf_genType_fnRecorder {
 	return &MoqArrayOf_genType_fnRecorder{
 		Params: MoqArrayOf_genType_params{
-			Count: count,
-			Elem:  elem,
+			Length: length,
+			Elem:   elem,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -216,7 +216,7 @@ func (r *MoqArrayOf_genType_fnRecorder) Any() *MoqArrayOf_genType_anyParams {
 	return &MoqArrayOf_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqArrayOf_genType_anyParams) Count() *MoqArrayOf_genType_fnRecorder {
+func (a *MoqArrayOf_genType_anyParams) Length() *MoqArrayOf_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -381,18 +381,18 @@ func (r *MoqArrayOf_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqAr
 }
 
 func (m *MoqArrayOf_genType) PrettyParams(params MoqArrayOf_genType_params) string {
-	return fmt.Sprintf("ArrayOf_genType(%#v, %#v)", params.Count, params.Elem)
+	return fmt.Sprintf("ArrayOf_genType(%#v, %#v)", params.Length, params.Elem)
 }
 
 func (m *MoqArrayOf_genType) ParamsKey(params MoqArrayOf_genType_params, anyParams uint64) MoqArrayOf_genType_paramsKey {
 	m.Scene.T.Helper()
-	var countUsed int
-	var countUsedHash hash.Hash
+	var lengthUsed int
+	var lengthUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Count == moq.ParamIndexByValue {
-			countUsed = params.Count
+		if m.Runtime.ParameterIndexing.Length == moq.ParamIndexByValue {
+			lengthUsed = params.Length
 		} else {
-			countUsedHash = hash.DeepHash(params.Count)
+			lengthUsedHash = hash.DeepHash(params.Length)
 		}
 	}
 	var elemUsed reflect.Type
@@ -406,18 +406,18 @@ func (m *MoqArrayOf_genType) ParamsKey(params MoqArrayOf_genType_params, anyPara
 	}
 	return MoqArrayOf_genType_paramsKey{
 		Params: struct {
-			Count int
-			Elem  reflect.Type
+			Length int
+			Elem   reflect.Type
 		}{
-			Count: countUsed,
-			Elem:  elemUsed,
+			Length: lengthUsed,
+			Elem:   elemUsed,
 		},
 		Hashes: struct {
-			Count hash.Hash
-			Elem  hash.Hash
+			Length hash.Hash
+			Elem   hash.Hash
 		}{
-			Count: countUsedHash,
-			Elem:  elemUsedHash,
+			Length: lengthUsedHash,
+			Elem:   elemUsedHash,
 		},
 	}
 }

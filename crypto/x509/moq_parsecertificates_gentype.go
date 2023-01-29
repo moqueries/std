@@ -14,7 +14,7 @@ import (
 
 // ParseCertificates_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type ParseCertificates_genType func(asn1Data []byte) ([]*x509.Certificate, error)
+type ParseCertificates_genType func(der []byte) ([]*x509.Certificate, error)
 
 // MoqParseCertificates_genType holds the state of a moq of the
 // ParseCertificates_genType type
@@ -27,7 +27,7 @@ type MoqParseCertificates_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Asn1Data moq.ParamIndexing
+			Der moq.ParamIndexing
 		}
 	}
 }
@@ -40,13 +40,13 @@ type MoqParseCertificates_genType_mock struct {
 
 // MoqParseCertificates_genType_params holds the params of the
 // ParseCertificates_genType type
-type MoqParseCertificates_genType_params struct{ Asn1Data []byte }
+type MoqParseCertificates_genType_params struct{ Der []byte }
 
 // MoqParseCertificates_genType_paramsKey holds the map key params of the
 // ParseCertificates_genType type
 type MoqParseCertificates_genType_paramsKey struct {
 	Params struct{}
-	Hashes struct{ Asn1Data hash.Hash }
+	Hashes struct{ Der hash.Hash }
 }
 
 // MoqParseCertificates_genType_resultsByParams contains the results for a
@@ -59,11 +59,11 @@ type MoqParseCertificates_genType_resultsByParams struct {
 
 // MoqParseCertificates_genType_doFn defines the type of function needed when
 // calling AndDo for the ParseCertificates_genType type
-type MoqParseCertificates_genType_doFn func(asn1Data []byte)
+type MoqParseCertificates_genType_doFn func(der []byte)
 
 // MoqParseCertificates_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the ParseCertificates_genType type
-type MoqParseCertificates_genType_doReturnFn func(asn1Data []byte) ([]*x509.Certificate, error)
+type MoqParseCertificates_genType_doReturnFn func(der []byte) ([]*x509.Certificate, error)
 
 // MoqParseCertificates_genType_results holds the results of the
 // ParseCertificates_genType type
@@ -111,12 +111,12 @@ func NewMoqParseCertificates_genType(scene *moq.Scene, config *moq.Config) *MoqP
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Asn1Data moq.ParamIndexing
+				Der moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Asn1Data moq.ParamIndexing
+			Der moq.ParamIndexing
 		}{
-			Asn1Data: moq.ParamIndexByHash,
+			Der: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -127,17 +127,17 @@ func NewMoqParseCertificates_genType(scene *moq.Scene, config *moq.Config) *MoqP
 
 // Mock returns the moq implementation of the ParseCertificates_genType type
 func (m *MoqParseCertificates_genType) Mock() ParseCertificates_genType {
-	return func(asn1Data []byte) ([]*x509.Certificate, error) {
+	return func(der []byte) ([]*x509.Certificate, error) {
 		m.Scene.T.Helper()
 		moq := &MoqParseCertificates_genType_mock{Moq: m}
-		return moq.Fn(asn1Data)
+		return moq.Fn(der)
 	}
 }
 
-func (m *MoqParseCertificates_genType_mock) Fn(asn1Data []byte) (result1 []*x509.Certificate, result2 error) {
+func (m *MoqParseCertificates_genType_mock) Fn(der []byte) (result1 []*x509.Certificate, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParseCertificates_genType_params{
-		Asn1Data: asn1Data,
+		Der: der,
 	}
 	var results *MoqParseCertificates_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -175,7 +175,7 @@ func (m *MoqParseCertificates_genType_mock) Fn(asn1Data []byte) (result1 []*x509
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(asn1Data)
+		result.DoFn(der)
 	}
 
 	if result.Values != nil {
@@ -183,15 +183,15 @@ func (m *MoqParseCertificates_genType_mock) Fn(asn1Data []byte) (result1 []*x509
 		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		result1, result2 = result.DoReturnFn(asn1Data)
+		result1, result2 = result.DoReturnFn(der)
 	}
 	return
 }
 
-func (m *MoqParseCertificates_genType) OnCall(asn1Data []byte) *MoqParseCertificates_genType_fnRecorder {
+func (m *MoqParseCertificates_genType) OnCall(der []byte) *MoqParseCertificates_genType_fnRecorder {
 	return &MoqParseCertificates_genType_fnRecorder{
 		Params: MoqParseCertificates_genType_params{
-			Asn1Data: asn1Data,
+			Der: der,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -207,7 +207,7 @@ func (r *MoqParseCertificates_genType_fnRecorder) Any() *MoqParseCertificates_ge
 	return &MoqParseCertificates_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqParseCertificates_genType_anyParams) Asn1Data() *MoqParseCertificates_genType_fnRecorder {
+func (a *MoqParseCertificates_genType_anyParams) Der() *MoqParseCertificates_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -372,22 +372,22 @@ func (r *MoqParseCertificates_genType_fnRecorder) Repeat(repeaters ...moq.Repeat
 }
 
 func (m *MoqParseCertificates_genType) PrettyParams(params MoqParseCertificates_genType_params) string {
-	return fmt.Sprintf("ParseCertificates_genType(%#v)", params.Asn1Data)
+	return fmt.Sprintf("ParseCertificates_genType(%#v)", params.Der)
 }
 
 func (m *MoqParseCertificates_genType) ParamsKey(params MoqParseCertificates_genType_params, anyParams uint64) MoqParseCertificates_genType_paramsKey {
 	m.Scene.T.Helper()
-	var asn1DataUsedHash hash.Hash
+	var derUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Asn1Data == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The asn1Data parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.Der == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The der parameter can't be indexed by value")
 		}
-		asn1DataUsedHash = hash.DeepHash(params.Asn1Data)
+		derUsedHash = hash.DeepHash(params.Der)
 	}
 	return MoqParseCertificates_genType_paramsKey{
 		Params: struct{}{},
-		Hashes: struct{ Asn1Data hash.Hash }{
-			Asn1Data: asn1DataUsedHash,
+		Hashes: struct{ Der hash.Hash }{
+			Der: derUsedHash,
 		},
 	}
 }

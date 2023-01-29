@@ -21,6 +21,7 @@ var _ IP_genType = (*MoqIP_genType_mock)(nil)
 type IP_genType interface {
 	IsUnspecified() bool
 	IsLoopback() bool
+	IsPrivate() bool
 	IsMulticast() bool
 	IsInterfaceLocalMulticast() bool
 	IsLinkLocalMulticast() bool
@@ -43,6 +44,7 @@ type MoqIP_genType struct {
 
 	ResultsByParams_IsUnspecified             []MoqIP_genType_IsUnspecified_resultsByParams
 	ResultsByParams_IsLoopback                []MoqIP_genType_IsLoopback_resultsByParams
+	ResultsByParams_IsPrivate                 []MoqIP_genType_IsPrivate_resultsByParams
 	ResultsByParams_IsMulticast               []MoqIP_genType_IsMulticast_resultsByParams
 	ResultsByParams_IsInterfaceLocalMulticast []MoqIP_genType_IsInterfaceLocalMulticast_resultsByParams
 	ResultsByParams_IsLinkLocalMulticast      []MoqIP_genType_IsLinkLocalMulticast_resultsByParams
@@ -60,6 +62,7 @@ type MoqIP_genType struct {
 		ParameterIndexing struct {
 			IsUnspecified             struct{}
 			IsLoopback                struct{}
+			IsPrivate                 struct{}
 			IsMulticast               struct{}
 			IsInterfaceLocalMulticast struct{}
 			IsLinkLocalMulticast      struct{}
@@ -203,6 +206,63 @@ type MoqIP_genType_IsLoopback_fnRecorder struct {
 // IP_genType type
 type MoqIP_genType_IsLoopback_anyParams struct {
 	Recorder *MoqIP_genType_IsLoopback_fnRecorder
+}
+
+// MoqIP_genType_IsPrivate_params holds the params of the IP_genType type
+type MoqIP_genType_IsPrivate_params struct{}
+
+// MoqIP_genType_IsPrivate_paramsKey holds the map key params of the IP_genType
+// type
+type MoqIP_genType_IsPrivate_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqIP_genType_IsPrivate_resultsByParams contains the results for a given set
+// of parameters for the IP_genType type
+type MoqIP_genType_IsPrivate_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqIP_genType_IsPrivate_paramsKey]*MoqIP_genType_IsPrivate_results
+}
+
+// MoqIP_genType_IsPrivate_doFn defines the type of function needed when
+// calling AndDo for the IP_genType type
+type MoqIP_genType_IsPrivate_doFn func()
+
+// MoqIP_genType_IsPrivate_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the IP_genType type
+type MoqIP_genType_IsPrivate_doReturnFn func() bool
+
+// MoqIP_genType_IsPrivate_results holds the results of the IP_genType type
+type MoqIP_genType_IsPrivate_results struct {
+	Params  MoqIP_genType_IsPrivate_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqIP_genType_IsPrivate_doFn
+		DoReturnFn MoqIP_genType_IsPrivate_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqIP_genType_IsPrivate_fnRecorder routes recorded function calls to the
+// MoqIP_genType moq
+type MoqIP_genType_IsPrivate_fnRecorder struct {
+	Params    MoqIP_genType_IsPrivate_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqIP_genType_IsPrivate_results
+	Moq       *MoqIP_genType
+}
+
+// MoqIP_genType_IsPrivate_anyParams isolates the any params functions of the
+// IP_genType type
+type MoqIP_genType_IsPrivate_anyParams struct {
+	Recorder *MoqIP_genType_IsPrivate_fnRecorder
 }
 
 // MoqIP_genType_IsMulticast_params holds the params of the IP_genType type
@@ -908,6 +968,7 @@ func NewMoqIP_genType(scene *moq.Scene, config *moq.Config) *MoqIP_genType {
 			ParameterIndexing struct {
 				IsUnspecified             struct{}
 				IsLoopback                struct{}
+				IsPrivate                 struct{}
 				IsMulticast               struct{}
 				IsInterfaceLocalMulticast struct{}
 				IsLinkLocalMulticast      struct{}
@@ -928,6 +989,7 @@ func NewMoqIP_genType(scene *moq.Scene, config *moq.Config) *MoqIP_genType {
 		}{ParameterIndexing: struct {
 			IsUnspecified             struct{}
 			IsLoopback                struct{}
+			IsPrivate                 struct{}
 			IsMulticast               struct{}
 			IsInterfaceLocalMulticast struct{}
 			IsLinkLocalMulticast      struct{}
@@ -947,6 +1009,7 @@ func NewMoqIP_genType(scene *moq.Scene, config *moq.Config) *MoqIP_genType {
 		}{
 			IsUnspecified:             struct{}{},
 			IsLoopback:                struct{}{},
+			IsPrivate:                 struct{}{},
 			IsMulticast:               struct{}{},
 			IsInterfaceLocalMulticast: struct{}{},
 			IsLinkLocalMulticast:      struct{}{},
@@ -1064,6 +1127,57 @@ func (m *MoqIP_genType_mock) IsLoopback() (result1 bool) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsLoopback(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqIP_genType_mock) IsPrivate() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqIP_genType_IsPrivate_params{}
+	var results *MoqIP_genType_IsPrivate_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_IsPrivate {
+		paramsKey := m.Moq.ParamsKey_IsPrivate(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_IsPrivate(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_IsPrivate(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsPrivate(params))
 		}
 	}
 
@@ -2065,6 +2179,189 @@ func (m *MoqIP_genType) PrettyParams_IsLoopback(params MoqIP_genType_IsLoopback_
 func (m *MoqIP_genType) ParamsKey_IsLoopback(params MoqIP_genType_IsLoopback_params, anyParams uint64) MoqIP_genType_IsLoopback_paramsKey {
 	m.Scene.T.Helper()
 	return MoqIP_genType_IsLoopback_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqIP_genType_recorder) IsPrivate() *MoqIP_genType_IsPrivate_fnRecorder {
+	return &MoqIP_genType_IsPrivate_fnRecorder{
+		Params:   MoqIP_genType_IsPrivate_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) Any() *MoqIP_genType_IsPrivate_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsPrivate(r.Params))
+		return nil
+	}
+	return &MoqIP_genType_IsPrivate_anyParams{Recorder: r}
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) Seq() *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsPrivate(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) NoSeq() *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsPrivate(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) ReturnResults(result1 bool) *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqIP_genType_IsPrivate_doFn
+		DoReturnFn MoqIP_genType_IsPrivate_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) AndDo(fn MoqIP_genType_IsPrivate_doFn) *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) DoReturnResults(fn MoqIP_genType_IsPrivate_doReturnFn) *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqIP_genType_IsPrivate_doFn
+		DoReturnFn MoqIP_genType_IsPrivate_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqIP_genType_IsPrivate_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_IsPrivate {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqIP_genType_IsPrivate_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqIP_genType_IsPrivate_paramsKey]*MoqIP_genType_IsPrivate_results{},
+		}
+		r.Moq.ResultsByParams_IsPrivate = append(r.Moq.ResultsByParams_IsPrivate, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_IsPrivate) {
+			copy(r.Moq.ResultsByParams_IsPrivate[insertAt+1:], r.Moq.ResultsByParams_IsPrivate[insertAt:0])
+			r.Moq.ResultsByParams_IsPrivate[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_IsPrivate(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqIP_genType_IsPrivate_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqIP_genType_IsPrivate_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqIP_genType_IsPrivate_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqIP_genType_IsPrivate_doFn
+				DoReturnFn MoqIP_genType_IsPrivate_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqIP_genType) PrettyParams_IsPrivate(params MoqIP_genType_IsPrivate_params) string {
+	return fmt.Sprintf("IsPrivate()")
+}
+
+func (m *MoqIP_genType) ParamsKey_IsPrivate(params MoqIP_genType_IsPrivate_params, anyParams uint64) MoqIP_genType_IsPrivate_paramsKey {
+	m.Scene.T.Helper()
+	return MoqIP_genType_IsPrivate_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -4307,6 +4604,7 @@ func (m *MoqIP_genType) ParamsKey_Equal(params MoqIP_genType_Equal_params, anyPa
 func (m *MoqIP_genType) Reset() {
 	m.ResultsByParams_IsUnspecified = nil
 	m.ResultsByParams_IsLoopback = nil
+	m.ResultsByParams_IsPrivate = nil
 	m.ResultsByParams_IsMulticast = nil
 	m.ResultsByParams_IsInterfaceLocalMulticast = nil
 	m.ResultsByParams_IsLinkLocalMulticast = nil
@@ -4337,6 +4635,14 @@ func (m *MoqIP_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsLoopback(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_IsPrivate {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsPrivate(results.Params))
 			}
 		}
 	}
