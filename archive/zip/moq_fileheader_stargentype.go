@@ -4,8 +4,8 @@ package zip
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 	"time"
 
@@ -21,11 +21,11 @@ var _ FileHeader_starGenType = (*MoqFileHeader_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type FileHeader_starGenType interface {
-	FileInfo() os.FileInfo
+	FileInfo() fs.FileInfo
 	ModTime() time.Time
 	SetModTime(t time.Time)
-	Mode() (mode os.FileMode)
-	SetMode(mode os.FileMode)
+	Mode() (mode fs.FileMode)
+	SetMode(mode fs.FileMode)
 }
 
 // MoqFileHeader_starGenType holds the state of a moq of the
@@ -93,7 +93,7 @@ type MoqFileHeader_starGenType_FileInfo_doFn func()
 
 // MoqFileHeader_starGenType_FileInfo_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the FileHeader_starGenType type
-type MoqFileHeader_starGenType_FileInfo_doReturnFn func() os.FileInfo
+type MoqFileHeader_starGenType_FileInfo_doReturnFn func() fs.FileInfo
 
 // MoqFileHeader_starGenType_FileInfo_results holds the results of the
 // FileHeader_starGenType type
@@ -101,7 +101,7 @@ type MoqFileHeader_starGenType_FileInfo_results struct {
 	Params  MoqFileHeader_starGenType_FileInfo_params
 	Results []struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_FileInfo_doFn
@@ -268,14 +268,14 @@ type MoqFileHeader_starGenType_Mode_doFn func()
 
 // MoqFileHeader_starGenType_Mode_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the FileHeader_starGenType type
-type MoqFileHeader_starGenType_Mode_doReturnFn func() (mode os.FileMode)
+type MoqFileHeader_starGenType_Mode_doReturnFn func() (mode fs.FileMode)
 
 // MoqFileHeader_starGenType_Mode_results holds the results of the
 // FileHeader_starGenType type
 type MoqFileHeader_starGenType_Mode_results struct {
 	Params  MoqFileHeader_starGenType_Mode_params
 	Results []struct {
-		Values     *struct{ Mode os.FileMode }
+		Values     *struct{ Mode fs.FileMode }
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_Mode_doFn
 		DoReturnFn MoqFileHeader_starGenType_Mode_doReturnFn
@@ -302,12 +302,12 @@ type MoqFileHeader_starGenType_Mode_anyParams struct {
 
 // MoqFileHeader_starGenType_SetMode_params holds the params of the
 // FileHeader_starGenType type
-type MoqFileHeader_starGenType_SetMode_params struct{ Mode os.FileMode }
+type MoqFileHeader_starGenType_SetMode_params struct{ Mode fs.FileMode }
 
 // MoqFileHeader_starGenType_SetMode_paramsKey holds the map key params of the
 // FileHeader_starGenType type
 type MoqFileHeader_starGenType_SetMode_paramsKey struct {
-	Params struct{ Mode os.FileMode }
+	Params struct{ Mode fs.FileMode }
 	Hashes struct{ Mode hash.Hash }
 }
 
@@ -321,11 +321,11 @@ type MoqFileHeader_starGenType_SetMode_resultsByParams struct {
 
 // MoqFileHeader_starGenType_SetMode_doFn defines the type of function needed
 // when calling AndDo for the FileHeader_starGenType type
-type MoqFileHeader_starGenType_SetMode_doFn func(mode os.FileMode)
+type MoqFileHeader_starGenType_SetMode_doFn func(mode fs.FileMode)
 
 // MoqFileHeader_starGenType_SetMode_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the FileHeader_starGenType type
-type MoqFileHeader_starGenType_SetMode_doReturnFn func(mode os.FileMode)
+type MoqFileHeader_starGenType_SetMode_doReturnFn func(mode fs.FileMode)
 
 // MoqFileHeader_starGenType_SetMode_results holds the results of the
 // FileHeader_starGenType type
@@ -415,7 +415,7 @@ func NewMoqFileHeader_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile
 // Mock returns the mock implementation of the FileHeader_starGenType type
 func (m *MoqFileHeader_starGenType) Mock() *MoqFileHeader_starGenType_mock { return m.Moq }
 
-func (m *MoqFileHeader_starGenType_mock) FileInfo() (result1 os.FileInfo) {
+func (m *MoqFileHeader_starGenType_mock) FileInfo() (result1 fs.FileInfo) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileHeader_starGenType_FileInfo_params{}
 	var results *MoqFileHeader_starGenType_FileInfo_results
@@ -567,7 +567,7 @@ func (m *MoqFileHeader_starGenType_mock) SetModTime(t time.Time) {
 	return
 }
 
-func (m *MoqFileHeader_starGenType_mock) Mode() (mode os.FileMode) {
+func (m *MoqFileHeader_starGenType_mock) Mode() (mode fs.FileMode) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileHeader_starGenType_Mode_params{}
 	var results *MoqFileHeader_starGenType_Mode_results
@@ -618,7 +618,7 @@ func (m *MoqFileHeader_starGenType_mock) Mode() (mode os.FileMode) {
 	return
 }
 
-func (m *MoqFileHeader_starGenType_mock) SetMode(mode os.FileMode) {
+func (m *MoqFileHeader_starGenType_mock) SetMode(mode fs.FileMode) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileHeader_starGenType_SetMode_params{
 		Mode: mode,
@@ -713,7 +713,7 @@ func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) NoSeq() *MoqFileHeader_s
 	return r
 }
 
-func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 os.FileInfo) *MoqFileHeader_starGenType_FileInfo_fnRecorder {
+func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 fs.FileInfo) *MoqFileHeader_starGenType_FileInfo_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -724,14 +724,14 @@ func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 os
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_FileInfo_doFn
 		DoReturnFn MoqFileHeader_starGenType_FileInfo_doReturnFn
 	}{
 		Values: &struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}{
 			Result1: result1,
 		},
@@ -762,7 +762,7 @@ func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) DoReturnResults(fn MoqFi
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_FileInfo_doFn
@@ -832,7 +832,7 @@ func (r *MoqFileHeader_starGenType_FileInfo_fnRecorder) Repeat(repeaters ...moq.
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 os.FileInfo
+					Result1 fs.FileInfo
 				}
 				Sequence   uint32
 				DoFn       MoqFileHeader_starGenType_FileInfo_doFn
@@ -1272,7 +1272,7 @@ func (r *MoqFileHeader_starGenType_Mode_fnRecorder) NoSeq() *MoqFileHeader_starG
 	return r
 }
 
-func (r *MoqFileHeader_starGenType_Mode_fnRecorder) ReturnResults(mode os.FileMode) *MoqFileHeader_starGenType_Mode_fnRecorder {
+func (r *MoqFileHeader_starGenType_Mode_fnRecorder) ReturnResults(mode fs.FileMode) *MoqFileHeader_starGenType_Mode_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1282,12 +1282,12 @@ func (r *MoqFileHeader_starGenType_Mode_fnRecorder) ReturnResults(mode os.FileMo
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Mode os.FileMode }
+		Values     *struct{ Mode fs.FileMode }
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_Mode_doFn
 		DoReturnFn MoqFileHeader_starGenType_Mode_doReturnFn
 	}{
-		Values: &struct{ Mode os.FileMode }{
+		Values: &struct{ Mode fs.FileMode }{
 			Mode: mode,
 		},
 		Sequence: sequence,
@@ -1316,7 +1316,7 @@ func (r *MoqFileHeader_starGenType_Mode_fnRecorder) DoReturnResults(fn MoqFileHe
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Mode os.FileMode }
+		Values     *struct{ Mode fs.FileMode }
 		Sequence   uint32
 		DoFn       MoqFileHeader_starGenType_Mode_doFn
 		DoReturnFn MoqFileHeader_starGenType_Mode_doReturnFn
@@ -1384,7 +1384,7 @@ func (r *MoqFileHeader_starGenType_Mode_fnRecorder) Repeat(repeaters ...moq.Repe
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Mode os.FileMode }
+				Values     *struct{ Mode fs.FileMode }
 				Sequence   uint32
 				DoFn       MoqFileHeader_starGenType_Mode_doFn
 				DoReturnFn MoqFileHeader_starGenType_Mode_doReturnFn
@@ -1410,7 +1410,7 @@ func (m *MoqFileHeader_starGenType) ParamsKey_Mode(params MoqFileHeader_starGenT
 	}
 }
 
-func (m *MoqFileHeader_starGenType_recorder) SetMode(mode os.FileMode) *MoqFileHeader_starGenType_SetMode_fnRecorder {
+func (m *MoqFileHeader_starGenType_recorder) SetMode(mode fs.FileMode) *MoqFileHeader_starGenType_SetMode_fnRecorder {
 	return &MoqFileHeader_starGenType_SetMode_fnRecorder{
 		Params: MoqFileHeader_starGenType_SetMode_params{
 			Mode: mode,
@@ -1584,7 +1584,7 @@ func (m *MoqFileHeader_starGenType) PrettyParams_SetMode(params MoqFileHeader_st
 
 func (m *MoqFileHeader_starGenType) ParamsKey_SetMode(params MoqFileHeader_starGenType_SetMode_params, anyParams uint64) MoqFileHeader_starGenType_SetMode_paramsKey {
 	m.Scene.T.Helper()
-	var modeUsed os.FileMode
+	var modeUsed fs.FileMode
 	var modeUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.SetMode.Mode == moq.ParamIndexByValue {
@@ -1594,7 +1594,7 @@ func (m *MoqFileHeader_starGenType) ParamsKey_SetMode(params MoqFileHeader_starG
 		}
 	}
 	return MoqFileHeader_starGenType_SetMode_paramsKey{
-		Params: struct{ Mode os.FileMode }{
+		Params: struct{ Mode fs.FileMode }{
 			Mode: modeUsed,
 		},
 		Hashes: struct{ Mode hash.Hash }{

@@ -4,9 +4,9 @@ package http
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
 	"net/http"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -252,14 +252,14 @@ type MoqFile_Readdir_doFn func(count int)
 
 // MoqFile_Readdir_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the File type
-type MoqFile_Readdir_doReturnFn func(count int) ([]os.FileInfo, error)
+type MoqFile_Readdir_doReturnFn func(count int) ([]fs.FileInfo, error)
 
 // MoqFile_Readdir_results holds the results of the File type
 type MoqFile_Readdir_results struct {
 	Params  MoqFile_Readdir_params
 	Results []struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -307,14 +307,14 @@ type MoqFile_Stat_doFn func()
 
 // MoqFile_Stat_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the File type
-type MoqFile_Stat_doReturnFn func() (os.FileInfo, error)
+type MoqFile_Stat_doReturnFn func() (fs.FileInfo, error)
 
 // MoqFile_Stat_results holds the results of the File type
 type MoqFile_Stat_results struct {
 	Params  MoqFile_Stat_params
 	Results []struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -568,7 +568,7 @@ func (m *MoqFile_mock) Seek(offset int64, whence int) (result1 int64, result2 er
 	return
 }
 
-func (m *MoqFile_mock) Readdir(count int) (result1 []os.FileInfo, result2 error) {
+func (m *MoqFile_mock) Readdir(count int) (result1 []fs.FileInfo, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFile_Readdir_params{
 		Count: count,
@@ -622,7 +622,7 @@ func (m *MoqFile_mock) Readdir(count int) (result1 []os.FileInfo, result2 error)
 	return
 }
 
-func (m *MoqFile_mock) Stat() (result1 os.FileInfo, result2 error) {
+func (m *MoqFile_mock) Stat() (result1 fs.FileInfo, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFile_Stat_params{}
 	var results *MoqFile_Stat_results
@@ -1343,7 +1343,7 @@ func (r *MoqFile_Readdir_fnRecorder) NoSeq() *MoqFile_Readdir_fnRecorder {
 	return r
 }
 
-func (r *MoqFile_Readdir_fnRecorder) ReturnResults(result1 []os.FileInfo, result2 error) *MoqFile_Readdir_fnRecorder {
+func (r *MoqFile_Readdir_fnRecorder) ReturnResults(result1 []fs.FileInfo, result2 error) *MoqFile_Readdir_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1354,7 +1354,7 @@ func (r *MoqFile_Readdir_fnRecorder) ReturnResults(result1 []os.FileInfo, result
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -1362,7 +1362,7 @@ func (r *MoqFile_Readdir_fnRecorder) ReturnResults(result1 []os.FileInfo, result
 		DoReturnFn MoqFile_Readdir_doReturnFn
 	}{
 		Values: &struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}{
 			Result1: result1,
@@ -1395,7 +1395,7 @@ func (r *MoqFile_Readdir_fnRecorder) DoReturnResults(fn MoqFile_Readdir_doReturn
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -1466,7 +1466,7 @@ func (r *MoqFile_Readdir_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 []os.FileInfo
+					Result1 []fs.FileInfo
 					Result2 error
 				}
 				Sequence   uint32
@@ -1544,7 +1544,7 @@ func (r *MoqFile_Stat_fnRecorder) NoSeq() *MoqFile_Stat_fnRecorder {
 	return r
 }
 
-func (r *MoqFile_Stat_fnRecorder) ReturnResults(result1 os.FileInfo, result2 error) *MoqFile_Stat_fnRecorder {
+func (r *MoqFile_Stat_fnRecorder) ReturnResults(result1 fs.FileInfo, result2 error) *MoqFile_Stat_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1555,7 +1555,7 @@ func (r *MoqFile_Stat_fnRecorder) ReturnResults(result1 os.FileInfo, result2 err
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -1563,7 +1563,7 @@ func (r *MoqFile_Stat_fnRecorder) ReturnResults(result1 os.FileInfo, result2 err
 		DoReturnFn MoqFile_Stat_doReturnFn
 	}{
 		Values: &struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 			Result2 error
 		}{
 			Result1: result1,
@@ -1596,7 +1596,7 @@ func (r *MoqFile_Stat_fnRecorder) DoReturnResults(fn MoqFile_Stat_doReturnFn) *M
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -1667,7 +1667,7 @@ func (r *MoqFile_Stat_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_Sta
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 os.FileInfo
+					Result1 fs.FileInfo
 					Result2 error
 				}
 				Sequence   uint32

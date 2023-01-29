@@ -13,7 +13,7 @@ import (
 
 // Setresuid_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type Setresuid_genType func(ruid int, euid int, suid int) (err error)
+type Setresuid_genType func(ruid, euid, suid int) (err error)
 
 // MoqSetresuid_genType holds the state of a moq of the Setresuid_genType type
 type MoqSetresuid_genType struct {
@@ -39,25 +39,13 @@ type MoqSetresuid_genType_mock struct {
 }
 
 // MoqSetresuid_genType_params holds the params of the Setresuid_genType type
-type MoqSetresuid_genType_params struct {
-	Ruid int
-	Euid int
-	Suid int
-}
+type MoqSetresuid_genType_params struct{ Ruid, Euid, Suid int }
 
 // MoqSetresuid_genType_paramsKey holds the map key params of the
 // Setresuid_genType type
 type MoqSetresuid_genType_paramsKey struct {
-	Params struct {
-		Ruid int
-		Euid int
-		Suid int
-	}
-	Hashes struct {
-		Ruid hash.Hash
-		Euid hash.Hash
-		Suid hash.Hash
-	}
+	Params struct{ Ruid, Euid, Suid int }
+	Hashes struct{ Ruid, Euid, Suid hash.Hash }
 }
 
 // MoqSetresuid_genType_resultsByParams contains the results for a given set of
@@ -70,11 +58,11 @@ type MoqSetresuid_genType_resultsByParams struct {
 
 // MoqSetresuid_genType_doFn defines the type of function needed when calling
 // AndDo for the Setresuid_genType type
-type MoqSetresuid_genType_doFn func(ruid int, euid int, suid int)
+type MoqSetresuid_genType_doFn func(ruid, euid, suid int)
 
 // MoqSetresuid_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Setresuid_genType type
-type MoqSetresuid_genType_doReturnFn func(ruid int, euid int, suid int) (err error)
+type MoqSetresuid_genType_doReturnFn func(ruid, euid, suid int) (err error)
 
 // MoqSetresuid_genType_results holds the results of the Setresuid_genType type
 type MoqSetresuid_genType_results struct {
@@ -139,14 +127,14 @@ func NewMoqSetresuid_genType(scene *moq.Scene, config *moq.Config) *MoqSetresuid
 
 // Mock returns the moq implementation of the Setresuid_genType type
 func (m *MoqSetresuid_genType) Mock() Setresuid_genType {
-	return func(ruid int, euid int, suid int) (_ error) {
+	return func(ruid, euid, suid int) (_ error) {
 		m.Scene.T.Helper()
 		moq := &MoqSetresuid_genType_mock{Moq: m}
 		return moq.Fn(ruid, euid, suid)
 	}
 }
 
-func (m *MoqSetresuid_genType_mock) Fn(ruid int, euid int, suid int) (err error) {
+func (m *MoqSetresuid_genType_mock) Fn(ruid, euid, suid int) (err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSetresuid_genType_params{
 		Ruid: ruid,
@@ -201,7 +189,7 @@ func (m *MoqSetresuid_genType_mock) Fn(ruid int, euid int, suid int) (err error)
 	return
 }
 
-func (m *MoqSetresuid_genType) OnCall(ruid int, euid int, suid int) *MoqSetresuid_genType_fnRecorder {
+func (m *MoqSetresuid_genType) OnCall(ruid, euid, suid int) *MoqSetresuid_genType_fnRecorder {
 	return &MoqSetresuid_genType_fnRecorder{
 		Params: MoqSetresuid_genType_params{
 			Ruid: ruid,
@@ -417,20 +405,12 @@ func (m *MoqSetresuid_genType) ParamsKey(params MoqSetresuid_genType_params, any
 		}
 	}
 	return MoqSetresuid_genType_paramsKey{
-		Params: struct {
-			Ruid int
-			Euid int
-			Suid int
-		}{
+		Params: struct{ Ruid, Euid, Suid int }{
 			Ruid: ruidUsed,
 			Euid: euidUsed,
 			Suid: suidUsed,
 		},
-		Hashes: struct {
-			Ruid hash.Hash
-			Euid hash.Hash
-			Suid hash.Hash
-		}{
+		Hashes: struct{ Ruid, Euid, Suid hash.Hash }{
 			Ruid: ruidUsedHash,
 			Euid: euidUsedHash,
 			Suid: suidUsedHash,

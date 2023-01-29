@@ -7,8 +7,8 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -17,7 +17,7 @@ import (
 
 // ParseDir_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type ParseDir_genType func(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error)
+type ParseDir_genType func(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error)
 
 // MoqParseDir_genType holds the state of a moq of the ParseDir_genType type
 type MoqParseDir_genType struct {
@@ -47,7 +47,7 @@ type MoqParseDir_genType_mock struct {
 type MoqParseDir_genType_params struct {
 	Fset   *token.FileSet
 	Path   string
-	Filter func(os.FileInfo) bool
+	Filter func(fs.FileInfo) bool
 	Mode   parser.Mode
 }
 
@@ -77,11 +77,11 @@ type MoqParseDir_genType_resultsByParams struct {
 
 // MoqParseDir_genType_doFn defines the type of function needed when calling
 // AndDo for the ParseDir_genType type
-type MoqParseDir_genType_doFn func(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode)
+type MoqParseDir_genType_doFn func(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode)
 
 // MoqParseDir_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the ParseDir_genType type
-type MoqParseDir_genType_doReturnFn func(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error)
+type MoqParseDir_genType_doReturnFn func(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error)
 
 // MoqParseDir_genType_results holds the results of the ParseDir_genType type
 type MoqParseDir_genType_results struct {
@@ -152,14 +152,14 @@ func NewMoqParseDir_genType(scene *moq.Scene, config *moq.Config) *MoqParseDir_g
 
 // Mock returns the moq implementation of the ParseDir_genType type
 func (m *MoqParseDir_genType) Mock() ParseDir_genType {
-	return func(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode) (_ map[string]*ast.Package, _ error) {
+	return func(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode) (_ map[string]*ast.Package, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqParseDir_genType_mock{Moq: m}
 		return moq.Fn(fset, path, filter, mode)
 	}
 }
 
-func (m *MoqParseDir_genType_mock) Fn(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error) {
+func (m *MoqParseDir_genType_mock) Fn(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode) (pkgs map[string]*ast.Package, first error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParseDir_genType_params{
 		Fset:   fset,
@@ -216,7 +216,7 @@ func (m *MoqParseDir_genType_mock) Fn(fset *token.FileSet, path string, filter f
 	return
 }
 
-func (m *MoqParseDir_genType) OnCall(fset *token.FileSet, path string, filter func(os.FileInfo) bool, mode parser.Mode) *MoqParseDir_genType_fnRecorder {
+func (m *MoqParseDir_genType) OnCall(fset *token.FileSet, path string, filter func(fs.FileInfo) bool, mode parser.Mode) *MoqParseDir_genType_fnRecorder {
 	return &MoqParseDir_genType_fnRecorder{
 		Params: MoqParseDir_genType_params{
 			Fset:   fset,

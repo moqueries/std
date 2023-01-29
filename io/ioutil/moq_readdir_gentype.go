@@ -4,8 +4,8 @@ package ioutil
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -14,7 +14,7 @@ import (
 
 // ReadDir_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type ReadDir_genType func(dirname string) ([]os.FileInfo, error)
+type ReadDir_genType func(dirname string) ([]fs.FileInfo, error)
 
 // MoqReadDir_genType holds the state of a moq of the ReadDir_genType type
 type MoqReadDir_genType struct {
@@ -61,14 +61,14 @@ type MoqReadDir_genType_doFn func(dirname string)
 
 // MoqReadDir_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the ReadDir_genType type
-type MoqReadDir_genType_doReturnFn func(dirname string) ([]os.FileInfo, error)
+type MoqReadDir_genType_doReturnFn func(dirname string) ([]fs.FileInfo, error)
 
 // MoqReadDir_genType_results holds the results of the ReadDir_genType type
 type MoqReadDir_genType_results struct {
 	Params  MoqReadDir_genType_params
 	Results []struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -123,14 +123,14 @@ func NewMoqReadDir_genType(scene *moq.Scene, config *moq.Config) *MoqReadDir_gen
 
 // Mock returns the moq implementation of the ReadDir_genType type
 func (m *MoqReadDir_genType) Mock() ReadDir_genType {
-	return func(dirname string) ([]os.FileInfo, error) {
+	return func(dirname string) ([]fs.FileInfo, error) {
 		m.Scene.T.Helper()
 		moq := &MoqReadDir_genType_mock{Moq: m}
 		return moq.Fn(dirname)
 	}
 }
 
-func (m *MoqReadDir_genType_mock) Fn(dirname string) (result1 []os.FileInfo, result2 error) {
+func (m *MoqReadDir_genType_mock) Fn(dirname string) (result1 []fs.FileInfo, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqReadDir_genType_params{
 		Dirname: dirname,
@@ -228,7 +228,7 @@ func (r *MoqReadDir_genType_fnRecorder) NoSeq() *MoqReadDir_genType_fnRecorder {
 	return r
 }
 
-func (r *MoqReadDir_genType_fnRecorder) ReturnResults(result1 []os.FileInfo, result2 error) *MoqReadDir_genType_fnRecorder {
+func (r *MoqReadDir_genType_fnRecorder) ReturnResults(result1 []fs.FileInfo, result2 error) *MoqReadDir_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -239,7 +239,7 @@ func (r *MoqReadDir_genType_fnRecorder) ReturnResults(result1 []os.FileInfo, res
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -247,7 +247,7 @@ func (r *MoqReadDir_genType_fnRecorder) ReturnResults(result1 []os.FileInfo, res
 		DoReturnFn MoqReadDir_genType_doReturnFn
 	}{
 		Values: &struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}{
 			Result1: result1,
@@ -280,7 +280,7 @@ func (r *MoqReadDir_genType_fnRecorder) DoReturnResults(fn MoqReadDir_genType_do
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 []os.FileInfo
+			Result1 []fs.FileInfo
 			Result2 error
 		}
 		Sequence   uint32
@@ -351,7 +351,7 @@ func (r *MoqReadDir_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRe
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 []os.FileInfo
+					Result1 []fs.FileInfo
 					Result2 error
 				}
 				Sequence   uint32

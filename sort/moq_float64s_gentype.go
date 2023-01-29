@@ -13,7 +13,7 @@ import (
 
 // Float64s_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Float64s_genType func(a []float64)
+type Float64s_genType func(x []float64)
 
 // MoqFloat64s_genType holds the state of a moq of the Float64s_genType type
 type MoqFloat64s_genType struct {
@@ -25,7 +25,7 @@ type MoqFloat64s_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}
 	}
 }
@@ -37,13 +37,13 @@ type MoqFloat64s_genType_mock struct {
 }
 
 // MoqFloat64s_genType_params holds the params of the Float64s_genType type
-type MoqFloat64s_genType_params struct{ A []float64 }
+type MoqFloat64s_genType_params struct{ X []float64 }
 
 // MoqFloat64s_genType_paramsKey holds the map key params of the
 // Float64s_genType type
 type MoqFloat64s_genType_paramsKey struct {
 	Params struct{}
-	Hashes struct{ A hash.Hash }
+	Hashes struct{ X hash.Hash }
 }
 
 // MoqFloat64s_genType_resultsByParams contains the results for a given set of
@@ -56,11 +56,11 @@ type MoqFloat64s_genType_resultsByParams struct {
 
 // MoqFloat64s_genType_doFn defines the type of function needed when calling
 // AndDo for the Float64s_genType type
-type MoqFloat64s_genType_doFn func(a []float64)
+type MoqFloat64s_genType_doFn func(x []float64)
 
 // MoqFloat64s_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Float64s_genType type
-type MoqFloat64s_genType_doReturnFn func(a []float64)
+type MoqFloat64s_genType_doReturnFn func(x []float64)
 
 // MoqFloat64s_genType_results holds the results of the Float64s_genType type
 type MoqFloat64s_genType_results struct {
@@ -103,12 +103,12 @@ func NewMoqFloat64s_genType(scene *moq.Scene, config *moq.Config) *MoqFloat64s_g
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				A moq.ParamIndexing
+				X moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}{
-			A: moq.ParamIndexByHash,
+			X: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -119,13 +119,13 @@ func NewMoqFloat64s_genType(scene *moq.Scene, config *moq.Config) *MoqFloat64s_g
 
 // Mock returns the moq implementation of the Float64s_genType type
 func (m *MoqFloat64s_genType) Mock() Float64s_genType {
-	return func(a []float64) { m.Scene.T.Helper(); moq := &MoqFloat64s_genType_mock{Moq: m}; moq.Fn(a) }
+	return func(x []float64) { m.Scene.T.Helper(); moq := &MoqFloat64s_genType_mock{Moq: m}; moq.Fn(x) }
 }
 
-func (m *MoqFloat64s_genType_mock) Fn(a []float64) {
+func (m *MoqFloat64s_genType_mock) Fn(x []float64) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFloat64s_genType_params{
-		A: a,
+		X: x,
 	}
 	var results *MoqFloat64s_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -163,19 +163,19 @@ func (m *MoqFloat64s_genType_mock) Fn(a []float64) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(a)
+		result.DoFn(x)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(a)
+		result.DoReturnFn(x)
 	}
 	return
 }
 
-func (m *MoqFloat64s_genType) OnCall(a []float64) *MoqFloat64s_genType_fnRecorder {
+func (m *MoqFloat64s_genType) OnCall(x []float64) *MoqFloat64s_genType_fnRecorder {
 	return &MoqFloat64s_genType_fnRecorder{
 		Params: MoqFloat64s_genType_params{
-			A: a,
+			X: x,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -191,7 +191,7 @@ func (r *MoqFloat64s_genType_fnRecorder) Any() *MoqFloat64s_genType_anyParams {
 	return &MoqFloat64s_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqFloat64s_genType_anyParams) A() *MoqFloat64s_genType_fnRecorder {
+func (a *MoqFloat64s_genType_anyParams) X() *MoqFloat64s_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -341,22 +341,22 @@ func (r *MoqFloat64s_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqF
 }
 
 func (m *MoqFloat64s_genType) PrettyParams(params MoqFloat64s_genType_params) string {
-	return fmt.Sprintf("Float64s_genType(%#v)", params.A)
+	return fmt.Sprintf("Float64s_genType(%#v)", params.X)
 }
 
 func (m *MoqFloat64s_genType) ParamsKey(params MoqFloat64s_genType_params, anyParams uint64) MoqFloat64s_genType_paramsKey {
 	m.Scene.T.Helper()
-	var aUsedHash hash.Hash
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.A == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The a parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The x parameter can't be indexed by value")
 		}
-		aUsedHash = hash.DeepHash(params.A)
+		xUsedHash = hash.DeepHash(params.X)
 	}
 	return MoqFloat64s_genType_paramsKey{
 		Params: struct{}{},
-		Hashes: struct{ A hash.Hash }{
-			A: aUsedHash,
+		Hashes: struct{ X hash.Hash }{
+			X: xUsedHash,
 		},
 	}
 }

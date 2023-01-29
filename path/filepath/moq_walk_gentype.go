@@ -14,7 +14,7 @@ import (
 
 // Walk_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Walk_genType func(root string, walkFn filepath.WalkFunc) error
+type Walk_genType func(root string, fn filepath.WalkFunc) error
 
 // MoqWalk_genType holds the state of a moq of the Walk_genType type
 type MoqWalk_genType struct {
@@ -26,8 +26,8 @@ type MoqWalk_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Root   moq.ParamIndexing
-			WalkFn moq.ParamIndexing
+			Root moq.ParamIndexing
+			Fn   moq.ParamIndexing
 		}
 	}
 }
@@ -39,16 +39,16 @@ type MoqWalk_genType_mock struct {
 
 // MoqWalk_genType_params holds the params of the Walk_genType type
 type MoqWalk_genType_params struct {
-	Root   string
-	WalkFn filepath.WalkFunc
+	Root string
+	Fn   filepath.WalkFunc
 }
 
 // MoqWalk_genType_paramsKey holds the map key params of the Walk_genType type
 type MoqWalk_genType_paramsKey struct {
 	Params struct{ Root string }
 	Hashes struct {
-		Root   hash.Hash
-		WalkFn hash.Hash
+		Root hash.Hash
+		Fn   hash.Hash
 	}
 }
 
@@ -62,11 +62,11 @@ type MoqWalk_genType_resultsByParams struct {
 
 // MoqWalk_genType_doFn defines the type of function needed when calling AndDo
 // for the Walk_genType type
-type MoqWalk_genType_doFn func(root string, walkFn filepath.WalkFunc)
+type MoqWalk_genType_doFn func(root string, fn filepath.WalkFunc)
 
 // MoqWalk_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Walk_genType type
-type MoqWalk_genType_doReturnFn func(root string, walkFn filepath.WalkFunc) error
+type MoqWalk_genType_doReturnFn func(root string, fn filepath.WalkFunc) error
 
 // MoqWalk_genType_results holds the results of the Walk_genType type
 type MoqWalk_genType_results struct {
@@ -111,15 +111,15 @@ func NewMoqWalk_genType(scene *moq.Scene, config *moq.Config) *MoqWalk_genType {
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Root   moq.ParamIndexing
-				WalkFn moq.ParamIndexing
+				Root moq.ParamIndexing
+				Fn   moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Root   moq.ParamIndexing
-			WalkFn moq.ParamIndexing
+			Root moq.ParamIndexing
+			Fn   moq.ParamIndexing
 		}{
-			Root:   moq.ParamIndexByValue,
-			WalkFn: moq.ParamIndexByHash,
+			Root: moq.ParamIndexByValue,
+			Fn:   moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -130,18 +130,18 @@ func NewMoqWalk_genType(scene *moq.Scene, config *moq.Config) *MoqWalk_genType {
 
 // Mock returns the moq implementation of the Walk_genType type
 func (m *MoqWalk_genType) Mock() Walk_genType {
-	return func(root string, walkFn filepath.WalkFunc) error {
+	return func(root string, fn filepath.WalkFunc) error {
 		m.Scene.T.Helper()
 		moq := &MoqWalk_genType_mock{Moq: m}
-		return moq.Fn(root, walkFn)
+		return moq.Fn(root, fn)
 	}
 }
 
-func (m *MoqWalk_genType_mock) Fn(root string, walkFn filepath.WalkFunc) (result1 error) {
+func (m *MoqWalk_genType_mock) Fn(root string, fn filepath.WalkFunc) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWalk_genType_params{
-		Root:   root,
-		WalkFn: walkFn,
+		Root: root,
+		Fn:   fn,
 	}
 	var results *MoqWalk_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -179,23 +179,23 @@ func (m *MoqWalk_genType_mock) Fn(root string, walkFn filepath.WalkFunc) (result
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(root, walkFn)
+		result.DoFn(root, fn)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(root, walkFn)
+		result1 = result.DoReturnFn(root, fn)
 	}
 	return
 }
 
-func (m *MoqWalk_genType) OnCall(root string, walkFn filepath.WalkFunc) *MoqWalk_genType_fnRecorder {
+func (m *MoqWalk_genType) OnCall(root string, fn filepath.WalkFunc) *MoqWalk_genType_fnRecorder {
 	return &MoqWalk_genType_fnRecorder{
 		Params: MoqWalk_genType_params{
-			Root:   root,
-			WalkFn: walkFn,
+			Root: root,
+			Fn:   fn,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -216,7 +216,7 @@ func (a *MoqWalk_genType_anyParams) Root() *MoqWalk_genType_fnRecorder {
 	return a.Recorder
 }
 
-func (a *MoqWalk_genType_anyParams) WalkFn() *MoqWalk_genType_fnRecorder {
+func (a *MoqWalk_genType_anyParams) Fn() *MoqWalk_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 1
 	return a.Recorder
 }
@@ -376,7 +376,7 @@ func (r *MoqWalk_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqWalk_
 }
 
 func (m *MoqWalk_genType) PrettyParams(params MoqWalk_genType_params) string {
-	return fmt.Sprintf("Walk_genType(%#v, %#v)", params.Root, params.WalkFn)
+	return fmt.Sprintf("Walk_genType(%#v, %#v)", params.Root, params.Fn)
 }
 
 func (m *MoqWalk_genType) ParamsKey(params MoqWalk_genType_params, anyParams uint64) MoqWalk_genType_paramsKey {
@@ -390,23 +390,23 @@ func (m *MoqWalk_genType) ParamsKey(params MoqWalk_genType_params, anyParams uin
 			rootUsedHash = hash.DeepHash(params.Root)
 		}
 	}
-	var walkFnUsedHash hash.Hash
+	var fnUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
-		if m.Runtime.ParameterIndexing.WalkFn == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The walkFn parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.Fn == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The fn parameter can't be indexed by value")
 		}
-		walkFnUsedHash = hash.DeepHash(params.WalkFn)
+		fnUsedHash = hash.DeepHash(params.Fn)
 	}
 	return MoqWalk_genType_paramsKey{
 		Params: struct{ Root string }{
 			Root: rootUsed,
 		},
 		Hashes: struct {
-			Root   hash.Hash
-			WalkFn hash.Hash
+			Root hash.Hash
+			Fn   hash.Hash
 		}{
-			Root:   rootUsedHash,
-			WalkFn: walkFnUsedHash,
+			Root: rootUsedHash,
+			Fn:   fnUsedHash,
 		},
 	}
 }

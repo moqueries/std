@@ -13,7 +13,7 @@ import (
 
 // Setresgid_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type Setresgid_genType func(rgid int, egid int, sgid int) (err error)
+type Setresgid_genType func(rgid, egid, sgid int) (err error)
 
 // MoqSetresgid_genType holds the state of a moq of the Setresgid_genType type
 type MoqSetresgid_genType struct {
@@ -39,25 +39,13 @@ type MoqSetresgid_genType_mock struct {
 }
 
 // MoqSetresgid_genType_params holds the params of the Setresgid_genType type
-type MoqSetresgid_genType_params struct {
-	Rgid int
-	Egid int
-	Sgid int
-}
+type MoqSetresgid_genType_params struct{ Rgid, Egid, Sgid int }
 
 // MoqSetresgid_genType_paramsKey holds the map key params of the
 // Setresgid_genType type
 type MoqSetresgid_genType_paramsKey struct {
-	Params struct {
-		Rgid int
-		Egid int
-		Sgid int
-	}
-	Hashes struct {
-		Rgid hash.Hash
-		Egid hash.Hash
-		Sgid hash.Hash
-	}
+	Params struct{ Rgid, Egid, Sgid int }
+	Hashes struct{ Rgid, Egid, Sgid hash.Hash }
 }
 
 // MoqSetresgid_genType_resultsByParams contains the results for a given set of
@@ -70,11 +58,11 @@ type MoqSetresgid_genType_resultsByParams struct {
 
 // MoqSetresgid_genType_doFn defines the type of function needed when calling
 // AndDo for the Setresgid_genType type
-type MoqSetresgid_genType_doFn func(rgid int, egid int, sgid int)
+type MoqSetresgid_genType_doFn func(rgid, egid, sgid int)
 
 // MoqSetresgid_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Setresgid_genType type
-type MoqSetresgid_genType_doReturnFn func(rgid int, egid int, sgid int) (err error)
+type MoqSetresgid_genType_doReturnFn func(rgid, egid, sgid int) (err error)
 
 // MoqSetresgid_genType_results holds the results of the Setresgid_genType type
 type MoqSetresgid_genType_results struct {
@@ -139,14 +127,14 @@ func NewMoqSetresgid_genType(scene *moq.Scene, config *moq.Config) *MoqSetresgid
 
 // Mock returns the moq implementation of the Setresgid_genType type
 func (m *MoqSetresgid_genType) Mock() Setresgid_genType {
-	return func(rgid int, egid int, sgid int) (_ error) {
+	return func(rgid, egid, sgid int) (_ error) {
 		m.Scene.T.Helper()
 		moq := &MoqSetresgid_genType_mock{Moq: m}
 		return moq.Fn(rgid, egid, sgid)
 	}
 }
 
-func (m *MoqSetresgid_genType_mock) Fn(rgid int, egid int, sgid int) (err error) {
+func (m *MoqSetresgid_genType_mock) Fn(rgid, egid, sgid int) (err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSetresgid_genType_params{
 		Rgid: rgid,
@@ -201,7 +189,7 @@ func (m *MoqSetresgid_genType_mock) Fn(rgid int, egid int, sgid int) (err error)
 	return
 }
 
-func (m *MoqSetresgid_genType) OnCall(rgid int, egid int, sgid int) *MoqSetresgid_genType_fnRecorder {
+func (m *MoqSetresgid_genType) OnCall(rgid, egid, sgid int) *MoqSetresgid_genType_fnRecorder {
 	return &MoqSetresgid_genType_fnRecorder{
 		Params: MoqSetresgid_genType_params{
 			Rgid: rgid,
@@ -417,20 +405,12 @@ func (m *MoqSetresgid_genType) ParamsKey(params MoqSetresgid_genType_params, any
 		}
 	}
 	return MoqSetresgid_genType_paramsKey{
-		Params: struct {
-			Rgid int
-			Egid int
-			Sgid int
-		}{
+		Params: struct{ Rgid, Egid, Sgid int }{
 			Rgid: rgidUsed,
 			Egid: egidUsed,
 			Sgid: sgidUsed,
 		},
-		Hashes: struct {
-			Rgid hash.Hash
-			Egid hash.Hash
-			Sgid hash.Hash
-		}{
+		Hashes: struct{ Rgid, Egid, Sgid hash.Hash }{
 			Rgid: rgidUsedHash,
 			Egid: egidUsedHash,
 			Sgid: sgidUsedHash,

@@ -13,7 +13,7 @@ import (
 
 // Slice_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Slice_genType func(slice interface{}, less func(i, j int) bool)
+type Slice_genType func(x interface{}, less func(i, j int) bool)
 
 // MoqSlice_genType holds the state of a moq of the Slice_genType type
 type MoqSlice_genType struct {
@@ -25,8 +25,8 @@ type MoqSlice_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Slice moq.ParamIndexing
-			Less  moq.ParamIndexing
+			X    moq.ParamIndexing
+			Less moq.ParamIndexing
 		}
 	}
 }
@@ -38,17 +38,17 @@ type MoqSlice_genType_mock struct {
 
 // MoqSlice_genType_params holds the params of the Slice_genType type
 type MoqSlice_genType_params struct {
-	Slice interface{}
-	Less  func(i, j int) bool
+	X    interface{}
+	Less func(i, j int) bool
 }
 
 // MoqSlice_genType_paramsKey holds the map key params of the Slice_genType
 // type
 type MoqSlice_genType_paramsKey struct {
-	Params struct{ Slice interface{} }
+	Params struct{ X interface{} }
 	Hashes struct {
-		Slice hash.Hash
-		Less  hash.Hash
+		X    hash.Hash
+		Less hash.Hash
 	}
 }
 
@@ -62,11 +62,11 @@ type MoqSlice_genType_resultsByParams struct {
 
 // MoqSlice_genType_doFn defines the type of function needed when calling AndDo
 // for the Slice_genType type
-type MoqSlice_genType_doFn func(slice interface{}, less func(i, j int) bool)
+type MoqSlice_genType_doFn func(x interface{}, less func(i, j int) bool)
 
 // MoqSlice_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Slice_genType type
-type MoqSlice_genType_doReturnFn func(slice interface{}, less func(i, j int) bool)
+type MoqSlice_genType_doReturnFn func(x interface{}, less func(i, j int) bool)
 
 // MoqSlice_genType_results holds the results of the Slice_genType type
 type MoqSlice_genType_results struct {
@@ -109,15 +109,15 @@ func NewMoqSlice_genType(scene *moq.Scene, config *moq.Config) *MoqSlice_genType
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Slice moq.ParamIndexing
-				Less  moq.ParamIndexing
+				X    moq.ParamIndexing
+				Less moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Slice moq.ParamIndexing
-			Less  moq.ParamIndexing
+			X    moq.ParamIndexing
+			Less moq.ParamIndexing
 		}{
-			Slice: moq.ParamIndexByHash,
-			Less:  moq.ParamIndexByHash,
+			X:    moq.ParamIndexByHash,
+			Less: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -128,18 +128,18 @@ func NewMoqSlice_genType(scene *moq.Scene, config *moq.Config) *MoqSlice_genType
 
 // Mock returns the moq implementation of the Slice_genType type
 func (m *MoqSlice_genType) Mock() Slice_genType {
-	return func(slice interface{}, less func(i, j int) bool) {
+	return func(x interface{}, less func(i, j int) bool) {
 		m.Scene.T.Helper()
 		moq := &MoqSlice_genType_mock{Moq: m}
-		moq.Fn(slice, less)
+		moq.Fn(x, less)
 	}
 }
 
-func (m *MoqSlice_genType_mock) Fn(slice interface{}, less func(i, j int) bool) {
+func (m *MoqSlice_genType_mock) Fn(x interface{}, less func(i, j int) bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSlice_genType_params{
-		Slice: slice,
-		Less:  less,
+		X:    x,
+		Less: less,
 	}
 	var results *MoqSlice_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -177,20 +177,20 @@ func (m *MoqSlice_genType_mock) Fn(slice interface{}, less func(i, j int) bool) 
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(slice, less)
+		result.DoFn(x, less)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(slice, less)
+		result.DoReturnFn(x, less)
 	}
 	return
 }
 
-func (m *MoqSlice_genType) OnCall(slice interface{}, less func(i, j int) bool) *MoqSlice_genType_fnRecorder {
+func (m *MoqSlice_genType) OnCall(x interface{}, less func(i, j int) bool) *MoqSlice_genType_fnRecorder {
 	return &MoqSlice_genType_fnRecorder{
 		Params: MoqSlice_genType_params{
-			Slice: slice,
-			Less:  less,
+			X:    x,
+			Less: less,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -206,7 +206,7 @@ func (r *MoqSlice_genType_fnRecorder) Any() *MoqSlice_genType_anyParams {
 	return &MoqSlice_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqSlice_genType_anyParams) Slice() *MoqSlice_genType_fnRecorder {
+func (a *MoqSlice_genType_anyParams) X() *MoqSlice_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -361,18 +361,18 @@ func (r *MoqSlice_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqSlic
 }
 
 func (m *MoqSlice_genType) PrettyParams(params MoqSlice_genType_params) string {
-	return fmt.Sprintf("Slice_genType(%#v, %#v)", params.Slice, params.Less)
+	return fmt.Sprintf("Slice_genType(%#v, %#v)", params.X, params.Less)
 }
 
 func (m *MoqSlice_genType) ParamsKey(params MoqSlice_genType_params, anyParams uint64) MoqSlice_genType_paramsKey {
 	m.Scene.T.Helper()
-	var sliceUsed interface{}
-	var sliceUsedHash hash.Hash
+	var xUsed interface{}
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Slice == moq.ParamIndexByValue {
-			sliceUsed = params.Slice
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			xUsed = params.X
 		} else {
-			sliceUsedHash = hash.DeepHash(params.Slice)
+			xUsedHash = hash.DeepHash(params.X)
 		}
 	}
 	var lessUsedHash hash.Hash
@@ -383,15 +383,15 @@ func (m *MoqSlice_genType) ParamsKey(params MoqSlice_genType_params, anyParams u
 		lessUsedHash = hash.DeepHash(params.Less)
 	}
 	return MoqSlice_genType_paramsKey{
-		Params: struct{ Slice interface{} }{
-			Slice: sliceUsed,
+		Params: struct{ X interface{} }{
+			X: xUsed,
 		},
 		Hashes: struct {
-			Slice hash.Hash
-			Less  hash.Hash
+			X    hash.Hash
+			Less hash.Hash
 		}{
-			Slice: sliceUsedHash,
-			Less:  lessUsedHash,
+			X:    xUsedHash,
+			Less: lessUsedHash,
 		},
 	}
 }

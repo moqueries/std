@@ -4,8 +4,8 @@ package tar
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/moq"
@@ -19,7 +19,7 @@ var _ Header_starGenType = (*MoqHeader_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Header_starGenType interface {
-	FileInfo() os.FileInfo
+	FileInfo() fs.FileInfo
 }
 
 // MoqHeader_starGenType holds the state of a moq of the Header_starGenType
@@ -75,7 +75,7 @@ type MoqHeader_starGenType_FileInfo_doFn func()
 
 // MoqHeader_starGenType_FileInfo_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Header_starGenType type
-type MoqHeader_starGenType_FileInfo_doReturnFn func() os.FileInfo
+type MoqHeader_starGenType_FileInfo_doReturnFn func() fs.FileInfo
 
 // MoqHeader_starGenType_FileInfo_results holds the results of the
 // Header_starGenType type
@@ -83,7 +83,7 @@ type MoqHeader_starGenType_FileInfo_results struct {
 	Params  MoqHeader_starGenType_FileInfo_params
 	Results []struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqHeader_starGenType_FileInfo_doFn
@@ -138,7 +138,7 @@ func NewMoqHeader_starGenType(scene *moq.Scene, config *moq.Config) *MoqHeader_s
 // Mock returns the mock implementation of the Header_starGenType type
 func (m *MoqHeader_starGenType) Mock() *MoqHeader_starGenType_mock { return m.Moq }
 
-func (m *MoqHeader_starGenType_mock) FileInfo() (result1 os.FileInfo) {
+func (m *MoqHeader_starGenType_mock) FileInfo() (result1 fs.FileInfo) {
 	m.Moq.Scene.T.Helper()
 	params := MoqHeader_starGenType_FileInfo_params{}
 	var results *MoqHeader_starGenType_FileInfo_results
@@ -233,7 +233,7 @@ func (r *MoqHeader_starGenType_FileInfo_fnRecorder) NoSeq() *MoqHeader_starGenTy
 	return r
 }
 
-func (r *MoqHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 os.FileInfo) *MoqHeader_starGenType_FileInfo_fnRecorder {
+func (r *MoqHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 fs.FileInfo) *MoqHeader_starGenType_FileInfo_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -244,14 +244,14 @@ func (r *MoqHeader_starGenType_FileInfo_fnRecorder) ReturnResults(result1 os.Fil
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqHeader_starGenType_FileInfo_doFn
 		DoReturnFn MoqHeader_starGenType_FileInfo_doReturnFn
 	}{
 		Values: &struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}{
 			Result1: result1,
 		},
@@ -282,7 +282,7 @@ func (r *MoqHeader_starGenType_FileInfo_fnRecorder) DoReturnResults(fn MoqHeader
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 os.FileInfo
+			Result1 fs.FileInfo
 		}
 		Sequence   uint32
 		DoFn       MoqHeader_starGenType_FileInfo_doFn
@@ -352,7 +352,7 @@ func (r *MoqHeader_starGenType_FileInfo_fnRecorder) Repeat(repeaters ...moq.Repe
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 os.FileInfo
+					Result1 fs.FileInfo
 				}
 				Sequence   uint32
 				DoFn       MoqHeader_starGenType_FileInfo_doFn
