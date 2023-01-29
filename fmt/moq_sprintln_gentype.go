@@ -13,7 +13,7 @@ import (
 
 // Sprintln_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Sprintln_genType func(a ...interface{}) string
+type Sprintln_genType func(a ...any) string
 
 // MoqSprintln_genType holds the state of a moq of the Sprintln_genType type
 type MoqSprintln_genType struct {
@@ -37,7 +37,7 @@ type MoqSprintln_genType_mock struct {
 }
 
 // MoqSprintln_genType_params holds the params of the Sprintln_genType type
-type MoqSprintln_genType_params struct{ A []interface{} }
+type MoqSprintln_genType_params struct{ A []any }
 
 // MoqSprintln_genType_paramsKey holds the map key params of the
 // Sprintln_genType type
@@ -56,11 +56,11 @@ type MoqSprintln_genType_resultsByParams struct {
 
 // MoqSprintln_genType_doFn defines the type of function needed when calling
 // AndDo for the Sprintln_genType type
-type MoqSprintln_genType_doFn func(a ...interface{})
+type MoqSprintln_genType_doFn func(a ...any)
 
 // MoqSprintln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Sprintln_genType type
-type MoqSprintln_genType_doReturnFn func(a ...interface{}) string
+type MoqSprintln_genType_doReturnFn func(a ...any) string
 
 // MoqSprintln_genType_results holds the results of the Sprintln_genType type
 type MoqSprintln_genType_results struct {
@@ -121,14 +121,14 @@ func NewMoqSprintln_genType(scene *moq.Scene, config *moq.Config) *MoqSprintln_g
 
 // Mock returns the moq implementation of the Sprintln_genType type
 func (m *MoqSprintln_genType) Mock() Sprintln_genType {
-	return func(a ...interface{}) string {
+	return func(a ...any) string {
 		m.Scene.T.Helper()
 		moq := &MoqSprintln_genType_mock{Moq: m}
 		return moq.Fn(a...)
 	}
 }
 
-func (m *MoqSprintln_genType_mock) Fn(a ...interface{}) (result1 string) {
+func (m *MoqSprintln_genType_mock) Fn(a ...any) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSprintln_genType_params{
 		A: a,
@@ -181,7 +181,7 @@ func (m *MoqSprintln_genType_mock) Fn(a ...interface{}) (result1 string) {
 	return
 }
 
-func (m *MoqSprintln_genType) OnCall(a ...interface{}) *MoqSprintln_genType_fnRecorder {
+func (m *MoqSprintln_genType) OnCall(a ...any) *MoqSprintln_genType_fnRecorder {
 	return &MoqSprintln_genType_fnRecorder{
 		Params: MoqSprintln_genType_params{
 			A: a,

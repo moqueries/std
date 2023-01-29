@@ -224,11 +224,11 @@ type MoqInterface_Swap_anyParams struct {
 }
 
 // MoqInterface_Push_params holds the params of the Interface type
-type MoqInterface_Push_params struct{ X interface{} }
+type MoqInterface_Push_params struct{ X any }
 
 // MoqInterface_Push_paramsKey holds the map key params of the Interface type
 type MoqInterface_Push_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct{ X hash.Hash }
 }
 
@@ -242,11 +242,11 @@ type MoqInterface_Push_resultsByParams struct {
 
 // MoqInterface_Push_doFn defines the type of function needed when calling
 // AndDo for the Interface type
-type MoqInterface_Push_doFn func(x interface{})
+type MoqInterface_Push_doFn func(x any)
 
 // MoqInterface_Push_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Interface type
-type MoqInterface_Push_doReturnFn func(x interface{})
+type MoqInterface_Push_doReturnFn func(x any)
 
 // MoqInterface_Push_results holds the results of the Interface type
 type MoqInterface_Push_results struct {
@@ -300,14 +300,14 @@ type MoqInterface_Pop_doFn func()
 
 // MoqInterface_Pop_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Interface type
-type MoqInterface_Pop_doReturnFn func() interface{}
+type MoqInterface_Pop_doReturnFn func() any
 
 // MoqInterface_Pop_results holds the results of the Interface type
 type MoqInterface_Pop_results struct {
 	Params  MoqInterface_Pop_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqInterface_Pop_doFn
@@ -392,7 +392,7 @@ func NewMoqInterface(scene *moq.Scene, config *moq.Config) *MoqInterface {
 			Push: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 			Pop: struct{}{},
 		}},
@@ -562,7 +562,7 @@ func (m *MoqInterface_mock) Swap(param1, j int) {
 	return
 }
 
-func (m *MoqInterface_mock) Push(x interface{}) {
+func (m *MoqInterface_mock) Push(x any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqInterface_Push_params{
 		X: x,
@@ -612,7 +612,7 @@ func (m *MoqInterface_mock) Push(x interface{}) {
 	return
 }
 
-func (m *MoqInterface_mock) Pop() (result1 interface{}) {
+func (m *MoqInterface_mock) Pop() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqInterface_Pop_params{}
 	var results *MoqInterface_Pop_results
@@ -1283,7 +1283,7 @@ func (m *MoqInterface) ParamsKey_Swap(params MoqInterface_Swap_params, anyParams
 	}
 }
 
-func (m *MoqInterface_recorder) Push(x interface{}) *MoqInterface_Push_fnRecorder {
+func (m *MoqInterface_recorder) Push(x any) *MoqInterface_Push_fnRecorder {
 	return &MoqInterface_Push_fnRecorder{
 		Params: MoqInterface_Push_params{
 			X: x,
@@ -1457,7 +1457,7 @@ func (m *MoqInterface) PrettyParams_Push(params MoqInterface_Push_params) string
 
 func (m *MoqInterface) ParamsKey_Push(params MoqInterface_Push_params, anyParams uint64) MoqInterface_Push_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Push.X == moq.ParamIndexByValue {
@@ -1467,7 +1467,7 @@ func (m *MoqInterface) ParamsKey_Push(params MoqInterface_Push_params, anyParams
 		}
 	}
 	return MoqInterface_Push_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct{ X hash.Hash }{
@@ -1513,7 +1513,7 @@ func (r *MoqInterface_Pop_fnRecorder) NoSeq() *MoqInterface_Pop_fnRecorder {
 	return r
 }
 
-func (r *MoqInterface_Pop_fnRecorder) ReturnResults(result1 interface{}) *MoqInterface_Pop_fnRecorder {
+func (r *MoqInterface_Pop_fnRecorder) ReturnResults(result1 any) *MoqInterface_Pop_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1524,14 +1524,14 @@ func (r *MoqInterface_Pop_fnRecorder) ReturnResults(result1 interface{}) *MoqInt
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqInterface_Pop_doFn
 		DoReturnFn MoqInterface_Pop_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -1562,7 +1562,7 @@ func (r *MoqInterface_Pop_fnRecorder) DoReturnResults(fn MoqInterface_Pop_doRetu
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqInterface_Pop_doFn
@@ -1632,7 +1632,7 @@ func (r *MoqInterface_Pop_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInte
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqInterface_Pop_doFn

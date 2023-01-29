@@ -13,7 +13,7 @@ import (
 
 // IsScanValue_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type IsScanValue_genType func(v interface{}) bool
+type IsScanValue_genType func(v any) bool
 
 // MoqIsScanValue_genType holds the state of a moq of the IsScanValue_genType
 // type
@@ -39,12 +39,12 @@ type MoqIsScanValue_genType_mock struct {
 
 // MoqIsScanValue_genType_params holds the params of the IsScanValue_genType
 // type
-type MoqIsScanValue_genType_params struct{ V interface{} }
+type MoqIsScanValue_genType_params struct{ V any }
 
 // MoqIsScanValue_genType_paramsKey holds the map key params of the
 // IsScanValue_genType type
 type MoqIsScanValue_genType_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -58,11 +58,11 @@ type MoqIsScanValue_genType_resultsByParams struct {
 
 // MoqIsScanValue_genType_doFn defines the type of function needed when calling
 // AndDo for the IsScanValue_genType type
-type MoqIsScanValue_genType_doFn func(v interface{})
+type MoqIsScanValue_genType_doFn func(v any)
 
 // MoqIsScanValue_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the IsScanValue_genType type
-type MoqIsScanValue_genType_doReturnFn func(v interface{}) bool
+type MoqIsScanValue_genType_doReturnFn func(v any) bool
 
 // MoqIsScanValue_genType_results holds the results of the IsScanValue_genType
 // type
@@ -113,7 +113,7 @@ func NewMoqIsScanValue_genType(scene *moq.Scene, config *moq.Config) *MoqIsScanV
 		}{ParameterIndexing: struct {
 			V moq.ParamIndexing
 		}{
-			V: moq.ParamIndexByHash,
+			V: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -124,14 +124,10 @@ func NewMoqIsScanValue_genType(scene *moq.Scene, config *moq.Config) *MoqIsScanV
 
 // Mock returns the moq implementation of the IsScanValue_genType type
 func (m *MoqIsScanValue_genType) Mock() IsScanValue_genType {
-	return func(v interface{}) bool {
-		m.Scene.T.Helper()
-		moq := &MoqIsScanValue_genType_mock{Moq: m}
-		return moq.Fn(v)
-	}
+	return func(v any) bool { m.Scene.T.Helper(); moq := &MoqIsScanValue_genType_mock{Moq: m}; return moq.Fn(v) }
 }
 
-func (m *MoqIsScanValue_genType_mock) Fn(v interface{}) (result1 bool) {
+func (m *MoqIsScanValue_genType_mock) Fn(v any) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqIsScanValue_genType_params{
 		V: v,
@@ -184,7 +180,7 @@ func (m *MoqIsScanValue_genType_mock) Fn(v interface{}) (result1 bool) {
 	return
 }
 
-func (m *MoqIsScanValue_genType) OnCall(v interface{}) *MoqIsScanValue_genType_fnRecorder {
+func (m *MoqIsScanValue_genType) OnCall(v any) *MoqIsScanValue_genType_fnRecorder {
 	return &MoqIsScanValue_genType_fnRecorder{
 		Params: MoqIsScanValue_genType_params{
 			V: v,
@@ -368,7 +364,7 @@ func (m *MoqIsScanValue_genType) PrettyParams(params MoqIsScanValue_genType_para
 
 func (m *MoqIsScanValue_genType) ParamsKey(params MoqIsScanValue_genType_params, anyParams uint64) MoqIsScanValue_genType_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.V == moq.ParamIndexByValue {
@@ -378,7 +374,7 @@ func (m *MoqIsScanValue_genType) ParamsKey(params MoqIsScanValue_genType_params,
 		}
 	}
 	return MoqIsScanValue_genType_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{

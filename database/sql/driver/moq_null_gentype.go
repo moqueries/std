@@ -20,7 +20,7 @@ var _ Null_genType = (*MoqNull_genType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Null_genType interface {
-	ConvertValue(v interface{}) (driver.Value, error)
+	ConvertValue(v any) (driver.Value, error)
 }
 
 // MoqNull_genType holds the state of a moq of the Null_genType type
@@ -53,12 +53,12 @@ type MoqNull_genType_recorder struct {
 
 // MoqNull_genType_ConvertValue_params holds the params of the Null_genType
 // type
-type MoqNull_genType_ConvertValue_params struct{ V interface{} }
+type MoqNull_genType_ConvertValue_params struct{ V any }
 
 // MoqNull_genType_ConvertValue_paramsKey holds the map key params of the
 // Null_genType type
 type MoqNull_genType_ConvertValue_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -72,11 +72,11 @@ type MoqNull_genType_ConvertValue_resultsByParams struct {
 
 // MoqNull_genType_ConvertValue_doFn defines the type of function needed when
 // calling AndDo for the Null_genType type
-type MoqNull_genType_ConvertValue_doFn func(v interface{})
+type MoqNull_genType_ConvertValue_doFn func(v any)
 
 // MoqNull_genType_ConvertValue_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Null_genType type
-type MoqNull_genType_ConvertValue_doReturnFn func(v interface{}) (driver.Value, error)
+type MoqNull_genType_ConvertValue_doReturnFn func(v any) (driver.Value, error)
 
 // MoqNull_genType_ConvertValue_results holds the results of the Null_genType
 // type
@@ -135,7 +135,7 @@ func NewMoqNull_genType(scene *moq.Scene, config *moq.Config) *MoqNull_genType {
 			ConvertValue: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -148,7 +148,7 @@ func NewMoqNull_genType(scene *moq.Scene, config *moq.Config) *MoqNull_genType {
 // Mock returns the mock implementation of the Null_genType type
 func (m *MoqNull_genType) Mock() *MoqNull_genType_mock { return m.Moq }
 
-func (m *MoqNull_genType_mock) ConvertValue(v interface{}) (result1 driver.Value, result2 error) {
+func (m *MoqNull_genType_mock) ConvertValue(v any) (result1 driver.Value, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNull_genType_ConvertValue_params{
 		V: v,
@@ -209,7 +209,7 @@ func (m *MoqNull_genType) OnCall() *MoqNull_genType_recorder {
 	}
 }
 
-func (m *MoqNull_genType_recorder) ConvertValue(v interface{}) *MoqNull_genType_ConvertValue_fnRecorder {
+func (m *MoqNull_genType_recorder) ConvertValue(v any) *MoqNull_genType_ConvertValue_fnRecorder {
 	return &MoqNull_genType_ConvertValue_fnRecorder{
 		Params: MoqNull_genType_ConvertValue_params{
 			V: v,
@@ -398,7 +398,7 @@ func (m *MoqNull_genType) PrettyParams_ConvertValue(params MoqNull_genType_Conve
 
 func (m *MoqNull_genType) ParamsKey_ConvertValue(params MoqNull_genType_ConvertValue_params, anyParams uint64) MoqNull_genType_ConvertValue_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.ConvertValue.V == moq.ParamIndexByValue {
@@ -408,7 +408,7 @@ func (m *MoqNull_genType) ParamsKey_ConvertValue(params MoqNull_genType_ConvertV
 		}
 	}
 	return MoqNull_genType_ConvertValue_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{

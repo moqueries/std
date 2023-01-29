@@ -16,7 +16,7 @@ import (
 
 // NewFromFiles_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type NewFromFiles_genType func(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{}) (*doc.Package, error)
+type NewFromFiles_genType func(fset *token.FileSet, files []*ast.File, importPath string, opts ...any) (*doc.Package, error)
 
 // MoqNewFromFiles_genType holds the state of a moq of the NewFromFiles_genType
 // type
@@ -49,7 +49,7 @@ type MoqNewFromFiles_genType_params struct {
 	Fset       *token.FileSet
 	Files      []*ast.File
 	ImportPath string
-	Opts       []interface{}
+	Opts       []any
 }
 
 // MoqNewFromFiles_genType_paramsKey holds the map key params of the
@@ -77,11 +77,11 @@ type MoqNewFromFiles_genType_resultsByParams struct {
 
 // MoqNewFromFiles_genType_doFn defines the type of function needed when
 // calling AndDo for the NewFromFiles_genType type
-type MoqNewFromFiles_genType_doFn func(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{})
+type MoqNewFromFiles_genType_doFn func(fset *token.FileSet, files []*ast.File, importPath string, opts ...any)
 
 // MoqNewFromFiles_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the NewFromFiles_genType type
-type MoqNewFromFiles_genType_doReturnFn func(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{}) (*doc.Package, error)
+type MoqNewFromFiles_genType_doReturnFn func(fset *token.FileSet, files []*ast.File, importPath string, opts ...any) (*doc.Package, error)
 
 // MoqNewFromFiles_genType_results holds the results of the
 // NewFromFiles_genType type
@@ -154,14 +154,14 @@ func NewMoqNewFromFiles_genType(scene *moq.Scene, config *moq.Config) *MoqNewFro
 
 // Mock returns the moq implementation of the NewFromFiles_genType type
 func (m *MoqNewFromFiles_genType) Mock() NewFromFiles_genType {
-	return func(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{}) (*doc.Package, error) {
+	return func(fset *token.FileSet, files []*ast.File, importPath string, opts ...any) (*doc.Package, error) {
 		m.Scene.T.Helper()
 		moq := &MoqNewFromFiles_genType_mock{Moq: m}
 		return moq.Fn(fset, files, importPath, opts...)
 	}
 }
 
-func (m *MoqNewFromFiles_genType_mock) Fn(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{}) (result1 *doc.Package, result2 error) {
+func (m *MoqNewFromFiles_genType_mock) Fn(fset *token.FileSet, files []*ast.File, importPath string, opts ...any) (result1 *doc.Package, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNewFromFiles_genType_params{
 		Fset:       fset,
@@ -218,7 +218,7 @@ func (m *MoqNewFromFiles_genType_mock) Fn(fset *token.FileSet, files []*ast.File
 	return
 }
 
-func (m *MoqNewFromFiles_genType) OnCall(fset *token.FileSet, files []*ast.File, importPath string, opts ...interface{}) *MoqNewFromFiles_genType_fnRecorder {
+func (m *MoqNewFromFiles_genType) OnCall(fset *token.FileSet, files []*ast.File, importPath string, opts ...any) *MoqNewFromFiles_genType_fnRecorder {
 	return &MoqNewFromFiles_genType_fnRecorder{
 		Params: MoqNewFromFiles_genType_params{
 			Fset:       fset,

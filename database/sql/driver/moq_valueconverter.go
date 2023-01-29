@@ -47,12 +47,12 @@ type MoqValueConverter_recorder struct {
 
 // MoqValueConverter_ConvertValue_params holds the params of the ValueConverter
 // type
-type MoqValueConverter_ConvertValue_params struct{ V interface{} }
+type MoqValueConverter_ConvertValue_params struct{ V any }
 
 // MoqValueConverter_ConvertValue_paramsKey holds the map key params of the
 // ValueConverter type
 type MoqValueConverter_ConvertValue_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -66,11 +66,11 @@ type MoqValueConverter_ConvertValue_resultsByParams struct {
 
 // MoqValueConverter_ConvertValue_doFn defines the type of function needed when
 // calling AndDo for the ValueConverter type
-type MoqValueConverter_ConvertValue_doFn func(v interface{})
+type MoqValueConverter_ConvertValue_doFn func(v any)
 
 // MoqValueConverter_ConvertValue_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the ValueConverter type
-type MoqValueConverter_ConvertValue_doReturnFn func(v interface{}) (driver.Value, error)
+type MoqValueConverter_ConvertValue_doReturnFn func(v any) (driver.Value, error)
 
 // MoqValueConverter_ConvertValue_results holds the results of the
 // ValueConverter type
@@ -129,7 +129,7 @@ func NewMoqValueConverter(scene *moq.Scene, config *moq.Config) *MoqValueConvert
 			ConvertValue: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -142,7 +142,7 @@ func NewMoqValueConverter(scene *moq.Scene, config *moq.Config) *MoqValueConvert
 // Mock returns the mock implementation of the ValueConverter type
 func (m *MoqValueConverter) Mock() *MoqValueConverter_mock { return m.Moq }
 
-func (m *MoqValueConverter_mock) ConvertValue(v interface{}) (result1 driver.Value, result2 error) {
+func (m *MoqValueConverter_mock) ConvertValue(v any) (result1 driver.Value, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValueConverter_ConvertValue_params{
 		V: v,
@@ -203,7 +203,7 @@ func (m *MoqValueConverter) OnCall() *MoqValueConverter_recorder {
 	}
 }
 
-func (m *MoqValueConverter_recorder) ConvertValue(v interface{}) *MoqValueConverter_ConvertValue_fnRecorder {
+func (m *MoqValueConverter_recorder) ConvertValue(v any) *MoqValueConverter_ConvertValue_fnRecorder {
 	return &MoqValueConverter_ConvertValue_fnRecorder{
 		Params: MoqValueConverter_ConvertValue_params{
 			V: v,
@@ -392,7 +392,7 @@ func (m *MoqValueConverter) PrettyParams_ConvertValue(params MoqValueConverter_C
 
 func (m *MoqValueConverter) ParamsKey_ConvertValue(params MoqValueConverter_ConvertValue_params, anyParams uint64) MoqValueConverter_ConvertValue_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.ConvertValue.V == moq.ParamIndexByValue {
@@ -402,7 +402,7 @@ func (m *MoqValueConverter) ParamsKey_ConvertValue(params MoqValueConverter_Conv
 		}
 	}
 	return MoqValueConverter_ConvertValue_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{

@@ -19,7 +19,7 @@ var _ Row_starGenType = (*MoqRow_starGenType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Row_starGenType interface {
-	Scan(dest ...interface{}) error
+	Scan(dest ...any) error
 	Err() error
 }
 
@@ -55,7 +55,7 @@ type MoqRow_starGenType_recorder struct {
 }
 
 // MoqRow_starGenType_Scan_params holds the params of the Row_starGenType type
-type MoqRow_starGenType_Scan_params struct{ Dest []interface{} }
+type MoqRow_starGenType_Scan_params struct{ Dest []any }
 
 // MoqRow_starGenType_Scan_paramsKey holds the map key params of the
 // Row_starGenType type
@@ -74,11 +74,11 @@ type MoqRow_starGenType_Scan_resultsByParams struct {
 
 // MoqRow_starGenType_Scan_doFn defines the type of function needed when
 // calling AndDo for the Row_starGenType type
-type MoqRow_starGenType_Scan_doFn func(dest ...interface{})
+type MoqRow_starGenType_Scan_doFn func(dest ...any)
 
 // MoqRow_starGenType_Scan_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Row_starGenType type
-type MoqRow_starGenType_Scan_doReturnFn func(dest ...interface{}) error
+type MoqRow_starGenType_Scan_doReturnFn func(dest ...any) error
 
 // MoqRow_starGenType_Scan_results holds the results of the Row_starGenType
 // type
@@ -209,7 +209,7 @@ func NewMoqRow_starGenType(scene *moq.Scene, config *moq.Config) *MoqRow_starGen
 // Mock returns the mock implementation of the Row_starGenType type
 func (m *MoqRow_starGenType) Mock() *MoqRow_starGenType_mock { return m.Moq }
 
-func (m *MoqRow_starGenType_mock) Scan(dest ...interface{}) (result1 error) {
+func (m *MoqRow_starGenType_mock) Scan(dest ...any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRow_starGenType_Scan_params{
 		Dest: dest,
@@ -320,7 +320,7 @@ func (m *MoqRow_starGenType) OnCall() *MoqRow_starGenType_recorder {
 	}
 }
 
-func (m *MoqRow_starGenType_recorder) Scan(dest ...interface{}) *MoqRow_starGenType_Scan_fnRecorder {
+func (m *MoqRow_starGenType_recorder) Scan(dest ...any) *MoqRow_starGenType_Scan_fnRecorder {
 	return &MoqRow_starGenType_Scan_fnRecorder{
 		Params: MoqRow_starGenType_Scan_params{
 			Dest: dest,

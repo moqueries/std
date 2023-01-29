@@ -20,7 +20,7 @@ var _ Writer_starGenType = (*MoqWriter_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Writer_starGenType interface {
-	PrintfLine(format string, args ...interface{}) error
+	PrintfLine(format string, args ...any) error
 	DotWriter() io.WriteCloser
 }
 
@@ -61,7 +61,7 @@ type MoqWriter_starGenType_recorder struct {
 // Writer_starGenType type
 type MoqWriter_starGenType_PrintfLine_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqWriter_starGenType_PrintfLine_paramsKey holds the map key params of the
@@ -84,11 +84,11 @@ type MoqWriter_starGenType_PrintfLine_resultsByParams struct {
 
 // MoqWriter_starGenType_PrintfLine_doFn defines the type of function needed
 // when calling AndDo for the Writer_starGenType type
-type MoqWriter_starGenType_PrintfLine_doFn func(format string, args ...interface{})
+type MoqWriter_starGenType_PrintfLine_doFn func(format string, args ...any)
 
 // MoqWriter_starGenType_PrintfLine_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Writer_starGenType type
-type MoqWriter_starGenType_PrintfLine_doReturnFn func(format string, args ...interface{}) error
+type MoqWriter_starGenType_PrintfLine_doReturnFn func(format string, args ...any) error
 
 // MoqWriter_starGenType_PrintfLine_results holds the results of the
 // Writer_starGenType type
@@ -225,7 +225,7 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 // Mock returns the mock implementation of the Writer_starGenType type
 func (m *MoqWriter_starGenType) Mock() *MoqWriter_starGenType_mock { return m.Moq }
 
-func (m *MoqWriter_starGenType_mock) PrintfLine(format string, args ...interface{}) (result1 error) {
+func (m *MoqWriter_starGenType_mock) PrintfLine(format string, args ...any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWriter_starGenType_PrintfLine_params{
 		Format: format,
@@ -337,7 +337,7 @@ func (m *MoqWriter_starGenType) OnCall() *MoqWriter_starGenType_recorder {
 	}
 }
 
-func (m *MoqWriter_starGenType_recorder) PrintfLine(format string, args ...interface{}) *MoqWriter_starGenType_PrintfLine_fnRecorder {
+func (m *MoqWriter_starGenType_recorder) PrintfLine(format string, args ...any) *MoqWriter_starGenType_PrintfLine_fnRecorder {
 	return &MoqWriter_starGenType_PrintfLine_fnRecorder{
 		Params: MoqWriter_starGenType_PrintfLine_params{
 			Format: format,

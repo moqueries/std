@@ -30,17 +30,21 @@ type Value_genType interface {
 	CallSlice(in []reflect.Value) []reflect.Value
 	Cap() int
 	Close()
+	CanComplex() bool
 	Complex() complex128
 	Elem() reflect.Value
 	Field(i int) reflect.Value
 	FieldByIndex(index []int) reflect.Value
+	FieldByIndexErr(index []int) (reflect.Value, error)
 	FieldByName(name string) reflect.Value
 	FieldByNameFunc(match func(string) bool) reflect.Value
+	CanFloat() bool
 	Float() float64
 	Index(i int) reflect.Value
+	CanInt() bool
 	Int() int64
 	CanInterface() bool
-	Interface() (i interface{})
+	Interface() (i any)
 	InterfaceData() [2]uintptr
 	IsNil() bool
 	IsValid() bool
@@ -49,6 +53,8 @@ type Value_genType interface {
 	Len() int
 	MapIndex(key reflect.Value) reflect.Value
 	MapKeys() []reflect.Value
+	SetIterKey(iter *reflect.MapIter)
+	SetIterValue(iter *reflect.MapIter)
 	MapRange() *reflect.MapIter
 	Method(i int) reflect.Value
 	NumMethod() int
@@ -79,8 +85,10 @@ type Value_genType interface {
 	TryRecv() (x reflect.Value, ok bool)
 	TrySend(x reflect.Value) bool
 	Type() reflect.Type
+	CanUint() bool
 	Uint() uint64
 	UnsafeAddr() uintptr
+	UnsafePointer() unsafe.Pointer
 	Convert(t reflect.Type) reflect.Value
 	CanConvert(t reflect.Type) bool
 }
@@ -100,14 +108,18 @@ type MoqValue_genType struct {
 	ResultsByParams_CallSlice       []MoqValue_genType_CallSlice_resultsByParams
 	ResultsByParams_Cap             []MoqValue_genType_Cap_resultsByParams
 	ResultsByParams_Close           []MoqValue_genType_Close_resultsByParams
+	ResultsByParams_CanComplex      []MoqValue_genType_CanComplex_resultsByParams
 	ResultsByParams_Complex         []MoqValue_genType_Complex_resultsByParams
 	ResultsByParams_Elem            []MoqValue_genType_Elem_resultsByParams
 	ResultsByParams_Field           []MoqValue_genType_Field_resultsByParams
 	ResultsByParams_FieldByIndex    []MoqValue_genType_FieldByIndex_resultsByParams
+	ResultsByParams_FieldByIndexErr []MoqValue_genType_FieldByIndexErr_resultsByParams
 	ResultsByParams_FieldByName     []MoqValue_genType_FieldByName_resultsByParams
 	ResultsByParams_FieldByNameFunc []MoqValue_genType_FieldByNameFunc_resultsByParams
+	ResultsByParams_CanFloat        []MoqValue_genType_CanFloat_resultsByParams
 	ResultsByParams_Float           []MoqValue_genType_Float_resultsByParams
 	ResultsByParams_Index           []MoqValue_genType_Index_resultsByParams
+	ResultsByParams_CanInt          []MoqValue_genType_CanInt_resultsByParams
 	ResultsByParams_Int             []MoqValue_genType_Int_resultsByParams
 	ResultsByParams_CanInterface    []MoqValue_genType_CanInterface_resultsByParams
 	ResultsByParams_Interface       []MoqValue_genType_Interface_resultsByParams
@@ -119,6 +131,8 @@ type MoqValue_genType struct {
 	ResultsByParams_Len             []MoqValue_genType_Len_resultsByParams
 	ResultsByParams_MapIndex        []MoqValue_genType_MapIndex_resultsByParams
 	ResultsByParams_MapKeys         []MoqValue_genType_MapKeys_resultsByParams
+	ResultsByParams_SetIterKey      []MoqValue_genType_SetIterKey_resultsByParams
+	ResultsByParams_SetIterValue    []MoqValue_genType_SetIterValue_resultsByParams
 	ResultsByParams_MapRange        []MoqValue_genType_MapRange_resultsByParams
 	ResultsByParams_Method          []MoqValue_genType_Method_resultsByParams
 	ResultsByParams_NumMethod       []MoqValue_genType_NumMethod_resultsByParams
@@ -149,8 +163,10 @@ type MoqValue_genType struct {
 	ResultsByParams_TryRecv         []MoqValue_genType_TryRecv_resultsByParams
 	ResultsByParams_TrySend         []MoqValue_genType_TrySend_resultsByParams
 	ResultsByParams_Type            []MoqValue_genType_Type_resultsByParams
+	ResultsByParams_CanUint         []MoqValue_genType_CanUint_resultsByParams
 	ResultsByParams_Uint            []MoqValue_genType_Uint_resultsByParams
 	ResultsByParams_UnsafeAddr      []MoqValue_genType_UnsafeAddr_resultsByParams
+	ResultsByParams_UnsafePointer   []MoqValue_genType_UnsafePointer_resultsByParams
 	ResultsByParams_Convert         []MoqValue_genType_Convert_resultsByParams
 	ResultsByParams_CanConvert      []MoqValue_genType_CanConvert_resultsByParams
 
@@ -167,14 +183,18 @@ type MoqValue_genType struct {
 			CallSlice struct {
 				In moq.ParamIndexing
 			}
-			Cap     struct{}
-			Close   struct{}
-			Complex struct{}
-			Elem    struct{}
-			Field   struct {
+			Cap        struct{}
+			Close      struct{}
+			CanComplex struct{}
+			Complex    struct{}
+			Elem       struct{}
+			Field      struct {
 				Param1 moq.ParamIndexing
 			}
 			FieldByIndex struct {
+				Index moq.ParamIndexing
+			}
+			FieldByIndexErr struct {
 				Index moq.ParamIndexing
 			}
 			FieldByName struct {
@@ -183,10 +203,12 @@ type MoqValue_genType struct {
 			FieldByNameFunc struct {
 				Match moq.ParamIndexing
 			}
-			Float struct{}
-			Index struct {
+			CanFloat struct{}
+			Float    struct{}
+			Index    struct {
 				Param1 moq.ParamIndexing
 			}
+			CanInt        struct{}
 			Int           struct{}
 			CanInterface  struct{}
 			Interface     struct{}
@@ -199,7 +221,13 @@ type MoqValue_genType struct {
 			MapIndex      struct {
 				Key moq.ParamIndexing
 			}
-			MapKeys  struct{}
+			MapKeys    struct{}
+			SetIterKey struct {
+				Iter moq.ParamIndexing
+			}
+			SetIterValue struct {
+				Iter moq.ParamIndexing
+			}
 			MapRange struct{}
 			Method   struct {
 				Param1 moq.ParamIndexing
@@ -277,10 +305,12 @@ type MoqValue_genType struct {
 			TrySend struct {
 				X moq.ParamIndexing
 			}
-			Type       struct{}
-			Uint       struct{}
-			UnsafeAddr struct{}
-			Convert    struct {
+			Type          struct{}
+			CanUint       struct{}
+			Uint          struct{}
+			UnsafeAddr    struct{}
+			UnsafePointer struct{}
+			Convert       struct {
 				T moq.ParamIndexing
 			}
 			CanConvert struct {
@@ -813,6 +843,65 @@ type MoqValue_genType_Close_anyParams struct {
 	Recorder *MoqValue_genType_Close_fnRecorder
 }
 
+// MoqValue_genType_CanComplex_params holds the params of the Value_genType
+// type
+type MoqValue_genType_CanComplex_params struct{}
+
+// MoqValue_genType_CanComplex_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_CanComplex_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqValue_genType_CanComplex_resultsByParams contains the results for a given
+// set of parameters for the Value_genType type
+type MoqValue_genType_CanComplex_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_CanComplex_paramsKey]*MoqValue_genType_CanComplex_results
+}
+
+// MoqValue_genType_CanComplex_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_CanComplex_doFn func()
+
+// MoqValue_genType_CanComplex_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_CanComplex_doReturnFn func() bool
+
+// MoqValue_genType_CanComplex_results holds the results of the Value_genType
+// type
+type MoqValue_genType_CanComplex_results struct {
+	Params  MoqValue_genType_CanComplex_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanComplex_doFn
+		DoReturnFn MoqValue_genType_CanComplex_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_CanComplex_fnRecorder routes recorded function calls to the
+// MoqValue_genType moq
+type MoqValue_genType_CanComplex_fnRecorder struct {
+	Params    MoqValue_genType_CanComplex_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_CanComplex_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_CanComplex_anyParams isolates the any params functions of
+// the Value_genType type
+type MoqValue_genType_CanComplex_anyParams struct {
+	Recorder *MoqValue_genType_CanComplex_fnRecorder
+}
+
 // MoqValue_genType_Complex_params holds the params of the Value_genType type
 type MoqValue_genType_Complex_params struct{}
 
@@ -1043,6 +1132,66 @@ type MoqValue_genType_FieldByIndex_anyParams struct {
 	Recorder *MoqValue_genType_FieldByIndex_fnRecorder
 }
 
+// MoqValue_genType_FieldByIndexErr_params holds the params of the
+// Value_genType type
+type MoqValue_genType_FieldByIndexErr_params struct{ Index []int }
+
+// MoqValue_genType_FieldByIndexErr_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_FieldByIndexErr_paramsKey struct {
+	Params struct{}
+	Hashes struct{ Index hash.Hash }
+}
+
+// MoqValue_genType_FieldByIndexErr_resultsByParams contains the results for a
+// given set of parameters for the Value_genType type
+type MoqValue_genType_FieldByIndexErr_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_FieldByIndexErr_paramsKey]*MoqValue_genType_FieldByIndexErr_results
+}
+
+// MoqValue_genType_FieldByIndexErr_doFn defines the type of function needed
+// when calling AndDo for the Value_genType type
+type MoqValue_genType_FieldByIndexErr_doFn func(index []int)
+
+// MoqValue_genType_FieldByIndexErr_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_FieldByIndexErr_doReturnFn func(index []int) (reflect.Value, error)
+
+// MoqValue_genType_FieldByIndexErr_results holds the results of the
+// Value_genType type
+type MoqValue_genType_FieldByIndexErr_results struct {
+	Params  MoqValue_genType_FieldByIndexErr_params
+	Results []struct {
+		Values *struct {
+			Result1 reflect.Value
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_FieldByIndexErr_doFn
+		DoReturnFn MoqValue_genType_FieldByIndexErr_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_FieldByIndexErr_fnRecorder routes recorded function calls
+// to the MoqValue_genType moq
+type MoqValue_genType_FieldByIndexErr_fnRecorder struct {
+	Params    MoqValue_genType_FieldByIndexErr_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_FieldByIndexErr_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_FieldByIndexErr_anyParams isolates the any params functions
+// of the Value_genType type
+type MoqValue_genType_FieldByIndexErr_anyParams struct {
+	Recorder *MoqValue_genType_FieldByIndexErr_fnRecorder
+}
+
 // MoqValue_genType_FieldByName_params holds the params of the Value_genType
 // type
 type MoqValue_genType_FieldByName_params struct{ Name string }
@@ -1161,6 +1310,64 @@ type MoqValue_genType_FieldByNameFunc_anyParams struct {
 	Recorder *MoqValue_genType_FieldByNameFunc_fnRecorder
 }
 
+// MoqValue_genType_CanFloat_params holds the params of the Value_genType type
+type MoqValue_genType_CanFloat_params struct{}
+
+// MoqValue_genType_CanFloat_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_CanFloat_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqValue_genType_CanFloat_resultsByParams contains the results for a given
+// set of parameters for the Value_genType type
+type MoqValue_genType_CanFloat_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_CanFloat_paramsKey]*MoqValue_genType_CanFloat_results
+}
+
+// MoqValue_genType_CanFloat_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_CanFloat_doFn func()
+
+// MoqValue_genType_CanFloat_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_CanFloat_doReturnFn func() bool
+
+// MoqValue_genType_CanFloat_results holds the results of the Value_genType
+// type
+type MoqValue_genType_CanFloat_results struct {
+	Params  MoqValue_genType_CanFloat_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanFloat_doFn
+		DoReturnFn MoqValue_genType_CanFloat_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_CanFloat_fnRecorder routes recorded function calls to the
+// MoqValue_genType moq
+type MoqValue_genType_CanFloat_fnRecorder struct {
+	Params    MoqValue_genType_CanFloat_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_CanFloat_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_CanFloat_anyParams isolates the any params functions of the
+// Value_genType type
+type MoqValue_genType_CanFloat_anyParams struct {
+	Recorder *MoqValue_genType_CanFloat_fnRecorder
+}
+
 // MoqValue_genType_Float_params holds the params of the Value_genType type
 type MoqValue_genType_Float_params struct{}
 
@@ -1273,6 +1480,63 @@ type MoqValue_genType_Index_fnRecorder struct {
 // Value_genType type
 type MoqValue_genType_Index_anyParams struct {
 	Recorder *MoqValue_genType_Index_fnRecorder
+}
+
+// MoqValue_genType_CanInt_params holds the params of the Value_genType type
+type MoqValue_genType_CanInt_params struct{}
+
+// MoqValue_genType_CanInt_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_CanInt_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqValue_genType_CanInt_resultsByParams contains the results for a given set
+// of parameters for the Value_genType type
+type MoqValue_genType_CanInt_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_CanInt_paramsKey]*MoqValue_genType_CanInt_results
+}
+
+// MoqValue_genType_CanInt_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_CanInt_doFn func()
+
+// MoqValue_genType_CanInt_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Value_genType type
+type MoqValue_genType_CanInt_doReturnFn func() bool
+
+// MoqValue_genType_CanInt_results holds the results of the Value_genType type
+type MoqValue_genType_CanInt_results struct {
+	Params  MoqValue_genType_CanInt_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanInt_doFn
+		DoReturnFn MoqValue_genType_CanInt_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_CanInt_fnRecorder routes recorded function calls to the
+// MoqValue_genType moq
+type MoqValue_genType_CanInt_fnRecorder struct {
+	Params    MoqValue_genType_CanInt_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_CanInt_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_CanInt_anyParams isolates the any params functions of the
+// Value_genType type
+type MoqValue_genType_CanInt_anyParams struct {
+	Recorder *MoqValue_genType_CanInt_fnRecorder
 }
 
 // MoqValue_genType_Int_params holds the params of the Value_genType type
@@ -1415,14 +1679,14 @@ type MoqValue_genType_Interface_doFn func()
 
 // MoqValue_genType_Interface_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_genType type
-type MoqValue_genType_Interface_doReturnFn func() (i interface{})
+type MoqValue_genType_Interface_doReturnFn func() (i any)
 
 // MoqValue_genType_Interface_results holds the results of the Value_genType
 // type
 type MoqValue_genType_Interface_results struct {
 	Params  MoqValue_genType_Interface_params
 	Results []struct {
-		Values     *struct{ Result1 interface{} }
+		Values     *struct{ Result1 any }
 		Sequence   uint32
 		DoFn       MoqValue_genType_Interface_doFn
 		DoReturnFn MoqValue_genType_Interface_doReturnFn
@@ -1904,6 +2168,120 @@ type MoqValue_genType_MapKeys_fnRecorder struct {
 // Value_genType type
 type MoqValue_genType_MapKeys_anyParams struct {
 	Recorder *MoqValue_genType_MapKeys_fnRecorder
+}
+
+// MoqValue_genType_SetIterKey_params holds the params of the Value_genType
+// type
+type MoqValue_genType_SetIterKey_params struct{ Iter *reflect.MapIter }
+
+// MoqValue_genType_SetIterKey_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_SetIterKey_paramsKey struct {
+	Params struct{ Iter *reflect.MapIter }
+	Hashes struct{ Iter hash.Hash }
+}
+
+// MoqValue_genType_SetIterKey_resultsByParams contains the results for a given
+// set of parameters for the Value_genType type
+type MoqValue_genType_SetIterKey_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_SetIterKey_paramsKey]*MoqValue_genType_SetIterKey_results
+}
+
+// MoqValue_genType_SetIterKey_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_SetIterKey_doFn func(iter *reflect.MapIter)
+
+// MoqValue_genType_SetIterKey_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_SetIterKey_doReturnFn func(iter *reflect.MapIter)
+
+// MoqValue_genType_SetIterKey_results holds the results of the Value_genType
+// type
+type MoqValue_genType_SetIterKey_results struct {
+	Params  MoqValue_genType_SetIterKey_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterKey_doFn
+		DoReturnFn MoqValue_genType_SetIterKey_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_SetIterKey_fnRecorder routes recorded function calls to the
+// MoqValue_genType moq
+type MoqValue_genType_SetIterKey_fnRecorder struct {
+	Params    MoqValue_genType_SetIterKey_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_SetIterKey_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_SetIterKey_anyParams isolates the any params functions of
+// the Value_genType type
+type MoqValue_genType_SetIterKey_anyParams struct {
+	Recorder *MoqValue_genType_SetIterKey_fnRecorder
+}
+
+// MoqValue_genType_SetIterValue_params holds the params of the Value_genType
+// type
+type MoqValue_genType_SetIterValue_params struct{ Iter *reflect.MapIter }
+
+// MoqValue_genType_SetIterValue_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_SetIterValue_paramsKey struct {
+	Params struct{ Iter *reflect.MapIter }
+	Hashes struct{ Iter hash.Hash }
+}
+
+// MoqValue_genType_SetIterValue_resultsByParams contains the results for a
+// given set of parameters for the Value_genType type
+type MoqValue_genType_SetIterValue_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_SetIterValue_paramsKey]*MoqValue_genType_SetIterValue_results
+}
+
+// MoqValue_genType_SetIterValue_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_SetIterValue_doFn func(iter *reflect.MapIter)
+
+// MoqValue_genType_SetIterValue_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_SetIterValue_doReturnFn func(iter *reflect.MapIter)
+
+// MoqValue_genType_SetIterValue_results holds the results of the Value_genType
+// type
+type MoqValue_genType_SetIterValue_results struct {
+	Params  MoqValue_genType_SetIterValue_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterValue_doFn
+		DoReturnFn MoqValue_genType_SetIterValue_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_SetIterValue_fnRecorder routes recorded function calls to
+// the MoqValue_genType moq
+type MoqValue_genType_SetIterValue_fnRecorder struct {
+	Params    MoqValue_genType_SetIterValue_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_SetIterValue_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_SetIterValue_anyParams isolates the any params functions of
+// the Value_genType type
+type MoqValue_genType_SetIterValue_anyParams struct {
+	Recorder *MoqValue_genType_SetIterValue_fnRecorder
 }
 
 // MoqValue_genType_MapRange_params holds the params of the Value_genType type
@@ -3614,6 +3992,63 @@ type MoqValue_genType_Type_anyParams struct {
 	Recorder *MoqValue_genType_Type_fnRecorder
 }
 
+// MoqValue_genType_CanUint_params holds the params of the Value_genType type
+type MoqValue_genType_CanUint_params struct{}
+
+// MoqValue_genType_CanUint_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_CanUint_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqValue_genType_CanUint_resultsByParams contains the results for a given
+// set of parameters for the Value_genType type
+type MoqValue_genType_CanUint_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_CanUint_paramsKey]*MoqValue_genType_CanUint_results
+}
+
+// MoqValue_genType_CanUint_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_CanUint_doFn func()
+
+// MoqValue_genType_CanUint_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Value_genType type
+type MoqValue_genType_CanUint_doReturnFn func() bool
+
+// MoqValue_genType_CanUint_results holds the results of the Value_genType type
+type MoqValue_genType_CanUint_results struct {
+	Params  MoqValue_genType_CanUint_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanUint_doFn
+		DoReturnFn MoqValue_genType_CanUint_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_CanUint_fnRecorder routes recorded function calls to the
+// MoqValue_genType moq
+type MoqValue_genType_CanUint_fnRecorder struct {
+	Params    MoqValue_genType_CanUint_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_CanUint_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_CanUint_anyParams isolates the any params functions of the
+// Value_genType type
+type MoqValue_genType_CanUint_anyParams struct {
+	Recorder *MoqValue_genType_CanUint_fnRecorder
+}
+
 // MoqValue_genType_Uint_params holds the params of the Value_genType type
 type MoqValue_genType_Uint_params struct{}
 
@@ -3728,6 +4163,65 @@ type MoqValue_genType_UnsafeAddr_fnRecorder struct {
 // the Value_genType type
 type MoqValue_genType_UnsafeAddr_anyParams struct {
 	Recorder *MoqValue_genType_UnsafeAddr_fnRecorder
+}
+
+// MoqValue_genType_UnsafePointer_params holds the params of the Value_genType
+// type
+type MoqValue_genType_UnsafePointer_params struct{}
+
+// MoqValue_genType_UnsafePointer_paramsKey holds the map key params of the
+// Value_genType type
+type MoqValue_genType_UnsafePointer_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqValue_genType_UnsafePointer_resultsByParams contains the results for a
+// given set of parameters for the Value_genType type
+type MoqValue_genType_UnsafePointer_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_genType_UnsafePointer_paramsKey]*MoqValue_genType_UnsafePointer_results
+}
+
+// MoqValue_genType_UnsafePointer_doFn defines the type of function needed when
+// calling AndDo for the Value_genType type
+type MoqValue_genType_UnsafePointer_doFn func()
+
+// MoqValue_genType_UnsafePointer_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Value_genType type
+type MoqValue_genType_UnsafePointer_doReturnFn func() unsafe.Pointer
+
+// MoqValue_genType_UnsafePointer_results holds the results of the
+// Value_genType type
+type MoqValue_genType_UnsafePointer_results struct {
+	Params  MoqValue_genType_UnsafePointer_params
+	Results []struct {
+		Values *struct {
+			Result1 unsafe.Pointer
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_UnsafePointer_doFn
+		DoReturnFn MoqValue_genType_UnsafePointer_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_genType_UnsafePointer_fnRecorder routes recorded function calls to
+// the MoqValue_genType moq
+type MoqValue_genType_UnsafePointer_fnRecorder struct {
+	Params    MoqValue_genType_UnsafePointer_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_genType_UnsafePointer_results
+	Moq       *MoqValue_genType
+}
+
+// MoqValue_genType_UnsafePointer_anyParams isolates the any params functions
+// of the Value_genType type
+type MoqValue_genType_UnsafePointer_anyParams struct {
+	Recorder *MoqValue_genType_UnsafePointer_fnRecorder
 }
 
 // MoqValue_genType_Convert_params holds the params of the Value_genType type
@@ -3869,14 +4363,18 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 				CallSlice struct {
 					In moq.ParamIndexing
 				}
-				Cap     struct{}
-				Close   struct{}
-				Complex struct{}
-				Elem    struct{}
-				Field   struct {
+				Cap        struct{}
+				Close      struct{}
+				CanComplex struct{}
+				Complex    struct{}
+				Elem       struct{}
+				Field      struct {
 					Param1 moq.ParamIndexing
 				}
 				FieldByIndex struct {
+					Index moq.ParamIndexing
+				}
+				FieldByIndexErr struct {
 					Index moq.ParamIndexing
 				}
 				FieldByName struct {
@@ -3885,10 +4383,12 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 				FieldByNameFunc struct {
 					Match moq.ParamIndexing
 				}
-				Float struct{}
-				Index struct {
+				CanFloat struct{}
+				Float    struct{}
+				Index    struct {
 					Param1 moq.ParamIndexing
 				}
+				CanInt        struct{}
 				Int           struct{}
 				CanInterface  struct{}
 				Interface     struct{}
@@ -3901,7 +4401,13 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 				MapIndex      struct {
 					Key moq.ParamIndexing
 				}
-				MapKeys  struct{}
+				MapKeys    struct{}
+				SetIterKey struct {
+					Iter moq.ParamIndexing
+				}
+				SetIterValue struct {
+					Iter moq.ParamIndexing
+				}
 				MapRange struct{}
 				Method   struct {
 					Param1 moq.ParamIndexing
@@ -3979,10 +4485,12 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 				TrySend struct {
 					X moq.ParamIndexing
 				}
-				Type       struct{}
-				Uint       struct{}
-				UnsafeAddr struct{}
-				Convert    struct {
+				Type          struct{}
+				CanUint       struct{}
+				Uint          struct{}
+				UnsafeAddr    struct{}
+				UnsafePointer struct{}
+				Convert       struct {
 					T moq.ParamIndexing
 				}
 				CanConvert struct {
@@ -4001,14 +4509,18 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			CallSlice struct {
 				In moq.ParamIndexing
 			}
-			Cap     struct{}
-			Close   struct{}
-			Complex struct{}
-			Elem    struct{}
-			Field   struct {
+			Cap        struct{}
+			Close      struct{}
+			CanComplex struct{}
+			Complex    struct{}
+			Elem       struct{}
+			Field      struct {
 				Param1 moq.ParamIndexing
 			}
 			FieldByIndex struct {
+				Index moq.ParamIndexing
+			}
+			FieldByIndexErr struct {
 				Index moq.ParamIndexing
 			}
 			FieldByName struct {
@@ -4017,10 +4529,12 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			FieldByNameFunc struct {
 				Match moq.ParamIndexing
 			}
-			Float struct{}
-			Index struct {
+			CanFloat struct{}
+			Float    struct{}
+			Index    struct {
 				Param1 moq.ParamIndexing
 			}
+			CanInt        struct{}
 			Int           struct{}
 			CanInterface  struct{}
 			Interface     struct{}
@@ -4033,7 +4547,13 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			MapIndex      struct {
 				Key moq.ParamIndexing
 			}
-			MapKeys  struct{}
+			MapKeys    struct{}
+			SetIterKey struct {
+				Iter moq.ParamIndexing
+			}
+			SetIterValue struct {
+				Iter moq.ParamIndexing
+			}
 			MapRange struct{}
 			Method   struct {
 				Param1 moq.ParamIndexing
@@ -4111,10 +4631,12 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			TrySend struct {
 				X moq.ParamIndexing
 			}
-			Type       struct{}
-			Uint       struct{}
-			UnsafeAddr struct{}
-			Convert    struct {
+			Type          struct{}
+			CanUint       struct{}
+			Uint          struct{}
+			UnsafeAddr    struct{}
+			UnsafePointer struct{}
+			Convert       struct {
 				T moq.ParamIndexing
 			}
 			CanConvert struct {
@@ -4136,16 +4658,22 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			}{
 				In: moq.ParamIndexByHash,
 			},
-			Cap:     struct{}{},
-			Close:   struct{}{},
-			Complex: struct{}{},
-			Elem:    struct{}{},
+			Cap:        struct{}{},
+			Close:      struct{}{},
+			CanComplex: struct{}{},
+			Complex:    struct{}{},
+			Elem:       struct{}{},
 			Field: struct {
 				Param1 moq.ParamIndexing
 			}{
 				Param1: moq.ParamIndexByValue,
 			},
 			FieldByIndex: struct {
+				Index moq.ParamIndexing
+			}{
+				Index: moq.ParamIndexByHash,
+			},
+			FieldByIndexErr: struct {
 				Index moq.ParamIndexing
 			}{
 				Index: moq.ParamIndexByHash,
@@ -4160,12 +4688,14 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			}{
 				Match: moq.ParamIndexByHash,
 			},
-			Float: struct{}{},
+			CanFloat: struct{}{},
+			Float:    struct{}{},
 			Index: struct {
 				Param1 moq.ParamIndexing
 			}{
 				Param1: moq.ParamIndexByValue,
 			},
+			CanInt:        struct{}{},
 			Int:           struct{}{},
 			CanInterface:  struct{}{},
 			Interface:     struct{}{},
@@ -4180,7 +4710,17 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			}{
 				Key: moq.ParamIndexByHash,
 			},
-			MapKeys:  struct{}{},
+			MapKeys: struct{}{},
+			SetIterKey: struct {
+				Iter moq.ParamIndexing
+			}{
+				Iter: moq.ParamIndexByHash,
+			},
+			SetIterValue: struct {
+				Iter moq.ParamIndexing
+			}{
+				Iter: moq.ParamIndexByHash,
+			},
 			MapRange: struct{}{},
 			Method: struct {
 				Param1 moq.ParamIndexing
@@ -4306,9 +4846,11 @@ func NewMoqValue_genType(scene *moq.Scene, config *moq.Config) *MoqValue_genType
 			}{
 				X: moq.ParamIndexByHash,
 			},
-			Type:       struct{}{},
-			Uint:       struct{}{},
-			UnsafeAddr: struct{}{},
+			Type:          struct{}{},
+			CanUint:       struct{}{},
+			Uint:          struct{}{},
+			UnsafeAddr:    struct{}{},
+			UnsafePointer: struct{}{},
 			Convert: struct {
 				T moq.ParamIndexing
 			}{
@@ -4790,6 +5332,57 @@ func (m *MoqValue_genType_mock) Close() {
 	return
 }
 
+func (m *MoqValue_genType_mock) CanComplex() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_CanComplex_params{}
+	var results *MoqValue_genType_CanComplex_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CanComplex {
+		paramsKey := m.Moq.ParamsKey_CanComplex(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CanComplex(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CanComplex(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CanComplex(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqValue_genType_mock) Complex() (result1 complex128) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_genType_Complex_params{}
@@ -4998,6 +5591,60 @@ func (m *MoqValue_genType_mock) FieldByIndex(index []int) (result1 reflect.Value
 	return
 }
 
+func (m *MoqValue_genType_mock) FieldByIndexErr(index []int) (result1 reflect.Value, result2 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_FieldByIndexErr_params{
+		Index: index,
+	}
+	var results *MoqValue_genType_FieldByIndexErr_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_FieldByIndexErr {
+		paramsKey := m.Moq.ParamsKey_FieldByIndexErr(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_FieldByIndexErr(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_FieldByIndexErr(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_FieldByIndexErr(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(index)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+	}
+	if result.DoReturnFn != nil {
+		result1, result2 = result.DoReturnFn(index)
+	}
+	return
+}
+
 func (m *MoqValue_genType_mock) FieldByName(name string) (result1 reflect.Value) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_genType_FieldByName_params{
@@ -5100,6 +5747,57 @@ func (m *MoqValue_genType_mock) FieldByNameFunc(match func(string) bool) (result
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn(match)
+	}
+	return
+}
+
+func (m *MoqValue_genType_mock) CanFloat() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_CanFloat_params{}
+	var results *MoqValue_genType_CanFloat_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CanFloat {
+		paramsKey := m.Moq.ParamsKey_CanFloat(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CanFloat(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CanFloat(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CanFloat(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -5208,6 +5906,57 @@ func (m *MoqValue_genType_mock) Index(param1 int) (result1 reflect.Value) {
 	return
 }
 
+func (m *MoqValue_genType_mock) CanInt() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_CanInt_params{}
+	var results *MoqValue_genType_CanInt_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CanInt {
+		paramsKey := m.Moq.ParamsKey_CanInt(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CanInt(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CanInt(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CanInt(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqValue_genType_mock) Int() (result1 int64) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_genType_Int_params{}
@@ -5310,7 +6059,7 @@ func (m *MoqValue_genType_mock) CanInterface() (result1 bool) {
 	return
 }
 
-func (m *MoqValue_genType_mock) Interface() (result1 interface{}) {
+func (m *MoqValue_genType_mock) Interface() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_genType_Interface_params{}
 	var results *MoqValue_genType_Interface_results
@@ -5767,6 +6516,106 @@ func (m *MoqValue_genType_mock) MapKeys() (result1 []reflect.Value) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqValue_genType_mock) SetIterKey(iter *reflect.MapIter) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_SetIterKey_params{
+		Iter: iter,
+	}
+	var results *MoqValue_genType_SetIterKey_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_SetIterKey {
+		paramsKey := m.Moq.ParamsKey_SetIterKey(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_SetIterKey(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_SetIterKey(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_SetIterKey(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(iter)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(iter)
+	}
+	return
+}
+
+func (m *MoqValue_genType_mock) SetIterValue(iter *reflect.MapIter) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_SetIterValue_params{
+		Iter: iter,
+	}
+	var results *MoqValue_genType_SetIterValue_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_SetIterValue {
+		paramsKey := m.Moq.ParamsKey_SetIterValue(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_SetIterValue(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_SetIterValue(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_SetIterValue(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(iter)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(iter)
 	}
 	return
 }
@@ -7312,6 +8161,57 @@ func (m *MoqValue_genType_mock) Type() (result1 reflect.Type) {
 	return
 }
 
+func (m *MoqValue_genType_mock) CanUint() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_CanUint_params{}
+	var results *MoqValue_genType_CanUint_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CanUint {
+		paramsKey := m.Moq.ParamsKey_CanUint(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CanUint(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CanUint(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CanUint(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqValue_genType_mock) Uint() (result1 uint64) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_genType_Uint_params{}
@@ -7398,6 +8298,57 @@ func (m *MoqValue_genType_mock) UnsafeAddr() (result1 uintptr) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_UnsafeAddr(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqValue_genType_mock) UnsafePointer() (result1 unsafe.Pointer) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_genType_UnsafePointer_params{}
+	var results *MoqValue_genType_UnsafePointer_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_UnsafePointer {
+		paramsKey := m.Moq.ParamsKey_UnsafePointer(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_UnsafePointer(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_UnsafePointer(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_UnsafePointer(params))
 		}
 	}
 
@@ -9196,6 +10147,189 @@ func (m *MoqValue_genType) ParamsKey_Close(params MoqValue_genType_Close_params,
 	}
 }
 
+func (m *MoqValue_genType_recorder) CanComplex() *MoqValue_genType_CanComplex_fnRecorder {
+	return &MoqValue_genType_CanComplex_fnRecorder{
+		Params:   MoqValue_genType_CanComplex_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) Any() *MoqValue_genType_CanComplex_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanComplex(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_CanComplex_anyParams{Recorder: r}
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) Seq() *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanComplex(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) NoSeq() *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanComplex(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) ReturnResults(result1 bool) *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanComplex_doFn
+		DoReturnFn MoqValue_genType_CanComplex_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) AndDo(fn MoqValue_genType_CanComplex_doFn) *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) DoReturnResults(fn MoqValue_genType_CanComplex_doReturnFn) *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanComplex_doFn
+		DoReturnFn MoqValue_genType_CanComplex_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_CanComplex_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CanComplex {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_CanComplex_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_CanComplex_paramsKey]*MoqValue_genType_CanComplex_results{},
+		}
+		r.Moq.ResultsByParams_CanComplex = append(r.Moq.ResultsByParams_CanComplex, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CanComplex) {
+			copy(r.Moq.ResultsByParams_CanComplex[insertAt+1:], r.Moq.ResultsByParams_CanComplex[insertAt:0])
+			r.Moq.ResultsByParams_CanComplex[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CanComplex(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_CanComplex_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_CanComplex_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_CanComplex_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_CanComplex_doFn
+				DoReturnFn MoqValue_genType_CanComplex_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_CanComplex(params MoqValue_genType_CanComplex_params) string {
+	return fmt.Sprintf("CanComplex()")
+}
+
+func (m *MoqValue_genType) ParamsKey_CanComplex(params MoqValue_genType_CanComplex_params, anyParams uint64) MoqValue_genType_CanComplex_paramsKey {
+	m.Scene.T.Helper()
+	return MoqValue_genType_CanComplex_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqValue_genType_recorder) Complex() *MoqValue_genType_Complex_fnRecorder {
 	return &MoqValue_genType_Complex_fnRecorder{
 		Params:   MoqValue_genType_Complex_params{},
@@ -9964,6 +11098,210 @@ func (m *MoqValue_genType) ParamsKey_FieldByIndex(params MoqValue_genType_FieldB
 	}
 }
 
+func (m *MoqValue_genType_recorder) FieldByIndexErr(index []int) *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	return &MoqValue_genType_FieldByIndexErr_fnRecorder{
+		Params: MoqValue_genType_FieldByIndexErr_params{
+			Index: index,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) Any() *MoqValue_genType_FieldByIndexErr_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FieldByIndexErr(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_FieldByIndexErr_anyParams{Recorder: r}
+}
+
+func (a *MoqValue_genType_FieldByIndexErr_anyParams) Index() *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) Seq() *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FieldByIndexErr(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) NoSeq() *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FieldByIndexErr(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) ReturnResults(result1 reflect.Value, result2 error) *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 reflect.Value
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_FieldByIndexErr_doFn
+		DoReturnFn MoqValue_genType_FieldByIndexErr_doReturnFn
+	}{
+		Values: &struct {
+			Result1 reflect.Value
+			Result2 error
+		}{
+			Result1: result1,
+			Result2: result2,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) AndDo(fn MoqValue_genType_FieldByIndexErr_doFn) *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) DoReturnResults(fn MoqValue_genType_FieldByIndexErr_doReturnFn) *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 reflect.Value
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_FieldByIndexErr_doFn
+		DoReturnFn MoqValue_genType_FieldByIndexErr_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_FieldByIndexErr_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_FieldByIndexErr {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_FieldByIndexErr_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_FieldByIndexErr_paramsKey]*MoqValue_genType_FieldByIndexErr_results{},
+		}
+		r.Moq.ResultsByParams_FieldByIndexErr = append(r.Moq.ResultsByParams_FieldByIndexErr, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_FieldByIndexErr) {
+			copy(r.Moq.ResultsByParams_FieldByIndexErr[insertAt+1:], r.Moq.ResultsByParams_FieldByIndexErr[insertAt:0])
+			r.Moq.ResultsByParams_FieldByIndexErr[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_FieldByIndexErr(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_FieldByIndexErr_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_FieldByIndexErr_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_FieldByIndexErr_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 reflect.Value
+					Result2 error
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_FieldByIndexErr_doFn
+				DoReturnFn MoqValue_genType_FieldByIndexErr_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_FieldByIndexErr(params MoqValue_genType_FieldByIndexErr_params) string {
+	return fmt.Sprintf("FieldByIndexErr(%#v)", params.Index)
+}
+
+func (m *MoqValue_genType) ParamsKey_FieldByIndexErr(params MoqValue_genType_FieldByIndexErr_params, anyParams uint64) MoqValue_genType_FieldByIndexErr_paramsKey {
+	m.Scene.T.Helper()
+	var indexUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.FieldByIndexErr.Index == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The index parameter of the FieldByIndexErr function can't be indexed by value")
+		}
+		indexUsedHash = hash.DeepHash(params.Index)
+	}
+	return MoqValue_genType_FieldByIndexErr_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{ Index hash.Hash }{
+			Index: indexUsedHash,
+		},
+	}
+}
+
 func (m *MoqValue_genType_recorder) FieldByName(name string) *MoqValue_genType_FieldByName_fnRecorder {
 	return &MoqValue_genType_FieldByName_fnRecorder{
 		Params: MoqValue_genType_FieldByName_params{
@@ -10366,6 +11704,189 @@ func (m *MoqValue_genType) ParamsKey_FieldByNameFunc(params MoqValue_genType_Fie
 	}
 }
 
+func (m *MoqValue_genType_recorder) CanFloat() *MoqValue_genType_CanFloat_fnRecorder {
+	return &MoqValue_genType_CanFloat_fnRecorder{
+		Params:   MoqValue_genType_CanFloat_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) Any() *MoqValue_genType_CanFloat_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanFloat(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_CanFloat_anyParams{Recorder: r}
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) Seq() *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanFloat(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) NoSeq() *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanFloat(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) ReturnResults(result1 bool) *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanFloat_doFn
+		DoReturnFn MoqValue_genType_CanFloat_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) AndDo(fn MoqValue_genType_CanFloat_doFn) *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) DoReturnResults(fn MoqValue_genType_CanFloat_doReturnFn) *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanFloat_doFn
+		DoReturnFn MoqValue_genType_CanFloat_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_CanFloat_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CanFloat {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_CanFloat_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_CanFloat_paramsKey]*MoqValue_genType_CanFloat_results{},
+		}
+		r.Moq.ResultsByParams_CanFloat = append(r.Moq.ResultsByParams_CanFloat, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CanFloat) {
+			copy(r.Moq.ResultsByParams_CanFloat[insertAt+1:], r.Moq.ResultsByParams_CanFloat[insertAt:0])
+			r.Moq.ResultsByParams_CanFloat[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CanFloat(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_CanFloat_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_CanFloat_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_CanFloat_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_CanFloat_doFn
+				DoReturnFn MoqValue_genType_CanFloat_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_CanFloat(params MoqValue_genType_CanFloat_params) string {
+	return fmt.Sprintf("CanFloat()")
+}
+
+func (m *MoqValue_genType) ParamsKey_CanFloat(params MoqValue_genType_CanFloat_params, anyParams uint64) MoqValue_genType_CanFloat_paramsKey {
+	m.Scene.T.Helper()
+	return MoqValue_genType_CanFloat_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqValue_genType_recorder) Float() *MoqValue_genType_Float_fnRecorder {
 	return &MoqValue_genType_Float_fnRecorder{
 		Params:   MoqValue_genType_Float_params{},
@@ -10749,6 +12270,189 @@ func (m *MoqValue_genType) ParamsKey_Index(params MoqValue_genType_Index_params,
 		Hashes: struct{ Param1 hash.Hash }{
 			Param1: param1UsedHash,
 		},
+	}
+}
+
+func (m *MoqValue_genType_recorder) CanInt() *MoqValue_genType_CanInt_fnRecorder {
+	return &MoqValue_genType_CanInt_fnRecorder{
+		Params:   MoqValue_genType_CanInt_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) Any() *MoqValue_genType_CanInt_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanInt(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_CanInt_anyParams{Recorder: r}
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) Seq() *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanInt(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) NoSeq() *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanInt(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) ReturnResults(result1 bool) *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanInt_doFn
+		DoReturnFn MoqValue_genType_CanInt_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) AndDo(fn MoqValue_genType_CanInt_doFn) *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) DoReturnResults(fn MoqValue_genType_CanInt_doReturnFn) *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanInt_doFn
+		DoReturnFn MoqValue_genType_CanInt_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_CanInt_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CanInt {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_CanInt_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_CanInt_paramsKey]*MoqValue_genType_CanInt_results{},
+		}
+		r.Moq.ResultsByParams_CanInt = append(r.Moq.ResultsByParams_CanInt, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CanInt) {
+			copy(r.Moq.ResultsByParams_CanInt[insertAt+1:], r.Moq.ResultsByParams_CanInt[insertAt:0])
+			r.Moq.ResultsByParams_CanInt[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CanInt(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_CanInt_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_CanInt_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_CanInt_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_CanInt_doFn
+				DoReturnFn MoqValue_genType_CanInt_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_CanInt(params MoqValue_genType_CanInt_params) string {
+	return fmt.Sprintf("CanInt()")
+}
+
+func (m *MoqValue_genType) ParamsKey_CanInt(params MoqValue_genType_CanInt_params, anyParams uint64) MoqValue_genType_CanInt_paramsKey {
+	m.Scene.T.Helper()
+	return MoqValue_genType_CanInt_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
 	}
 }
 
@@ -11155,7 +12859,7 @@ func (r *MoqValue_genType_Interface_fnRecorder) NoSeq() *MoqValue_genType_Interf
 	return r
 }
 
-func (r *MoqValue_genType_Interface_fnRecorder) ReturnResults(result1 interface{}) *MoqValue_genType_Interface_fnRecorder {
+func (r *MoqValue_genType_Interface_fnRecorder) ReturnResults(result1 any) *MoqValue_genType_Interface_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -11165,12 +12869,12 @@ func (r *MoqValue_genType_Interface_fnRecorder) ReturnResults(result1 interface{
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Result1 interface{} }
+		Values     *struct{ Result1 any }
 		Sequence   uint32
 		DoFn       MoqValue_genType_Interface_doFn
 		DoReturnFn MoqValue_genType_Interface_doReturnFn
 	}{
-		Values: &struct{ Result1 interface{} }{
+		Values: &struct{ Result1 any }{
 			Result1: result1,
 		},
 		Sequence: sequence,
@@ -11199,7 +12903,7 @@ func (r *MoqValue_genType_Interface_fnRecorder) DoReturnResults(fn MoqValue_genT
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Result1 interface{} }
+		Values     *struct{ Result1 any }
 		Sequence   uint32
 		DoFn       MoqValue_genType_Interface_doFn
 		DoReturnFn MoqValue_genType_Interface_doReturnFn
@@ -11267,7 +12971,7 @@ func (r *MoqValue_genType_Interface_fnRecorder) Repeat(repeaters ...moq.Repeater
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Result1 interface{} }
+				Values     *struct{ Result1 any }
 				Sequence   uint32
 				DoFn       MoqValue_genType_Interface_doFn
 				DoReturnFn MoqValue_genType_Interface_doReturnFn
@@ -12774,6 +14478,392 @@ func (m *MoqValue_genType) ParamsKey_MapKeys(params MoqValue_genType_MapKeys_par
 	return MoqValue_genType_MapKeys_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqValue_genType_recorder) SetIterKey(iter *reflect.MapIter) *MoqValue_genType_SetIterKey_fnRecorder {
+	return &MoqValue_genType_SetIterKey_fnRecorder{
+		Params: MoqValue_genType_SetIterKey_params{
+			Iter: iter,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) Any() *MoqValue_genType_SetIterKey_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterKey(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_SetIterKey_anyParams{Recorder: r}
+}
+
+func (a *MoqValue_genType_SetIterKey_anyParams) Iter() *MoqValue_genType_SetIterKey_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) Seq() *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterKey(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) NoSeq() *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterKey(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) ReturnResults() *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterKey_doFn
+		DoReturnFn MoqValue_genType_SetIterKey_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) AndDo(fn MoqValue_genType_SetIterKey_doFn) *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) DoReturnResults(fn MoqValue_genType_SetIterKey_doReturnFn) *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterKey_doFn
+		DoReturnFn MoqValue_genType_SetIterKey_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_SetIterKey_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_SetIterKey {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_SetIterKey_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_SetIterKey_paramsKey]*MoqValue_genType_SetIterKey_results{},
+		}
+		r.Moq.ResultsByParams_SetIterKey = append(r.Moq.ResultsByParams_SetIterKey, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_SetIterKey) {
+			copy(r.Moq.ResultsByParams_SetIterKey[insertAt+1:], r.Moq.ResultsByParams_SetIterKey[insertAt:0])
+			r.Moq.ResultsByParams_SetIterKey[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_SetIterKey(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_SetIterKey_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_SetIterKey_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_SetIterKey_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqValue_genType_SetIterKey_doFn
+				DoReturnFn MoqValue_genType_SetIterKey_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_SetIterKey(params MoqValue_genType_SetIterKey_params) string {
+	return fmt.Sprintf("SetIterKey(%#v)", params.Iter)
+}
+
+func (m *MoqValue_genType) ParamsKey_SetIterKey(params MoqValue_genType_SetIterKey_params, anyParams uint64) MoqValue_genType_SetIterKey_paramsKey {
+	m.Scene.T.Helper()
+	var iterUsed *reflect.MapIter
+	var iterUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.SetIterKey.Iter == moq.ParamIndexByValue {
+			iterUsed = params.Iter
+		} else {
+			iterUsedHash = hash.DeepHash(params.Iter)
+		}
+	}
+	return MoqValue_genType_SetIterKey_paramsKey{
+		Params: struct{ Iter *reflect.MapIter }{
+			Iter: iterUsed,
+		},
+		Hashes: struct{ Iter hash.Hash }{
+			Iter: iterUsedHash,
+		},
+	}
+}
+
+func (m *MoqValue_genType_recorder) SetIterValue(iter *reflect.MapIter) *MoqValue_genType_SetIterValue_fnRecorder {
+	return &MoqValue_genType_SetIterValue_fnRecorder{
+		Params: MoqValue_genType_SetIterValue_params{
+			Iter: iter,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) Any() *MoqValue_genType_SetIterValue_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterValue(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_SetIterValue_anyParams{Recorder: r}
+}
+
+func (a *MoqValue_genType_SetIterValue_anyParams) Iter() *MoqValue_genType_SetIterValue_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) Seq() *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterValue(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) NoSeq() *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetIterValue(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) ReturnResults() *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterValue_doFn
+		DoReturnFn MoqValue_genType_SetIterValue_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) AndDo(fn MoqValue_genType_SetIterValue_doFn) *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) DoReturnResults(fn MoqValue_genType_SetIterValue_doReturnFn) *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqValue_genType_SetIterValue_doFn
+		DoReturnFn MoqValue_genType_SetIterValue_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_SetIterValue_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_SetIterValue {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_SetIterValue_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_SetIterValue_paramsKey]*MoqValue_genType_SetIterValue_results{},
+		}
+		r.Moq.ResultsByParams_SetIterValue = append(r.Moq.ResultsByParams_SetIterValue, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_SetIterValue) {
+			copy(r.Moq.ResultsByParams_SetIterValue[insertAt+1:], r.Moq.ResultsByParams_SetIterValue[insertAt:0])
+			r.Moq.ResultsByParams_SetIterValue[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_SetIterValue(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_SetIterValue_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_SetIterValue_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_SetIterValue_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqValue_genType_SetIterValue_doFn
+				DoReturnFn MoqValue_genType_SetIterValue_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_SetIterValue(params MoqValue_genType_SetIterValue_params) string {
+	return fmt.Sprintf("SetIterValue(%#v)", params.Iter)
+}
+
+func (m *MoqValue_genType) ParamsKey_SetIterValue(params MoqValue_genType_SetIterValue_params, anyParams uint64) MoqValue_genType_SetIterValue_paramsKey {
+	m.Scene.T.Helper()
+	var iterUsed *reflect.MapIter
+	var iterUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.SetIterValue.Iter == moq.ParamIndexByValue {
+			iterUsed = params.Iter
+		} else {
+			iterUsedHash = hash.DeepHash(params.Iter)
+		}
+	}
+	return MoqValue_genType_SetIterValue_paramsKey{
+		Params: struct{ Iter *reflect.MapIter }{
+			Iter: iterUsed,
+		},
+		Hashes: struct{ Iter hash.Hash }{
+			Iter: iterUsedHash,
+		},
 	}
 }
 
@@ -18651,6 +20741,189 @@ func (m *MoqValue_genType) ParamsKey_Type(params MoqValue_genType_Type_params, a
 	}
 }
 
+func (m *MoqValue_genType_recorder) CanUint() *MoqValue_genType_CanUint_fnRecorder {
+	return &MoqValue_genType_CanUint_fnRecorder{
+		Params:   MoqValue_genType_CanUint_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) Any() *MoqValue_genType_CanUint_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanUint(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_CanUint_anyParams{Recorder: r}
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) Seq() *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanUint(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) NoSeq() *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CanUint(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) ReturnResults(result1 bool) *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanUint_doFn
+		DoReturnFn MoqValue_genType_CanUint_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) AndDo(fn MoqValue_genType_CanUint_doFn) *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) DoReturnResults(fn MoqValue_genType_CanUint_doReturnFn) *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_CanUint_doFn
+		DoReturnFn MoqValue_genType_CanUint_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_CanUint_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CanUint {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_CanUint_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_CanUint_paramsKey]*MoqValue_genType_CanUint_results{},
+		}
+		r.Moq.ResultsByParams_CanUint = append(r.Moq.ResultsByParams_CanUint, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CanUint) {
+			copy(r.Moq.ResultsByParams_CanUint[insertAt+1:], r.Moq.ResultsByParams_CanUint[insertAt:0])
+			r.Moq.ResultsByParams_CanUint[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CanUint(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_CanUint_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_CanUint_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_CanUint_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_CanUint_doFn
+				DoReturnFn MoqValue_genType_CanUint_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_CanUint(params MoqValue_genType_CanUint_params) string {
+	return fmt.Sprintf("CanUint()")
+}
+
+func (m *MoqValue_genType) ParamsKey_CanUint(params MoqValue_genType_CanUint_params, anyParams uint64) MoqValue_genType_CanUint_paramsKey {
+	m.Scene.T.Helper()
+	return MoqValue_genType_CanUint_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqValue_genType_recorder) Uint() *MoqValue_genType_Uint_fnRecorder {
 	return &MoqValue_genType_Uint_fnRecorder{
 		Params:   MoqValue_genType_Uint_params{},
@@ -19012,6 +21285,189 @@ func (m *MoqValue_genType) PrettyParams_UnsafeAddr(params MoqValue_genType_Unsaf
 func (m *MoqValue_genType) ParamsKey_UnsafeAddr(params MoqValue_genType_UnsafeAddr_params, anyParams uint64) MoqValue_genType_UnsafeAddr_paramsKey {
 	m.Scene.T.Helper()
 	return MoqValue_genType_UnsafeAddr_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqValue_genType_recorder) UnsafePointer() *MoqValue_genType_UnsafePointer_fnRecorder {
+	return &MoqValue_genType_UnsafePointer_fnRecorder{
+		Params:   MoqValue_genType_UnsafePointer_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) Any() *MoqValue_genType_UnsafePointer_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnsafePointer(r.Params))
+		return nil
+	}
+	return &MoqValue_genType_UnsafePointer_anyParams{Recorder: r}
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) Seq() *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnsafePointer(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) NoSeq() *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_UnsafePointer(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) ReturnResults(result1 unsafe.Pointer) *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 unsafe.Pointer
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_UnsafePointer_doFn
+		DoReturnFn MoqValue_genType_UnsafePointer_doReturnFn
+	}{
+		Values: &struct {
+			Result1 unsafe.Pointer
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) AndDo(fn MoqValue_genType_UnsafePointer_doFn) *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) DoReturnResults(fn MoqValue_genType_UnsafePointer_doReturnFn) *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 unsafe.Pointer
+		}
+		Sequence   uint32
+		DoFn       MoqValue_genType_UnsafePointer_doFn
+		DoReturnFn MoqValue_genType_UnsafePointer_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_genType_UnsafePointer_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_UnsafePointer {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_genType_UnsafePointer_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_genType_UnsafePointer_paramsKey]*MoqValue_genType_UnsafePointer_results{},
+		}
+		r.Moq.ResultsByParams_UnsafePointer = append(r.Moq.ResultsByParams_UnsafePointer, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_UnsafePointer) {
+			copy(r.Moq.ResultsByParams_UnsafePointer[insertAt+1:], r.Moq.ResultsByParams_UnsafePointer[insertAt:0])
+			r.Moq.ResultsByParams_UnsafePointer[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_UnsafePointer(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_genType_UnsafePointer_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_genType_UnsafePointer_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_genType_UnsafePointer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 unsafe.Pointer
+				}
+				Sequence   uint32
+				DoFn       MoqValue_genType_UnsafePointer_doFn
+				DoReturnFn MoqValue_genType_UnsafePointer_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_genType) PrettyParams_UnsafePointer(params MoqValue_genType_UnsafePointer_params) string {
+	return fmt.Sprintf("UnsafePointer()")
+}
+
+func (m *MoqValue_genType) ParamsKey_UnsafePointer(params MoqValue_genType_UnsafePointer_params, anyParams uint64) MoqValue_genType_UnsafePointer_paramsKey {
+	m.Scene.T.Helper()
+	return MoqValue_genType_UnsafePointer_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -19434,14 +21890,18 @@ func (m *MoqValue_genType) Reset() {
 	m.ResultsByParams_CallSlice = nil
 	m.ResultsByParams_Cap = nil
 	m.ResultsByParams_Close = nil
+	m.ResultsByParams_CanComplex = nil
 	m.ResultsByParams_Complex = nil
 	m.ResultsByParams_Elem = nil
 	m.ResultsByParams_Field = nil
 	m.ResultsByParams_FieldByIndex = nil
+	m.ResultsByParams_FieldByIndexErr = nil
 	m.ResultsByParams_FieldByName = nil
 	m.ResultsByParams_FieldByNameFunc = nil
+	m.ResultsByParams_CanFloat = nil
 	m.ResultsByParams_Float = nil
 	m.ResultsByParams_Index = nil
+	m.ResultsByParams_CanInt = nil
 	m.ResultsByParams_Int = nil
 	m.ResultsByParams_CanInterface = nil
 	m.ResultsByParams_Interface = nil
@@ -19453,6 +21913,8 @@ func (m *MoqValue_genType) Reset() {
 	m.ResultsByParams_Len = nil
 	m.ResultsByParams_MapIndex = nil
 	m.ResultsByParams_MapKeys = nil
+	m.ResultsByParams_SetIterKey = nil
+	m.ResultsByParams_SetIterValue = nil
 	m.ResultsByParams_MapRange = nil
 	m.ResultsByParams_Method = nil
 	m.ResultsByParams_NumMethod = nil
@@ -19483,8 +21945,10 @@ func (m *MoqValue_genType) Reset() {
 	m.ResultsByParams_TryRecv = nil
 	m.ResultsByParams_TrySend = nil
 	m.ResultsByParams_Type = nil
+	m.ResultsByParams_CanUint = nil
 	m.ResultsByParams_Uint = nil
 	m.ResultsByParams_UnsafeAddr = nil
+	m.ResultsByParams_UnsafePointer = nil
 	m.ResultsByParams_Convert = nil
 	m.ResultsByParams_CanConvert = nil
 }
@@ -19564,6 +22028,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_CanComplex {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CanComplex(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_Complex {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -19596,6 +22068,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_FieldByIndexErr {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_FieldByIndexErr(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_FieldByName {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -19612,6 +22092,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_CanFloat {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CanFloat(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_Float {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -19625,6 +22113,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Index(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_CanInt {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CanInt(results.Params))
 			}
 		}
 	}
@@ -19713,6 +22209,22 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_MapKeys(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_SetIterKey {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetIterKey(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_SetIterValue {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetIterValue(results.Params))
 			}
 		}
 	}
@@ -19956,6 +22468,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_CanUint {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CanUint(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_Uint {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -19969,6 +22489,14 @@ func (m *MoqValue_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_UnsafeAddr(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_UnsafePointer {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_UnsafePointer(results.Params))
 			}
 		}
 	}

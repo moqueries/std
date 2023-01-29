@@ -14,7 +14,7 @@ import (
 
 // Fprintln_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Fprintln_genType func(w io.Writer, a ...interface{}) (n int, err error)
+type Fprintln_genType func(w io.Writer, a ...any) (n int, err error)
 
 // MoqFprintln_genType holds the state of a moq of the Fprintln_genType type
 type MoqFprintln_genType struct {
@@ -41,7 +41,7 @@ type MoqFprintln_genType_mock struct {
 // MoqFprintln_genType_params holds the params of the Fprintln_genType type
 type MoqFprintln_genType_params struct {
 	W io.Writer
-	A []interface{}
+	A []any
 }
 
 // MoqFprintln_genType_paramsKey holds the map key params of the
@@ -64,11 +64,11 @@ type MoqFprintln_genType_resultsByParams struct {
 
 // MoqFprintln_genType_doFn defines the type of function needed when calling
 // AndDo for the Fprintln_genType type
-type MoqFprintln_genType_doFn func(w io.Writer, a ...interface{})
+type MoqFprintln_genType_doFn func(w io.Writer, a ...any)
 
 // MoqFprintln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Fprintln_genType type
-type MoqFprintln_genType_doReturnFn func(w io.Writer, a ...interface{}) (n int, err error)
+type MoqFprintln_genType_doReturnFn func(w io.Writer, a ...any) (n int, err error)
 
 // MoqFprintln_genType_results holds the results of the Fprintln_genType type
 type MoqFprintln_genType_results struct {
@@ -133,14 +133,14 @@ func NewMoqFprintln_genType(scene *moq.Scene, config *moq.Config) *MoqFprintln_g
 
 // Mock returns the moq implementation of the Fprintln_genType type
 func (m *MoqFprintln_genType) Mock() Fprintln_genType {
-	return func(w io.Writer, a ...interface{}) (_ int, _ error) {
+	return func(w io.Writer, a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqFprintln_genType_mock{Moq: m}
 		return moq.Fn(w, a...)
 	}
 }
 
-func (m *MoqFprintln_genType_mock) Fn(w io.Writer, a ...interface{}) (n int, err error) {
+func (m *MoqFprintln_genType_mock) Fn(w io.Writer, a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFprintln_genType_params{
 		W: w,
@@ -195,7 +195,7 @@ func (m *MoqFprintln_genType_mock) Fn(w io.Writer, a ...interface{}) (n int, err
 	return
 }
 
-func (m *MoqFprintln_genType) OnCall(w io.Writer, a ...interface{}) *MoqFprintln_genType_fnRecorder {
+func (m *MoqFprintln_genType) OnCall(w io.Writer, a ...any) *MoqFprintln_genType_fnRecorder {
 	return &MoqFprintln_genType_fnRecorder{
 		Params: MoqFprintln_genType_params{
 			W: w,

@@ -13,7 +13,7 @@ import (
 
 // Scan_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Scan_genType func(a ...interface{}) (n int, err error)
+type Scan_genType func(a ...any) (n int, err error)
 
 // MoqScan_genType holds the state of a moq of the Scan_genType type
 type MoqScan_genType struct {
@@ -36,7 +36,7 @@ type MoqScan_genType_mock struct {
 }
 
 // MoqScan_genType_params holds the params of the Scan_genType type
-type MoqScan_genType_params struct{ A []interface{} }
+type MoqScan_genType_params struct{ A []any }
 
 // MoqScan_genType_paramsKey holds the map key params of the Scan_genType type
 type MoqScan_genType_paramsKey struct {
@@ -54,11 +54,11 @@ type MoqScan_genType_resultsByParams struct {
 
 // MoqScan_genType_doFn defines the type of function needed when calling AndDo
 // for the Scan_genType type
-type MoqScan_genType_doFn func(a ...interface{})
+type MoqScan_genType_doFn func(a ...any)
 
 // MoqScan_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Scan_genType type
-type MoqScan_genType_doReturnFn func(a ...interface{}) (n int, err error)
+type MoqScan_genType_doReturnFn func(a ...any) (n int, err error)
 
 // MoqScan_genType_results holds the results of the Scan_genType type
 type MoqScan_genType_results struct {
@@ -120,14 +120,14 @@ func NewMoqScan_genType(scene *moq.Scene, config *moq.Config) *MoqScan_genType {
 
 // Mock returns the moq implementation of the Scan_genType type
 func (m *MoqScan_genType) Mock() Scan_genType {
-	return func(a ...interface{}) (_ int, _ error) {
+	return func(a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqScan_genType_mock{Moq: m}
 		return moq.Fn(a...)
 	}
 }
 
-func (m *MoqScan_genType_mock) Fn(a ...interface{}) (n int, err error) {
+func (m *MoqScan_genType_mock) Fn(a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqScan_genType_params{
 		A: a,
@@ -181,7 +181,7 @@ func (m *MoqScan_genType_mock) Fn(a ...interface{}) (n int, err error) {
 	return
 }
 
-func (m *MoqScan_genType) OnCall(a ...interface{}) *MoqScan_genType_fnRecorder {
+func (m *MoqScan_genType) OnCall(a ...any) *MoqScan_genType_fnRecorder {
 	return &MoqScan_genType_fnRecorder{
 		Params: MoqScan_genType_params{
 			A: a,

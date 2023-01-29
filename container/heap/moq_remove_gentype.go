@@ -14,7 +14,7 @@ import (
 
 // Remove_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Remove_genType func(h heap.Interface, i int) interface{}
+type Remove_genType func(h heap.Interface, i int) any
 
 // MoqRemove_genType holds the state of a moq of the Remove_genType type
 type MoqRemove_genType struct {
@@ -71,14 +71,14 @@ type MoqRemove_genType_doFn func(h heap.Interface, i int)
 
 // MoqRemove_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Remove_genType type
-type MoqRemove_genType_doReturnFn func(h heap.Interface, i int) interface{}
+type MoqRemove_genType_doReturnFn func(h heap.Interface, i int) any
 
 // MoqRemove_genType_results holds the results of the Remove_genType type
 type MoqRemove_genType_results struct {
 	Params  MoqRemove_genType_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqRemove_genType_doFn
@@ -135,14 +135,14 @@ func NewMoqRemove_genType(scene *moq.Scene, config *moq.Config) *MoqRemove_genTy
 
 // Mock returns the moq implementation of the Remove_genType type
 func (m *MoqRemove_genType) Mock() Remove_genType {
-	return func(h heap.Interface, param2 int) interface{} {
+	return func(h heap.Interface, param2 int) any {
 		m.Scene.T.Helper()
 		moq := &MoqRemove_genType_mock{Moq: m}
 		return moq.Fn(h, param2)
 	}
 }
 
-func (m *MoqRemove_genType_mock) Fn(h heap.Interface, param2 int) (result1 interface{}) {
+func (m *MoqRemove_genType_mock) Fn(h heap.Interface, param2 int) (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRemove_genType_params{
 		H:      h,
@@ -246,7 +246,7 @@ func (r *MoqRemove_genType_fnRecorder) NoSeq() *MoqRemove_genType_fnRecorder {
 	return r
 }
 
-func (r *MoqRemove_genType_fnRecorder) ReturnResults(result1 interface{}) *MoqRemove_genType_fnRecorder {
+func (r *MoqRemove_genType_fnRecorder) ReturnResults(result1 any) *MoqRemove_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -257,14 +257,14 @@ func (r *MoqRemove_genType_fnRecorder) ReturnResults(result1 interface{}) *MoqRe
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqRemove_genType_doFn
 		DoReturnFn MoqRemove_genType_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -295,7 +295,7 @@ func (r *MoqRemove_genType_fnRecorder) DoReturnResults(fn MoqRemove_genType_doRe
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqRemove_genType_doFn
@@ -365,7 +365,7 @@ func (r *MoqRemove_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRem
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqRemove_genType_doFn

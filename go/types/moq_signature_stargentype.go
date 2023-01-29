@@ -20,6 +20,8 @@ var _ Signature_starGenType = (*MoqSignature_starGenType_mock)(nil)
 // interface type)
 type Signature_starGenType interface {
 	Recv() *types.Var
+	TypeParams() *types.TypeParamList
+	RecvTypeParams() *types.TypeParamList
 	Params() *types.Tuple
 	Results() *types.Tuple
 	Variadic() bool
@@ -34,21 +36,25 @@ type MoqSignature_starGenType struct {
 	Config moq.Config
 	Moq    *MoqSignature_starGenType_mock
 
-	ResultsByParams_Recv       []MoqSignature_starGenType_Recv_resultsByParams
-	ResultsByParams_Params     []MoqSignature_starGenType_Params_resultsByParams
-	ResultsByParams_Results    []MoqSignature_starGenType_Results_resultsByParams
-	ResultsByParams_Variadic   []MoqSignature_starGenType_Variadic_resultsByParams
-	ResultsByParams_Underlying []MoqSignature_starGenType_Underlying_resultsByParams
-	ResultsByParams_String     []MoqSignature_starGenType_String_resultsByParams
+	ResultsByParams_Recv           []MoqSignature_starGenType_Recv_resultsByParams
+	ResultsByParams_TypeParams     []MoqSignature_starGenType_TypeParams_resultsByParams
+	ResultsByParams_RecvTypeParams []MoqSignature_starGenType_RecvTypeParams_resultsByParams
+	ResultsByParams_Params         []MoqSignature_starGenType_Params_resultsByParams
+	ResultsByParams_Results        []MoqSignature_starGenType_Results_resultsByParams
+	ResultsByParams_Variadic       []MoqSignature_starGenType_Variadic_resultsByParams
+	ResultsByParams_Underlying     []MoqSignature_starGenType_Underlying_resultsByParams
+	ResultsByParams_String         []MoqSignature_starGenType_String_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Recv       struct{}
-			Params     struct{}
-			Results    struct{}
-			Variadic   struct{}
-			Underlying struct{}
-			String     struct{}
+			Recv           struct{}
+			TypeParams     struct{}
+			RecvTypeParams struct{}
+			Params         struct{}
+			Results        struct{}
+			Variadic       struct{}
+			Underlying     struct{}
+			String         struct{}
 		}
 	}
 }
@@ -122,6 +128,125 @@ type MoqSignature_starGenType_Recv_fnRecorder struct {
 // the Signature_starGenType type
 type MoqSignature_starGenType_Recv_anyParams struct {
 	Recorder *MoqSignature_starGenType_Recv_fnRecorder
+}
+
+// MoqSignature_starGenType_TypeParams_params holds the params of the
+// Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_params struct{}
+
+// MoqSignature_starGenType_TypeParams_paramsKey holds the map key params of
+// the Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqSignature_starGenType_TypeParams_resultsByParams contains the results for
+// a given set of parameters for the Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqSignature_starGenType_TypeParams_paramsKey]*MoqSignature_starGenType_TypeParams_results
+}
+
+// MoqSignature_starGenType_TypeParams_doFn defines the type of function needed
+// when calling AndDo for the Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_doFn func()
+
+// MoqSignature_starGenType_TypeParams_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_doReturnFn func() *types.TypeParamList
+
+// MoqSignature_starGenType_TypeParams_results holds the results of the
+// Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_results struct {
+	Params  MoqSignature_starGenType_TypeParams_params
+	Results []struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_TypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_TypeParams_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqSignature_starGenType_TypeParams_fnRecorder routes recorded function
+// calls to the MoqSignature_starGenType moq
+type MoqSignature_starGenType_TypeParams_fnRecorder struct {
+	Params    MoqSignature_starGenType_TypeParams_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqSignature_starGenType_TypeParams_results
+	Moq       *MoqSignature_starGenType
+}
+
+// MoqSignature_starGenType_TypeParams_anyParams isolates the any params
+// functions of the Signature_starGenType type
+type MoqSignature_starGenType_TypeParams_anyParams struct {
+	Recorder *MoqSignature_starGenType_TypeParams_fnRecorder
+}
+
+// MoqSignature_starGenType_RecvTypeParams_params holds the params of the
+// Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_params struct{}
+
+// MoqSignature_starGenType_RecvTypeParams_paramsKey holds the map key params
+// of the Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqSignature_starGenType_RecvTypeParams_resultsByParams contains the results
+// for a given set of parameters for the Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqSignature_starGenType_RecvTypeParams_paramsKey]*MoqSignature_starGenType_RecvTypeParams_results
+}
+
+// MoqSignature_starGenType_RecvTypeParams_doFn defines the type of function
+// needed when calling AndDo for the Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_doFn func()
+
+// MoqSignature_starGenType_RecvTypeParams_doReturnFn defines the type of
+// function needed when calling DoReturnResults for the Signature_starGenType
+// type
+type MoqSignature_starGenType_RecvTypeParams_doReturnFn func() *types.TypeParamList
+
+// MoqSignature_starGenType_RecvTypeParams_results holds the results of the
+// Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_results struct {
+	Params  MoqSignature_starGenType_RecvTypeParams_params
+	Results []struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_RecvTypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_RecvTypeParams_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqSignature_starGenType_RecvTypeParams_fnRecorder routes recorded function
+// calls to the MoqSignature_starGenType moq
+type MoqSignature_starGenType_RecvTypeParams_fnRecorder struct {
+	Params    MoqSignature_starGenType_RecvTypeParams_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqSignature_starGenType_RecvTypeParams_results
+	Moq       *MoqSignature_starGenType
+}
+
+// MoqSignature_starGenType_RecvTypeParams_anyParams isolates the any params
+// functions of the Signature_starGenType type
+type MoqSignature_starGenType_RecvTypeParams_anyParams struct {
+	Recorder *MoqSignature_starGenType_RecvTypeParams_fnRecorder
 }
 
 // MoqSignature_starGenType_Params_params holds the params of the
@@ -432,27 +557,33 @@ func NewMoqSignature_starGenType(scene *moq.Scene, config *moq.Config) *MoqSigna
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Recv       struct{}
-				Params     struct{}
-				Results    struct{}
-				Variadic   struct{}
-				Underlying struct{}
-				String     struct{}
+				Recv           struct{}
+				TypeParams     struct{}
+				RecvTypeParams struct{}
+				Params         struct{}
+				Results        struct{}
+				Variadic       struct{}
+				Underlying     struct{}
+				String         struct{}
 			}
 		}{ParameterIndexing: struct {
-			Recv       struct{}
-			Params     struct{}
-			Results    struct{}
-			Variadic   struct{}
-			Underlying struct{}
-			String     struct{}
+			Recv           struct{}
+			TypeParams     struct{}
+			RecvTypeParams struct{}
+			Params         struct{}
+			Results        struct{}
+			Variadic       struct{}
+			Underlying     struct{}
+			String         struct{}
 		}{
-			Recv:       struct{}{},
-			Params:     struct{}{},
-			Results:    struct{}{},
-			Variadic:   struct{}{},
-			Underlying: struct{}{},
-			String:     struct{}{},
+			Recv:           struct{}{},
+			TypeParams:     struct{}{},
+			RecvTypeParams: struct{}{},
+			Params:         struct{}{},
+			Results:        struct{}{},
+			Variadic:       struct{}{},
+			Underlying:     struct{}{},
+			String:         struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -499,6 +630,108 @@ func (m *MoqSignature_starGenType_mock) Recv() (result1 *types.Var) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Recv(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqSignature_starGenType_mock) TypeParams() (result1 *types.TypeParamList) {
+	m.Moq.Scene.T.Helper()
+	params := MoqSignature_starGenType_TypeParams_params{}
+	var results *MoqSignature_starGenType_TypeParams_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TypeParams {
+		paramsKey := m.Moq.ParamsKey_TypeParams(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TypeParams(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TypeParams(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TypeParams(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqSignature_starGenType_mock) RecvTypeParams() (result1 *types.TypeParamList) {
+	m.Moq.Scene.T.Helper()
+	params := MoqSignature_starGenType_RecvTypeParams_params{}
+	var results *MoqSignature_starGenType_RecvTypeParams_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_RecvTypeParams {
+		paramsKey := m.Moq.ParamsKey_RecvTypeParams(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_RecvTypeParams(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_RecvTypeParams(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_RecvTypeParams(params))
 		}
 	}
 
@@ -955,6 +1188,372 @@ func (m *MoqSignature_starGenType) PrettyParams_Recv(params MoqSignature_starGen
 func (m *MoqSignature_starGenType) ParamsKey_Recv(params MoqSignature_starGenType_Recv_params, anyParams uint64) MoqSignature_starGenType_Recv_paramsKey {
 	m.Scene.T.Helper()
 	return MoqSignature_starGenType_Recv_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqSignature_starGenType_recorder) TypeParams() *MoqSignature_starGenType_TypeParams_fnRecorder {
+	return &MoqSignature_starGenType_TypeParams_fnRecorder{
+		Params:   MoqSignature_starGenType_TypeParams_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) Any() *MoqSignature_starGenType_TypeParams_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	return &MoqSignature_starGenType_TypeParams_anyParams{Recorder: r}
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) Seq() *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) NoSeq() *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) ReturnResults(result1 *types.TypeParamList) *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_TypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_TypeParams_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *types.TypeParamList
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) AndDo(fn MoqSignature_starGenType_TypeParams_doFn) *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) DoReturnResults(fn MoqSignature_starGenType_TypeParams_doReturnFn) *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_TypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_TypeParams_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqSignature_starGenType_TypeParams_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TypeParams {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqSignature_starGenType_TypeParams_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqSignature_starGenType_TypeParams_paramsKey]*MoqSignature_starGenType_TypeParams_results{},
+		}
+		r.Moq.ResultsByParams_TypeParams = append(r.Moq.ResultsByParams_TypeParams, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TypeParams) {
+			copy(r.Moq.ResultsByParams_TypeParams[insertAt+1:], r.Moq.ResultsByParams_TypeParams[insertAt:0])
+			r.Moq.ResultsByParams_TypeParams[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TypeParams(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqSignature_starGenType_TypeParams_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqSignature_starGenType_TypeParams_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqSignature_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *types.TypeParamList
+				}
+				Sequence   uint32
+				DoFn       MoqSignature_starGenType_TypeParams_doFn
+				DoReturnFn MoqSignature_starGenType_TypeParams_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqSignature_starGenType) PrettyParams_TypeParams(params MoqSignature_starGenType_TypeParams_params) string {
+	return fmt.Sprintf("TypeParams()")
+}
+
+func (m *MoqSignature_starGenType) ParamsKey_TypeParams(params MoqSignature_starGenType_TypeParams_params, anyParams uint64) MoqSignature_starGenType_TypeParams_paramsKey {
+	m.Scene.T.Helper()
+	return MoqSignature_starGenType_TypeParams_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqSignature_starGenType_recorder) RecvTypeParams() *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	return &MoqSignature_starGenType_RecvTypeParams_fnRecorder{
+		Params:   MoqSignature_starGenType_RecvTypeParams_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) Any() *MoqSignature_starGenType_RecvTypeParams_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RecvTypeParams(r.Params))
+		return nil
+	}
+	return &MoqSignature_starGenType_RecvTypeParams_anyParams{Recorder: r}
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) Seq() *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RecvTypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) NoSeq() *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RecvTypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) ReturnResults(result1 *types.TypeParamList) *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_RecvTypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_RecvTypeParams_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *types.TypeParamList
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) AndDo(fn MoqSignature_starGenType_RecvTypeParams_doFn) *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) DoReturnResults(fn MoqSignature_starGenType_RecvTypeParams_doReturnFn) *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqSignature_starGenType_RecvTypeParams_doFn
+		DoReturnFn MoqSignature_starGenType_RecvTypeParams_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqSignature_starGenType_RecvTypeParams_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_RecvTypeParams {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqSignature_starGenType_RecvTypeParams_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqSignature_starGenType_RecvTypeParams_paramsKey]*MoqSignature_starGenType_RecvTypeParams_results{},
+		}
+		r.Moq.ResultsByParams_RecvTypeParams = append(r.Moq.ResultsByParams_RecvTypeParams, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_RecvTypeParams) {
+			copy(r.Moq.ResultsByParams_RecvTypeParams[insertAt+1:], r.Moq.ResultsByParams_RecvTypeParams[insertAt:0])
+			r.Moq.ResultsByParams_RecvTypeParams[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_RecvTypeParams(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqSignature_starGenType_RecvTypeParams_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqSignature_starGenType_RecvTypeParams_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqSignature_starGenType_RecvTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *types.TypeParamList
+				}
+				Sequence   uint32
+				DoFn       MoqSignature_starGenType_RecvTypeParams_doFn
+				DoReturnFn MoqSignature_starGenType_RecvTypeParams_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqSignature_starGenType) PrettyParams_RecvTypeParams(params MoqSignature_starGenType_RecvTypeParams_params) string {
+	return fmt.Sprintf("RecvTypeParams()")
+}
+
+func (m *MoqSignature_starGenType) ParamsKey_RecvTypeParams(params MoqSignature_starGenType_RecvTypeParams_params, anyParams uint64) MoqSignature_starGenType_RecvTypeParams_paramsKey {
+	m.Scene.T.Helper()
+	return MoqSignature_starGenType_RecvTypeParams_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -1878,6 +2477,8 @@ func (m *MoqSignature_starGenType) ParamsKey_String(params MoqSignature_starGenT
 // Reset resets the state of the moq
 func (m *MoqSignature_starGenType) Reset() {
 	m.ResultsByParams_Recv = nil
+	m.ResultsByParams_TypeParams = nil
+	m.ResultsByParams_RecvTypeParams = nil
 	m.ResultsByParams_Params = nil
 	m.ResultsByParams_Results = nil
 	m.ResultsByParams_Variadic = nil
@@ -1893,6 +2494,22 @@ func (m *MoqSignature_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Recv(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TypeParams {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TypeParams(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_RecvTypeParams {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_RecvTypeParams(results.Params))
 			}
 		}
 	}

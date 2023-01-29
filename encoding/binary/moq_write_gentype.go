@@ -15,7 +15,7 @@ import (
 
 // Write_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Write_genType func(w io.Writer, order binary.ByteOrder, data interface{}) error
+type Write_genType func(w io.Writer, order binary.ByteOrder, data any) error
 
 // MoqWrite_genType holds the state of a moq of the Write_genType type
 type MoqWrite_genType struct {
@@ -43,7 +43,7 @@ type MoqWrite_genType_mock struct {
 type MoqWrite_genType_params struct {
 	W     io.Writer
 	Order binary.ByteOrder
-	Data  interface{}
+	Data  any
 }
 
 // MoqWrite_genType_paramsKey holds the map key params of the Write_genType
@@ -52,7 +52,7 @@ type MoqWrite_genType_paramsKey struct {
 	Params struct {
 		W     io.Writer
 		Order binary.ByteOrder
-		Data  interface{}
+		Data  any
 	}
 	Hashes struct {
 		W     hash.Hash
@@ -71,11 +71,11 @@ type MoqWrite_genType_resultsByParams struct {
 
 // MoqWrite_genType_doFn defines the type of function needed when calling AndDo
 // for the Write_genType type
-type MoqWrite_genType_doFn func(w io.Writer, order binary.ByteOrder, data interface{})
+type MoqWrite_genType_doFn func(w io.Writer, order binary.ByteOrder, data any)
 
 // MoqWrite_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Write_genType type
-type MoqWrite_genType_doReturnFn func(w io.Writer, order binary.ByteOrder, data interface{}) error
+type MoqWrite_genType_doReturnFn func(w io.Writer, order binary.ByteOrder, data any) error
 
 // MoqWrite_genType_results holds the results of the Write_genType type
 type MoqWrite_genType_results struct {
@@ -131,7 +131,7 @@ func NewMoqWrite_genType(scene *moq.Scene, config *moq.Config) *MoqWrite_genType
 		}{
 			W:     moq.ParamIndexByHash,
 			Order: moq.ParamIndexByHash,
-			Data:  moq.ParamIndexByHash,
+			Data:  moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -142,14 +142,14 @@ func NewMoqWrite_genType(scene *moq.Scene, config *moq.Config) *MoqWrite_genType
 
 // Mock returns the moq implementation of the Write_genType type
 func (m *MoqWrite_genType) Mock() Write_genType {
-	return func(w io.Writer, order binary.ByteOrder, data interface{}) error {
+	return func(w io.Writer, order binary.ByteOrder, data any) error {
 		m.Scene.T.Helper()
 		moq := &MoqWrite_genType_mock{Moq: m}
 		return moq.Fn(w, order, data)
 	}
 }
 
-func (m *MoqWrite_genType_mock) Fn(w io.Writer, order binary.ByteOrder, data interface{}) (result1 error) {
+func (m *MoqWrite_genType_mock) Fn(w io.Writer, order binary.ByteOrder, data any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWrite_genType_params{
 		W:     w,
@@ -204,7 +204,7 @@ func (m *MoqWrite_genType_mock) Fn(w io.Writer, order binary.ByteOrder, data int
 	return
 }
 
-func (m *MoqWrite_genType) OnCall(w io.Writer, order binary.ByteOrder, data interface{}) *MoqWrite_genType_fnRecorder {
+func (m *MoqWrite_genType) OnCall(w io.Writer, order binary.ByteOrder, data any) *MoqWrite_genType_fnRecorder {
 	return &MoqWrite_genType_fnRecorder{
 		Params: MoqWrite_genType_params{
 			W:     w,
@@ -418,7 +418,7 @@ func (m *MoqWrite_genType) ParamsKey(params MoqWrite_genType_params, anyParams u
 			orderUsedHash = hash.DeepHash(params.Order)
 		}
 	}
-	var dataUsed interface{}
+	var dataUsed any
 	var dataUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Data == moq.ParamIndexByValue {
@@ -431,7 +431,7 @@ func (m *MoqWrite_genType) ParamsKey(params MoqWrite_genType_params, anyParams u
 		Params: struct {
 			W     io.Writer
 			Order binary.ByteOrder
-			Data  interface{}
+			Data  any
 		}{
 			W:     wUsed,
 			Order: orderUsed,

@@ -28,6 +28,7 @@ type Conn_starGenType interface {
 	SetDeadline(t time.Time) error
 	SetReadDeadline(t time.Time) error
 	SetWriteDeadline(t time.Time) error
+	NetConn() net.Conn
 	Write(b []byte) (int, error)
 	Read(b []byte) (int, error)
 	Close() error
@@ -50,6 +51,7 @@ type MoqConn_starGenType struct {
 	ResultsByParams_SetDeadline      []MoqConn_starGenType_SetDeadline_resultsByParams
 	ResultsByParams_SetReadDeadline  []MoqConn_starGenType_SetReadDeadline_resultsByParams
 	ResultsByParams_SetWriteDeadline []MoqConn_starGenType_SetWriteDeadline_resultsByParams
+	ResultsByParams_NetConn          []MoqConn_starGenType_NetConn_resultsByParams
 	ResultsByParams_Write            []MoqConn_starGenType_Write_resultsByParams
 	ResultsByParams_Read             []MoqConn_starGenType_Read_resultsByParams
 	ResultsByParams_Close            []MoqConn_starGenType_Close_resultsByParams
@@ -73,7 +75,8 @@ type MoqConn_starGenType struct {
 			SetWriteDeadline struct {
 				T moq.ParamIndexing
 			}
-			Write struct {
+			NetConn struct{}
+			Write   struct {
 				B moq.ParamIndexing
 			}
 			Read struct {
@@ -399,6 +402,65 @@ type MoqConn_starGenType_SetWriteDeadline_fnRecorder struct {
 // functions of the Conn_starGenType type
 type MoqConn_starGenType_SetWriteDeadline_anyParams struct {
 	Recorder *MoqConn_starGenType_SetWriteDeadline_fnRecorder
+}
+
+// MoqConn_starGenType_NetConn_params holds the params of the Conn_starGenType
+// type
+type MoqConn_starGenType_NetConn_params struct{}
+
+// MoqConn_starGenType_NetConn_paramsKey holds the map key params of the
+// Conn_starGenType type
+type MoqConn_starGenType_NetConn_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqConn_starGenType_NetConn_resultsByParams contains the results for a given
+// set of parameters for the Conn_starGenType type
+type MoqConn_starGenType_NetConn_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqConn_starGenType_NetConn_paramsKey]*MoqConn_starGenType_NetConn_results
+}
+
+// MoqConn_starGenType_NetConn_doFn defines the type of function needed when
+// calling AndDo for the Conn_starGenType type
+type MoqConn_starGenType_NetConn_doFn func()
+
+// MoqConn_starGenType_NetConn_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Conn_starGenType type
+type MoqConn_starGenType_NetConn_doReturnFn func() net.Conn
+
+// MoqConn_starGenType_NetConn_results holds the results of the
+// Conn_starGenType type
+type MoqConn_starGenType_NetConn_results struct {
+	Params  MoqConn_starGenType_NetConn_params
+	Results []struct {
+		Values *struct {
+			Result1 net.Conn
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_NetConn_doFn
+		DoReturnFn MoqConn_starGenType_NetConn_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqConn_starGenType_NetConn_fnRecorder routes recorded function calls to the
+// MoqConn_starGenType moq
+type MoqConn_starGenType_NetConn_fnRecorder struct {
+	Params    MoqConn_starGenType_NetConn_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqConn_starGenType_NetConn_results
+	Moq       *MoqConn_starGenType
+}
+
+// MoqConn_starGenType_NetConn_anyParams isolates the any params functions of
+// the Conn_starGenType type
+type MoqConn_starGenType_NetConn_anyParams struct {
+	Recorder *MoqConn_starGenType_NetConn_fnRecorder
 }
 
 // MoqConn_starGenType_Write_params holds the params of the Conn_starGenType
@@ -957,7 +1019,8 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 				SetWriteDeadline struct {
 					T moq.ParamIndexing
 				}
-				Write struct {
+				NetConn struct{}
+				Write   struct {
 					B moq.ParamIndexing
 				}
 				Read struct {
@@ -987,7 +1050,8 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 			SetWriteDeadline struct {
 				T moq.ParamIndexing
 			}
-			Write struct {
+			NetConn struct{}
+			Write   struct {
 				B moq.ParamIndexing
 			}
 			Read struct {
@@ -1022,6 +1086,7 @@ func NewMoqConn_starGenType(scene *moq.Scene, config *moq.Config) *MoqConn_starG
 			}{
 				T: moq.ParamIndexByHash,
 			},
+			NetConn: struct{}{},
 			Write: struct {
 				B moq.ParamIndexing
 			}{
@@ -1315,6 +1380,57 @@ func (m *MoqConn_starGenType_mock) SetWriteDeadline(t time.Time) (result1 error)
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn(t)
+	}
+	return
+}
+
+func (m *MoqConn_starGenType_mock) NetConn() (result1 net.Conn) {
+	m.Moq.Scene.T.Helper()
+	params := MoqConn_starGenType_NetConn_params{}
+	var results *MoqConn_starGenType_NetConn_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_NetConn {
+		paramsKey := m.Moq.ParamsKey_NetConn(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_NetConn(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_NetConn(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_NetConn(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -2767,6 +2883,189 @@ func (m *MoqConn_starGenType) ParamsKey_SetWriteDeadline(params MoqConn_starGenT
 		Hashes: struct{ T hash.Hash }{
 			T: tUsedHash,
 		},
+	}
+}
+
+func (m *MoqConn_starGenType_recorder) NetConn() *MoqConn_starGenType_NetConn_fnRecorder {
+	return &MoqConn_starGenType_NetConn_fnRecorder{
+		Params:   MoqConn_starGenType_NetConn_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) Any() *MoqConn_starGenType_NetConn_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_NetConn(r.Params))
+		return nil
+	}
+	return &MoqConn_starGenType_NetConn_anyParams{Recorder: r}
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) Seq() *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_NetConn(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) NoSeq() *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_NetConn(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) ReturnResults(result1 net.Conn) *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 net.Conn
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_NetConn_doFn
+		DoReturnFn MoqConn_starGenType_NetConn_doReturnFn
+	}{
+		Values: &struct {
+			Result1 net.Conn
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) AndDo(fn MoqConn_starGenType_NetConn_doFn) *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) DoReturnResults(fn MoqConn_starGenType_NetConn_doReturnFn) *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 net.Conn
+		}
+		Sequence   uint32
+		DoFn       MoqConn_starGenType_NetConn_doFn
+		DoReturnFn MoqConn_starGenType_NetConn_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqConn_starGenType_NetConn_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_NetConn {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqConn_starGenType_NetConn_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqConn_starGenType_NetConn_paramsKey]*MoqConn_starGenType_NetConn_results{},
+		}
+		r.Moq.ResultsByParams_NetConn = append(r.Moq.ResultsByParams_NetConn, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_NetConn) {
+			copy(r.Moq.ResultsByParams_NetConn[insertAt+1:], r.Moq.ResultsByParams_NetConn[insertAt:0])
+			r.Moq.ResultsByParams_NetConn[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_NetConn(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqConn_starGenType_NetConn_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqConn_starGenType_NetConn_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqConn_starGenType_NetConn_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 net.Conn
+				}
+				Sequence   uint32
+				DoFn       MoqConn_starGenType_NetConn_doFn
+				DoReturnFn MoqConn_starGenType_NetConn_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqConn_starGenType) PrettyParams_NetConn(params MoqConn_starGenType_NetConn_params) string {
+	return fmt.Sprintf("NetConn()")
+}
+
+func (m *MoqConn_starGenType) ParamsKey_NetConn(params MoqConn_starGenType_NetConn_params, anyParams uint64) MoqConn_starGenType_NetConn_paramsKey {
+	m.Scene.T.Helper()
+	return MoqConn_starGenType_NetConn_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
 	}
 }
 
@@ -4506,6 +4805,7 @@ func (m *MoqConn_starGenType) Reset() {
 	m.ResultsByParams_SetDeadline = nil
 	m.ResultsByParams_SetReadDeadline = nil
 	m.ResultsByParams_SetWriteDeadline = nil
+	m.ResultsByParams_NetConn = nil
 	m.ResultsByParams_Write = nil
 	m.ResultsByParams_Read = nil
 	m.ResultsByParams_Close = nil
@@ -4557,6 +4857,14 @@ func (m *MoqConn_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetWriteDeadline(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_NetConn {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_NetConn(results.Params))
 			}
 		}
 	}

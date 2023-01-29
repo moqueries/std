@@ -13,7 +13,7 @@ import (
 
 // Errorf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Errorf_genType func(format string, a ...interface{}) error
+type Errorf_genType func(format string, a ...any) error
 
 // MoqErrorf_genType holds the state of a moq of the Errorf_genType type
 type MoqErrorf_genType struct {
@@ -40,7 +40,7 @@ type MoqErrorf_genType_mock struct {
 // MoqErrorf_genType_params holds the params of the Errorf_genType type
 type MoqErrorf_genType_params struct {
 	Format string
-	A      []interface{}
+	A      []any
 }
 
 // MoqErrorf_genType_paramsKey holds the map key params of the Errorf_genType
@@ -63,11 +63,11 @@ type MoqErrorf_genType_resultsByParams struct {
 
 // MoqErrorf_genType_doFn defines the type of function needed when calling
 // AndDo for the Errorf_genType type
-type MoqErrorf_genType_doFn func(format string, a ...interface{})
+type MoqErrorf_genType_doFn func(format string, a ...any)
 
 // MoqErrorf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Errorf_genType type
-type MoqErrorf_genType_doReturnFn func(format string, a ...interface{}) error
+type MoqErrorf_genType_doReturnFn func(format string, a ...any) error
 
 // MoqErrorf_genType_results holds the results of the Errorf_genType type
 type MoqErrorf_genType_results struct {
@@ -131,14 +131,14 @@ func NewMoqErrorf_genType(scene *moq.Scene, config *moq.Config) *MoqErrorf_genTy
 
 // Mock returns the moq implementation of the Errorf_genType type
 func (m *MoqErrorf_genType) Mock() Errorf_genType {
-	return func(format string, a ...interface{}) error {
+	return func(format string, a ...any) error {
 		m.Scene.T.Helper()
 		moq := &MoqErrorf_genType_mock{Moq: m}
 		return moq.Fn(format, a...)
 	}
 }
 
-func (m *MoqErrorf_genType_mock) Fn(format string, a ...interface{}) (result1 error) {
+func (m *MoqErrorf_genType_mock) Fn(format string, a ...any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqErrorf_genType_params{
 		Format: format,
@@ -192,7 +192,7 @@ func (m *MoqErrorf_genType_mock) Fn(format string, a ...interface{}) (result1 er
 	return
 }
 
-func (m *MoqErrorf_genType) OnCall(format string, a ...interface{}) *MoqErrorf_genType_fnRecorder {
+func (m *MoqErrorf_genType) OnCall(format string, a ...any) *MoqErrorf_genType_fnRecorder {
 	return &MoqErrorf_genType_fnRecorder{
 		Params: MoqErrorf_genType_params{
 			Format: format,

@@ -13,7 +13,7 @@ import (
 
 // KeepAlive_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type KeepAlive_genType func(x interface{})
+type KeepAlive_genType func(x any)
 
 // MoqKeepAlive_genType holds the state of a moq of the KeepAlive_genType type
 type MoqKeepAlive_genType struct {
@@ -37,12 +37,12 @@ type MoqKeepAlive_genType_mock struct {
 }
 
 // MoqKeepAlive_genType_params holds the params of the KeepAlive_genType type
-type MoqKeepAlive_genType_params struct{ X interface{} }
+type MoqKeepAlive_genType_params struct{ X any }
 
 // MoqKeepAlive_genType_paramsKey holds the map key params of the
 // KeepAlive_genType type
 type MoqKeepAlive_genType_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct{ X hash.Hash }
 }
 
@@ -56,11 +56,11 @@ type MoqKeepAlive_genType_resultsByParams struct {
 
 // MoqKeepAlive_genType_doFn defines the type of function needed when calling
 // AndDo for the KeepAlive_genType type
-type MoqKeepAlive_genType_doFn func(x interface{})
+type MoqKeepAlive_genType_doFn func(x any)
 
 // MoqKeepAlive_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the KeepAlive_genType type
-type MoqKeepAlive_genType_doReturnFn func(x interface{})
+type MoqKeepAlive_genType_doReturnFn func(x any)
 
 // MoqKeepAlive_genType_results holds the results of the KeepAlive_genType type
 type MoqKeepAlive_genType_results struct {
@@ -108,7 +108,7 @@ func NewMoqKeepAlive_genType(scene *moq.Scene, config *moq.Config) *MoqKeepAlive
 		}{ParameterIndexing: struct {
 			X moq.ParamIndexing
 		}{
-			X: moq.ParamIndexByHash,
+			X: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -119,10 +119,10 @@ func NewMoqKeepAlive_genType(scene *moq.Scene, config *moq.Config) *MoqKeepAlive
 
 // Mock returns the moq implementation of the KeepAlive_genType type
 func (m *MoqKeepAlive_genType) Mock() KeepAlive_genType {
-	return func(x interface{}) { m.Scene.T.Helper(); moq := &MoqKeepAlive_genType_mock{Moq: m}; moq.Fn(x) }
+	return func(x any) { m.Scene.T.Helper(); moq := &MoqKeepAlive_genType_mock{Moq: m}; moq.Fn(x) }
 }
 
-func (m *MoqKeepAlive_genType_mock) Fn(x interface{}) {
+func (m *MoqKeepAlive_genType_mock) Fn(x any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqKeepAlive_genType_params{
 		X: x,
@@ -172,7 +172,7 @@ func (m *MoqKeepAlive_genType_mock) Fn(x interface{}) {
 	return
 }
 
-func (m *MoqKeepAlive_genType) OnCall(x interface{}) *MoqKeepAlive_genType_fnRecorder {
+func (m *MoqKeepAlive_genType) OnCall(x any) *MoqKeepAlive_genType_fnRecorder {
 	return &MoqKeepAlive_genType_fnRecorder{
 		Params: MoqKeepAlive_genType_params{
 			X: x,
@@ -346,7 +346,7 @@ func (m *MoqKeepAlive_genType) PrettyParams(params MoqKeepAlive_genType_params) 
 
 func (m *MoqKeepAlive_genType) ParamsKey(params MoqKeepAlive_genType_params, anyParams uint64) MoqKeepAlive_genType_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -356,7 +356,7 @@ func (m *MoqKeepAlive_genType) ParamsKey(params MoqKeepAlive_genType_params, any
 		}
 	}
 	return MoqKeepAlive_genType_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct{ X hash.Hash }{

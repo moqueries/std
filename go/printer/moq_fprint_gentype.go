@@ -15,7 +15,7 @@ import (
 
 // Fprint_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Fprint_genType func(output io.Writer, fset *token.FileSet, node interface{}) error
+type Fprint_genType func(output io.Writer, fset *token.FileSet, node any) error
 
 // MoqFprint_genType holds the state of a moq of the Fprint_genType type
 type MoqFprint_genType struct {
@@ -44,7 +44,7 @@ type MoqFprint_genType_mock struct {
 type MoqFprint_genType_params struct {
 	Output io.Writer
 	Fset   *token.FileSet
-	Node   interface{}
+	Node   any
 }
 
 // MoqFprint_genType_paramsKey holds the map key params of the Fprint_genType
@@ -53,7 +53,7 @@ type MoqFprint_genType_paramsKey struct {
 	Params struct {
 		Output io.Writer
 		Fset   *token.FileSet
-		Node   interface{}
+		Node   any
 	}
 	Hashes struct {
 		Output hash.Hash
@@ -72,11 +72,11 @@ type MoqFprint_genType_resultsByParams struct {
 
 // MoqFprint_genType_doFn defines the type of function needed when calling
 // AndDo for the Fprint_genType type
-type MoqFprint_genType_doFn func(output io.Writer, fset *token.FileSet, node interface{})
+type MoqFprint_genType_doFn func(output io.Writer, fset *token.FileSet, node any)
 
 // MoqFprint_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Fprint_genType type
-type MoqFprint_genType_doReturnFn func(output io.Writer, fset *token.FileSet, node interface{}) error
+type MoqFprint_genType_doReturnFn func(output io.Writer, fset *token.FileSet, node any) error
 
 // MoqFprint_genType_results holds the results of the Fprint_genType type
 type MoqFprint_genType_results struct {
@@ -132,7 +132,7 @@ func NewMoqFprint_genType(scene *moq.Scene, config *moq.Config) *MoqFprint_genTy
 		}{
 			Output: moq.ParamIndexByHash,
 			Fset:   moq.ParamIndexByHash,
-			Node:   moq.ParamIndexByHash,
+			Node:   moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -143,14 +143,14 @@ func NewMoqFprint_genType(scene *moq.Scene, config *moq.Config) *MoqFprint_genTy
 
 // Mock returns the moq implementation of the Fprint_genType type
 func (m *MoqFprint_genType) Mock() Fprint_genType {
-	return func(output io.Writer, fset *token.FileSet, node interface{}) error {
+	return func(output io.Writer, fset *token.FileSet, node any) error {
 		m.Scene.T.Helper()
 		moq := &MoqFprint_genType_mock{Moq: m}
 		return moq.Fn(output, fset, node)
 	}
 }
 
-func (m *MoqFprint_genType_mock) Fn(output io.Writer, fset *token.FileSet, node interface{}) (result1 error) {
+func (m *MoqFprint_genType_mock) Fn(output io.Writer, fset *token.FileSet, node any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFprint_genType_params{
 		Output: output,
@@ -205,7 +205,7 @@ func (m *MoqFprint_genType_mock) Fn(output io.Writer, fset *token.FileSet, node 
 	return
 }
 
-func (m *MoqFprint_genType) OnCall(output io.Writer, fset *token.FileSet, node interface{}) *MoqFprint_genType_fnRecorder {
+func (m *MoqFprint_genType) OnCall(output io.Writer, fset *token.FileSet, node any) *MoqFprint_genType_fnRecorder {
 	return &MoqFprint_genType_fnRecorder{
 		Params: MoqFprint_genType_params{
 			Output: output,
@@ -419,7 +419,7 @@ func (m *MoqFprint_genType) ParamsKey(params MoqFprint_genType_params, anyParams
 			fsetUsedHash = hash.DeepHash(params.Fset)
 		}
 	}
-	var nodeUsed interface{}
+	var nodeUsed any
 	var nodeUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Node == moq.ParamIndexByValue {
@@ -432,7 +432,7 @@ func (m *MoqFprint_genType) ParamsKey(params MoqFprint_genType_params, anyParams
 		Params: struct {
 			Output io.Writer
 			Fset   *token.FileSet
-			Node   interface{}
+			Node   any
 		}{
 			Output: outputUsed,
 			Fset:   fsetUsed,

@@ -19,8 +19,8 @@ var _ Pool_starGenType = (*MoqPool_starGenType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Pool_starGenType interface {
-	Put(x interface{})
-	Get() interface{}
+	Put(x any)
+	Get() any
 }
 
 // MoqPool_starGenType holds the state of a moq of the Pool_starGenType type
@@ -55,12 +55,12 @@ type MoqPool_starGenType_recorder struct {
 }
 
 // MoqPool_starGenType_Put_params holds the params of the Pool_starGenType type
-type MoqPool_starGenType_Put_params struct{ X interface{} }
+type MoqPool_starGenType_Put_params struct{ X any }
 
 // MoqPool_starGenType_Put_paramsKey holds the map key params of the
 // Pool_starGenType type
 type MoqPool_starGenType_Put_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct{ X hash.Hash }
 }
 
@@ -74,11 +74,11 @@ type MoqPool_starGenType_Put_resultsByParams struct {
 
 // MoqPool_starGenType_Put_doFn defines the type of function needed when
 // calling AndDo for the Pool_starGenType type
-type MoqPool_starGenType_Put_doFn func(x interface{})
+type MoqPool_starGenType_Put_doFn func(x any)
 
 // MoqPool_starGenType_Put_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Pool_starGenType type
-type MoqPool_starGenType_Put_doReturnFn func(x interface{})
+type MoqPool_starGenType_Put_doReturnFn func(x any)
 
 // MoqPool_starGenType_Put_results holds the results of the Pool_starGenType
 // type
@@ -134,7 +134,7 @@ type MoqPool_starGenType_Get_doFn func()
 
 // MoqPool_starGenType_Get_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Pool_starGenType type
-type MoqPool_starGenType_Get_doReturnFn func() interface{}
+type MoqPool_starGenType_Get_doReturnFn func() any
 
 // MoqPool_starGenType_Get_results holds the results of the Pool_starGenType
 // type
@@ -142,7 +142,7 @@ type MoqPool_starGenType_Get_results struct {
 	Params  MoqPool_starGenType_Get_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPool_starGenType_Get_doFn
@@ -194,7 +194,7 @@ func NewMoqPool_starGenType(scene *moq.Scene, config *moq.Config) *MoqPool_starG
 			Put: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 			Get: struct{}{},
 		}},
@@ -208,7 +208,7 @@ func NewMoqPool_starGenType(scene *moq.Scene, config *moq.Config) *MoqPool_starG
 // Mock returns the mock implementation of the Pool_starGenType type
 func (m *MoqPool_starGenType) Mock() *MoqPool_starGenType_mock { return m.Moq }
 
-func (m *MoqPool_starGenType_mock) Put(x interface{}) {
+func (m *MoqPool_starGenType_mock) Put(x any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPool_starGenType_Put_params{
 		X: x,
@@ -258,7 +258,7 @@ func (m *MoqPool_starGenType_mock) Put(x interface{}) {
 	return
 }
 
-func (m *MoqPool_starGenType_mock) Get() (result1 interface{}) {
+func (m *MoqPool_starGenType_mock) Get() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPool_starGenType_Get_params{}
 	var results *MoqPool_starGenType_Get_results
@@ -316,7 +316,7 @@ func (m *MoqPool_starGenType) OnCall() *MoqPool_starGenType_recorder {
 	}
 }
 
-func (m *MoqPool_starGenType_recorder) Put(x interface{}) *MoqPool_starGenType_Put_fnRecorder {
+func (m *MoqPool_starGenType_recorder) Put(x any) *MoqPool_starGenType_Put_fnRecorder {
 	return &MoqPool_starGenType_Put_fnRecorder{
 		Params: MoqPool_starGenType_Put_params{
 			X: x,
@@ -490,7 +490,7 @@ func (m *MoqPool_starGenType) PrettyParams_Put(params MoqPool_starGenType_Put_pa
 
 func (m *MoqPool_starGenType) ParamsKey_Put(params MoqPool_starGenType_Put_params, anyParams uint64) MoqPool_starGenType_Put_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Put.X == moq.ParamIndexByValue {
@@ -500,7 +500,7 @@ func (m *MoqPool_starGenType) ParamsKey_Put(params MoqPool_starGenType_Put_param
 		}
 	}
 	return MoqPool_starGenType_Put_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct{ X hash.Hash }{
@@ -546,7 +546,7 @@ func (r *MoqPool_starGenType_Get_fnRecorder) NoSeq() *MoqPool_starGenType_Get_fn
 	return r
 }
 
-func (r *MoqPool_starGenType_Get_fnRecorder) ReturnResults(result1 interface{}) *MoqPool_starGenType_Get_fnRecorder {
+func (r *MoqPool_starGenType_Get_fnRecorder) ReturnResults(result1 any) *MoqPool_starGenType_Get_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -557,14 +557,14 @@ func (r *MoqPool_starGenType_Get_fnRecorder) ReturnResults(result1 interface{}) 
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPool_starGenType_Get_doFn
 		DoReturnFn MoqPool_starGenType_Get_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -595,7 +595,7 @@ func (r *MoqPool_starGenType_Get_fnRecorder) DoReturnResults(fn MoqPool_starGenT
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPool_starGenType_Get_doFn
@@ -665,7 +665,7 @@ func (r *MoqPool_starGenType_Get_fnRecorder) Repeat(repeaters ...moq.Repeater) *
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqPool_starGenType_Get_doFn

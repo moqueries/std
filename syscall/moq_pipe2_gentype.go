@@ -13,7 +13,7 @@ import (
 
 // Pipe2_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Pipe2_genType func(p []int, flags int) (err error)
+type Pipe2_genType func(p []int, flags int) error
 
 // MoqPipe2_genType holds the state of a moq of the Pipe2_genType type
 type MoqPipe2_genType struct {
@@ -66,13 +66,15 @@ type MoqPipe2_genType_doFn func(p []int, flags int)
 
 // MoqPipe2_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Pipe2_genType type
-type MoqPipe2_genType_doReturnFn func(p []int, flags int) (err error)
+type MoqPipe2_genType_doReturnFn func(p []int, flags int) error
 
 // MoqPipe2_genType_results holds the results of the Pipe2_genType type
 type MoqPipe2_genType_results struct {
 	Params  MoqPipe2_genType_params
 	Results []struct {
-		Values     *struct{ Err error }
+		Values *struct {
+			Result1 error
+		}
 		Sequence   uint32
 		DoFn       MoqPipe2_genType_doFn
 		DoReturnFn MoqPipe2_genType_doReturnFn
@@ -128,14 +130,14 @@ func NewMoqPipe2_genType(scene *moq.Scene, config *moq.Config) *MoqPipe2_genType
 
 // Mock returns the moq implementation of the Pipe2_genType type
 func (m *MoqPipe2_genType) Mock() Pipe2_genType {
-	return func(p []int, flags int) (_ error) {
+	return func(p []int, flags int) error {
 		m.Scene.T.Helper()
 		moq := &MoqPipe2_genType_mock{Moq: m}
 		return moq.Fn(p, flags)
 	}
 }
 
-func (m *MoqPipe2_genType_mock) Fn(p []int, flags int) (err error) {
+func (m *MoqPipe2_genType_mock) Fn(p []int, flags int) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPipe2_genType_params{
 		P:     p,
@@ -181,10 +183,10 @@ func (m *MoqPipe2_genType_mock) Fn(p []int, flags int) (err error) {
 	}
 
 	if result.Values != nil {
-		err = result.Values.Err
+		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		err = result.DoReturnFn(p, flags)
+		result1 = result.DoReturnFn(p, flags)
 	}
 	return
 }
@@ -239,7 +241,7 @@ func (r *MoqPipe2_genType_fnRecorder) NoSeq() *MoqPipe2_genType_fnRecorder {
 	return r
 }
 
-func (r *MoqPipe2_genType_fnRecorder) ReturnResults(err error) *MoqPipe2_genType_fnRecorder {
+func (r *MoqPipe2_genType_fnRecorder) ReturnResults(result1 error) *MoqPipe2_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -249,13 +251,17 @@ func (r *MoqPipe2_genType_fnRecorder) ReturnResults(err error) *MoqPipe2_genType
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Err error }
+		Values *struct {
+			Result1 error
+		}
 		Sequence   uint32
 		DoFn       MoqPipe2_genType_doFn
 		DoReturnFn MoqPipe2_genType_doReturnFn
 	}{
-		Values: &struct{ Err error }{
-			Err: err,
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
 		},
 		Sequence: sequence,
 	})
@@ -283,7 +289,9 @@ func (r *MoqPipe2_genType_fnRecorder) DoReturnResults(fn MoqPipe2_genType_doRetu
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Err error }
+		Values *struct {
+			Result1 error
+		}
 		Sequence   uint32
 		DoFn       MoqPipe2_genType_doFn
 		DoReturnFn MoqPipe2_genType_doReturnFn
@@ -351,7 +359,9 @@ func (r *MoqPipe2_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqPipe
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Err error }
+				Values *struct {
+					Result1 error
+				}
 				Sequence   uint32
 				DoFn       MoqPipe2_genType_doFn
 				DoReturnFn MoqPipe2_genType_doReturnFn

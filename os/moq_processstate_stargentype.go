@@ -23,8 +23,8 @@ type ProcessState_starGenType interface {
 	SystemTime() time.Duration
 	Exited() bool
 	Success() bool
-	Sys() interface{}
-	SysUsage() interface{}
+	Sys() any
+	SysUsage() any
 	Pid() int
 	String() string
 	ExitCode() int
@@ -336,7 +336,7 @@ type MoqProcessState_starGenType_Sys_doFn func()
 
 // MoqProcessState_starGenType_Sys_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the ProcessState_starGenType type
-type MoqProcessState_starGenType_Sys_doReturnFn func() interface{}
+type MoqProcessState_starGenType_Sys_doReturnFn func() any
 
 // MoqProcessState_starGenType_Sys_results holds the results of the
 // ProcessState_starGenType type
@@ -344,7 +344,7 @@ type MoqProcessState_starGenType_Sys_results struct {
 	Params  MoqProcessState_starGenType_Sys_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_Sys_doFn
@@ -395,7 +395,7 @@ type MoqProcessState_starGenType_SysUsage_doFn func()
 
 // MoqProcessState_starGenType_SysUsage_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the ProcessState_starGenType type
-type MoqProcessState_starGenType_SysUsage_doReturnFn func() interface{}
+type MoqProcessState_starGenType_SysUsage_doReturnFn func() any
 
 // MoqProcessState_starGenType_SysUsage_results holds the results of the
 // ProcessState_starGenType type
@@ -403,7 +403,7 @@ type MoqProcessState_starGenType_SysUsage_results struct {
 	Params  MoqProcessState_starGenType_SysUsage_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_SysUsage_doFn
@@ -864,7 +864,7 @@ func (m *MoqProcessState_starGenType_mock) Success() (result1 bool) {
 	return
 }
 
-func (m *MoqProcessState_starGenType_mock) Sys() (result1 interface{}) {
+func (m *MoqProcessState_starGenType_mock) Sys() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqProcessState_starGenType_Sys_params{}
 	var results *MoqProcessState_starGenType_Sys_results
@@ -915,7 +915,7 @@ func (m *MoqProcessState_starGenType_mock) Sys() (result1 interface{}) {
 	return
 }
 
-func (m *MoqProcessState_starGenType_mock) SysUsage() (result1 interface{}) {
+func (m *MoqProcessState_starGenType_mock) SysUsage() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqProcessState_starGenType_SysUsage_params{}
 	var results *MoqProcessState_starGenType_SysUsage_results
@@ -1896,7 +1896,7 @@ func (r *MoqProcessState_starGenType_Sys_fnRecorder) NoSeq() *MoqProcessState_st
 	return r
 }
 
-func (r *MoqProcessState_starGenType_Sys_fnRecorder) ReturnResults(result1 interface{}) *MoqProcessState_starGenType_Sys_fnRecorder {
+func (r *MoqProcessState_starGenType_Sys_fnRecorder) ReturnResults(result1 any) *MoqProcessState_starGenType_Sys_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1907,14 +1907,14 @@ func (r *MoqProcessState_starGenType_Sys_fnRecorder) ReturnResults(result1 inter
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_Sys_doFn
 		DoReturnFn MoqProcessState_starGenType_Sys_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -1945,7 +1945,7 @@ func (r *MoqProcessState_starGenType_Sys_fnRecorder) DoReturnResults(fn MoqProce
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_Sys_doFn
@@ -2015,7 +2015,7 @@ func (r *MoqProcessState_starGenType_Sys_fnRecorder) Repeat(repeaters ...moq.Rep
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqProcessState_starGenType_Sys_doFn
@@ -2079,7 +2079,7 @@ func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) NoSeq() *MoqProcessSta
 	return r
 }
 
-func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) ReturnResults(result1 interface{}) *MoqProcessState_starGenType_SysUsage_fnRecorder {
+func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) ReturnResults(result1 any) *MoqProcessState_starGenType_SysUsage_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -2090,14 +2090,14 @@ func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) ReturnResults(result1 
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_SysUsage_doFn
 		DoReturnFn MoqProcessState_starGenType_SysUsage_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -2128,7 +2128,7 @@ func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) DoReturnResults(fn Moq
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqProcessState_starGenType_SysUsage_doFn
@@ -2198,7 +2198,7 @@ func (r *MoqProcessState_starGenType_SysUsage_fnRecorder) Repeat(repeaters ...mo
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqProcessState_starGenType_SysUsage_doFn

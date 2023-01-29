@@ -22,15 +22,15 @@ var _ Logger_starGenType = (*MoqLogger_starGenType_mock)(nil)
 type Logger_starGenType interface {
 	SetOutput(w io.Writer)
 	Output(calldepth int, s string) error
-	Printf(format string, v ...interface{})
-	Print(v ...interface{})
-	Println(v ...interface{})
-	Fatal(v ...interface{})
-	Fatalf(format string, v ...interface{})
-	Fatalln(v ...interface{})
-	Panic(v ...interface{})
-	Panicf(format string, v ...interface{})
-	Panicln(v ...interface{})
+	Printf(format string, v ...any)
+	Print(v ...any)
+	Println(v ...any)
+	Fatal(v ...any)
+	Fatalf(format string, v ...any)
+	Fatalln(v ...any)
+	Panic(v ...any)
+	Panicf(format string, v ...any)
+	Panicln(v ...any)
 	Flags() int
 	SetFlags(flag int)
 	Prefix() string
@@ -255,7 +255,7 @@ type MoqLogger_starGenType_Output_anyParams struct {
 // Logger_starGenType type
 type MoqLogger_starGenType_Printf_params struct {
 	Format string
-	V      []interface{}
+	V      []any
 }
 
 // MoqLogger_starGenType_Printf_paramsKey holds the map key params of the
@@ -278,11 +278,11 @@ type MoqLogger_starGenType_Printf_resultsByParams struct {
 
 // MoqLogger_starGenType_Printf_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Printf_doFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Printf_doFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Printf_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Printf_doReturnFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Printf_doReturnFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Printf_results holds the results of the
 // Logger_starGenType type
@@ -316,7 +316,7 @@ type MoqLogger_starGenType_Printf_anyParams struct {
 
 // MoqLogger_starGenType_Print_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Print_params struct{ V []interface{} }
+type MoqLogger_starGenType_Print_params struct{ V []any }
 
 // MoqLogger_starGenType_Print_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -335,11 +335,11 @@ type MoqLogger_starGenType_Print_resultsByParams struct {
 
 // MoqLogger_starGenType_Print_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Print_doFn func(v ...interface{})
+type MoqLogger_starGenType_Print_doFn func(v ...any)
 
 // MoqLogger_starGenType_Print_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Print_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Print_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Print_results holds the results of the
 // Logger_starGenType type
@@ -373,7 +373,7 @@ type MoqLogger_starGenType_Print_anyParams struct {
 
 // MoqLogger_starGenType_Println_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Println_params struct{ V []interface{} }
+type MoqLogger_starGenType_Println_params struct{ V []any }
 
 // MoqLogger_starGenType_Println_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -392,11 +392,11 @@ type MoqLogger_starGenType_Println_resultsByParams struct {
 
 // MoqLogger_starGenType_Println_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Println_doFn func(v ...interface{})
+type MoqLogger_starGenType_Println_doFn func(v ...any)
 
 // MoqLogger_starGenType_Println_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Println_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Println_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Println_results holds the results of the
 // Logger_starGenType type
@@ -430,7 +430,7 @@ type MoqLogger_starGenType_Println_anyParams struct {
 
 // MoqLogger_starGenType_Fatal_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Fatal_params struct{ V []interface{} }
+type MoqLogger_starGenType_Fatal_params struct{ V []any }
 
 // MoqLogger_starGenType_Fatal_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -449,11 +449,11 @@ type MoqLogger_starGenType_Fatal_resultsByParams struct {
 
 // MoqLogger_starGenType_Fatal_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Fatal_doFn func(v ...interface{})
+type MoqLogger_starGenType_Fatal_doFn func(v ...any)
 
 // MoqLogger_starGenType_Fatal_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Fatal_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Fatal_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Fatal_results holds the results of the
 // Logger_starGenType type
@@ -489,7 +489,7 @@ type MoqLogger_starGenType_Fatal_anyParams struct {
 // Logger_starGenType type
 type MoqLogger_starGenType_Fatalf_params struct {
 	Format string
-	V      []interface{}
+	V      []any
 }
 
 // MoqLogger_starGenType_Fatalf_paramsKey holds the map key params of the
@@ -512,11 +512,11 @@ type MoqLogger_starGenType_Fatalf_resultsByParams struct {
 
 // MoqLogger_starGenType_Fatalf_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Fatalf_doFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Fatalf_doFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Fatalf_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Fatalf_doReturnFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Fatalf_doReturnFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Fatalf_results holds the results of the
 // Logger_starGenType type
@@ -550,7 +550,7 @@ type MoqLogger_starGenType_Fatalf_anyParams struct {
 
 // MoqLogger_starGenType_Fatalln_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Fatalln_params struct{ V []interface{} }
+type MoqLogger_starGenType_Fatalln_params struct{ V []any }
 
 // MoqLogger_starGenType_Fatalln_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -569,11 +569,11 @@ type MoqLogger_starGenType_Fatalln_resultsByParams struct {
 
 // MoqLogger_starGenType_Fatalln_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Fatalln_doFn func(v ...interface{})
+type MoqLogger_starGenType_Fatalln_doFn func(v ...any)
 
 // MoqLogger_starGenType_Fatalln_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Fatalln_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Fatalln_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Fatalln_results holds the results of the
 // Logger_starGenType type
@@ -607,7 +607,7 @@ type MoqLogger_starGenType_Fatalln_anyParams struct {
 
 // MoqLogger_starGenType_Panic_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Panic_params struct{ V []interface{} }
+type MoqLogger_starGenType_Panic_params struct{ V []any }
 
 // MoqLogger_starGenType_Panic_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -626,11 +626,11 @@ type MoqLogger_starGenType_Panic_resultsByParams struct {
 
 // MoqLogger_starGenType_Panic_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Panic_doFn func(v ...interface{})
+type MoqLogger_starGenType_Panic_doFn func(v ...any)
 
 // MoqLogger_starGenType_Panic_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Panic_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Panic_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Panic_results holds the results of the
 // Logger_starGenType type
@@ -666,7 +666,7 @@ type MoqLogger_starGenType_Panic_anyParams struct {
 // Logger_starGenType type
 type MoqLogger_starGenType_Panicf_params struct {
 	Format string
-	V      []interface{}
+	V      []any
 }
 
 // MoqLogger_starGenType_Panicf_paramsKey holds the map key params of the
@@ -689,11 +689,11 @@ type MoqLogger_starGenType_Panicf_resultsByParams struct {
 
 // MoqLogger_starGenType_Panicf_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Panicf_doFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Panicf_doFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Panicf_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Panicf_doReturnFn func(format string, v ...interface{})
+type MoqLogger_starGenType_Panicf_doReturnFn func(format string, v ...any)
 
 // MoqLogger_starGenType_Panicf_results holds the results of the
 // Logger_starGenType type
@@ -727,7 +727,7 @@ type MoqLogger_starGenType_Panicf_anyParams struct {
 
 // MoqLogger_starGenType_Panicln_params holds the params of the
 // Logger_starGenType type
-type MoqLogger_starGenType_Panicln_params struct{ V []interface{} }
+type MoqLogger_starGenType_Panicln_params struct{ V []any }
 
 // MoqLogger_starGenType_Panicln_paramsKey holds the map key params of the
 // Logger_starGenType type
@@ -746,11 +746,11 @@ type MoqLogger_starGenType_Panicln_resultsByParams struct {
 
 // MoqLogger_starGenType_Panicln_doFn defines the type of function needed when
 // calling AndDo for the Logger_starGenType type
-type MoqLogger_starGenType_Panicln_doFn func(v ...interface{})
+type MoqLogger_starGenType_Panicln_doFn func(v ...any)
 
 // MoqLogger_starGenType_Panicln_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Logger_starGenType type
-type MoqLogger_starGenType_Panicln_doReturnFn func(v ...interface{})
+type MoqLogger_starGenType_Panicln_doReturnFn func(v ...any)
 
 // MoqLogger_starGenType_Panicln_results holds the results of the
 // Logger_starGenType type
@@ -1371,7 +1371,7 @@ func (m *MoqLogger_starGenType_mock) Output(calldepth int, s string) (result1 er
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Printf(format string, v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Printf(format string, v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Printf_params{
 		Format: format,
@@ -1422,7 +1422,7 @@ func (m *MoqLogger_starGenType_mock) Printf(format string, v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Print(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Print(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Print_params{
 		V: v,
@@ -1472,7 +1472,7 @@ func (m *MoqLogger_starGenType_mock) Print(v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Println(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Println(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Println_params{
 		V: v,
@@ -1522,7 +1522,7 @@ func (m *MoqLogger_starGenType_mock) Println(v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Fatal(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Fatal(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Fatal_params{
 		V: v,
@@ -1572,7 +1572,7 @@ func (m *MoqLogger_starGenType_mock) Fatal(v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Fatalf(format string, v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Fatalf(format string, v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Fatalf_params{
 		Format: format,
@@ -1623,7 +1623,7 @@ func (m *MoqLogger_starGenType_mock) Fatalf(format string, v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Fatalln(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Fatalln(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Fatalln_params{
 		V: v,
@@ -1673,7 +1673,7 @@ func (m *MoqLogger_starGenType_mock) Fatalln(v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Panic(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Panic(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Panic_params{
 		V: v,
@@ -1723,7 +1723,7 @@ func (m *MoqLogger_starGenType_mock) Panic(v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Panicf(format string, v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Panicf(format string, v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Panicf_params{
 		Format: format,
@@ -1774,7 +1774,7 @@ func (m *MoqLogger_starGenType_mock) Panicf(format string, v ...interface{}) {
 	return
 }
 
-func (m *MoqLogger_starGenType_mock) Panicln(v ...interface{}) {
+func (m *MoqLogger_starGenType_mock) Panicln(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogger_starGenType_Panicln_params{
 		V: v,
@@ -2503,7 +2503,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Output(params MoqLogger_starGenType_Ou
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Printf(format string, v ...interface{}) *MoqLogger_starGenType_Printf_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Printf(format string, v ...any) *MoqLogger_starGenType_Printf_fnRecorder {
 	return &MoqLogger_starGenType_Printf_fnRecorder{
 		Params: MoqLogger_starGenType_Printf_params{
 			Format: format,
@@ -2713,7 +2713,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Printf(params MoqLogger_starGenType_Pr
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Print(v ...interface{}) *MoqLogger_starGenType_Print_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Print(v ...any) *MoqLogger_starGenType_Print_fnRecorder {
 	return &MoqLogger_starGenType_Print_fnRecorder{
 		Params: MoqLogger_starGenType_Print_params{
 			V: v,
@@ -2902,7 +2902,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Print(params MoqLogger_starGenType_Pri
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Println(v ...interface{}) *MoqLogger_starGenType_Println_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Println(v ...any) *MoqLogger_starGenType_Println_fnRecorder {
 	return &MoqLogger_starGenType_Println_fnRecorder{
 		Params: MoqLogger_starGenType_Println_params{
 			V: v,
@@ -3091,7 +3091,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Println(params MoqLogger_starGenType_P
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Fatal(v ...interface{}) *MoqLogger_starGenType_Fatal_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Fatal(v ...any) *MoqLogger_starGenType_Fatal_fnRecorder {
 	return &MoqLogger_starGenType_Fatal_fnRecorder{
 		Params: MoqLogger_starGenType_Fatal_params{
 			V: v,
@@ -3280,7 +3280,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Fatal(params MoqLogger_starGenType_Fat
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Fatalf(format string, v ...interface{}) *MoqLogger_starGenType_Fatalf_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Fatalf(format string, v ...any) *MoqLogger_starGenType_Fatalf_fnRecorder {
 	return &MoqLogger_starGenType_Fatalf_fnRecorder{
 		Params: MoqLogger_starGenType_Fatalf_params{
 			Format: format,
@@ -3490,7 +3490,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Fatalf(params MoqLogger_starGenType_Fa
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Fatalln(v ...interface{}) *MoqLogger_starGenType_Fatalln_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Fatalln(v ...any) *MoqLogger_starGenType_Fatalln_fnRecorder {
 	return &MoqLogger_starGenType_Fatalln_fnRecorder{
 		Params: MoqLogger_starGenType_Fatalln_params{
 			V: v,
@@ -3679,7 +3679,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Fatalln(params MoqLogger_starGenType_F
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Panic(v ...interface{}) *MoqLogger_starGenType_Panic_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Panic(v ...any) *MoqLogger_starGenType_Panic_fnRecorder {
 	return &MoqLogger_starGenType_Panic_fnRecorder{
 		Params: MoqLogger_starGenType_Panic_params{
 			V: v,
@@ -3868,7 +3868,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Panic(params MoqLogger_starGenType_Pan
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Panicf(format string, v ...interface{}) *MoqLogger_starGenType_Panicf_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Panicf(format string, v ...any) *MoqLogger_starGenType_Panicf_fnRecorder {
 	return &MoqLogger_starGenType_Panicf_fnRecorder{
 		Params: MoqLogger_starGenType_Panicf_params{
 			Format: format,
@@ -4078,7 +4078,7 @@ func (m *MoqLogger_starGenType) ParamsKey_Panicf(params MoqLogger_starGenType_Pa
 	}
 }
 
-func (m *MoqLogger_starGenType_recorder) Panicln(v ...interface{}) *MoqLogger_starGenType_Panicln_fnRecorder {
+func (m *MoqLogger_starGenType_recorder) Panicln(v ...any) *MoqLogger_starGenType_Panicln_fnRecorder {
 	return &MoqLogger_starGenType_Panicln_fnRecorder{
 		Params: MoqLogger_starGenType_Panicln_params{
 			V: v,

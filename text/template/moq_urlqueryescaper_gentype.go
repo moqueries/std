@@ -13,7 +13,7 @@ import (
 
 // URLQueryEscaper_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type URLQueryEscaper_genType func(args ...interface{}) string
+type URLQueryEscaper_genType func(args ...any) string
 
 // MoqURLQueryEscaper_genType holds the state of a moq of the
 // URLQueryEscaper_genType type
@@ -39,7 +39,7 @@ type MoqURLQueryEscaper_genType_mock struct {
 
 // MoqURLQueryEscaper_genType_params holds the params of the
 // URLQueryEscaper_genType type
-type MoqURLQueryEscaper_genType_params struct{ Args []interface{} }
+type MoqURLQueryEscaper_genType_params struct{ Args []any }
 
 // MoqURLQueryEscaper_genType_paramsKey holds the map key params of the
 // URLQueryEscaper_genType type
@@ -58,11 +58,11 @@ type MoqURLQueryEscaper_genType_resultsByParams struct {
 
 // MoqURLQueryEscaper_genType_doFn defines the type of function needed when
 // calling AndDo for the URLQueryEscaper_genType type
-type MoqURLQueryEscaper_genType_doFn func(args ...interface{})
+type MoqURLQueryEscaper_genType_doFn func(args ...any)
 
 // MoqURLQueryEscaper_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the URLQueryEscaper_genType type
-type MoqURLQueryEscaper_genType_doReturnFn func(args ...interface{}) string
+type MoqURLQueryEscaper_genType_doReturnFn func(args ...any) string
 
 // MoqURLQueryEscaper_genType_results holds the results of the
 // URLQueryEscaper_genType type
@@ -125,14 +125,14 @@ func NewMoqURLQueryEscaper_genType(scene *moq.Scene, config *moq.Config) *MoqURL
 
 // Mock returns the moq implementation of the URLQueryEscaper_genType type
 func (m *MoqURLQueryEscaper_genType) Mock() URLQueryEscaper_genType {
-	return func(args ...interface{}) string {
+	return func(args ...any) string {
 		m.Scene.T.Helper()
 		moq := &MoqURLQueryEscaper_genType_mock{Moq: m}
 		return moq.Fn(args...)
 	}
 }
 
-func (m *MoqURLQueryEscaper_genType_mock) Fn(args ...interface{}) (result1 string) {
+func (m *MoqURLQueryEscaper_genType_mock) Fn(args ...any) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqURLQueryEscaper_genType_params{
 		Args: args,
@@ -185,7 +185,7 @@ func (m *MoqURLQueryEscaper_genType_mock) Fn(args ...interface{}) (result1 strin
 	return
 }
 
-func (m *MoqURLQueryEscaper_genType) OnCall(args ...interface{}) *MoqURLQueryEscaper_genType_fnRecorder {
+func (m *MoqURLQueryEscaper_genType) OnCall(args ...any) *MoqURLQueryEscaper_genType_fnRecorder {
 	return &MoqURLQueryEscaper_genType_fnRecorder{
 		Params: MoqURLQueryEscaper_genType_params{
 			Args: args,

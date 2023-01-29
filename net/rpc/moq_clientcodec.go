@@ -58,7 +58,7 @@ type MoqClientCodec_recorder struct {
 // MoqClientCodec_WriteRequest_params holds the params of the ClientCodec type
 type MoqClientCodec_WriteRequest_params struct {
 	Param1 *rpc.Request
-	Param2 interface{}
+	Param2 any
 }
 
 // MoqClientCodec_WriteRequest_paramsKey holds the map key params of the
@@ -66,7 +66,7 @@ type MoqClientCodec_WriteRequest_params struct {
 type MoqClientCodec_WriteRequest_paramsKey struct {
 	Params struct {
 		Param1 *rpc.Request
-		Param2 interface{}
+		Param2 any
 	}
 	Hashes struct {
 		Param1 hash.Hash
@@ -84,11 +84,11 @@ type MoqClientCodec_WriteRequest_resultsByParams struct {
 
 // MoqClientCodec_WriteRequest_doFn defines the type of function needed when
 // calling AndDo for the ClientCodec type
-type MoqClientCodec_WriteRequest_doFn func(*rpc.Request, interface{})
+type MoqClientCodec_WriteRequest_doFn func(*rpc.Request, any)
 
 // MoqClientCodec_WriteRequest_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the ClientCodec type
-type MoqClientCodec_WriteRequest_doReturnFn func(*rpc.Request, interface{}) error
+type MoqClientCodec_WriteRequest_doReturnFn func(*rpc.Request, any) error
 
 // MoqClientCodec_WriteRequest_results holds the results of the ClientCodec
 // type
@@ -183,12 +183,12 @@ type MoqClientCodec_ReadResponseHeader_anyParams struct {
 
 // MoqClientCodec_ReadResponseBody_params holds the params of the ClientCodec
 // type
-type MoqClientCodec_ReadResponseBody_params struct{ Param1 interface{} }
+type MoqClientCodec_ReadResponseBody_params struct{ Param1 any }
 
 // MoqClientCodec_ReadResponseBody_paramsKey holds the map key params of the
 // ClientCodec type
 type MoqClientCodec_ReadResponseBody_paramsKey struct {
-	Params struct{ Param1 interface{} }
+	Params struct{ Param1 any }
 	Hashes struct{ Param1 hash.Hash }
 }
 
@@ -202,11 +202,11 @@ type MoqClientCodec_ReadResponseBody_resultsByParams struct {
 
 // MoqClientCodec_ReadResponseBody_doFn defines the type of function needed
 // when calling AndDo for the ClientCodec type
-type MoqClientCodec_ReadResponseBody_doFn func(interface{})
+type MoqClientCodec_ReadResponseBody_doFn func(any)
 
 // MoqClientCodec_ReadResponseBody_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the ClientCodec type
-type MoqClientCodec_ReadResponseBody_doReturnFn func(interface{}) error
+type MoqClientCodec_ReadResponseBody_doReturnFn func(any) error
 
 // MoqClientCodec_ReadResponseBody_results holds the results of the ClientCodec
 // type
@@ -339,7 +339,7 @@ func NewMoqClientCodec(scene *moq.Scene, config *moq.Config) *MoqClientCodec {
 				Param2 moq.ParamIndexing
 			}{
 				Param1: moq.ParamIndexByHash,
-				Param2: moq.ParamIndexByHash,
+				Param2: moq.ParamIndexByValue,
 			},
 			ReadResponseHeader: struct {
 				Param1 moq.ParamIndexing
@@ -349,7 +349,7 @@ func NewMoqClientCodec(scene *moq.Scene, config *moq.Config) *MoqClientCodec {
 			ReadResponseBody: struct {
 				Param1 moq.ParamIndexing
 			}{
-				Param1: moq.ParamIndexByHash,
+				Param1: moq.ParamIndexByValue,
 			},
 			Close: struct{}{},
 		}},
@@ -363,7 +363,7 @@ func NewMoqClientCodec(scene *moq.Scene, config *moq.Config) *MoqClientCodec {
 // Mock returns the mock implementation of the ClientCodec type
 func (m *MoqClientCodec) Mock() *MoqClientCodec_mock { return m.Moq }
 
-func (m *MoqClientCodec_mock) WriteRequest(param1 *rpc.Request, param2 interface{}) (result1 error) {
+func (m *MoqClientCodec_mock) WriteRequest(param1 *rpc.Request, param2 any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqClientCodec_WriteRequest_params{
 		Param1: param1,
@@ -470,7 +470,7 @@ func (m *MoqClientCodec_mock) ReadResponseHeader(param1 *rpc.Response) (result1 
 	return
 }
 
-func (m *MoqClientCodec_mock) ReadResponseBody(param1 interface{}) (result1 error) {
+func (m *MoqClientCodec_mock) ReadResponseBody(param1 any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqClientCodec_ReadResponseBody_params{
 		Param1: param1,
@@ -581,7 +581,7 @@ func (m *MoqClientCodec) OnCall() *MoqClientCodec_recorder {
 	}
 }
 
-func (m *MoqClientCodec_recorder) WriteRequest(param1 *rpc.Request, param2 interface{}) *MoqClientCodec_WriteRequest_fnRecorder {
+func (m *MoqClientCodec_recorder) WriteRequest(param1 *rpc.Request, param2 any) *MoqClientCodec_WriteRequest_fnRecorder {
 	return &MoqClientCodec_WriteRequest_fnRecorder{
 		Params: MoqClientCodec_WriteRequest_params{
 			Param1: param1,
@@ -780,7 +780,7 @@ func (m *MoqClientCodec) ParamsKey_WriteRequest(params MoqClientCodec_WriteReque
 			param1UsedHash = hash.DeepHash(params.Param1)
 		}
 	}
-	var param2Used interface{}
+	var param2Used any
 	var param2UsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.WriteRequest.Param2 == moq.ParamIndexByValue {
@@ -792,7 +792,7 @@ func (m *MoqClientCodec) ParamsKey_WriteRequest(params MoqClientCodec_WriteReque
 	return MoqClientCodec_WriteRequest_paramsKey{
 		Params: struct {
 			Param1 *rpc.Request
-			Param2 interface{}
+			Param2 any
 		}{
 			Param1: param1Used,
 			Param2: param2Used,
@@ -1010,7 +1010,7 @@ func (m *MoqClientCodec) ParamsKey_ReadResponseHeader(params MoqClientCodec_Read
 	}
 }
 
-func (m *MoqClientCodec_recorder) ReadResponseBody(param1 interface{}) *MoqClientCodec_ReadResponseBody_fnRecorder {
+func (m *MoqClientCodec_recorder) ReadResponseBody(param1 any) *MoqClientCodec_ReadResponseBody_fnRecorder {
 	return &MoqClientCodec_ReadResponseBody_fnRecorder{
 		Params: MoqClientCodec_ReadResponseBody_params{
 			Param1: param1,
@@ -1194,7 +1194,7 @@ func (m *MoqClientCodec) PrettyParams_ReadResponseBody(params MoqClientCodec_Rea
 
 func (m *MoqClientCodec) ParamsKey_ReadResponseBody(params MoqClientCodec_ReadResponseBody_params, anyParams uint64) MoqClientCodec_ReadResponseBody_paramsKey {
 	m.Scene.T.Helper()
-	var param1Used interface{}
+	var param1Used any
 	var param1UsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.ReadResponseBody.Param1 == moq.ParamIndexByValue {
@@ -1204,7 +1204,7 @@ func (m *MoqClientCodec) ParamsKey_ReadResponseBody(params MoqClientCodec_ReadRe
 		}
 	}
 	return MoqClientCodec_ReadResponseBody_paramsKey{
-		Params: struct{ Param1 interface{} }{
+		Params: struct{ Param1 any }{
 			Param1: param1Used,
 		},
 		Hashes: struct{ Param1 hash.Hash }{

@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"sync/atomic"
 
+	"moqueries.org/runtime/hash"
 	"moqueries.org/runtime/moq"
 )
 
@@ -22,6 +23,7 @@ type MapIter_starGenType interface {
 	Key() reflect.Value
 	Value() reflect.Value
 	Next() bool
+	Reset(v reflect.Value)
 }
 
 // MoqMapIter_starGenType holds the state of a moq of the MapIter_starGenType
@@ -34,17 +36,21 @@ type MoqMapIter_starGenType struct {
 	ResultsByParams_Key   []MoqMapIter_starGenType_Key_resultsByParams
 	ResultsByParams_Value []MoqMapIter_starGenType_Value_resultsByParams
 	ResultsByParams_Next  []MoqMapIter_starGenType_Next_resultsByParams
+	ResultsByParams_Reset []MoqMapIter_starGenType_Reset_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			Key   struct{}
 			Value struct{}
 			Next  struct{}
+			Reset struct {
+				V moq.ParamIndexing
+			}
 		}
 	}
+	// MoqMapIter_starGenType_mock isolates the mock interface of the
 }
 
-// MoqMapIter_starGenType_mock isolates the mock interface of the
 // MapIter_starGenType type
 type MoqMapIter_starGenType_mock struct {
 	Moq *MoqMapIter_starGenType
@@ -233,6 +239,63 @@ type MoqMapIter_starGenType_Next_anyParams struct {
 	Recorder *MoqMapIter_starGenType_Next_fnRecorder
 }
 
+// MoqMapIter_starGenType_Reset_params holds the params of the
+// MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_params struct{ V reflect.Value }
+
+// MoqMapIter_starGenType_Reset_paramsKey holds the map key params of the
+// MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_paramsKey struct {
+	Params struct{ V reflect.Value }
+	Hashes struct{ V hash.Hash }
+}
+
+// MoqMapIter_starGenType_Reset_resultsByParams contains the results for a
+// given set of parameters for the MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqMapIter_starGenType_Reset_paramsKey]*MoqMapIter_starGenType_Reset_results
+}
+
+// MoqMapIter_starGenType_Reset_doFn defines the type of function needed when
+// calling AndDo for the MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_doFn func(v reflect.Value)
+
+// MoqMapIter_starGenType_Reset_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_doReturnFn func(v reflect.Value)
+
+// MoqMapIter_starGenType_Reset_results holds the results of the
+// MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_results struct {
+	Params  MoqMapIter_starGenType_Reset_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqMapIter_starGenType_Reset_doFn
+		DoReturnFn MoqMapIter_starGenType_Reset_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqMapIter_starGenType_Reset_fnRecorder routes recorded function calls to
+// the MoqMapIter_starGenType moq
+type MoqMapIter_starGenType_Reset_fnRecorder struct {
+	Params    MoqMapIter_starGenType_Reset_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqMapIter_starGenType_Reset_results
+	Moq       *MoqMapIter_starGenType
+}
+
+// MoqMapIter_starGenType_Reset_anyParams isolates the any params functions of
+// the MapIter_starGenType type
+type MoqMapIter_starGenType_Reset_anyParams struct {
+	Recorder *MoqMapIter_starGenType_Reset_fnRecorder
+}
+
 // NewMoqMapIter_starGenType creates a new moq of the MapIter_starGenType type
 func NewMoqMapIter_starGenType(scene *moq.Scene, config *moq.Config) *MoqMapIter_starGenType {
 	if config == nil {
@@ -248,15 +311,26 @@ func NewMoqMapIter_starGenType(scene *moq.Scene, config *moq.Config) *MoqMapIter
 				Key   struct{}
 				Value struct{}
 				Next  struct{}
+				Reset struct {
+					V moq.ParamIndexing
+				}
 			}
 		}{ParameterIndexing: struct {
 			Key   struct{}
 			Value struct{}
 			Next  struct{}
+			Reset struct {
+				V moq.ParamIndexing
+			}
 		}{
 			Key:   struct{}{},
 			Value: struct{}{},
 			Next:  struct{}{},
+			Reset: struct {
+				V moq.ParamIndexing
+			}{
+				V: moq.ParamIndexByHash,
+			},
 		}},
 	}
 	m.Moq.Moq = m
@@ -417,6 +491,56 @@ func (m *MoqMapIter_starGenType_mock) Next() (result1 bool) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqMapIter_starGenType_mock) Reset(v reflect.Value) {
+	m.Moq.Scene.T.Helper()
+	params := MoqMapIter_starGenType_Reset_params{
+		V: v,
+	}
+	var results *MoqMapIter_starGenType_Reset_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Reset {
+		paramsKey := m.Moq.ParamsKey_Reset(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Reset(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Reset(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Reset(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(v)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(v)
 	}
 	return
 }
@@ -977,11 +1101,205 @@ func (m *MoqMapIter_starGenType) ParamsKey_Next(params MoqMapIter_starGenType_Ne
 	}
 }
 
+func (m *MoqMapIter_starGenType_recorder) Reset(v reflect.Value) *MoqMapIter_starGenType_Reset_fnRecorder {
+	return &MoqMapIter_starGenType_Reset_fnRecorder{
+		Params: MoqMapIter_starGenType_Reset_params{
+			V: v,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) Any() *MoqMapIter_starGenType_Reset_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Reset(r.Params))
+		return nil
+	}
+	return &MoqMapIter_starGenType_Reset_anyParams{Recorder: r}
+}
+
+func (a *MoqMapIter_starGenType_Reset_anyParams) V() *MoqMapIter_starGenType_Reset_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) Seq() *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Reset(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) NoSeq() *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Reset(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) ReturnResults() *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqMapIter_starGenType_Reset_doFn
+		DoReturnFn MoqMapIter_starGenType_Reset_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) AndDo(fn MoqMapIter_starGenType_Reset_doFn) *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) DoReturnResults(fn MoqMapIter_starGenType_Reset_doReturnFn) *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqMapIter_starGenType_Reset_doFn
+		DoReturnFn MoqMapIter_starGenType_Reset_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqMapIter_starGenType_Reset_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Reset {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqMapIter_starGenType_Reset_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqMapIter_starGenType_Reset_paramsKey]*MoqMapIter_starGenType_Reset_results{},
+		}
+		r.Moq.ResultsByParams_Reset = append(r.Moq.ResultsByParams_Reset, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Reset) {
+			copy(r.Moq.ResultsByParams_Reset[insertAt+1:], r.Moq.ResultsByParams_Reset[insertAt:0])
+			r.Moq.ResultsByParams_Reset[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Reset(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqMapIter_starGenType_Reset_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqMapIter_starGenType_Reset_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqMapIter_starGenType_Reset_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqMapIter_starGenType_Reset_doFn
+				DoReturnFn MoqMapIter_starGenType_Reset_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqMapIter_starGenType) PrettyParams_Reset(params MoqMapIter_starGenType_Reset_params) string {
+	return fmt.Sprintf("Reset(%#v)", params.V)
+}
+
+func (m *MoqMapIter_starGenType) ParamsKey_Reset(params MoqMapIter_starGenType_Reset_params, anyParams uint64) MoqMapIter_starGenType_Reset_paramsKey {
+	m.Scene.T.Helper()
+	var vUsed reflect.Value
+	var vUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Reset.V == moq.ParamIndexByValue {
+			vUsed = params.V
+		} else {
+			vUsedHash = hash.DeepHash(params.V)
+		}
+	}
+	return MoqMapIter_starGenType_Reset_paramsKey{
+		Params: struct{ V reflect.Value }{
+			V: vUsed,
+		},
+		Hashes: struct{ V hash.Hash }{
+			V: vUsedHash,
+		},
+	}
+}
+
 // Reset resets the state of the moq
 func (m *MoqMapIter_starGenType) Reset() {
 	m.ResultsByParams_Key = nil
 	m.ResultsByParams_Value = nil
 	m.ResultsByParams_Next = nil
+	m.ResultsByParams_Reset = nil
 }
 
 // AssertExpectationsMet asserts that all expectations have been met
@@ -1008,6 +1326,14 @@ func (m *MoqMapIter_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Next(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Reset {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Reset(results.Params))
 			}
 		}
 	}

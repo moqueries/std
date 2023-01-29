@@ -14,7 +14,7 @@ import (
 
 // New_genType is the fabricated implementation type of this mock (emitted when
 // mocking functions directly and not from a function type)
-type New_genType func(name string, funcs ...map[string]interface{}) *parse.Tree
+type New_genType func(name string, funcs ...map[string]any) *parse.Tree
 
 // MoqNew_genType holds the state of a moq of the New_genType type
 type MoqNew_genType struct {
@@ -40,7 +40,7 @@ type MoqNew_genType_mock struct {
 // MoqNew_genType_params holds the params of the New_genType type
 type MoqNew_genType_params struct {
 	Name  string
-	Funcs []map[string]interface{}
+	Funcs []map[string]any
 }
 
 // MoqNew_genType_paramsKey holds the map key params of the New_genType type
@@ -62,11 +62,11 @@ type MoqNew_genType_resultsByParams struct {
 
 // MoqNew_genType_doFn defines the type of function needed when calling AndDo
 // for the New_genType type
-type MoqNew_genType_doFn func(name string, funcs ...map[string]interface{})
+type MoqNew_genType_doFn func(name string, funcs ...map[string]any)
 
 // MoqNew_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the New_genType type
-type MoqNew_genType_doReturnFn func(name string, funcs ...map[string]interface{}) *parse.Tree
+type MoqNew_genType_doReturnFn func(name string, funcs ...map[string]any) *parse.Tree
 
 // MoqNew_genType_results holds the results of the New_genType type
 type MoqNew_genType_results struct {
@@ -130,14 +130,14 @@ func NewMoqNew_genType(scene *moq.Scene, config *moq.Config) *MoqNew_genType {
 
 // Mock returns the moq implementation of the New_genType type
 func (m *MoqNew_genType) Mock() New_genType {
-	return func(name string, funcs ...map[string]interface{}) *parse.Tree {
+	return func(name string, funcs ...map[string]any) *parse.Tree {
 		m.Scene.T.Helper()
 		moq := &MoqNew_genType_mock{Moq: m}
 		return moq.Fn(name, funcs...)
 	}
 }
 
-func (m *MoqNew_genType_mock) Fn(name string, funcs ...map[string]interface{}) (result1 *parse.Tree) {
+func (m *MoqNew_genType_mock) Fn(name string, funcs ...map[string]any) (result1 *parse.Tree) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNew_genType_params{
 		Name:  name,
@@ -191,7 +191,7 @@ func (m *MoqNew_genType_mock) Fn(name string, funcs ...map[string]interface{}) (
 	return
 }
 
-func (m *MoqNew_genType) OnCall(name string, funcs ...map[string]interface{}) *MoqNew_genType_fnRecorder {
+func (m *MoqNew_genType) OnCall(name string, funcs ...map[string]any) *MoqNew_genType_fnRecorder {
 	return &MoqNew_genType_fnRecorder{
 		Params: MoqNew_genType_params{
 			Name:  name,

@@ -18,7 +18,7 @@ var _ Func_genType = (*MoqFunc_genType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Func_genType interface {
-	Value() interface{}
+	Value() any
 	String() string
 }
 
@@ -74,14 +74,14 @@ type MoqFunc_genType_Value_doFn func()
 
 // MoqFunc_genType_Value_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Func_genType type
-type MoqFunc_genType_Value_doReturnFn func() interface{}
+type MoqFunc_genType_Value_doReturnFn func() any
 
 // MoqFunc_genType_Value_results holds the results of the Func_genType type
 type MoqFunc_genType_Value_results struct {
 	Params  MoqFunc_genType_Value_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_genType_Value_doFn
@@ -196,7 +196,7 @@ func NewMoqFunc_genType(scene *moq.Scene, config *moq.Config) *MoqFunc_genType {
 // Mock returns the mock implementation of the Func_genType type
 func (m *MoqFunc_genType) Mock() *MoqFunc_genType_mock { return m.Moq }
 
-func (m *MoqFunc_genType_mock) Value() (result1 interface{}) {
+func (m *MoqFunc_genType_mock) Value() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFunc_genType_Value_params{}
 	var results *MoqFunc_genType_Value_results
@@ -342,7 +342,7 @@ func (r *MoqFunc_genType_Value_fnRecorder) NoSeq() *MoqFunc_genType_Value_fnReco
 	return r
 }
 
-func (r *MoqFunc_genType_Value_fnRecorder) ReturnResults(result1 interface{}) *MoqFunc_genType_Value_fnRecorder {
+func (r *MoqFunc_genType_Value_fnRecorder) ReturnResults(result1 any) *MoqFunc_genType_Value_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -353,14 +353,14 @@ func (r *MoqFunc_genType_Value_fnRecorder) ReturnResults(result1 interface{}) *M
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_genType_Value_doFn
 		DoReturnFn MoqFunc_genType_Value_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -391,7 +391,7 @@ func (r *MoqFunc_genType_Value_fnRecorder) DoReturnResults(fn MoqFunc_genType_Va
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_genType_Value_doFn
@@ -461,7 +461,7 @@ func (r *MoqFunc_genType_Value_fnRecorder) Repeat(repeaters ...moq.Repeater) *Mo
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqFunc_genType_Value_doFn

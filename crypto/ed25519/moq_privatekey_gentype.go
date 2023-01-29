@@ -354,7 +354,7 @@ func NewMoqPrivateKey_genType(scene *moq.Scene, config *moq.Config) *MoqPrivateK
 			Equal: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 			Seed: struct{}{},
 			Sign: struct {

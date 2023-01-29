@@ -26,7 +26,7 @@ type Ring_starGenType interface {
 	Link(s *ring.Ring) *ring.Ring
 	Unlink(n int) *ring.Ring
 	Len() int
-	Do(f func(interface{}))
+	Do(f func(any))
 }
 
 // MoqRing_starGenType holds the state of a moq of the Ring_starGenType type
@@ -430,7 +430,7 @@ type MoqRing_starGenType_Len_anyParams struct {
 }
 
 // MoqRing_starGenType_Do_params holds the params of the Ring_starGenType type
-type MoqRing_starGenType_Do_params struct{ F func(interface{}) }
+type MoqRing_starGenType_Do_params struct{ F func(any) }
 
 // MoqRing_starGenType_Do_paramsKey holds the map key params of the
 // Ring_starGenType type
@@ -449,11 +449,11 @@ type MoqRing_starGenType_Do_resultsByParams struct {
 
 // MoqRing_starGenType_Do_doFn defines the type of function needed when calling
 // AndDo for the Ring_starGenType type
-type MoqRing_starGenType_Do_doFn func(f func(interface{}))
+type MoqRing_starGenType_Do_doFn func(f func(any))
 
 // MoqRing_starGenType_Do_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Ring_starGenType type
-type MoqRing_starGenType_Do_doReturnFn func(f func(interface{}))
+type MoqRing_starGenType_Do_doReturnFn func(f func(any))
 
 // MoqRing_starGenType_Do_results holds the results of the Ring_starGenType
 // type
@@ -876,7 +876,7 @@ func (m *MoqRing_starGenType_mock) Len() (result1 int) {
 	return
 }
 
-func (m *MoqRing_starGenType_mock) Do(f func(interface{})) {
+func (m *MoqRing_starGenType_mock) Do(f func(any)) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRing_starGenType_Do_params{
 		F: f,
@@ -2091,7 +2091,7 @@ func (m *MoqRing_starGenType) ParamsKey_Len(params MoqRing_starGenType_Len_param
 	}
 }
 
-func (m *MoqRing_starGenType_recorder) Do(f func(interface{})) *MoqRing_starGenType_Do_fnRecorder {
+func (m *MoqRing_starGenType_recorder) Do(f func(any)) *MoqRing_starGenType_Do_fnRecorder {
 	return &MoqRing_starGenType_Do_fnRecorder{
 		Params: MoqRing_starGenType_Do_params{
 			F: f,

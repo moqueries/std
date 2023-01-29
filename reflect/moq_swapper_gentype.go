@@ -13,7 +13,7 @@ import (
 
 // Swapper_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Swapper_genType func(slice interface{}) func(i, j int)
+type Swapper_genType func(slice any) func(i, j int)
 
 // MoqSwapper_genType holds the state of a moq of the Swapper_genType type
 type MoqSwapper_genType struct {
@@ -37,12 +37,12 @@ type MoqSwapper_genType_mock struct {
 }
 
 // MoqSwapper_genType_params holds the params of the Swapper_genType type
-type MoqSwapper_genType_params struct{ Slice interface{} }
+type MoqSwapper_genType_params struct{ Slice any }
 
 // MoqSwapper_genType_paramsKey holds the map key params of the Swapper_genType
 // type
 type MoqSwapper_genType_paramsKey struct {
-	Params struct{ Slice interface{} }
+	Params struct{ Slice any }
 	Hashes struct{ Slice hash.Hash }
 }
 
@@ -56,11 +56,11 @@ type MoqSwapper_genType_resultsByParams struct {
 
 // MoqSwapper_genType_doFn defines the type of function needed when calling
 // AndDo for the Swapper_genType type
-type MoqSwapper_genType_doFn func(slice interface{})
+type MoqSwapper_genType_doFn func(slice any)
 
 // MoqSwapper_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Swapper_genType type
-type MoqSwapper_genType_doReturnFn func(slice interface{}) func(i, j int)
+type MoqSwapper_genType_doReturnFn func(slice any) func(i, j int)
 
 // MoqSwapper_genType_results holds the results of the Swapper_genType type
 type MoqSwapper_genType_results struct {
@@ -110,7 +110,7 @@ func NewMoqSwapper_genType(scene *moq.Scene, config *moq.Config) *MoqSwapper_gen
 		}{ParameterIndexing: struct {
 			Slice moq.ParamIndexing
 		}{
-			Slice: moq.ParamIndexByHash,
+			Slice: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -121,14 +121,14 @@ func NewMoqSwapper_genType(scene *moq.Scene, config *moq.Config) *MoqSwapper_gen
 
 // Mock returns the moq implementation of the Swapper_genType type
 func (m *MoqSwapper_genType) Mock() Swapper_genType {
-	return func(slice interface{}) func(i, j int) {
+	return func(slice any) func(i, j int) {
 		m.Scene.T.Helper()
 		moq := &MoqSwapper_genType_mock{Moq: m}
 		return moq.Fn(slice)
 	}
 }
 
-func (m *MoqSwapper_genType_mock) Fn(slice interface{}) (result1 func(i, j int)) {
+func (m *MoqSwapper_genType_mock) Fn(slice any) (result1 func(i, j int)) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSwapper_genType_params{
 		Slice: slice,
@@ -181,7 +181,7 @@ func (m *MoqSwapper_genType_mock) Fn(slice interface{}) (result1 func(i, j int))
 	return
 }
 
-func (m *MoqSwapper_genType) OnCall(slice interface{}) *MoqSwapper_genType_fnRecorder {
+func (m *MoqSwapper_genType) OnCall(slice any) *MoqSwapper_genType_fnRecorder {
 	return &MoqSwapper_genType_fnRecorder{
 		Params: MoqSwapper_genType_params{
 			Slice: slice,
@@ -365,7 +365,7 @@ func (m *MoqSwapper_genType) PrettyParams(params MoqSwapper_genType_params) stri
 
 func (m *MoqSwapper_genType) ParamsKey(params MoqSwapper_genType_params, anyParams uint64) MoqSwapper_genType_paramsKey {
 	m.Scene.T.Helper()
-	var sliceUsed interface{}
+	var sliceUsed any
 	var sliceUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Slice == moq.ParamIndexByValue {
@@ -375,7 +375,7 @@ func (m *MoqSwapper_genType) ParamsKey(params MoqSwapper_genType_params, anyPara
 		}
 	}
 	return MoqSwapper_genType_paramsKey{
-		Params: struct{ Slice interface{} }{
+		Params: struct{ Slice any }{
 			Slice: sliceUsed,
 		},
 		Hashes: struct{ Slice hash.Hash }{

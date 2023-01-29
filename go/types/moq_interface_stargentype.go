@@ -20,6 +20,7 @@ var _ Interface_starGenType = (*MoqInterface_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Interface_starGenType interface {
+	MarkImplicit()
 	NumExplicitMethods() int
 	ExplicitMethod(i int) *types.Func
 	NumEmbeddeds() int
@@ -28,6 +29,9 @@ type Interface_starGenType interface {
 	NumMethods() int
 	Method(i int) *types.Func
 	Empty() bool
+	IsComparable() bool
+	IsMethodSet() bool
+	IsImplicit() bool
 	Complete() *types.Interface
 	Underlying() types.Type
 	String() string
@@ -40,6 +44,7 @@ type MoqInterface_starGenType struct {
 	Config moq.Config
 	Moq    *MoqInterface_starGenType_mock
 
+	ResultsByParams_MarkImplicit       []MoqInterface_starGenType_MarkImplicit_resultsByParams
 	ResultsByParams_NumExplicitMethods []MoqInterface_starGenType_NumExplicitMethods_resultsByParams
 	ResultsByParams_ExplicitMethod     []MoqInterface_starGenType_ExplicitMethod_resultsByParams
 	ResultsByParams_NumEmbeddeds       []MoqInterface_starGenType_NumEmbeddeds_resultsByParams
@@ -48,12 +53,16 @@ type MoqInterface_starGenType struct {
 	ResultsByParams_NumMethods         []MoqInterface_starGenType_NumMethods_resultsByParams
 	ResultsByParams_Method             []MoqInterface_starGenType_Method_resultsByParams
 	ResultsByParams_Empty              []MoqInterface_starGenType_Empty_resultsByParams
+	ResultsByParams_IsComparable       []MoqInterface_starGenType_IsComparable_resultsByParams
+	ResultsByParams_IsMethodSet        []MoqInterface_starGenType_IsMethodSet_resultsByParams
+	ResultsByParams_IsImplicit         []MoqInterface_starGenType_IsImplicit_resultsByParams
 	ResultsByParams_Complete           []MoqInterface_starGenType_Complete_resultsByParams
 	ResultsByParams_Underlying         []MoqInterface_starGenType_Underlying_resultsByParams
 	ResultsByParams_String             []MoqInterface_starGenType_String_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
+			MarkImplicit       struct{}
 			NumExplicitMethods struct{}
 			ExplicitMethod     struct {
 				Param1 moq.ParamIndexing
@@ -69,10 +78,13 @@ type MoqInterface_starGenType struct {
 			Method     struct {
 				Param1 moq.ParamIndexing
 			}
-			Empty      struct{}
-			Complete   struct{}
-			Underlying struct{}
-			String     struct{}
+			Empty        struct{}
+			IsComparable struct{}
+			IsMethodSet  struct{}
+			IsImplicit   struct{}
+			Complete     struct{}
+			Underlying   struct{}
+			String       struct{}
 		}
 	}
 }
@@ -87,6 +99,64 @@ type MoqInterface_starGenType_mock struct {
 // Interface_starGenType type
 type MoqInterface_starGenType_recorder struct {
 	Moq *MoqInterface_starGenType
+}
+
+// MoqInterface_starGenType_MarkImplicit_params holds the params of the
+// Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_params struct{}
+
+// MoqInterface_starGenType_MarkImplicit_paramsKey holds the map key params of
+// the Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqInterface_starGenType_MarkImplicit_resultsByParams contains the results
+// for a given set of parameters for the Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqInterface_starGenType_MarkImplicit_paramsKey]*MoqInterface_starGenType_MarkImplicit_results
+}
+
+// MoqInterface_starGenType_MarkImplicit_doFn defines the type of function
+// needed when calling AndDo for the Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_doFn func()
+
+// MoqInterface_starGenType_MarkImplicit_doReturnFn defines the type of
+// function needed when calling DoReturnResults for the Interface_starGenType
+// type
+type MoqInterface_starGenType_MarkImplicit_doReturnFn func()
+
+// MoqInterface_starGenType_MarkImplicit_results holds the results of the
+// Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_results struct {
+	Params  MoqInterface_starGenType_MarkImplicit_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_MarkImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_MarkImplicit_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqInterface_starGenType_MarkImplicit_fnRecorder routes recorded function
+// calls to the MoqInterface_starGenType moq
+type MoqInterface_starGenType_MarkImplicit_fnRecorder struct {
+	Params    MoqInterface_starGenType_MarkImplicit_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqInterface_starGenType_MarkImplicit_results
+	Moq       *MoqInterface_starGenType
+}
+
+// MoqInterface_starGenType_MarkImplicit_anyParams isolates the any params
+// functions of the Interface_starGenType type
+type MoqInterface_starGenType_MarkImplicit_anyParams struct {
+	Recorder *MoqInterface_starGenType_MarkImplicit_fnRecorder
 }
 
 // MoqInterface_starGenType_NumExplicitMethods_params holds the params of the
@@ -565,6 +635,184 @@ type MoqInterface_starGenType_Empty_anyParams struct {
 	Recorder *MoqInterface_starGenType_Empty_fnRecorder
 }
 
+// MoqInterface_starGenType_IsComparable_params holds the params of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_params struct{}
+
+// MoqInterface_starGenType_IsComparable_paramsKey holds the map key params of
+// the Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqInterface_starGenType_IsComparable_resultsByParams contains the results
+// for a given set of parameters for the Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqInterface_starGenType_IsComparable_paramsKey]*MoqInterface_starGenType_IsComparable_results
+}
+
+// MoqInterface_starGenType_IsComparable_doFn defines the type of function
+// needed when calling AndDo for the Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_doFn func()
+
+// MoqInterface_starGenType_IsComparable_doReturnFn defines the type of
+// function needed when calling DoReturnResults for the Interface_starGenType
+// type
+type MoqInterface_starGenType_IsComparable_doReturnFn func() bool
+
+// MoqInterface_starGenType_IsComparable_results holds the results of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_results struct {
+	Params  MoqInterface_starGenType_IsComparable_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsComparable_doFn
+		DoReturnFn MoqInterface_starGenType_IsComparable_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqInterface_starGenType_IsComparable_fnRecorder routes recorded function
+// calls to the MoqInterface_starGenType moq
+type MoqInterface_starGenType_IsComparable_fnRecorder struct {
+	Params    MoqInterface_starGenType_IsComparable_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqInterface_starGenType_IsComparable_results
+	Moq       *MoqInterface_starGenType
+}
+
+// MoqInterface_starGenType_IsComparable_anyParams isolates the any params
+// functions of the Interface_starGenType type
+type MoqInterface_starGenType_IsComparable_anyParams struct {
+	Recorder *MoqInterface_starGenType_IsComparable_fnRecorder
+}
+
+// MoqInterface_starGenType_IsMethodSet_params holds the params of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_params struct{}
+
+// MoqInterface_starGenType_IsMethodSet_paramsKey holds the map key params of
+// the Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqInterface_starGenType_IsMethodSet_resultsByParams contains the results
+// for a given set of parameters for the Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqInterface_starGenType_IsMethodSet_paramsKey]*MoqInterface_starGenType_IsMethodSet_results
+}
+
+// MoqInterface_starGenType_IsMethodSet_doFn defines the type of function
+// needed when calling AndDo for the Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_doFn func()
+
+// MoqInterface_starGenType_IsMethodSet_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_doReturnFn func() bool
+
+// MoqInterface_starGenType_IsMethodSet_results holds the results of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_results struct {
+	Params  MoqInterface_starGenType_IsMethodSet_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsMethodSet_doFn
+		DoReturnFn MoqInterface_starGenType_IsMethodSet_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqInterface_starGenType_IsMethodSet_fnRecorder routes recorded function
+// calls to the MoqInterface_starGenType moq
+type MoqInterface_starGenType_IsMethodSet_fnRecorder struct {
+	Params    MoqInterface_starGenType_IsMethodSet_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqInterface_starGenType_IsMethodSet_results
+	Moq       *MoqInterface_starGenType
+}
+
+// MoqInterface_starGenType_IsMethodSet_anyParams isolates the any params
+// functions of the Interface_starGenType type
+type MoqInterface_starGenType_IsMethodSet_anyParams struct {
+	Recorder *MoqInterface_starGenType_IsMethodSet_fnRecorder
+}
+
+// MoqInterface_starGenType_IsImplicit_params holds the params of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_params struct{}
+
+// MoqInterface_starGenType_IsImplicit_paramsKey holds the map key params of
+// the Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqInterface_starGenType_IsImplicit_resultsByParams contains the results for
+// a given set of parameters for the Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqInterface_starGenType_IsImplicit_paramsKey]*MoqInterface_starGenType_IsImplicit_results
+}
+
+// MoqInterface_starGenType_IsImplicit_doFn defines the type of function needed
+// when calling AndDo for the Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_doFn func()
+
+// MoqInterface_starGenType_IsImplicit_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_doReturnFn func() bool
+
+// MoqInterface_starGenType_IsImplicit_results holds the results of the
+// Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_results struct {
+	Params  MoqInterface_starGenType_IsImplicit_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_IsImplicit_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqInterface_starGenType_IsImplicit_fnRecorder routes recorded function
+// calls to the MoqInterface_starGenType moq
+type MoqInterface_starGenType_IsImplicit_fnRecorder struct {
+	Params    MoqInterface_starGenType_IsImplicit_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqInterface_starGenType_IsImplicit_results
+	Moq       *MoqInterface_starGenType
+}
+
+// MoqInterface_starGenType_IsImplicit_anyParams isolates the any params
+// functions of the Interface_starGenType type
+type MoqInterface_starGenType_IsImplicit_anyParams struct {
+	Recorder *MoqInterface_starGenType_IsImplicit_fnRecorder
+}
+
 // MoqInterface_starGenType_Complete_params holds the params of the
 // Interface_starGenType type
 type MoqInterface_starGenType_Complete_params struct{}
@@ -755,6 +1003,7 @@ func NewMoqInterface_starGenType(scene *moq.Scene, config *moq.Config) *MoqInter
 
 		Runtime: struct {
 			ParameterIndexing struct {
+				MarkImplicit       struct{}
 				NumExplicitMethods struct{}
 				ExplicitMethod     struct {
 					Param1 moq.ParamIndexing
@@ -770,12 +1019,16 @@ func NewMoqInterface_starGenType(scene *moq.Scene, config *moq.Config) *MoqInter
 				Method     struct {
 					Param1 moq.ParamIndexing
 				}
-				Empty      struct{}
-				Complete   struct{}
-				Underlying struct{}
-				String     struct{}
+				Empty        struct{}
+				IsComparable struct{}
+				IsMethodSet  struct{}
+				IsImplicit   struct{}
+				Complete     struct{}
+				Underlying   struct{}
+				String       struct{}
 			}
 		}{ParameterIndexing: struct {
+			MarkImplicit       struct{}
 			NumExplicitMethods struct{}
 			ExplicitMethod     struct {
 				Param1 moq.ParamIndexing
@@ -791,11 +1044,15 @@ func NewMoqInterface_starGenType(scene *moq.Scene, config *moq.Config) *MoqInter
 			Method     struct {
 				Param1 moq.ParamIndexing
 			}
-			Empty      struct{}
-			Complete   struct{}
-			Underlying struct{}
-			String     struct{}
+			Empty        struct{}
+			IsComparable struct{}
+			IsMethodSet  struct{}
+			IsImplicit   struct{}
+			Complete     struct{}
+			Underlying   struct{}
+			String       struct{}
 		}{
+			MarkImplicit:       struct{}{},
 			NumExplicitMethods: struct{}{},
 			ExplicitMethod: struct {
 				Param1 moq.ParamIndexing
@@ -819,10 +1076,13 @@ func NewMoqInterface_starGenType(scene *moq.Scene, config *moq.Config) *MoqInter
 			}{
 				Param1: moq.ParamIndexByValue,
 			},
-			Empty:      struct{}{},
-			Complete:   struct{}{},
-			Underlying: struct{}{},
-			String:     struct{}{},
+			Empty:        struct{}{},
+			IsComparable: struct{}{},
+			IsMethodSet:  struct{}{},
+			IsImplicit:   struct{}{},
+			Complete:     struct{}{},
+			Underlying:   struct{}{},
+			String:       struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -833,6 +1093,54 @@ func NewMoqInterface_starGenType(scene *moq.Scene, config *moq.Config) *MoqInter
 
 // Mock returns the mock implementation of the Interface_starGenType type
 func (m *MoqInterface_starGenType) Mock() *MoqInterface_starGenType_mock { return m.Moq }
+
+func (m *MoqInterface_starGenType_mock) MarkImplicit() {
+	m.Moq.Scene.T.Helper()
+	params := MoqInterface_starGenType_MarkImplicit_params{}
+	var results *MoqInterface_starGenType_MarkImplicit_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_MarkImplicit {
+		paramsKey := m.Moq.ParamsKey_MarkImplicit(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_MarkImplicit(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_MarkImplicit(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_MarkImplicit(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn()
+	}
+	return
+}
 
 func (m *MoqInterface_starGenType_mock) NumExplicitMethods() (result1 int) {
 	m.Moq.Scene.T.Helper()
@@ -1250,6 +1558,159 @@ func (m *MoqInterface_starGenType_mock) Empty() (result1 bool) {
 	return
 }
 
+func (m *MoqInterface_starGenType_mock) IsComparable() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqInterface_starGenType_IsComparable_params{}
+	var results *MoqInterface_starGenType_IsComparable_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_IsComparable {
+		paramsKey := m.Moq.ParamsKey_IsComparable(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_IsComparable(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_IsComparable(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsComparable(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqInterface_starGenType_mock) IsMethodSet() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqInterface_starGenType_IsMethodSet_params{}
+	var results *MoqInterface_starGenType_IsMethodSet_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_IsMethodSet {
+		paramsKey := m.Moq.ParamsKey_IsMethodSet(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_IsMethodSet(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_IsMethodSet(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsMethodSet(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqInterface_starGenType_mock) IsImplicit() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqInterface_starGenType_IsImplicit_params{}
+	var results *MoqInterface_starGenType_IsImplicit_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_IsImplicit {
+		paramsKey := m.Moq.ParamsKey_IsImplicit(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_IsImplicit(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_IsImplicit(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_IsImplicit(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqInterface_starGenType_mock) Complete() (result1 *types.Interface) {
 	m.Moq.Scene.T.Helper()
 	params := MoqInterface_starGenType_Complete_params{}
@@ -1407,6 +1868,179 @@ func (m *MoqInterface_starGenType_mock) String() (result1 string) {
 func (m *MoqInterface_starGenType) OnCall() *MoqInterface_starGenType_recorder {
 	return &MoqInterface_starGenType_recorder{
 		Moq: m,
+	}
+}
+
+func (m *MoqInterface_starGenType_recorder) MarkImplicit() *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	return &MoqInterface_starGenType_MarkImplicit_fnRecorder{
+		Params:   MoqInterface_starGenType_MarkImplicit_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) Any() *MoqInterface_starGenType_MarkImplicit_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_MarkImplicit(r.Params))
+		return nil
+	}
+	return &MoqInterface_starGenType_MarkImplicit_anyParams{Recorder: r}
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) Seq() *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_MarkImplicit(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) NoSeq() *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_MarkImplicit(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) ReturnResults() *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_MarkImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_MarkImplicit_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) AndDo(fn MoqInterface_starGenType_MarkImplicit_doFn) *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) DoReturnResults(fn MoqInterface_starGenType_MarkImplicit_doReturnFn) *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_MarkImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_MarkImplicit_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqInterface_starGenType_MarkImplicit_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_MarkImplicit {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqInterface_starGenType_MarkImplicit_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqInterface_starGenType_MarkImplicit_paramsKey]*MoqInterface_starGenType_MarkImplicit_results{},
+		}
+		r.Moq.ResultsByParams_MarkImplicit = append(r.Moq.ResultsByParams_MarkImplicit, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_MarkImplicit) {
+			copy(r.Moq.ResultsByParams_MarkImplicit[insertAt+1:], r.Moq.ResultsByParams_MarkImplicit[insertAt:0])
+			r.Moq.ResultsByParams_MarkImplicit[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_MarkImplicit(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqInterface_starGenType_MarkImplicit_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqInterface_starGenType_MarkImplicit_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInterface_starGenType_MarkImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqInterface_starGenType_MarkImplicit_doFn
+				DoReturnFn MoqInterface_starGenType_MarkImplicit_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqInterface_starGenType) PrettyParams_MarkImplicit(params MoqInterface_starGenType_MarkImplicit_params) string {
+	return fmt.Sprintf("MarkImplicit()")
+}
+
+func (m *MoqInterface_starGenType) ParamsKey_MarkImplicit(params MoqInterface_starGenType_MarkImplicit_params, anyParams uint64) MoqInterface_starGenType_MarkImplicit_paramsKey {
+	m.Scene.T.Helper()
+	return MoqInterface_starGenType_MarkImplicit_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
 	}
 }
 
@@ -2954,6 +3588,555 @@ func (m *MoqInterface_starGenType) ParamsKey_Empty(params MoqInterface_starGenTy
 	}
 }
 
+func (m *MoqInterface_starGenType_recorder) IsComparable() *MoqInterface_starGenType_IsComparable_fnRecorder {
+	return &MoqInterface_starGenType_IsComparable_fnRecorder{
+		Params:   MoqInterface_starGenType_IsComparable_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) Any() *MoqInterface_starGenType_IsComparable_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsComparable(r.Params))
+		return nil
+	}
+	return &MoqInterface_starGenType_IsComparable_anyParams{Recorder: r}
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) Seq() *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsComparable(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) NoSeq() *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsComparable(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) ReturnResults(result1 bool) *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsComparable_doFn
+		DoReturnFn MoqInterface_starGenType_IsComparable_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) AndDo(fn MoqInterface_starGenType_IsComparable_doFn) *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) DoReturnResults(fn MoqInterface_starGenType_IsComparable_doReturnFn) *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsComparable_doFn
+		DoReturnFn MoqInterface_starGenType_IsComparable_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqInterface_starGenType_IsComparable_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_IsComparable {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqInterface_starGenType_IsComparable_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqInterface_starGenType_IsComparable_paramsKey]*MoqInterface_starGenType_IsComparable_results{},
+		}
+		r.Moq.ResultsByParams_IsComparable = append(r.Moq.ResultsByParams_IsComparable, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_IsComparable) {
+			copy(r.Moq.ResultsByParams_IsComparable[insertAt+1:], r.Moq.ResultsByParams_IsComparable[insertAt:0])
+			r.Moq.ResultsByParams_IsComparable[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_IsComparable(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqInterface_starGenType_IsComparable_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqInterface_starGenType_IsComparable_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInterface_starGenType_IsComparable_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqInterface_starGenType_IsComparable_doFn
+				DoReturnFn MoqInterface_starGenType_IsComparable_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqInterface_starGenType) PrettyParams_IsComparable(params MoqInterface_starGenType_IsComparable_params) string {
+	return fmt.Sprintf("IsComparable()")
+}
+
+func (m *MoqInterface_starGenType) ParamsKey_IsComparable(params MoqInterface_starGenType_IsComparable_params, anyParams uint64) MoqInterface_starGenType_IsComparable_paramsKey {
+	m.Scene.T.Helper()
+	return MoqInterface_starGenType_IsComparable_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqInterface_starGenType_recorder) IsMethodSet() *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	return &MoqInterface_starGenType_IsMethodSet_fnRecorder{
+		Params:   MoqInterface_starGenType_IsMethodSet_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) Any() *MoqInterface_starGenType_IsMethodSet_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsMethodSet(r.Params))
+		return nil
+	}
+	return &MoqInterface_starGenType_IsMethodSet_anyParams{Recorder: r}
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) Seq() *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsMethodSet(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) NoSeq() *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsMethodSet(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) ReturnResults(result1 bool) *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsMethodSet_doFn
+		DoReturnFn MoqInterface_starGenType_IsMethodSet_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) AndDo(fn MoqInterface_starGenType_IsMethodSet_doFn) *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) DoReturnResults(fn MoqInterface_starGenType_IsMethodSet_doReturnFn) *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsMethodSet_doFn
+		DoReturnFn MoqInterface_starGenType_IsMethodSet_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqInterface_starGenType_IsMethodSet_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_IsMethodSet {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqInterface_starGenType_IsMethodSet_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqInterface_starGenType_IsMethodSet_paramsKey]*MoqInterface_starGenType_IsMethodSet_results{},
+		}
+		r.Moq.ResultsByParams_IsMethodSet = append(r.Moq.ResultsByParams_IsMethodSet, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_IsMethodSet) {
+			copy(r.Moq.ResultsByParams_IsMethodSet[insertAt+1:], r.Moq.ResultsByParams_IsMethodSet[insertAt:0])
+			r.Moq.ResultsByParams_IsMethodSet[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_IsMethodSet(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqInterface_starGenType_IsMethodSet_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqInterface_starGenType_IsMethodSet_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInterface_starGenType_IsMethodSet_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqInterface_starGenType_IsMethodSet_doFn
+				DoReturnFn MoqInterface_starGenType_IsMethodSet_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqInterface_starGenType) PrettyParams_IsMethodSet(params MoqInterface_starGenType_IsMethodSet_params) string {
+	return fmt.Sprintf("IsMethodSet()")
+}
+
+func (m *MoqInterface_starGenType) ParamsKey_IsMethodSet(params MoqInterface_starGenType_IsMethodSet_params, anyParams uint64) MoqInterface_starGenType_IsMethodSet_paramsKey {
+	m.Scene.T.Helper()
+	return MoqInterface_starGenType_IsMethodSet_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqInterface_starGenType_recorder) IsImplicit() *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	return &MoqInterface_starGenType_IsImplicit_fnRecorder{
+		Params:   MoqInterface_starGenType_IsImplicit_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) Any() *MoqInterface_starGenType_IsImplicit_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsImplicit(r.Params))
+		return nil
+	}
+	return &MoqInterface_starGenType_IsImplicit_anyParams{Recorder: r}
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) Seq() *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsImplicit(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) NoSeq() *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_IsImplicit(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) ReturnResults(result1 bool) *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_IsImplicit_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) AndDo(fn MoqInterface_starGenType_IsImplicit_doFn) *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) DoReturnResults(fn MoqInterface_starGenType_IsImplicit_doReturnFn) *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqInterface_starGenType_IsImplicit_doFn
+		DoReturnFn MoqInterface_starGenType_IsImplicit_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqInterface_starGenType_IsImplicit_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_IsImplicit {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqInterface_starGenType_IsImplicit_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqInterface_starGenType_IsImplicit_paramsKey]*MoqInterface_starGenType_IsImplicit_results{},
+		}
+		r.Moq.ResultsByParams_IsImplicit = append(r.Moq.ResultsByParams_IsImplicit, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_IsImplicit) {
+			copy(r.Moq.ResultsByParams_IsImplicit[insertAt+1:], r.Moq.ResultsByParams_IsImplicit[insertAt:0])
+			r.Moq.ResultsByParams_IsImplicit[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_IsImplicit(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqInterface_starGenType_IsImplicit_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqInterface_starGenType_IsImplicit_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInterface_starGenType_IsImplicit_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqInterface_starGenType_IsImplicit_doFn
+				DoReturnFn MoqInterface_starGenType_IsImplicit_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqInterface_starGenType) PrettyParams_IsImplicit(params MoqInterface_starGenType_IsImplicit_params) string {
+	return fmt.Sprintf("IsImplicit()")
+}
+
+func (m *MoqInterface_starGenType) ParamsKey_IsImplicit(params MoqInterface_starGenType_IsImplicit_params, anyParams uint64) MoqInterface_starGenType_IsImplicit_paramsKey {
+	m.Scene.T.Helper()
+	return MoqInterface_starGenType_IsImplicit_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqInterface_starGenType_recorder) Complete() *MoqInterface_starGenType_Complete_fnRecorder {
 	return &MoqInterface_starGenType_Complete_fnRecorder{
 		Params:   MoqInterface_starGenType_Complete_params{},
@@ -3505,6 +4688,7 @@ func (m *MoqInterface_starGenType) ParamsKey_String(params MoqInterface_starGenT
 
 // Reset resets the state of the moq
 func (m *MoqInterface_starGenType) Reset() {
+	m.ResultsByParams_MarkImplicit = nil
 	m.ResultsByParams_NumExplicitMethods = nil
 	m.ResultsByParams_ExplicitMethod = nil
 	m.ResultsByParams_NumEmbeddeds = nil
@@ -3513,6 +4697,9 @@ func (m *MoqInterface_starGenType) Reset() {
 	m.ResultsByParams_NumMethods = nil
 	m.ResultsByParams_Method = nil
 	m.ResultsByParams_Empty = nil
+	m.ResultsByParams_IsComparable = nil
+	m.ResultsByParams_IsMethodSet = nil
+	m.ResultsByParams_IsImplicit = nil
 	m.ResultsByParams_Complete = nil
 	m.ResultsByParams_Underlying = nil
 	m.ResultsByParams_String = nil
@@ -3521,6 +4708,14 @@ func (m *MoqInterface_starGenType) Reset() {
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqInterface_starGenType) AssertExpectationsMet() {
 	m.Scene.T.Helper()
+	for _, res := range m.ResultsByParams_MarkImplicit {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_MarkImplicit(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_NumExplicitMethods {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
@@ -3582,6 +4777,30 @@ func (m *MoqInterface_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Empty(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_IsComparable {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsComparable(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_IsMethodSet {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsMethodSet(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_IsImplicit {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_IsImplicit(results.Params))
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import (
 
 // CheckEqual_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type CheckEqual_genType func(f, g interface{}, config *quick.Config) error
+type CheckEqual_genType func(f, g any, config *quick.Config) error
 
 // MoqCheckEqual_genType holds the state of a moq of the CheckEqual_genType
 // type
@@ -42,7 +42,7 @@ type MoqCheckEqual_genType_mock struct {
 
 // MoqCheckEqual_genType_params holds the params of the CheckEqual_genType type
 type MoqCheckEqual_genType_params struct {
-	F, G   interface{}
+	F, G   any
 	Config *quick.Config
 }
 
@@ -50,7 +50,7 @@ type MoqCheckEqual_genType_params struct {
 // CheckEqual_genType type
 type MoqCheckEqual_genType_paramsKey struct {
 	Params struct {
-		F, G   interface{}
+		F, G   any
 		Config *quick.Config
 	}
 	Hashes struct {
@@ -69,11 +69,11 @@ type MoqCheckEqual_genType_resultsByParams struct {
 
 // MoqCheckEqual_genType_doFn defines the type of function needed when calling
 // AndDo for the CheckEqual_genType type
-type MoqCheckEqual_genType_doFn func(f, g interface{}, config *quick.Config)
+type MoqCheckEqual_genType_doFn func(f, g any, config *quick.Config)
 
 // MoqCheckEqual_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the CheckEqual_genType type
-type MoqCheckEqual_genType_doReturnFn func(f, g interface{}, config *quick.Config) error
+type MoqCheckEqual_genType_doReturnFn func(f, g any, config *quick.Config) error
 
 // MoqCheckEqual_genType_results holds the results of the CheckEqual_genType
 // type
@@ -128,8 +128,8 @@ func NewMoqCheckEqual_genType(scene *moq.Scene, config *moq.Config) *MoqCheckEqu
 			G      moq.ParamIndexing
 			Config moq.ParamIndexing
 		}{
-			F:      moq.ParamIndexByHash,
-			G:      moq.ParamIndexByHash,
+			F:      moq.ParamIndexByValue,
+			G:      moq.ParamIndexByValue,
 			Config: moq.ParamIndexByHash,
 		}},
 	}
@@ -141,14 +141,14 @@ func NewMoqCheckEqual_genType(scene *moq.Scene, config *moq.Config) *MoqCheckEqu
 
 // Mock returns the moq implementation of the CheckEqual_genType type
 func (m *MoqCheckEqual_genType) Mock() CheckEqual_genType {
-	return func(f, g interface{}, config *quick.Config) error {
+	return func(f, g any, config *quick.Config) error {
 		m.Scene.T.Helper()
 		moq := &MoqCheckEqual_genType_mock{Moq: m}
 		return moq.Fn(f, g, config)
 	}
 }
 
-func (m *MoqCheckEqual_genType_mock) Fn(f, g interface{}, config *quick.Config) (result1 error) {
+func (m *MoqCheckEqual_genType_mock) Fn(f, g any, config *quick.Config) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqCheckEqual_genType_params{
 		F:      f,
@@ -203,7 +203,7 @@ func (m *MoqCheckEqual_genType_mock) Fn(f, g interface{}, config *quick.Config) 
 	return
 }
 
-func (m *MoqCheckEqual_genType) OnCall(f, g interface{}, config *quick.Config) *MoqCheckEqual_genType_fnRecorder {
+func (m *MoqCheckEqual_genType) OnCall(f, g any, config *quick.Config) *MoqCheckEqual_genType_fnRecorder {
 	return &MoqCheckEqual_genType_fnRecorder{
 		Params: MoqCheckEqual_genType_params{
 			F:      f,
@@ -399,7 +399,7 @@ func (m *MoqCheckEqual_genType) PrettyParams(params MoqCheckEqual_genType_params
 
 func (m *MoqCheckEqual_genType) ParamsKey(params MoqCheckEqual_genType_params, anyParams uint64) MoqCheckEqual_genType_paramsKey {
 	m.Scene.T.Helper()
-	var fUsed interface{}
+	var fUsed any
 	var fUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.F == moq.ParamIndexByValue {
@@ -408,7 +408,7 @@ func (m *MoqCheckEqual_genType) ParamsKey(params MoqCheckEqual_genType_params, a
 			fUsedHash = hash.DeepHash(params.F)
 		}
 	}
-	var gUsed interface{}
+	var gUsed any
 	var gUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.G == moq.ParamIndexByValue {
@@ -428,7 +428,7 @@ func (m *MoqCheckEqual_genType) ParamsKey(params MoqCheckEqual_genType_params, a
 	}
 	return MoqCheckEqual_genType_paramsKey{
 		Params: struct {
-			F, G   interface{}
+			F, G   any
 			Config *quick.Config
 		}{
 			F:      fUsed,

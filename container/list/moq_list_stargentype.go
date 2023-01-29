@@ -24,11 +24,11 @@ type List_starGenType interface {
 	Len() int
 	Front() *list.Element
 	Back() *list.Element
-	Remove(e *list.Element) interface{}
-	PushFront(v interface{}) *list.Element
-	PushBack(v interface{}) *list.Element
-	InsertBefore(v interface{}, mark *list.Element) *list.Element
-	InsertAfter(v interface{}, mark *list.Element) *list.Element
+	Remove(e *list.Element) any
+	PushFront(v any) *list.Element
+	PushBack(v any) *list.Element
+	InsertBefore(v any, mark *list.Element) *list.Element
+	InsertAfter(v any, mark *list.Element) *list.Element
 	MoveToFront(e *list.Element)
 	MoveToBack(e *list.Element)
 	MoveBefore(e, mark *list.Element)
@@ -378,7 +378,7 @@ type MoqList_starGenType_Remove_doFn func(e *list.Element)
 
 // MoqList_starGenType_Remove_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the List_starGenType type
-type MoqList_starGenType_Remove_doReturnFn func(e *list.Element) interface{}
+type MoqList_starGenType_Remove_doReturnFn func(e *list.Element) any
 
 // MoqList_starGenType_Remove_results holds the results of the List_starGenType
 // type
@@ -386,7 +386,7 @@ type MoqList_starGenType_Remove_results struct {
 	Params  MoqList_starGenType_Remove_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqList_starGenType_Remove_doFn
@@ -414,12 +414,12 @@ type MoqList_starGenType_Remove_anyParams struct {
 
 // MoqList_starGenType_PushFront_params holds the params of the
 // List_starGenType type
-type MoqList_starGenType_PushFront_params struct{ V interface{} }
+type MoqList_starGenType_PushFront_params struct{ V any }
 
 // MoqList_starGenType_PushFront_paramsKey holds the map key params of the
 // List_starGenType type
 type MoqList_starGenType_PushFront_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -433,11 +433,11 @@ type MoqList_starGenType_PushFront_resultsByParams struct {
 
 // MoqList_starGenType_PushFront_doFn defines the type of function needed when
 // calling AndDo for the List_starGenType type
-type MoqList_starGenType_PushFront_doFn func(v interface{})
+type MoqList_starGenType_PushFront_doFn func(v any)
 
 // MoqList_starGenType_PushFront_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the List_starGenType type
-type MoqList_starGenType_PushFront_doReturnFn func(v interface{}) *list.Element
+type MoqList_starGenType_PushFront_doReturnFn func(v any) *list.Element
 
 // MoqList_starGenType_PushFront_results holds the results of the
 // List_starGenType type
@@ -473,12 +473,12 @@ type MoqList_starGenType_PushFront_anyParams struct {
 
 // MoqList_starGenType_PushBack_params holds the params of the List_starGenType
 // type
-type MoqList_starGenType_PushBack_params struct{ V interface{} }
+type MoqList_starGenType_PushBack_params struct{ V any }
 
 // MoqList_starGenType_PushBack_paramsKey holds the map key params of the
 // List_starGenType type
 type MoqList_starGenType_PushBack_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -492,11 +492,11 @@ type MoqList_starGenType_PushBack_resultsByParams struct {
 
 // MoqList_starGenType_PushBack_doFn defines the type of function needed when
 // calling AndDo for the List_starGenType type
-type MoqList_starGenType_PushBack_doFn func(v interface{})
+type MoqList_starGenType_PushBack_doFn func(v any)
 
 // MoqList_starGenType_PushBack_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the List_starGenType type
-type MoqList_starGenType_PushBack_doReturnFn func(v interface{}) *list.Element
+type MoqList_starGenType_PushBack_doReturnFn func(v any) *list.Element
 
 // MoqList_starGenType_PushBack_results holds the results of the
 // List_starGenType type
@@ -533,7 +533,7 @@ type MoqList_starGenType_PushBack_anyParams struct {
 // MoqList_starGenType_InsertBefore_params holds the params of the
 // List_starGenType type
 type MoqList_starGenType_InsertBefore_params struct {
-	V    interface{}
+	V    any
 	Mark *list.Element
 }
 
@@ -541,7 +541,7 @@ type MoqList_starGenType_InsertBefore_params struct {
 // List_starGenType type
 type MoqList_starGenType_InsertBefore_paramsKey struct {
 	Params struct {
-		V    interface{}
+		V    any
 		Mark *list.Element
 	}
 	Hashes struct {
@@ -560,11 +560,11 @@ type MoqList_starGenType_InsertBefore_resultsByParams struct {
 
 // MoqList_starGenType_InsertBefore_doFn defines the type of function needed
 // when calling AndDo for the List_starGenType type
-type MoqList_starGenType_InsertBefore_doFn func(v interface{}, mark *list.Element)
+type MoqList_starGenType_InsertBefore_doFn func(v any, mark *list.Element)
 
 // MoqList_starGenType_InsertBefore_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the List_starGenType type
-type MoqList_starGenType_InsertBefore_doReturnFn func(v interface{}, mark *list.Element) *list.Element
+type MoqList_starGenType_InsertBefore_doReturnFn func(v any, mark *list.Element) *list.Element
 
 // MoqList_starGenType_InsertBefore_results holds the results of the
 // List_starGenType type
@@ -601,7 +601,7 @@ type MoqList_starGenType_InsertBefore_anyParams struct {
 // MoqList_starGenType_InsertAfter_params holds the params of the
 // List_starGenType type
 type MoqList_starGenType_InsertAfter_params struct {
-	V    interface{}
+	V    any
 	Mark *list.Element
 }
 
@@ -609,7 +609,7 @@ type MoqList_starGenType_InsertAfter_params struct {
 // List_starGenType type
 type MoqList_starGenType_InsertAfter_paramsKey struct {
 	Params struct {
-		V    interface{}
+		V    any
 		Mark *list.Element
 	}
 	Hashes struct {
@@ -628,11 +628,11 @@ type MoqList_starGenType_InsertAfter_resultsByParams struct {
 
 // MoqList_starGenType_InsertAfter_doFn defines the type of function needed
 // when calling AndDo for the List_starGenType type
-type MoqList_starGenType_InsertAfter_doFn func(v interface{}, mark *list.Element)
+type MoqList_starGenType_InsertAfter_doFn func(v any, mark *list.Element)
 
 // MoqList_starGenType_InsertAfter_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the List_starGenType type
-type MoqList_starGenType_InsertAfter_doReturnFn func(v interface{}, mark *list.Element) *list.Element
+type MoqList_starGenType_InsertAfter_doReturnFn func(v any, mark *list.Element) *list.Element
 
 // MoqList_starGenType_InsertAfter_results holds the results of the
 // List_starGenType type
@@ -1117,25 +1117,25 @@ func NewMoqList_starGenType(scene *moq.Scene, config *moq.Config) *MoqList_starG
 			PushFront: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 			PushBack: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 			InsertBefore: struct {
 				V    moq.ParamIndexing
 				Mark moq.ParamIndexing
 			}{
-				V:    moq.ParamIndexByHash,
+				V:    moq.ParamIndexByValue,
 				Mark: moq.ParamIndexByHash,
 			},
 			InsertAfter: struct {
 				V    moq.ParamIndexing
 				Mark moq.ParamIndexing
 			}{
-				V:    moq.ParamIndexByHash,
+				V:    moq.ParamIndexByValue,
 				Mark: moq.ParamIndexByHash,
 			},
 			MoveToFront: struct {
@@ -1387,7 +1387,7 @@ func (m *MoqList_starGenType_mock) Back() (result1 *list.Element) {
 	return
 }
 
-func (m *MoqList_starGenType_mock) Remove(e *list.Element) (result1 interface{}) {
+func (m *MoqList_starGenType_mock) Remove(e *list.Element) (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqList_starGenType_Remove_params{
 		E: e,
@@ -1440,7 +1440,7 @@ func (m *MoqList_starGenType_mock) Remove(e *list.Element) (result1 interface{})
 	return
 }
 
-func (m *MoqList_starGenType_mock) PushFront(v interface{}) (result1 *list.Element) {
+func (m *MoqList_starGenType_mock) PushFront(v any) (result1 *list.Element) {
 	m.Moq.Scene.T.Helper()
 	params := MoqList_starGenType_PushFront_params{
 		V: v,
@@ -1493,7 +1493,7 @@ func (m *MoqList_starGenType_mock) PushFront(v interface{}) (result1 *list.Eleme
 	return
 }
 
-func (m *MoqList_starGenType_mock) PushBack(v interface{}) (result1 *list.Element) {
+func (m *MoqList_starGenType_mock) PushBack(v any) (result1 *list.Element) {
 	m.Moq.Scene.T.Helper()
 	params := MoqList_starGenType_PushBack_params{
 		V: v,
@@ -1546,7 +1546,7 @@ func (m *MoqList_starGenType_mock) PushBack(v interface{}) (result1 *list.Elemen
 	return
 }
 
-func (m *MoqList_starGenType_mock) InsertBefore(v interface{}, mark *list.Element) (result1 *list.Element) {
+func (m *MoqList_starGenType_mock) InsertBefore(v any, mark *list.Element) (result1 *list.Element) {
 	m.Moq.Scene.T.Helper()
 	params := MoqList_starGenType_InsertBefore_params{
 		V:    v,
@@ -1600,7 +1600,7 @@ func (m *MoqList_starGenType_mock) InsertBefore(v interface{}, mark *list.Elemen
 	return
 }
 
-func (m *MoqList_starGenType_mock) InsertAfter(v interface{}, mark *list.Element) (result1 *list.Element) {
+func (m *MoqList_starGenType_mock) InsertAfter(v any, mark *list.Element) (result1 *list.Element) {
 	m.Moq.Scene.T.Helper()
 	params := MoqList_starGenType_InsertAfter_params{
 		V:    v,
@@ -2739,7 +2739,7 @@ func (r *MoqList_starGenType_Remove_fnRecorder) NoSeq() *MoqList_starGenType_Rem
 	return r
 }
 
-func (r *MoqList_starGenType_Remove_fnRecorder) ReturnResults(result1 interface{}) *MoqList_starGenType_Remove_fnRecorder {
+func (r *MoqList_starGenType_Remove_fnRecorder) ReturnResults(result1 any) *MoqList_starGenType_Remove_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -2750,14 +2750,14 @@ func (r *MoqList_starGenType_Remove_fnRecorder) ReturnResults(result1 interface{
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqList_starGenType_Remove_doFn
 		DoReturnFn MoqList_starGenType_Remove_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -2788,7 +2788,7 @@ func (r *MoqList_starGenType_Remove_fnRecorder) DoReturnResults(fn MoqList_starG
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqList_starGenType_Remove_doFn
@@ -2858,7 +2858,7 @@ func (r *MoqList_starGenType_Remove_fnRecorder) Repeat(repeaters ...moq.Repeater
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqList_starGenType_Remove_doFn
@@ -2898,7 +2898,7 @@ func (m *MoqList_starGenType) ParamsKey_Remove(params MoqList_starGenType_Remove
 	}
 }
 
-func (m *MoqList_starGenType_recorder) PushFront(v interface{}) *MoqList_starGenType_PushFront_fnRecorder {
+func (m *MoqList_starGenType_recorder) PushFront(v any) *MoqList_starGenType_PushFront_fnRecorder {
 	return &MoqList_starGenType_PushFront_fnRecorder{
 		Params: MoqList_starGenType_PushFront_params{
 			V: v,
@@ -3082,7 +3082,7 @@ func (m *MoqList_starGenType) PrettyParams_PushFront(params MoqList_starGenType_
 
 func (m *MoqList_starGenType) ParamsKey_PushFront(params MoqList_starGenType_PushFront_params, anyParams uint64) MoqList_starGenType_PushFront_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.PushFront.V == moq.ParamIndexByValue {
@@ -3092,7 +3092,7 @@ func (m *MoqList_starGenType) ParamsKey_PushFront(params MoqList_starGenType_Pus
 		}
 	}
 	return MoqList_starGenType_PushFront_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{
@@ -3101,7 +3101,7 @@ func (m *MoqList_starGenType) ParamsKey_PushFront(params MoqList_starGenType_Pus
 	}
 }
 
-func (m *MoqList_starGenType_recorder) PushBack(v interface{}) *MoqList_starGenType_PushBack_fnRecorder {
+func (m *MoqList_starGenType_recorder) PushBack(v any) *MoqList_starGenType_PushBack_fnRecorder {
 	return &MoqList_starGenType_PushBack_fnRecorder{
 		Params: MoqList_starGenType_PushBack_params{
 			V: v,
@@ -3285,7 +3285,7 @@ func (m *MoqList_starGenType) PrettyParams_PushBack(params MoqList_starGenType_P
 
 func (m *MoqList_starGenType) ParamsKey_PushBack(params MoqList_starGenType_PushBack_params, anyParams uint64) MoqList_starGenType_PushBack_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.PushBack.V == moq.ParamIndexByValue {
@@ -3295,7 +3295,7 @@ func (m *MoqList_starGenType) ParamsKey_PushBack(params MoqList_starGenType_Push
 		}
 	}
 	return MoqList_starGenType_PushBack_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{
@@ -3304,7 +3304,7 @@ func (m *MoqList_starGenType) ParamsKey_PushBack(params MoqList_starGenType_Push
 	}
 }
 
-func (m *MoqList_starGenType_recorder) InsertBefore(v interface{}, mark *list.Element) *MoqList_starGenType_InsertBefore_fnRecorder {
+func (m *MoqList_starGenType_recorder) InsertBefore(v any, mark *list.Element) *MoqList_starGenType_InsertBefore_fnRecorder {
 	return &MoqList_starGenType_InsertBefore_fnRecorder{
 		Params: MoqList_starGenType_InsertBefore_params{
 			V:    v,
@@ -3494,7 +3494,7 @@ func (m *MoqList_starGenType) PrettyParams_InsertBefore(params MoqList_starGenTy
 
 func (m *MoqList_starGenType) ParamsKey_InsertBefore(params MoqList_starGenType_InsertBefore_params, anyParams uint64) MoqList_starGenType_InsertBefore_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.InsertBefore.V == moq.ParamIndexByValue {
@@ -3514,7 +3514,7 @@ func (m *MoqList_starGenType) ParamsKey_InsertBefore(params MoqList_starGenType_
 	}
 	return MoqList_starGenType_InsertBefore_paramsKey{
 		Params: struct {
-			V    interface{}
+			V    any
 			Mark *list.Element
 		}{
 			V:    vUsed,
@@ -3530,7 +3530,7 @@ func (m *MoqList_starGenType) ParamsKey_InsertBefore(params MoqList_starGenType_
 	}
 }
 
-func (m *MoqList_starGenType_recorder) InsertAfter(v interface{}, mark *list.Element) *MoqList_starGenType_InsertAfter_fnRecorder {
+func (m *MoqList_starGenType_recorder) InsertAfter(v any, mark *list.Element) *MoqList_starGenType_InsertAfter_fnRecorder {
 	return &MoqList_starGenType_InsertAfter_fnRecorder{
 		Params: MoqList_starGenType_InsertAfter_params{
 			V:    v,
@@ -3720,7 +3720,7 @@ func (m *MoqList_starGenType) PrettyParams_InsertAfter(params MoqList_starGenTyp
 
 func (m *MoqList_starGenType) ParamsKey_InsertAfter(params MoqList_starGenType_InsertAfter_params, anyParams uint64) MoqList_starGenType_InsertAfter_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.InsertAfter.V == moq.ParamIndexByValue {
@@ -3740,7 +3740,7 @@ func (m *MoqList_starGenType) ParamsKey_InsertAfter(params MoqList_starGenType_I
 	}
 	return MoqList_starGenType_InsertAfter_paramsKey{
 		Params: struct {
-			V    interface{}
+			V    any
 			Mark *list.Element
 		}{
 			V:    vUsed,

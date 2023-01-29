@@ -208,7 +208,7 @@ func NewMoqDecrypter(scene *moq.Scene, config *moq.Config) *MoqDecrypter {
 			}{
 				Rand: moq.ParamIndexByHash,
 				Msg:  moq.ParamIndexByHash,
-				Opts: moq.ParamIndexByHash,
+				Opts: moq.ParamIndexByValue,
 			},
 		}},
 	}

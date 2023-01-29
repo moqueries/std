@@ -14,7 +14,7 @@ import (
 
 // TypeOf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type TypeOf_genType func(i interface{}) reflect.Type
+type TypeOf_genType func(i any) reflect.Type
 
 // MoqTypeOf_genType holds the state of a moq of the TypeOf_genType type
 type MoqTypeOf_genType struct {
@@ -38,12 +38,12 @@ type MoqTypeOf_genType_mock struct {
 }
 
 // MoqTypeOf_genType_params holds the params of the TypeOf_genType type
-type MoqTypeOf_genType_params struct{ Param1 interface{} }
+type MoqTypeOf_genType_params struct{ Param1 any }
 
 // MoqTypeOf_genType_paramsKey holds the map key params of the TypeOf_genType
 // type
 type MoqTypeOf_genType_paramsKey struct {
-	Params struct{ Param1 interface{} }
+	Params struct{ Param1 any }
 	Hashes struct{ Param1 hash.Hash }
 }
 
@@ -57,11 +57,11 @@ type MoqTypeOf_genType_resultsByParams struct {
 
 // MoqTypeOf_genType_doFn defines the type of function needed when calling
 // AndDo for the TypeOf_genType type
-type MoqTypeOf_genType_doFn func(i interface{})
+type MoqTypeOf_genType_doFn func(i any)
 
 // MoqTypeOf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the TypeOf_genType type
-type MoqTypeOf_genType_doReturnFn func(i interface{}) reflect.Type
+type MoqTypeOf_genType_doReturnFn func(i any) reflect.Type
 
 // MoqTypeOf_genType_results holds the results of the TypeOf_genType type
 type MoqTypeOf_genType_results struct {
@@ -111,7 +111,7 @@ func NewMoqTypeOf_genType(scene *moq.Scene, config *moq.Config) *MoqTypeOf_genTy
 		}{ParameterIndexing: struct {
 			Param1 moq.ParamIndexing
 		}{
-			Param1: moq.ParamIndexByHash,
+			Param1: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -122,14 +122,14 @@ func NewMoqTypeOf_genType(scene *moq.Scene, config *moq.Config) *MoqTypeOf_genTy
 
 // Mock returns the moq implementation of the TypeOf_genType type
 func (m *MoqTypeOf_genType) Mock() TypeOf_genType {
-	return func(param1 interface{}) reflect.Type {
+	return func(param1 any) reflect.Type {
 		m.Scene.T.Helper()
 		moq := &MoqTypeOf_genType_mock{Moq: m}
 		return moq.Fn(param1)
 	}
 }
 
-func (m *MoqTypeOf_genType_mock) Fn(param1 interface{}) (result1 reflect.Type) {
+func (m *MoqTypeOf_genType_mock) Fn(param1 any) (result1 reflect.Type) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTypeOf_genType_params{
 		Param1: param1,
@@ -182,7 +182,7 @@ func (m *MoqTypeOf_genType_mock) Fn(param1 interface{}) (result1 reflect.Type) {
 	return
 }
 
-func (m *MoqTypeOf_genType) OnCall(param1 interface{}) *MoqTypeOf_genType_fnRecorder {
+func (m *MoqTypeOf_genType) OnCall(param1 any) *MoqTypeOf_genType_fnRecorder {
 	return &MoqTypeOf_genType_fnRecorder{
 		Params: MoqTypeOf_genType_params{
 			Param1: param1,
@@ -366,7 +366,7 @@ func (m *MoqTypeOf_genType) PrettyParams(params MoqTypeOf_genType_params) string
 
 func (m *MoqTypeOf_genType) ParamsKey(params MoqTypeOf_genType_params, anyParams uint64) MoqTypeOf_genType_paramsKey {
 	m.Scene.T.Helper()
-	var param1Used interface{}
+	var param1Used any
 	var param1UsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Param1 == moq.ParamIndexByValue {
@@ -376,7 +376,7 @@ func (m *MoqTypeOf_genType) ParamsKey(params MoqTypeOf_genType_params, anyParams
 		}
 	}
 	return MoqTypeOf_genType_paramsKey{
-		Params: struct{ Param1 interface{} }{
+		Params: struct{ Param1 any }{
 			Param1: param1Used,
 		},
 		Hashes: struct{ Param1 hash.Hash }{

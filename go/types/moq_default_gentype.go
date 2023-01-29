@@ -14,7 +14,7 @@ import (
 
 // Default_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Default_genType func(typ types.Type) types.Type
+type Default_genType func(t types.Type) types.Type
 
 // MoqDefault_genType holds the state of a moq of the Default_genType type
 type MoqDefault_genType struct {
@@ -26,7 +26,7 @@ type MoqDefault_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Typ moq.ParamIndexing
+			T moq.ParamIndexing
 		}
 	}
 }
@@ -38,13 +38,13 @@ type MoqDefault_genType_mock struct {
 }
 
 // MoqDefault_genType_params holds the params of the Default_genType type
-type MoqDefault_genType_params struct{ Typ types.Type }
+type MoqDefault_genType_params struct{ T types.Type }
 
 // MoqDefault_genType_paramsKey holds the map key params of the Default_genType
 // type
 type MoqDefault_genType_paramsKey struct {
-	Params struct{ Typ types.Type }
-	Hashes struct{ Typ hash.Hash }
+	Params struct{ T types.Type }
+	Hashes struct{ T hash.Hash }
 }
 
 // MoqDefault_genType_resultsByParams contains the results for a given set of
@@ -57,11 +57,11 @@ type MoqDefault_genType_resultsByParams struct {
 
 // MoqDefault_genType_doFn defines the type of function needed when calling
 // AndDo for the Default_genType type
-type MoqDefault_genType_doFn func(typ types.Type)
+type MoqDefault_genType_doFn func(t types.Type)
 
 // MoqDefault_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Default_genType type
-type MoqDefault_genType_doReturnFn func(typ types.Type) types.Type
+type MoqDefault_genType_doReturnFn func(t types.Type) types.Type
 
 // MoqDefault_genType_results holds the results of the Default_genType type
 type MoqDefault_genType_results struct {
@@ -106,12 +106,12 @@ func NewMoqDefault_genType(scene *moq.Scene, config *moq.Config) *MoqDefault_gen
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Typ moq.ParamIndexing
+				T moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Typ moq.ParamIndexing
+			T moq.ParamIndexing
 		}{
-			Typ: moq.ParamIndexByHash,
+			T: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -122,17 +122,17 @@ func NewMoqDefault_genType(scene *moq.Scene, config *moq.Config) *MoqDefault_gen
 
 // Mock returns the moq implementation of the Default_genType type
 func (m *MoqDefault_genType) Mock() Default_genType {
-	return func(typ types.Type) types.Type {
+	return func(t types.Type) types.Type {
 		m.Scene.T.Helper()
 		moq := &MoqDefault_genType_mock{Moq: m}
-		return moq.Fn(typ)
+		return moq.Fn(t)
 	}
 }
 
-func (m *MoqDefault_genType_mock) Fn(typ types.Type) (result1 types.Type) {
+func (m *MoqDefault_genType_mock) Fn(t types.Type) (result1 types.Type) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDefault_genType_params{
-		Typ: typ,
+		T: t,
 	}
 	var results *MoqDefault_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -170,22 +170,22 @@ func (m *MoqDefault_genType_mock) Fn(typ types.Type) (result1 types.Type) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(typ)
+		result.DoFn(t)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(typ)
+		result1 = result.DoReturnFn(t)
 	}
 	return
 }
 
-func (m *MoqDefault_genType) OnCall(typ types.Type) *MoqDefault_genType_fnRecorder {
+func (m *MoqDefault_genType) OnCall(t types.Type) *MoqDefault_genType_fnRecorder {
 	return &MoqDefault_genType_fnRecorder{
 		Params: MoqDefault_genType_params{
-			Typ: typ,
+			T: t,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -201,7 +201,7 @@ func (r *MoqDefault_genType_fnRecorder) Any() *MoqDefault_genType_anyParams {
 	return &MoqDefault_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqDefault_genType_anyParams) Typ() *MoqDefault_genType_fnRecorder {
+func (a *MoqDefault_genType_anyParams) T() *MoqDefault_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -361,26 +361,26 @@ func (r *MoqDefault_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqDe
 }
 
 func (m *MoqDefault_genType) PrettyParams(params MoqDefault_genType_params) string {
-	return fmt.Sprintf("Default_genType(%#v)", params.Typ)
+	return fmt.Sprintf("Default_genType(%#v)", params.T)
 }
 
 func (m *MoqDefault_genType) ParamsKey(params MoqDefault_genType_params, anyParams uint64) MoqDefault_genType_paramsKey {
 	m.Scene.T.Helper()
-	var typUsed types.Type
-	var typUsedHash hash.Hash
+	var tUsed types.Type
+	var tUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Typ == moq.ParamIndexByValue {
-			typUsed = params.Typ
+		if m.Runtime.ParameterIndexing.T == moq.ParamIndexByValue {
+			tUsed = params.T
 		} else {
-			typUsedHash = hash.DeepHash(params.Typ)
+			tUsedHash = hash.DeepHash(params.T)
 		}
 	}
 	return MoqDefault_genType_paramsKey{
-		Params: struct{ Typ types.Type }{
-			Typ: typUsed,
+		Params: struct{ T types.Type }{
+			T: tUsed,
 		},
-		Hashes: struct{ Typ hash.Hash }{
-			Typ: typUsedHash,
+		Hashes: struct{ T hash.Hash }{
+			T: tUsedHash,
 		},
 	}
 }

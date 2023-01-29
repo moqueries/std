@@ -13,7 +13,7 @@ import (
 
 // MarshalPKIXPublicKey_genType is the fabricated implementation type of this
 // mock (emitted when mocking functions directly and not from a function type)
-type MarshalPKIXPublicKey_genType func(pub interface{}) ([]byte, error)
+type MarshalPKIXPublicKey_genType func(pub any) ([]byte, error)
 
 // MoqMarshalPKIXPublicKey_genType holds the state of a moq of the
 // MarshalPKIXPublicKey_genType type
@@ -39,12 +39,12 @@ type MoqMarshalPKIXPublicKey_genType_mock struct {
 
 // MoqMarshalPKIXPublicKey_genType_params holds the params of the
 // MarshalPKIXPublicKey_genType type
-type MoqMarshalPKIXPublicKey_genType_params struct{ Pub interface{} }
+type MoqMarshalPKIXPublicKey_genType_params struct{ Pub any }
 
 // MoqMarshalPKIXPublicKey_genType_paramsKey holds the map key params of the
 // MarshalPKIXPublicKey_genType type
 type MoqMarshalPKIXPublicKey_genType_paramsKey struct {
-	Params struct{ Pub interface{} }
+	Params struct{ Pub any }
 	Hashes struct{ Pub hash.Hash }
 }
 
@@ -58,12 +58,12 @@ type MoqMarshalPKIXPublicKey_genType_resultsByParams struct {
 
 // MoqMarshalPKIXPublicKey_genType_doFn defines the type of function needed
 // when calling AndDo for the MarshalPKIXPublicKey_genType type
-type MoqMarshalPKIXPublicKey_genType_doFn func(pub interface{})
+type MoqMarshalPKIXPublicKey_genType_doFn func(pub any)
 
 // MoqMarshalPKIXPublicKey_genType_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the MarshalPKIXPublicKey_genType
 // type
-type MoqMarshalPKIXPublicKey_genType_doReturnFn func(pub interface{}) ([]byte, error)
+type MoqMarshalPKIXPublicKey_genType_doReturnFn func(pub any) ([]byte, error)
 
 // MoqMarshalPKIXPublicKey_genType_results holds the results of the
 // MarshalPKIXPublicKey_genType type
@@ -116,7 +116,7 @@ func NewMoqMarshalPKIXPublicKey_genType(scene *moq.Scene, config *moq.Config) *M
 		}{ParameterIndexing: struct {
 			Pub moq.ParamIndexing
 		}{
-			Pub: moq.ParamIndexByHash,
+			Pub: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -127,14 +127,14 @@ func NewMoqMarshalPKIXPublicKey_genType(scene *moq.Scene, config *moq.Config) *M
 
 // Mock returns the moq implementation of the MarshalPKIXPublicKey_genType type
 func (m *MoqMarshalPKIXPublicKey_genType) Mock() MarshalPKIXPublicKey_genType {
-	return func(pub interface{}) ([]byte, error) {
+	return func(pub any) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqMarshalPKIXPublicKey_genType_mock{Moq: m}
 		return moq.Fn(pub)
 	}
 }
 
-func (m *MoqMarshalPKIXPublicKey_genType_mock) Fn(pub interface{}) (result1 []byte, result2 error) {
+func (m *MoqMarshalPKIXPublicKey_genType_mock) Fn(pub any) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMarshalPKIXPublicKey_genType_params{
 		Pub: pub,
@@ -188,7 +188,7 @@ func (m *MoqMarshalPKIXPublicKey_genType_mock) Fn(pub interface{}) (result1 []by
 	return
 }
 
-func (m *MoqMarshalPKIXPublicKey_genType) OnCall(pub interface{}) *MoqMarshalPKIXPublicKey_genType_fnRecorder {
+func (m *MoqMarshalPKIXPublicKey_genType) OnCall(pub any) *MoqMarshalPKIXPublicKey_genType_fnRecorder {
 	return &MoqMarshalPKIXPublicKey_genType_fnRecorder{
 		Params: MoqMarshalPKIXPublicKey_genType_params{
 			Pub: pub,
@@ -377,7 +377,7 @@ func (m *MoqMarshalPKIXPublicKey_genType) PrettyParams(params MoqMarshalPKIXPubl
 
 func (m *MoqMarshalPKIXPublicKey_genType) ParamsKey(params MoqMarshalPKIXPublicKey_genType_params, anyParams uint64) MoqMarshalPKIXPublicKey_genType_paramsKey {
 	m.Scene.T.Helper()
-	var pubUsed interface{}
+	var pubUsed any
 	var pubUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Pub == moq.ParamIndexByValue {
@@ -387,7 +387,7 @@ func (m *MoqMarshalPKIXPublicKey_genType) ParamsKey(params MoqMarshalPKIXPublicK
 		}
 	}
 	return MoqMarshalPKIXPublicKey_genType_paramsKey{
-		Params: struct{ Pub interface{} }{
+		Params: struct{ Pub any }{
 			Pub: pubUsed,
 		},
 		Hashes: struct{ Pub hash.Hash }{

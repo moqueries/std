@@ -13,7 +13,7 @@ import (
 
 // Printf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Printf_genType func(format string, a ...interface{}) (n int, err error)
+type Printf_genType func(format string, a ...any) (n int, err error)
 
 // MoqPrintf_genType holds the state of a moq of the Printf_genType type
 type MoqPrintf_genType struct {
@@ -40,7 +40,7 @@ type MoqPrintf_genType_mock struct {
 // MoqPrintf_genType_params holds the params of the Printf_genType type
 type MoqPrintf_genType_params struct {
 	Format string
-	A      []interface{}
+	A      []any
 }
 
 // MoqPrintf_genType_paramsKey holds the map key params of the Printf_genType
@@ -63,11 +63,11 @@ type MoqPrintf_genType_resultsByParams struct {
 
 // MoqPrintf_genType_doFn defines the type of function needed when calling
 // AndDo for the Printf_genType type
-type MoqPrintf_genType_doFn func(format string, a ...interface{})
+type MoqPrintf_genType_doFn func(format string, a ...any)
 
 // MoqPrintf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Printf_genType type
-type MoqPrintf_genType_doReturnFn func(format string, a ...interface{}) (n int, err error)
+type MoqPrintf_genType_doReturnFn func(format string, a ...any) (n int, err error)
 
 // MoqPrintf_genType_results holds the results of the Printf_genType type
 type MoqPrintf_genType_results struct {
@@ -132,14 +132,14 @@ func NewMoqPrintf_genType(scene *moq.Scene, config *moq.Config) *MoqPrintf_genTy
 
 // Mock returns the moq implementation of the Printf_genType type
 func (m *MoqPrintf_genType) Mock() Printf_genType {
-	return func(format string, a ...interface{}) (_ int, _ error) {
+	return func(format string, a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqPrintf_genType_mock{Moq: m}
 		return moq.Fn(format, a...)
 	}
 }
 
-func (m *MoqPrintf_genType_mock) Fn(format string, a ...interface{}) (n int, err error) {
+func (m *MoqPrintf_genType_mock) Fn(format string, a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPrintf_genType_params{
 		Format: format,
@@ -194,7 +194,7 @@ func (m *MoqPrintf_genType_mock) Fn(format string, a ...interface{}) (n int, err
 	return
 }
 
-func (m *MoqPrintf_genType) OnCall(format string, a ...interface{}) *MoqPrintf_genType_fnRecorder {
+func (m *MoqPrintf_genType) OnCall(format string, a ...any) *MoqPrintf_genType_fnRecorder {
 	return &MoqPrintf_genType_fnRecorder{
 		Params: MoqPrintf_genType_params{
 			Format: format,

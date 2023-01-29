@@ -16,7 +16,7 @@ import (
 // CreateCertificateRequest_genType is the fabricated implementation type of
 // this mock (emitted when mocking functions directly and not from a function
 // type)
-type CreateCertificateRequest_genType func(rand io.Reader, template *x509.CertificateRequest, priv interface{}) (csr []byte, err error)
+type CreateCertificateRequest_genType func(rand io.Reader, template *x509.CertificateRequest, priv any) (csr []byte, err error)
 
 // MoqCreateCertificateRequest_genType holds the state of a moq of the
 // CreateCertificateRequest_genType type
@@ -47,7 +47,7 @@ type MoqCreateCertificateRequest_genType_mock struct {
 type MoqCreateCertificateRequest_genType_params struct {
 	Rand     io.Reader
 	Template *x509.CertificateRequest
-	Priv     interface{}
+	Priv     any
 }
 
 // MoqCreateCertificateRequest_genType_paramsKey holds the map key params of
@@ -56,7 +56,7 @@ type MoqCreateCertificateRequest_genType_paramsKey struct {
 	Params struct {
 		Rand     io.Reader
 		Template *x509.CertificateRequest
-		Priv     interface{}
+		Priv     any
 	}
 	Hashes struct {
 		Rand     hash.Hash
@@ -75,12 +75,12 @@ type MoqCreateCertificateRequest_genType_resultsByParams struct {
 
 // MoqCreateCertificateRequest_genType_doFn defines the type of function needed
 // when calling AndDo for the CreateCertificateRequest_genType type
-type MoqCreateCertificateRequest_genType_doFn func(rand io.Reader, template *x509.CertificateRequest, priv interface{})
+type MoqCreateCertificateRequest_genType_doFn func(rand io.Reader, template *x509.CertificateRequest, priv any)
 
 // MoqCreateCertificateRequest_genType_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the CreateCertificateRequest_genType
 // type
-type MoqCreateCertificateRequest_genType_doReturnFn func(rand io.Reader, template *x509.CertificateRequest, priv interface{}) (csr []byte, err error)
+type MoqCreateCertificateRequest_genType_doReturnFn func(rand io.Reader, template *x509.CertificateRequest, priv any) (csr []byte, err error)
 
 // MoqCreateCertificateRequest_genType_results holds the results of the
 // CreateCertificateRequest_genType type
@@ -139,7 +139,7 @@ func NewMoqCreateCertificateRequest_genType(scene *moq.Scene, config *moq.Config
 		}{
 			Rand:     moq.ParamIndexByHash,
 			Template: moq.ParamIndexByHash,
-			Priv:     moq.ParamIndexByHash,
+			Priv:     moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -151,14 +151,14 @@ func NewMoqCreateCertificateRequest_genType(scene *moq.Scene, config *moq.Config
 // Mock returns the moq implementation of the CreateCertificateRequest_genType
 // type
 func (m *MoqCreateCertificateRequest_genType) Mock() CreateCertificateRequest_genType {
-	return func(rand io.Reader, template *x509.CertificateRequest, priv interface{}) (_ []byte, _ error) {
+	return func(rand io.Reader, template *x509.CertificateRequest, priv any) (_ []byte, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqCreateCertificateRequest_genType_mock{Moq: m}
 		return moq.Fn(rand, template, priv)
 	}
 }
 
-func (m *MoqCreateCertificateRequest_genType_mock) Fn(rand io.Reader, template *x509.CertificateRequest, priv interface{}) (csr []byte, err error) {
+func (m *MoqCreateCertificateRequest_genType_mock) Fn(rand io.Reader, template *x509.CertificateRequest, priv any) (csr []byte, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqCreateCertificateRequest_genType_params{
 		Rand:     rand,
@@ -214,7 +214,7 @@ func (m *MoqCreateCertificateRequest_genType_mock) Fn(rand io.Reader, template *
 	return
 }
 
-func (m *MoqCreateCertificateRequest_genType) OnCall(rand io.Reader, template *x509.CertificateRequest, priv interface{}) *MoqCreateCertificateRequest_genType_fnRecorder {
+func (m *MoqCreateCertificateRequest_genType) OnCall(rand io.Reader, template *x509.CertificateRequest, priv any) *MoqCreateCertificateRequest_genType_fnRecorder {
 	return &MoqCreateCertificateRequest_genType_fnRecorder{
 		Params: MoqCreateCertificateRequest_genType_params{
 			Rand:     rand,
@@ -433,7 +433,7 @@ func (m *MoqCreateCertificateRequest_genType) ParamsKey(params MoqCreateCertific
 			templateUsedHash = hash.DeepHash(params.Template)
 		}
 	}
-	var privUsed interface{}
+	var privUsed any
 	var privUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Priv == moq.ParamIndexByValue {
@@ -446,7 +446,7 @@ func (m *MoqCreateCertificateRequest_genType) ParamsKey(params MoqCreateCertific
 		Params: struct {
 			Rand     io.Reader
 			Template *x509.CertificateRequest
-			Priv     interface{}
+			Priv     any
 		}{
 			Rand:     randUsed,
 			Template: templateUsed,

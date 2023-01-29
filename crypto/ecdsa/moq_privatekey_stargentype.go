@@ -291,7 +291,7 @@ func NewMoqPrivateKey_starGenType(scene *moq.Scene, config *moq.Config) *MoqPriv
 			Equal: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 			Sign: struct {
 				Rand   moq.ParamIndexing

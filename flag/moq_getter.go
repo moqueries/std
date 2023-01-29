@@ -179,14 +179,14 @@ type MoqGetter_Get_doFn func()
 
 // MoqGetter_Get_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Getter type
-type MoqGetter_Get_doReturnFn func() interface{}
+type MoqGetter_Get_doReturnFn func() any
 
 // MoqGetter_Get_results holds the results of the Getter type
 type MoqGetter_Get_results struct {
 	Params  MoqGetter_Get_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqGetter_Get_doFn
@@ -357,7 +357,7 @@ func (m *MoqGetter_mock) Set(param1 string) (result1 error) {
 	return
 }
 
-func (m *MoqGetter_mock) Get() (result1 interface{}) {
+func (m *MoqGetter_mock) Get() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqGetter_Get_params{}
 	var results *MoqGetter_Get_results
@@ -838,7 +838,7 @@ func (r *MoqGetter_Get_fnRecorder) NoSeq() *MoqGetter_Get_fnRecorder {
 	return r
 }
 
-func (r *MoqGetter_Get_fnRecorder) ReturnResults(result1 interface{}) *MoqGetter_Get_fnRecorder {
+func (r *MoqGetter_Get_fnRecorder) ReturnResults(result1 any) *MoqGetter_Get_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -849,14 +849,14 @@ func (r *MoqGetter_Get_fnRecorder) ReturnResults(result1 interface{}) *MoqGetter
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqGetter_Get_doFn
 		DoReturnFn MoqGetter_Get_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -887,7 +887,7 @@ func (r *MoqGetter_Get_fnRecorder) DoReturnResults(fn MoqGetter_Get_doReturnFn) 
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqGetter_Get_doFn
@@ -957,7 +957,7 @@ func (r *MoqGetter_Get_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqGetter_
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqGetter_Get_doFn

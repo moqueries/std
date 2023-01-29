@@ -13,7 +13,7 @@ import (
 
 // Sprintf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Sprintf_genType func(format string, a ...interface{}) string
+type Sprintf_genType func(format string, a ...any) string
 
 // MoqSprintf_genType holds the state of a moq of the Sprintf_genType type
 type MoqSprintf_genType struct {
@@ -40,7 +40,7 @@ type MoqSprintf_genType_mock struct {
 // MoqSprintf_genType_params holds the params of the Sprintf_genType type
 type MoqSprintf_genType_params struct {
 	Format string
-	A      []interface{}
+	A      []any
 }
 
 // MoqSprintf_genType_paramsKey holds the map key params of the Sprintf_genType
@@ -63,11 +63,11 @@ type MoqSprintf_genType_resultsByParams struct {
 
 // MoqSprintf_genType_doFn defines the type of function needed when calling
 // AndDo for the Sprintf_genType type
-type MoqSprintf_genType_doFn func(format string, a ...interface{})
+type MoqSprintf_genType_doFn func(format string, a ...any)
 
 // MoqSprintf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Sprintf_genType type
-type MoqSprintf_genType_doReturnFn func(format string, a ...interface{}) string
+type MoqSprintf_genType_doReturnFn func(format string, a ...any) string
 
 // MoqSprintf_genType_results holds the results of the Sprintf_genType type
 type MoqSprintf_genType_results struct {
@@ -131,14 +131,14 @@ func NewMoqSprintf_genType(scene *moq.Scene, config *moq.Config) *MoqSprintf_gen
 
 // Mock returns the moq implementation of the Sprintf_genType type
 func (m *MoqSprintf_genType) Mock() Sprintf_genType {
-	return func(format string, a ...interface{}) string {
+	return func(format string, a ...any) string {
 		m.Scene.T.Helper()
 		moq := &MoqSprintf_genType_mock{Moq: m}
 		return moq.Fn(format, a...)
 	}
 }
 
-func (m *MoqSprintf_genType_mock) Fn(format string, a ...interface{}) (result1 string) {
+func (m *MoqSprintf_genType_mock) Fn(format string, a ...any) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSprintf_genType_params{
 		Format: format,
@@ -192,7 +192,7 @@ func (m *MoqSprintf_genType_mock) Fn(format string, a ...interface{}) (result1 s
 	return
 }
 
-func (m *MoqSprintf_genType) OnCall(format string, a ...interface{}) *MoqSprintf_genType_fnRecorder {
+func (m *MoqSprintf_genType) OnCall(format string, a ...any) *MoqSprintf_genType_fnRecorder {
 	return &MoqSprintf_genType_fnRecorder{
 		Params: MoqSprintf_genType_params{
 			Format: format,

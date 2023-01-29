@@ -25,7 +25,7 @@ type Rows_starGenType interface {
 	Err() error
 	Columns() ([]string, error)
 	ColumnTypes() ([]*sql.ColumnType, error)
-	Scan(dest ...interface{}) error
+	Scan(dest ...any) error
 	Close() error
 }
 
@@ -368,7 +368,7 @@ type MoqRows_starGenType_ColumnTypes_anyParams struct {
 
 // MoqRows_starGenType_Scan_params holds the params of the Rows_starGenType
 // type
-type MoqRows_starGenType_Scan_params struct{ Dest []interface{} }
+type MoqRows_starGenType_Scan_params struct{ Dest []any }
 
 // MoqRows_starGenType_Scan_paramsKey holds the map key params of the
 // Rows_starGenType type
@@ -387,11 +387,11 @@ type MoqRows_starGenType_Scan_resultsByParams struct {
 
 // MoqRows_starGenType_Scan_doFn defines the type of function needed when
 // calling AndDo for the Rows_starGenType type
-type MoqRows_starGenType_Scan_doFn func(dest ...interface{})
+type MoqRows_starGenType_Scan_doFn func(dest ...any)
 
 // MoqRows_starGenType_Scan_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Rows_starGenType type
-type MoqRows_starGenType_Scan_doReturnFn func(dest ...interface{}) error
+type MoqRows_starGenType_Scan_doReturnFn func(dest ...any) error
 
 // MoqRows_starGenType_Scan_results holds the results of the Rows_starGenType
 // type
@@ -796,7 +796,7 @@ func (m *MoqRows_starGenType_mock) ColumnTypes() (result1 []*sql.ColumnType, res
 	return
 }
 
-func (m *MoqRows_starGenType_mock) Scan(dest ...interface{}) (result1 error) {
+func (m *MoqRows_starGenType_mock) Scan(dest ...any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRows_starGenType_Scan_params{
 		Dest: dest,
@@ -1832,7 +1832,7 @@ func (m *MoqRows_starGenType) ParamsKey_ColumnTypes(params MoqRows_starGenType_C
 	}
 }
 
-func (m *MoqRows_starGenType_recorder) Scan(dest ...interface{}) *MoqRows_starGenType_Scan_fnRecorder {
+func (m *MoqRows_starGenType_recorder) Scan(dest ...any) *MoqRows_starGenType_Scan_fnRecorder {
 	return &MoqRows_starGenType_Scan_fnRecorder{
 		Params: MoqRows_starGenType_Scan_params{
 			Dest: dest,

@@ -23,8 +23,8 @@ var _ Template_starGenType = (*MoqTemplate_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Template_starGenType interface {
-	ExecuteTemplate(wr io.Writer, name string, data interface{}) error
-	Execute(wr io.Writer, data interface{}) error
+	ExecuteTemplate(wr io.Writer, name string, data any) error
+	Execute(wr io.Writer, data any) error
 	DefinedTemplates() string
 	ParseFiles(filenames ...string) (*template.Template, error)
 	ParseGlob(pattern string) (*template.Template, error)
@@ -134,7 +134,7 @@ type MoqTemplate_starGenType_recorder struct {
 type MoqTemplate_starGenType_ExecuteTemplate_params struct {
 	Wr   io.Writer
 	Name string
-	Data interface{}
+	Data any
 }
 
 // MoqTemplate_starGenType_ExecuteTemplate_paramsKey holds the map key params
@@ -143,7 +143,7 @@ type MoqTemplate_starGenType_ExecuteTemplate_paramsKey struct {
 	Params struct {
 		Wr   io.Writer
 		Name string
-		Data interface{}
+		Data any
 	}
 	Hashes struct {
 		Wr   hash.Hash
@@ -162,12 +162,12 @@ type MoqTemplate_starGenType_ExecuteTemplate_resultsByParams struct {
 
 // MoqTemplate_starGenType_ExecuteTemplate_doFn defines the type of function
 // needed when calling AndDo for the Template_starGenType type
-type MoqTemplate_starGenType_ExecuteTemplate_doFn func(wr io.Writer, name string, data interface{})
+type MoqTemplate_starGenType_ExecuteTemplate_doFn func(wr io.Writer, name string, data any)
 
 // MoqTemplate_starGenType_ExecuteTemplate_doReturnFn defines the type of
 // function needed when calling DoReturnResults for the Template_starGenType
 // type
-type MoqTemplate_starGenType_ExecuteTemplate_doReturnFn func(wr io.Writer, name string, data interface{}) error
+type MoqTemplate_starGenType_ExecuteTemplate_doReturnFn func(wr io.Writer, name string, data any) error
 
 // MoqTemplate_starGenType_ExecuteTemplate_results holds the results of the
 // Template_starGenType type
@@ -205,7 +205,7 @@ type MoqTemplate_starGenType_ExecuteTemplate_anyParams struct {
 // Template_starGenType type
 type MoqTemplate_starGenType_Execute_params struct {
 	Wr   io.Writer
-	Data interface{}
+	Data any
 }
 
 // MoqTemplate_starGenType_Execute_paramsKey holds the map key params of the
@@ -213,7 +213,7 @@ type MoqTemplate_starGenType_Execute_params struct {
 type MoqTemplate_starGenType_Execute_paramsKey struct {
 	Params struct {
 		Wr   io.Writer
-		Data interface{}
+		Data any
 	}
 	Hashes struct {
 		Wr   hash.Hash
@@ -231,11 +231,11 @@ type MoqTemplate_starGenType_Execute_resultsByParams struct {
 
 // MoqTemplate_starGenType_Execute_doFn defines the type of function needed
 // when calling AndDo for the Template_starGenType type
-type MoqTemplate_starGenType_Execute_doFn func(wr io.Writer, data interface{})
+type MoqTemplate_starGenType_Execute_doFn func(wr io.Writer, data any)
 
 // MoqTemplate_starGenType_Execute_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Template_starGenType type
-type MoqTemplate_starGenType_Execute_doReturnFn func(wr io.Writer, data interface{}) error
+type MoqTemplate_starGenType_Execute_doReturnFn func(wr io.Writer, data any) error
 
 // MoqTemplate_starGenType_Execute_results holds the results of the
 // Template_starGenType type
@@ -1232,14 +1232,14 @@ func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTempla
 			}{
 				Wr:   moq.ParamIndexByHash,
 				Name: moq.ParamIndexByValue,
-				Data: moq.ParamIndexByHash,
+				Data: moq.ParamIndexByValue,
 			},
 			Execute: struct {
 				Wr   moq.ParamIndexing
 				Data moq.ParamIndexing
 			}{
 				Wr:   moq.ParamIndexByHash,
-				Data: moq.ParamIndexByHash,
+				Data: moq.ParamIndexByValue,
 			},
 			DefinedTemplates: struct{}{},
 			ParseFiles: struct {
@@ -1312,7 +1312,7 @@ func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTempla
 // Mock returns the mock implementation of the Template_starGenType type
 func (m *MoqTemplate_starGenType) Mock() *MoqTemplate_starGenType_mock { return m.Moq }
 
-func (m *MoqTemplate_starGenType_mock) ExecuteTemplate(wr io.Writer, name string, data interface{}) (result1 error) {
+func (m *MoqTemplate_starGenType_mock) ExecuteTemplate(wr io.Writer, name string, data any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTemplate_starGenType_ExecuteTemplate_params{
 		Wr:   wr,
@@ -1367,7 +1367,7 @@ func (m *MoqTemplate_starGenType_mock) ExecuteTemplate(wr io.Writer, name string
 	return
 }
 
-func (m *MoqTemplate_starGenType_mock) Execute(wr io.Writer, data interface{}) (result1 error) {
+func (m *MoqTemplate_starGenType_mock) Execute(wr io.Writer, data any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTemplate_starGenType_Execute_params{
 		Wr:   wr,
@@ -2171,7 +2171,7 @@ func (m *MoqTemplate_starGenType) OnCall() *MoqTemplate_starGenType_recorder {
 	}
 }
 
-func (m *MoqTemplate_starGenType_recorder) ExecuteTemplate(wr io.Writer, name string, data interface{}) *MoqTemplate_starGenType_ExecuteTemplate_fnRecorder {
+func (m *MoqTemplate_starGenType_recorder) ExecuteTemplate(wr io.Writer, name string, data any) *MoqTemplate_starGenType_ExecuteTemplate_fnRecorder {
 	return &MoqTemplate_starGenType_ExecuteTemplate_fnRecorder{
 		Params: MoqTemplate_starGenType_ExecuteTemplate_params{
 			Wr:   wr,
@@ -2385,7 +2385,7 @@ func (m *MoqTemplate_starGenType) ParamsKey_ExecuteTemplate(params MoqTemplate_s
 			nameUsedHash = hash.DeepHash(params.Name)
 		}
 	}
-	var dataUsed interface{}
+	var dataUsed any
 	var dataUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.ExecuteTemplate.Data == moq.ParamIndexByValue {
@@ -2398,7 +2398,7 @@ func (m *MoqTemplate_starGenType) ParamsKey_ExecuteTemplate(params MoqTemplate_s
 		Params: struct {
 			Wr   io.Writer
 			Name string
-			Data interface{}
+			Data any
 		}{
 			Wr:   wrUsed,
 			Name: nameUsed,
@@ -2416,7 +2416,7 @@ func (m *MoqTemplate_starGenType) ParamsKey_ExecuteTemplate(params MoqTemplate_s
 	}
 }
 
-func (m *MoqTemplate_starGenType_recorder) Execute(wr io.Writer, data interface{}) *MoqTemplate_starGenType_Execute_fnRecorder {
+func (m *MoqTemplate_starGenType_recorder) Execute(wr io.Writer, data any) *MoqTemplate_starGenType_Execute_fnRecorder {
 	return &MoqTemplate_starGenType_Execute_fnRecorder{
 		Params: MoqTemplate_starGenType_Execute_params{
 			Wr:   wr,
@@ -2615,7 +2615,7 @@ func (m *MoqTemplate_starGenType) ParamsKey_Execute(params MoqTemplate_starGenTy
 			wrUsedHash = hash.DeepHash(params.Wr)
 		}
 	}
-	var dataUsed interface{}
+	var dataUsed any
 	var dataUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Execute.Data == moq.ParamIndexByValue {
@@ -2627,7 +2627,7 @@ func (m *MoqTemplate_starGenType) ParamsKey_Execute(params MoqTemplate_starGenTy
 	return MoqTemplate_starGenType_Execute_paramsKey{
 		Params: struct {
 			Wr   io.Writer
-			Data interface{}
+			Data any
 		}{
 			Wr:   wrUsed,
 			Data: dataUsed,

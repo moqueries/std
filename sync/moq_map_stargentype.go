@@ -19,12 +19,12 @@ var _ Map_starGenType = (*MoqMap_starGenType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Map_starGenType interface {
-	Load(key interface{}) (value interface{}, ok bool)
-	Store(key, value interface{})
-	LoadOrStore(key, value interface{}) (actual interface{}, loaded bool)
-	LoadAndDelete(key interface{}) (value interface{}, loaded bool)
-	Delete(key interface{})
-	Range(f func(key, value interface{}) bool)
+	Load(key any) (value any, ok bool)
+	Store(key, value any)
+	LoadOrStore(key, value any) (actual any, loaded bool)
+	LoadAndDelete(key any) (value any, loaded bool)
+	Delete(key any)
+	Range(f func(key, value any) bool)
 }
 
 // MoqMap_starGenType holds the state of a moq of the Map_starGenType type
@@ -79,12 +79,12 @@ type MoqMap_starGenType_recorder struct {
 }
 
 // MoqMap_starGenType_Load_params holds the params of the Map_starGenType type
-type MoqMap_starGenType_Load_params struct{ Key interface{} }
+type MoqMap_starGenType_Load_params struct{ Key any }
 
 // MoqMap_starGenType_Load_paramsKey holds the map key params of the
 // Map_starGenType type
 type MoqMap_starGenType_Load_paramsKey struct {
-	Params struct{ Key interface{} }
+	Params struct{ Key any }
 	Hashes struct{ Key hash.Hash }
 }
 
@@ -98,11 +98,11 @@ type MoqMap_starGenType_Load_resultsByParams struct {
 
 // MoqMap_starGenType_Load_doFn defines the type of function needed when
 // calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_Load_doFn func(key interface{})
+type MoqMap_starGenType_Load_doFn func(key any)
 
 // MoqMap_starGenType_Load_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_Load_doReturnFn func(key interface{}) (value interface{}, ok bool)
+type MoqMap_starGenType_Load_doReturnFn func(key any) (value any, ok bool)
 
 // MoqMap_starGenType_Load_results holds the results of the Map_starGenType
 // type
@@ -110,7 +110,7 @@ type MoqMap_starGenType_Load_results struct {
 	Params  MoqMap_starGenType_Load_params
 	Results []struct {
 		Values *struct {
-			Value interface{}
+			Value any
 			Ok    bool
 		}
 		Sequence   uint32
@@ -138,12 +138,12 @@ type MoqMap_starGenType_Load_anyParams struct {
 }
 
 // MoqMap_starGenType_Store_params holds the params of the Map_starGenType type
-type MoqMap_starGenType_Store_params struct{ Key, Value interface{} }
+type MoqMap_starGenType_Store_params struct{ Key, Value any }
 
 // MoqMap_starGenType_Store_paramsKey holds the map key params of the
 // Map_starGenType type
 type MoqMap_starGenType_Store_paramsKey struct {
-	Params struct{ Key, Value interface{} }
+	Params struct{ Key, Value any }
 	Hashes struct{ Key, Value hash.Hash }
 }
 
@@ -157,11 +157,11 @@ type MoqMap_starGenType_Store_resultsByParams struct {
 
 // MoqMap_starGenType_Store_doFn defines the type of function needed when
 // calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_Store_doFn func(key, value interface{})
+type MoqMap_starGenType_Store_doFn func(key, value any)
 
 // MoqMap_starGenType_Store_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_Store_doReturnFn func(key, value interface{})
+type MoqMap_starGenType_Store_doReturnFn func(key, value any)
 
 // MoqMap_starGenType_Store_results holds the results of the Map_starGenType
 // type
@@ -195,12 +195,12 @@ type MoqMap_starGenType_Store_anyParams struct {
 
 // MoqMap_starGenType_LoadOrStore_params holds the params of the
 // Map_starGenType type
-type MoqMap_starGenType_LoadOrStore_params struct{ Key, Value interface{} }
+type MoqMap_starGenType_LoadOrStore_params struct{ Key, Value any }
 
 // MoqMap_starGenType_LoadOrStore_paramsKey holds the map key params of the
 // Map_starGenType type
 type MoqMap_starGenType_LoadOrStore_paramsKey struct {
-	Params struct{ Key, Value interface{} }
+	Params struct{ Key, Value any }
 	Hashes struct{ Key, Value hash.Hash }
 }
 
@@ -214,11 +214,11 @@ type MoqMap_starGenType_LoadOrStore_resultsByParams struct {
 
 // MoqMap_starGenType_LoadOrStore_doFn defines the type of function needed when
 // calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_LoadOrStore_doFn func(key, value interface{})
+type MoqMap_starGenType_LoadOrStore_doFn func(key, value any)
 
 // MoqMap_starGenType_LoadOrStore_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_LoadOrStore_doReturnFn func(key, value interface{}) (actual interface{}, loaded bool)
+type MoqMap_starGenType_LoadOrStore_doReturnFn func(key, value any) (actual any, loaded bool)
 
 // MoqMap_starGenType_LoadOrStore_results holds the results of the
 // Map_starGenType type
@@ -226,7 +226,7 @@ type MoqMap_starGenType_LoadOrStore_results struct {
 	Params  MoqMap_starGenType_LoadOrStore_params
 	Results []struct {
 		Values *struct {
-			Actual interface{}
+			Actual any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -255,12 +255,12 @@ type MoqMap_starGenType_LoadOrStore_anyParams struct {
 
 // MoqMap_starGenType_LoadAndDelete_params holds the params of the
 // Map_starGenType type
-type MoqMap_starGenType_LoadAndDelete_params struct{ Key interface{} }
+type MoqMap_starGenType_LoadAndDelete_params struct{ Key any }
 
 // MoqMap_starGenType_LoadAndDelete_paramsKey holds the map key params of the
 // Map_starGenType type
 type MoqMap_starGenType_LoadAndDelete_paramsKey struct {
-	Params struct{ Key interface{} }
+	Params struct{ Key any }
 	Hashes struct{ Key hash.Hash }
 }
 
@@ -274,11 +274,11 @@ type MoqMap_starGenType_LoadAndDelete_resultsByParams struct {
 
 // MoqMap_starGenType_LoadAndDelete_doFn defines the type of function needed
 // when calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_LoadAndDelete_doFn func(key interface{})
+type MoqMap_starGenType_LoadAndDelete_doFn func(key any)
 
 // MoqMap_starGenType_LoadAndDelete_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_LoadAndDelete_doReturnFn func(key interface{}) (value interface{}, loaded bool)
+type MoqMap_starGenType_LoadAndDelete_doReturnFn func(key any) (value any, loaded bool)
 
 // MoqMap_starGenType_LoadAndDelete_results holds the results of the
 // Map_starGenType type
@@ -286,7 +286,7 @@ type MoqMap_starGenType_LoadAndDelete_results struct {
 	Params  MoqMap_starGenType_LoadAndDelete_params
 	Results []struct {
 		Values *struct {
-			Value  interface{}
+			Value  any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -315,12 +315,12 @@ type MoqMap_starGenType_LoadAndDelete_anyParams struct {
 
 // MoqMap_starGenType_Delete_params holds the params of the Map_starGenType
 // type
-type MoqMap_starGenType_Delete_params struct{ Key interface{} }
+type MoqMap_starGenType_Delete_params struct{ Key any }
 
 // MoqMap_starGenType_Delete_paramsKey holds the map key params of the
 // Map_starGenType type
 type MoqMap_starGenType_Delete_paramsKey struct {
-	Params struct{ Key interface{} }
+	Params struct{ Key any }
 	Hashes struct{ Key hash.Hash }
 }
 
@@ -334,11 +334,11 @@ type MoqMap_starGenType_Delete_resultsByParams struct {
 
 // MoqMap_starGenType_Delete_doFn defines the type of function needed when
 // calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_Delete_doFn func(key interface{})
+type MoqMap_starGenType_Delete_doFn func(key any)
 
 // MoqMap_starGenType_Delete_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_Delete_doReturnFn func(key interface{})
+type MoqMap_starGenType_Delete_doReturnFn func(key any)
 
 // MoqMap_starGenType_Delete_results holds the results of the Map_starGenType
 // type
@@ -371,9 +371,7 @@ type MoqMap_starGenType_Delete_anyParams struct {
 }
 
 // MoqMap_starGenType_Range_params holds the params of the Map_starGenType type
-type MoqMap_starGenType_Range_params struct {
-	F func(key, value interface{}) bool
-}
+type MoqMap_starGenType_Range_params struct{ F func(key, value any) bool }
 
 // MoqMap_starGenType_Range_paramsKey holds the map key params of the
 // Map_starGenType type
@@ -392,11 +390,11 @@ type MoqMap_starGenType_Range_resultsByParams struct {
 
 // MoqMap_starGenType_Range_doFn defines the type of function needed when
 // calling AndDo for the Map_starGenType type
-type MoqMap_starGenType_Range_doFn func(f func(key, value interface{}) bool)
+type MoqMap_starGenType_Range_doFn func(f func(key, value any) bool)
 
 // MoqMap_starGenType_Range_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Map_starGenType type
-type MoqMap_starGenType_Range_doReturnFn func(f func(key, value interface{}) bool)
+type MoqMap_starGenType_Range_doReturnFn func(f func(key, value any) bool)
 
 // MoqMap_starGenType_Range_results holds the results of the Map_starGenType
 // type
@@ -486,31 +484,31 @@ func NewMoqMap_starGenType(scene *moq.Scene, config *moq.Config) *MoqMap_starGen
 			Load: struct {
 				Key moq.ParamIndexing
 			}{
-				Key: moq.ParamIndexByHash,
+				Key: moq.ParamIndexByValue,
 			},
 			Store: struct {
 				Key   moq.ParamIndexing
 				Value moq.ParamIndexing
 			}{
-				Key:   moq.ParamIndexByHash,
-				Value: moq.ParamIndexByHash,
+				Key:   moq.ParamIndexByValue,
+				Value: moq.ParamIndexByValue,
 			},
 			LoadOrStore: struct {
 				Key   moq.ParamIndexing
 				Value moq.ParamIndexing
 			}{
-				Key:   moq.ParamIndexByHash,
-				Value: moq.ParamIndexByHash,
+				Key:   moq.ParamIndexByValue,
+				Value: moq.ParamIndexByValue,
 			},
 			LoadAndDelete: struct {
 				Key moq.ParamIndexing
 			}{
-				Key: moq.ParamIndexByHash,
+				Key: moq.ParamIndexByValue,
 			},
 			Delete: struct {
 				Key moq.ParamIndexing
 			}{
-				Key: moq.ParamIndexByHash,
+				Key: moq.ParamIndexByValue,
 			},
 			Range: struct {
 				F moq.ParamIndexing
@@ -528,7 +526,7 @@ func NewMoqMap_starGenType(scene *moq.Scene, config *moq.Config) *MoqMap_starGen
 // Mock returns the mock implementation of the Map_starGenType type
 func (m *MoqMap_starGenType) Mock() *MoqMap_starGenType_mock { return m.Moq }
 
-func (m *MoqMap_starGenType_mock) Load(key interface{}) (value interface{}, ok bool) {
+func (m *MoqMap_starGenType_mock) Load(key any) (value any, ok bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_Load_params{
 		Key: key,
@@ -582,7 +580,7 @@ func (m *MoqMap_starGenType_mock) Load(key interface{}) (value interface{}, ok b
 	return
 }
 
-func (m *MoqMap_starGenType_mock) Store(key, value interface{}) {
+func (m *MoqMap_starGenType_mock) Store(key, value any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_Store_params{
 		Key:   key,
@@ -633,7 +631,7 @@ func (m *MoqMap_starGenType_mock) Store(key, value interface{}) {
 	return
 }
 
-func (m *MoqMap_starGenType_mock) LoadOrStore(key, value interface{}) (actual interface{}, loaded bool) {
+func (m *MoqMap_starGenType_mock) LoadOrStore(key, value any) (actual any, loaded bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_LoadOrStore_params{
 		Key:   key,
@@ -688,7 +686,7 @@ func (m *MoqMap_starGenType_mock) LoadOrStore(key, value interface{}) (actual in
 	return
 }
 
-func (m *MoqMap_starGenType_mock) LoadAndDelete(key interface{}) (value interface{}, loaded bool) {
+func (m *MoqMap_starGenType_mock) LoadAndDelete(key any) (value any, loaded bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_LoadAndDelete_params{
 		Key: key,
@@ -742,7 +740,7 @@ func (m *MoqMap_starGenType_mock) LoadAndDelete(key interface{}) (value interfac
 	return
 }
 
-func (m *MoqMap_starGenType_mock) Delete(key interface{}) {
+func (m *MoqMap_starGenType_mock) Delete(key any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_Delete_params{
 		Key: key,
@@ -792,7 +790,7 @@ func (m *MoqMap_starGenType_mock) Delete(key interface{}) {
 	return
 }
 
-func (m *MoqMap_starGenType_mock) Range(f func(key, value interface{}) bool) {
+func (m *MoqMap_starGenType_mock) Range(f func(key, value any) bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMap_starGenType_Range_params{
 		F: f,
@@ -849,7 +847,7 @@ func (m *MoqMap_starGenType) OnCall() *MoqMap_starGenType_recorder {
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) Load(key interface{}) *MoqMap_starGenType_Load_fnRecorder {
+func (m *MoqMap_starGenType_recorder) Load(key any) *MoqMap_starGenType_Load_fnRecorder {
 	return &MoqMap_starGenType_Load_fnRecorder{
 		Params: MoqMap_starGenType_Load_params{
 			Key: key,
@@ -893,7 +891,7 @@ func (r *MoqMap_starGenType_Load_fnRecorder) NoSeq() *MoqMap_starGenType_Load_fn
 	return r
 }
 
-func (r *MoqMap_starGenType_Load_fnRecorder) ReturnResults(value interface{}, ok bool) *MoqMap_starGenType_Load_fnRecorder {
+func (r *MoqMap_starGenType_Load_fnRecorder) ReturnResults(value any, ok bool) *MoqMap_starGenType_Load_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -904,7 +902,7 @@ func (r *MoqMap_starGenType_Load_fnRecorder) ReturnResults(value interface{}, ok
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Value interface{}
+			Value any
 			Ok    bool
 		}
 		Sequence   uint32
@@ -912,7 +910,7 @@ func (r *MoqMap_starGenType_Load_fnRecorder) ReturnResults(value interface{}, ok
 		DoReturnFn MoqMap_starGenType_Load_doReturnFn
 	}{
 		Values: &struct {
-			Value interface{}
+			Value any
 			Ok    bool
 		}{
 			Value: value,
@@ -945,7 +943,7 @@ func (r *MoqMap_starGenType_Load_fnRecorder) DoReturnResults(fn MoqMap_starGenTy
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Value interface{}
+			Value any
 			Ok    bool
 		}
 		Sequence   uint32
@@ -1016,7 +1014,7 @@ func (r *MoqMap_starGenType_Load_fnRecorder) Repeat(repeaters ...moq.Repeater) *
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Value interface{}
+					Value any
 					Ok    bool
 				}
 				Sequence   uint32
@@ -1038,7 +1036,7 @@ func (m *MoqMap_starGenType) PrettyParams_Load(params MoqMap_starGenType_Load_pa
 
 func (m *MoqMap_starGenType) ParamsKey_Load(params MoqMap_starGenType_Load_params, anyParams uint64) MoqMap_starGenType_Load_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Load.Key == moq.ParamIndexByValue {
@@ -1048,7 +1046,7 @@ func (m *MoqMap_starGenType) ParamsKey_Load(params MoqMap_starGenType_Load_param
 		}
 	}
 	return MoqMap_starGenType_Load_paramsKey{
-		Params: struct{ Key interface{} }{
+		Params: struct{ Key any }{
 			Key: keyUsed,
 		},
 		Hashes: struct{ Key hash.Hash }{
@@ -1057,7 +1055,7 @@ func (m *MoqMap_starGenType) ParamsKey_Load(params MoqMap_starGenType_Load_param
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) Store(key, value interface{}) *MoqMap_starGenType_Store_fnRecorder {
+func (m *MoqMap_starGenType_recorder) Store(key, value any) *MoqMap_starGenType_Store_fnRecorder {
 	return &MoqMap_starGenType_Store_fnRecorder{
 		Params: MoqMap_starGenType_Store_params{
 			Key:   key,
@@ -1237,7 +1235,7 @@ func (m *MoqMap_starGenType) PrettyParams_Store(params MoqMap_starGenType_Store_
 
 func (m *MoqMap_starGenType) ParamsKey_Store(params MoqMap_starGenType_Store_params, anyParams uint64) MoqMap_starGenType_Store_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Store.Key == moq.ParamIndexByValue {
@@ -1246,7 +1244,7 @@ func (m *MoqMap_starGenType) ParamsKey_Store(params MoqMap_starGenType_Store_par
 			keyUsedHash = hash.DeepHash(params.Key)
 		}
 	}
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Store.Value == moq.ParamIndexByValue {
@@ -1256,7 +1254,7 @@ func (m *MoqMap_starGenType) ParamsKey_Store(params MoqMap_starGenType_Store_par
 		}
 	}
 	return MoqMap_starGenType_Store_paramsKey{
-		Params: struct{ Key, Value interface{} }{
+		Params: struct{ Key, Value any }{
 			Key:   keyUsed,
 			Value: valueUsed,
 		},
@@ -1267,7 +1265,7 @@ func (m *MoqMap_starGenType) ParamsKey_Store(params MoqMap_starGenType_Store_par
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) LoadOrStore(key, value interface{}) *MoqMap_starGenType_LoadOrStore_fnRecorder {
+func (m *MoqMap_starGenType_recorder) LoadOrStore(key, value any) *MoqMap_starGenType_LoadOrStore_fnRecorder {
 	return &MoqMap_starGenType_LoadOrStore_fnRecorder{
 		Params: MoqMap_starGenType_LoadOrStore_params{
 			Key:   key,
@@ -1317,7 +1315,7 @@ func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) NoSeq() *MoqMap_starGenType_
 	return r
 }
 
-func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) ReturnResults(actual interface{}, loaded bool) *MoqMap_starGenType_LoadOrStore_fnRecorder {
+func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) ReturnResults(actual any, loaded bool) *MoqMap_starGenType_LoadOrStore_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1328,7 +1326,7 @@ func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) ReturnResults(actual interfa
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Actual interface{}
+			Actual any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -1336,7 +1334,7 @@ func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) ReturnResults(actual interfa
 		DoReturnFn MoqMap_starGenType_LoadOrStore_doReturnFn
 	}{
 		Values: &struct {
-			Actual interface{}
+			Actual any
 			Loaded bool
 		}{
 			Actual: actual,
@@ -1369,7 +1367,7 @@ func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) DoReturnResults(fn MoqMap_st
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Actual interface{}
+			Actual any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -1440,7 +1438,7 @@ func (r *MoqMap_starGenType_LoadOrStore_fnRecorder) Repeat(repeaters ...moq.Repe
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Actual interface{}
+					Actual any
 					Loaded bool
 				}
 				Sequence   uint32
@@ -1462,7 +1460,7 @@ func (m *MoqMap_starGenType) PrettyParams_LoadOrStore(params MoqMap_starGenType_
 
 func (m *MoqMap_starGenType) ParamsKey_LoadOrStore(params MoqMap_starGenType_LoadOrStore_params, anyParams uint64) MoqMap_starGenType_LoadOrStore_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.LoadOrStore.Key == moq.ParamIndexByValue {
@@ -1471,7 +1469,7 @@ func (m *MoqMap_starGenType) ParamsKey_LoadOrStore(params MoqMap_starGenType_Loa
 			keyUsedHash = hash.DeepHash(params.Key)
 		}
 	}
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.LoadOrStore.Value == moq.ParamIndexByValue {
@@ -1481,7 +1479,7 @@ func (m *MoqMap_starGenType) ParamsKey_LoadOrStore(params MoqMap_starGenType_Loa
 		}
 	}
 	return MoqMap_starGenType_LoadOrStore_paramsKey{
-		Params: struct{ Key, Value interface{} }{
+		Params: struct{ Key, Value any }{
 			Key:   keyUsed,
 			Value: valueUsed,
 		},
@@ -1492,7 +1490,7 @@ func (m *MoqMap_starGenType) ParamsKey_LoadOrStore(params MoqMap_starGenType_Loa
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) LoadAndDelete(key interface{}) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+func (m *MoqMap_starGenType_recorder) LoadAndDelete(key any) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
 	return &MoqMap_starGenType_LoadAndDelete_fnRecorder{
 		Params: MoqMap_starGenType_LoadAndDelete_params{
 			Key: key,
@@ -1536,7 +1534,7 @@ func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) NoSeq() *MoqMap_starGenTyp
 	return r
 }
 
-func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) ReturnResults(value interface{}, loaded bool) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) ReturnResults(value any, loaded bool) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1547,7 +1545,7 @@ func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) ReturnResults(value interf
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Value  interface{}
+			Value  any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -1555,7 +1553,7 @@ func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) ReturnResults(value interf
 		DoReturnFn MoqMap_starGenType_LoadAndDelete_doReturnFn
 	}{
 		Values: &struct {
-			Value  interface{}
+			Value  any
 			Loaded bool
 		}{
 			Value:  value,
@@ -1588,7 +1586,7 @@ func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) DoReturnResults(fn MoqMap_
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Value  interface{}
+			Value  any
 			Loaded bool
 		}
 		Sequence   uint32
@@ -1659,7 +1657,7 @@ func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) Repeat(repeaters ...moq.Re
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Value  interface{}
+					Value  any
 					Loaded bool
 				}
 				Sequence   uint32
@@ -1681,7 +1679,7 @@ func (m *MoqMap_starGenType) PrettyParams_LoadAndDelete(params MoqMap_starGenTyp
 
 func (m *MoqMap_starGenType) ParamsKey_LoadAndDelete(params MoqMap_starGenType_LoadAndDelete_params, anyParams uint64) MoqMap_starGenType_LoadAndDelete_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.LoadAndDelete.Key == moq.ParamIndexByValue {
@@ -1691,7 +1689,7 @@ func (m *MoqMap_starGenType) ParamsKey_LoadAndDelete(params MoqMap_starGenType_L
 		}
 	}
 	return MoqMap_starGenType_LoadAndDelete_paramsKey{
-		Params: struct{ Key interface{} }{
+		Params: struct{ Key any }{
 			Key: keyUsed,
 		},
 		Hashes: struct{ Key hash.Hash }{
@@ -1700,7 +1698,7 @@ func (m *MoqMap_starGenType) ParamsKey_LoadAndDelete(params MoqMap_starGenType_L
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) Delete(key interface{}) *MoqMap_starGenType_Delete_fnRecorder {
+func (m *MoqMap_starGenType_recorder) Delete(key any) *MoqMap_starGenType_Delete_fnRecorder {
 	return &MoqMap_starGenType_Delete_fnRecorder{
 		Params: MoqMap_starGenType_Delete_params{
 			Key: key,
@@ -1874,7 +1872,7 @@ func (m *MoqMap_starGenType) PrettyParams_Delete(params MoqMap_starGenType_Delet
 
 func (m *MoqMap_starGenType) ParamsKey_Delete(params MoqMap_starGenType_Delete_params, anyParams uint64) MoqMap_starGenType_Delete_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Delete.Key == moq.ParamIndexByValue {
@@ -1884,7 +1882,7 @@ func (m *MoqMap_starGenType) ParamsKey_Delete(params MoqMap_starGenType_Delete_p
 		}
 	}
 	return MoqMap_starGenType_Delete_paramsKey{
-		Params: struct{ Key interface{} }{
+		Params: struct{ Key any }{
 			Key: keyUsed,
 		},
 		Hashes: struct{ Key hash.Hash }{
@@ -1893,7 +1891,7 @@ func (m *MoqMap_starGenType) ParamsKey_Delete(params MoqMap_starGenType_Delete_p
 	}
 }
 
-func (m *MoqMap_starGenType_recorder) Range(f func(key, value interface{}) bool) *MoqMap_starGenType_Range_fnRecorder {
+func (m *MoqMap_starGenType_recorder) Range(f func(key, value any) bool) *MoqMap_starGenType_Range_fnRecorder {
 	return &MoqMap_starGenType_Range_fnRecorder{
 		Params: MoqMap_starGenType_Range_params{
 			F: f,

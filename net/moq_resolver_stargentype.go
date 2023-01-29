@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/bits"
 	"net"
+	"net/netip"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -24,6 +25,7 @@ type Resolver_starGenType interface {
 	LookupHost(ctx context.Context, host string) (addrs []string, err error)
 	LookupIPAddr(ctx context.Context, host string) ([]net.IPAddr, error)
 	LookupIP(ctx context.Context, network, host string) ([]net.IP, error)
+	LookupNetIP(ctx context.Context, network, host string) ([]netip.Addr, error)
 	LookupPort(ctx context.Context, network, service string) (port int, err error)
 	LookupCNAME(ctx context.Context, host string) (string, error)
 	LookupSRV(ctx context.Context, service, proto, name string) (string, []*net.SRV, error)
@@ -43,6 +45,7 @@ type MoqResolver_starGenType struct {
 	ResultsByParams_LookupHost   []MoqResolver_starGenType_LookupHost_resultsByParams
 	ResultsByParams_LookupIPAddr []MoqResolver_starGenType_LookupIPAddr_resultsByParams
 	ResultsByParams_LookupIP     []MoqResolver_starGenType_LookupIP_resultsByParams
+	ResultsByParams_LookupNetIP  []MoqResolver_starGenType_LookupNetIP_resultsByParams
 	ResultsByParams_LookupPort   []MoqResolver_starGenType_LookupPort_resultsByParams
 	ResultsByParams_LookupCNAME  []MoqResolver_starGenType_LookupCNAME_resultsByParams
 	ResultsByParams_LookupSRV    []MoqResolver_starGenType_LookupSRV_resultsByParams
@@ -62,6 +65,11 @@ type MoqResolver_starGenType struct {
 				Host moq.ParamIndexing
 			}
 			LookupIP struct {
+				Ctx     moq.ParamIndexing
+				Network moq.ParamIndexing
+				Host    moq.ParamIndexing
+			}
+			LookupNetIP struct {
 				Ctx     moq.ParamIndexing
 				Network moq.ParamIndexing
 				Host    moq.ParamIndexing
@@ -318,6 +326,75 @@ type MoqResolver_starGenType_LookupIP_fnRecorder struct {
 // of the Resolver_starGenType type
 type MoqResolver_starGenType_LookupIP_anyParams struct {
 	Recorder *MoqResolver_starGenType_LookupIP_fnRecorder
+}
+
+// MoqResolver_starGenType_LookupNetIP_params holds the params of the
+// Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_params struct {
+	Ctx           context.Context
+	Network, Host string
+}
+
+// MoqResolver_starGenType_LookupNetIP_paramsKey holds the map key params of
+// the Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_paramsKey struct {
+	Params struct {
+		Ctx           context.Context
+		Network, Host string
+	}
+	Hashes struct {
+		Ctx           hash.Hash
+		Network, Host hash.Hash
+	}
+}
+
+// MoqResolver_starGenType_LookupNetIP_resultsByParams contains the results for
+// a given set of parameters for the Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqResolver_starGenType_LookupNetIP_paramsKey]*MoqResolver_starGenType_LookupNetIP_results
+}
+
+// MoqResolver_starGenType_LookupNetIP_doFn defines the type of function needed
+// when calling AndDo for the Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_doFn func(ctx context.Context, network, host string)
+
+// MoqResolver_starGenType_LookupNetIP_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_doReturnFn func(ctx context.Context, network, host string) ([]netip.Addr, error)
+
+// MoqResolver_starGenType_LookupNetIP_results holds the results of the
+// Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_results struct {
+	Params  MoqResolver_starGenType_LookupNetIP_params
+	Results []struct {
+		Values *struct {
+			Result1 []netip.Addr
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqResolver_starGenType_LookupNetIP_doFn
+		DoReturnFn MoqResolver_starGenType_LookupNetIP_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqResolver_starGenType_LookupNetIP_fnRecorder routes recorded function
+// calls to the MoqResolver_starGenType moq
+type MoqResolver_starGenType_LookupNetIP_fnRecorder struct {
+	Params    MoqResolver_starGenType_LookupNetIP_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqResolver_starGenType_LookupNetIP_results
+	Moq       *MoqResolver_starGenType
+}
+
+// MoqResolver_starGenType_LookupNetIP_anyParams isolates the any params
+// functions of the Resolver_starGenType type
+type MoqResolver_starGenType_LookupNetIP_anyParams struct {
+	Recorder *MoqResolver_starGenType_LookupNetIP_fnRecorder
 }
 
 // MoqResolver_starGenType_LookupPort_params holds the params of the
@@ -830,6 +907,11 @@ func NewMoqResolver_starGenType(scene *moq.Scene, config *moq.Config) *MoqResolv
 					Network moq.ParamIndexing
 					Host    moq.ParamIndexing
 				}
+				LookupNetIP struct {
+					Ctx     moq.ParamIndexing
+					Network moq.ParamIndexing
+					Host    moq.ParamIndexing
+				}
 				LookupPort struct {
 					Ctx     moq.ParamIndexing
 					Network moq.ParamIndexing
@@ -872,6 +954,11 @@ func NewMoqResolver_starGenType(scene *moq.Scene, config *moq.Config) *MoqResolv
 				Host moq.ParamIndexing
 			}
 			LookupIP struct {
+				Ctx     moq.ParamIndexing
+				Network moq.ParamIndexing
+				Host    moq.ParamIndexing
+			}
+			LookupNetIP struct {
 				Ctx     moq.ParamIndexing
 				Network moq.ParamIndexing
 				Host    moq.ParamIndexing
@@ -923,6 +1010,15 @@ func NewMoqResolver_starGenType(scene *moq.Scene, config *moq.Config) *MoqResolv
 				Host: moq.ParamIndexByValue,
 			},
 			LookupIP: struct {
+				Ctx     moq.ParamIndexing
+				Network moq.ParamIndexing
+				Host    moq.ParamIndexing
+			}{
+				Ctx:     moq.ParamIndexByHash,
+				Network: moq.ParamIndexByValue,
+				Host:    moq.ParamIndexByValue,
+			},
+			LookupNetIP: struct {
 				Ctx     moq.ParamIndexing
 				Network moq.ParamIndexing
 				Host    moq.ParamIndexing
@@ -1146,6 +1242,62 @@ func (m *MoqResolver_starGenType_mock) LookupIP(ctx context.Context, network, ho
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_LookupIP(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(ctx, network, host)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+	}
+	if result.DoReturnFn != nil {
+		result1, result2 = result.DoReturnFn(ctx, network, host)
+	}
+	return
+}
+
+func (m *MoqResolver_starGenType_mock) LookupNetIP(ctx context.Context, network, host string) (result1 []netip.Addr, result2 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqResolver_starGenType_LookupNetIP_params{
+		Ctx:     ctx,
+		Network: network,
+		Host:    host,
+	}
+	var results *MoqResolver_starGenType_LookupNetIP_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_LookupNetIP {
+		paramsKey := m.Moq.ParamsKey_LookupNetIP(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_LookupNetIP(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_LookupNetIP(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_LookupNetIP(params))
 		}
 	}
 
@@ -2250,6 +2402,254 @@ func (m *MoqResolver_starGenType) ParamsKey_LookupIP(params MoqResolver_starGenT
 		}
 	}
 	return MoqResolver_starGenType_LookupIP_paramsKey{
+		Params: struct {
+			Ctx           context.Context
+			Network, Host string
+		}{
+			Ctx:     ctxUsed,
+			Network: networkUsed,
+			Host:    hostUsed,
+		},
+		Hashes: struct {
+			Ctx           hash.Hash
+			Network, Host hash.Hash
+		}{
+			Ctx:     ctxUsedHash,
+			Network: networkUsedHash,
+			Host:    hostUsedHash,
+		},
+	}
+}
+
+func (m *MoqResolver_starGenType_recorder) LookupNetIP(ctx context.Context, network, host string) *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	return &MoqResolver_starGenType_LookupNetIP_fnRecorder{
+		Params: MoqResolver_starGenType_LookupNetIP_params{
+			Ctx:     ctx,
+			Network: network,
+			Host:    host,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) Any() *MoqResolver_starGenType_LookupNetIP_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LookupNetIP(r.Params))
+		return nil
+	}
+	return &MoqResolver_starGenType_LookupNetIP_anyParams{Recorder: r}
+}
+
+func (a *MoqResolver_starGenType_LookupNetIP_anyParams) Ctx() *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqResolver_starGenType_LookupNetIP_anyParams) Network() *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (a *MoqResolver_starGenType_LookupNetIP_anyParams) Host() *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 2
+	return a.Recorder
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) Seq() *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LookupNetIP(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) NoSeq() *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LookupNetIP(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) ReturnResults(result1 []netip.Addr, result2 error) *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []netip.Addr
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqResolver_starGenType_LookupNetIP_doFn
+		DoReturnFn MoqResolver_starGenType_LookupNetIP_doReturnFn
+	}{
+		Values: &struct {
+			Result1 []netip.Addr
+			Result2 error
+		}{
+			Result1: result1,
+			Result2: result2,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) AndDo(fn MoqResolver_starGenType_LookupNetIP_doFn) *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) DoReturnResults(fn MoqResolver_starGenType_LookupNetIP_doReturnFn) *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []netip.Addr
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqResolver_starGenType_LookupNetIP_doFn
+		DoReturnFn MoqResolver_starGenType_LookupNetIP_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqResolver_starGenType_LookupNetIP_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_LookupNetIP {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqResolver_starGenType_LookupNetIP_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqResolver_starGenType_LookupNetIP_paramsKey]*MoqResolver_starGenType_LookupNetIP_results{},
+		}
+		r.Moq.ResultsByParams_LookupNetIP = append(r.Moq.ResultsByParams_LookupNetIP, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_LookupNetIP) {
+			copy(r.Moq.ResultsByParams_LookupNetIP[insertAt+1:], r.Moq.ResultsByParams_LookupNetIP[insertAt:0])
+			r.Moq.ResultsByParams_LookupNetIP[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_LookupNetIP(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqResolver_starGenType_LookupNetIP_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqResolver_starGenType_LookupNetIP_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqResolver_starGenType_LookupNetIP_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 []netip.Addr
+					Result2 error
+				}
+				Sequence   uint32
+				DoFn       MoqResolver_starGenType_LookupNetIP_doFn
+				DoReturnFn MoqResolver_starGenType_LookupNetIP_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqResolver_starGenType) PrettyParams_LookupNetIP(params MoqResolver_starGenType_LookupNetIP_params) string {
+	return fmt.Sprintf("LookupNetIP(%#v, %#v, %#v)", params.Ctx, params.Network, params.Host)
+}
+
+func (m *MoqResolver_starGenType) ParamsKey_LookupNetIP(params MoqResolver_starGenType_LookupNetIP_params, anyParams uint64) MoqResolver_starGenType_LookupNetIP_paramsKey {
+	m.Scene.T.Helper()
+	var ctxUsed context.Context
+	var ctxUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.LookupNetIP.Ctx == moq.ParamIndexByValue {
+			ctxUsed = params.Ctx
+		} else {
+			ctxUsedHash = hash.DeepHash(params.Ctx)
+		}
+	}
+	var networkUsed string
+	var networkUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.LookupNetIP.Network == moq.ParamIndexByValue {
+			networkUsed = params.Network
+		} else {
+			networkUsedHash = hash.DeepHash(params.Network)
+		}
+	}
+	var hostUsed string
+	var hostUsedHash hash.Hash
+	if anyParams&(1<<2) == 0 {
+		if m.Runtime.ParameterIndexing.LookupNetIP.Host == moq.ParamIndexByValue {
+			hostUsed = params.Host
+		} else {
+			hostUsedHash = hash.DeepHash(params.Host)
+		}
+	}
+	return MoqResolver_starGenType_LookupNetIP_paramsKey{
 		Params: struct {
 			Ctx           context.Context
 			Network, Host string
@@ -3947,6 +4347,7 @@ func (m *MoqResolver_starGenType) Reset() {
 	m.ResultsByParams_LookupHost = nil
 	m.ResultsByParams_LookupIPAddr = nil
 	m.ResultsByParams_LookupIP = nil
+	m.ResultsByParams_LookupNetIP = nil
 	m.ResultsByParams_LookupPort = nil
 	m.ResultsByParams_LookupCNAME = nil
 	m.ResultsByParams_LookupSRV = nil
@@ -3980,6 +4381,14 @@ func (m *MoqResolver_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_LookupIP(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_LookupNetIP {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_LookupNetIP(results.Params))
 			}
 		}
 	}

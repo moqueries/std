@@ -13,7 +13,7 @@ import (
 
 // Panicln_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Panicln_genType func(v ...interface{})
+type Panicln_genType func(v ...any)
 
 // MoqPanicln_genType holds the state of a moq of the Panicln_genType type
 type MoqPanicln_genType struct {
@@ -37,7 +37,7 @@ type MoqPanicln_genType_mock struct {
 }
 
 // MoqPanicln_genType_params holds the params of the Panicln_genType type
-type MoqPanicln_genType_params struct{ V []interface{} }
+type MoqPanicln_genType_params struct{ V []any }
 
 // MoqPanicln_genType_paramsKey holds the map key params of the Panicln_genType
 // type
@@ -56,11 +56,11 @@ type MoqPanicln_genType_resultsByParams struct {
 
 // MoqPanicln_genType_doFn defines the type of function needed when calling
 // AndDo for the Panicln_genType type
-type MoqPanicln_genType_doFn func(v ...interface{})
+type MoqPanicln_genType_doFn func(v ...any)
 
 // MoqPanicln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Panicln_genType type
-type MoqPanicln_genType_doReturnFn func(v ...interface{})
+type MoqPanicln_genType_doReturnFn func(v ...any)
 
 // MoqPanicln_genType_results holds the results of the Panicln_genType type
 type MoqPanicln_genType_results struct {
@@ -119,10 +119,10 @@ func NewMoqPanicln_genType(scene *moq.Scene, config *moq.Config) *MoqPanicln_gen
 
 // Mock returns the moq implementation of the Panicln_genType type
 func (m *MoqPanicln_genType) Mock() Panicln_genType {
-	return func(v ...interface{}) { m.Scene.T.Helper(); moq := &MoqPanicln_genType_mock{Moq: m}; moq.Fn(v...) }
+	return func(v ...any) { m.Scene.T.Helper(); moq := &MoqPanicln_genType_mock{Moq: m}; moq.Fn(v...) }
 }
 
-func (m *MoqPanicln_genType_mock) Fn(v ...interface{}) {
+func (m *MoqPanicln_genType_mock) Fn(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPanicln_genType_params{
 		V: v,
@@ -172,7 +172,7 @@ func (m *MoqPanicln_genType_mock) Fn(v ...interface{}) {
 	return
 }
 
-func (m *MoqPanicln_genType) OnCall(v ...interface{}) *MoqPanicln_genType_fnRecorder {
+func (m *MoqPanicln_genType) OnCall(v ...any) *MoqPanicln_genType_fnRecorder {
 	return &MoqPanicln_genType_fnRecorder{
 		Params: MoqPanicln_genType_params{
 			V: v,

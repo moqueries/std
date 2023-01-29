@@ -19,10 +19,10 @@ var _ Value_starGenType = (*MoqValue_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Value_starGenType interface {
-	Load() (val interface{})
-	Store(val interface{})
-	Swap(new interface{}) (old interface{})
-	CompareAndSwap(old, new interface{}) (swapped bool)
+	Load() (val any)
+	Store(val any)
+	Swap(new any) (old any)
+	CompareAndSwap(old, new any) (swapped bool)
 }
 
 // MoqValue_starGenType holds the state of a moq of the Value_starGenType type
@@ -90,14 +90,14 @@ type MoqValue_starGenType_Load_doFn func()
 
 // MoqValue_starGenType_Load_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_Load_doReturnFn func() (val interface{})
+type MoqValue_starGenType_Load_doReturnFn func() (val any)
 
 // MoqValue_starGenType_Load_results holds the results of the Value_starGenType
 // type
 type MoqValue_starGenType_Load_results struct {
 	Params  MoqValue_starGenType_Load_params
 	Results []struct {
-		Values     *struct{ Val interface{} }
+		Values     *struct{ Val any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -124,12 +124,12 @@ type MoqValue_starGenType_Load_anyParams struct {
 
 // MoqValue_starGenType_Store_params holds the params of the Value_starGenType
 // type
-type MoqValue_starGenType_Store_params struct{ Val interface{} }
+type MoqValue_starGenType_Store_params struct{ Val any }
 
 // MoqValue_starGenType_Store_paramsKey holds the map key params of the
 // Value_starGenType type
 type MoqValue_starGenType_Store_paramsKey struct {
-	Params struct{ Val interface{} }
+	Params struct{ Val any }
 	Hashes struct{ Val hash.Hash }
 }
 
@@ -143,11 +143,11 @@ type MoqValue_starGenType_Store_resultsByParams struct {
 
 // MoqValue_starGenType_Store_doFn defines the type of function needed when
 // calling AndDo for the Value_starGenType type
-type MoqValue_starGenType_Store_doFn func(val interface{})
+type MoqValue_starGenType_Store_doFn func(val any)
 
 // MoqValue_starGenType_Store_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_Store_doReturnFn func(val interface{})
+type MoqValue_starGenType_Store_doReturnFn func(val any)
 
 // MoqValue_starGenType_Store_results holds the results of the
 // Value_starGenType type
@@ -181,12 +181,12 @@ type MoqValue_starGenType_Store_anyParams struct {
 
 // MoqValue_starGenType_Swap_params holds the params of the Value_starGenType
 // type
-type MoqValue_starGenType_Swap_params struct{ New interface{} }
+type MoqValue_starGenType_Swap_params struct{ New any }
 
 // MoqValue_starGenType_Swap_paramsKey holds the map key params of the
 // Value_starGenType type
 type MoqValue_starGenType_Swap_paramsKey struct {
-	Params struct{ New interface{} }
+	Params struct{ New any }
 	Hashes struct{ New hash.Hash }
 }
 
@@ -200,18 +200,18 @@ type MoqValue_starGenType_Swap_resultsByParams struct {
 
 // MoqValue_starGenType_Swap_doFn defines the type of function needed when
 // calling AndDo for the Value_starGenType type
-type MoqValue_starGenType_Swap_doFn func(new interface{})
+type MoqValue_starGenType_Swap_doFn func(new any)
 
 // MoqValue_starGenType_Swap_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_Swap_doReturnFn func(new interface{}) (old interface{})
+type MoqValue_starGenType_Swap_doReturnFn func(new any) (old any)
 
 // MoqValue_starGenType_Swap_results holds the results of the Value_starGenType
 // type
 type MoqValue_starGenType_Swap_results struct {
 	Params  MoqValue_starGenType_Swap_params
 	Results []struct {
-		Values     *struct{ Old interface{} }
+		Values     *struct{ Old any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Swap_doFn
 		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
@@ -238,12 +238,12 @@ type MoqValue_starGenType_Swap_anyParams struct {
 
 // MoqValue_starGenType_CompareAndSwap_params holds the params of the
 // Value_starGenType type
-type MoqValue_starGenType_CompareAndSwap_params struct{ Old, New interface{} }
+type MoqValue_starGenType_CompareAndSwap_params struct{ Old, New any }
 
 // MoqValue_starGenType_CompareAndSwap_paramsKey holds the map key params of
 // the Value_starGenType type
 type MoqValue_starGenType_CompareAndSwap_paramsKey struct {
-	Params struct{ Old, New interface{} }
+	Params struct{ Old, New any }
 	Hashes struct{ Old, New hash.Hash }
 }
 
@@ -257,11 +257,11 @@ type MoqValue_starGenType_CompareAndSwap_resultsByParams struct {
 
 // MoqValue_starGenType_CompareAndSwap_doFn defines the type of function needed
 // when calling AndDo for the Value_starGenType type
-type MoqValue_starGenType_CompareAndSwap_doFn func(old, new interface{})
+type MoqValue_starGenType_CompareAndSwap_doFn func(old, new any)
 
 // MoqValue_starGenType_CompareAndSwap_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_CompareAndSwap_doReturnFn func(old, new interface{}) (swapped bool)
+type MoqValue_starGenType_CompareAndSwap_doReturnFn func(old, new any) (swapped bool)
 
 // MoqValue_starGenType_CompareAndSwap_results holds the results of the
 // Value_starGenType type
@@ -334,19 +334,19 @@ func NewMoqValue_starGenType(scene *moq.Scene, config *moq.Config) *MoqValue_sta
 			Store: struct {
 				Val moq.ParamIndexing
 			}{
-				Val: moq.ParamIndexByHash,
+				Val: moq.ParamIndexByValue,
 			},
 			Swap: struct {
 				New moq.ParamIndexing
 			}{
-				New: moq.ParamIndexByHash,
+				New: moq.ParamIndexByValue,
 			},
 			CompareAndSwap: struct {
 				Old moq.ParamIndexing
 				New moq.ParamIndexing
 			}{
-				Old: moq.ParamIndexByHash,
-				New: moq.ParamIndexByHash,
+				Old: moq.ParamIndexByValue,
+				New: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -359,7 +359,7 @@ func NewMoqValue_starGenType(scene *moq.Scene, config *moq.Config) *MoqValue_sta
 // Mock returns the mock implementation of the Value_starGenType type
 func (m *MoqValue_starGenType) Mock() *MoqValue_starGenType_mock { return m.Moq }
 
-func (m *MoqValue_starGenType_mock) Load() (val interface{}) {
+func (m *MoqValue_starGenType_mock) Load() (val any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_Load_params{}
 	var results *MoqValue_starGenType_Load_results
@@ -410,7 +410,7 @@ func (m *MoqValue_starGenType_mock) Load() (val interface{}) {
 	return
 }
 
-func (m *MoqValue_starGenType_mock) Store(val interface{}) {
+func (m *MoqValue_starGenType_mock) Store(val any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_Store_params{
 		Val: val,
@@ -460,7 +460,7 @@ func (m *MoqValue_starGenType_mock) Store(val interface{}) {
 	return
 }
 
-func (m *MoqValue_starGenType_mock) Swap(new interface{}) (old interface{}) {
+func (m *MoqValue_starGenType_mock) Swap(new any) (old any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_Swap_params{
 		New: new,
@@ -513,7 +513,7 @@ func (m *MoqValue_starGenType_mock) Swap(new interface{}) (old interface{}) {
 	return
 }
 
-func (m *MoqValue_starGenType_mock) CompareAndSwap(old, new interface{}) (swapped bool) {
+func (m *MoqValue_starGenType_mock) CompareAndSwap(old, new any) (swapped bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_CompareAndSwap_params{
 		Old: old,
@@ -611,7 +611,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) NoSeq() *MoqValue_starGenType_Loa
 	return r
 }
 
-func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(val interface{}) *MoqValue_starGenType_Load_fnRecorder {
+func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(val any) *MoqValue_starGenType_Load_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -621,12 +621,12 @@ func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(val interface{}) *M
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Val interface{} }
+		Values     *struct{ Val any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
 	}{
-		Values: &struct{ Val interface{} }{
+		Values: &struct{ Val any }{
 			Val: val,
 		},
 		Sequence: sequence,
@@ -655,7 +655,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) DoReturnResults(fn MoqValue_starG
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Val interface{} }
+		Values     *struct{ Val any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -723,7 +723,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) Repeat(repeaters ...moq.Repeater)
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Val interface{} }
+				Values     *struct{ Val any }
 				Sequence   uint32
 				DoFn       MoqValue_starGenType_Load_doFn
 				DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -749,7 +749,7 @@ func (m *MoqValue_starGenType) ParamsKey_Load(params MoqValue_starGenType_Load_p
 	}
 }
 
-func (m *MoqValue_starGenType_recorder) Store(val interface{}) *MoqValue_starGenType_Store_fnRecorder {
+func (m *MoqValue_starGenType_recorder) Store(val any) *MoqValue_starGenType_Store_fnRecorder {
 	return &MoqValue_starGenType_Store_fnRecorder{
 		Params: MoqValue_starGenType_Store_params{
 			Val: val,
@@ -923,7 +923,7 @@ func (m *MoqValue_starGenType) PrettyParams_Store(params MoqValue_starGenType_St
 
 func (m *MoqValue_starGenType) ParamsKey_Store(params MoqValue_starGenType_Store_params, anyParams uint64) MoqValue_starGenType_Store_paramsKey {
 	m.Scene.T.Helper()
-	var valUsed interface{}
+	var valUsed any
 	var valUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Store.Val == moq.ParamIndexByValue {
@@ -933,7 +933,7 @@ func (m *MoqValue_starGenType) ParamsKey_Store(params MoqValue_starGenType_Store
 		}
 	}
 	return MoqValue_starGenType_Store_paramsKey{
-		Params: struct{ Val interface{} }{
+		Params: struct{ Val any }{
 			Val: valUsed,
 		},
 		Hashes: struct{ Val hash.Hash }{
@@ -942,7 +942,7 @@ func (m *MoqValue_starGenType) ParamsKey_Store(params MoqValue_starGenType_Store
 	}
 }
 
-func (m *MoqValue_starGenType_recorder) Swap(new interface{}) *MoqValue_starGenType_Swap_fnRecorder {
+func (m *MoqValue_starGenType_recorder) Swap(new any) *MoqValue_starGenType_Swap_fnRecorder {
 	return &MoqValue_starGenType_Swap_fnRecorder{
 		Params: MoqValue_starGenType_Swap_params{
 			New: new,
@@ -986,7 +986,7 @@ func (r *MoqValue_starGenType_Swap_fnRecorder) NoSeq() *MoqValue_starGenType_Swa
 	return r
 }
 
-func (r *MoqValue_starGenType_Swap_fnRecorder) ReturnResults(old interface{}) *MoqValue_starGenType_Swap_fnRecorder {
+func (r *MoqValue_starGenType_Swap_fnRecorder) ReturnResults(old any) *MoqValue_starGenType_Swap_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -996,12 +996,12 @@ func (r *MoqValue_starGenType_Swap_fnRecorder) ReturnResults(old interface{}) *M
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Old interface{} }
+		Values     *struct{ Old any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Swap_doFn
 		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
 	}{
-		Values: &struct{ Old interface{} }{
+		Values: &struct{ Old any }{
 			Old: old,
 		},
 		Sequence: sequence,
@@ -1030,7 +1030,7 @@ func (r *MoqValue_starGenType_Swap_fnRecorder) DoReturnResults(fn MoqValue_starG
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Old interface{} }
+		Values     *struct{ Old any }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Swap_doFn
 		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
@@ -1098,7 +1098,7 @@ func (r *MoqValue_starGenType_Swap_fnRecorder) Repeat(repeaters ...moq.Repeater)
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Old interface{} }
+				Values     *struct{ Old any }
 				Sequence   uint32
 				DoFn       MoqValue_starGenType_Swap_doFn
 				DoReturnFn MoqValue_starGenType_Swap_doReturnFn
@@ -1118,7 +1118,7 @@ func (m *MoqValue_starGenType) PrettyParams_Swap(params MoqValue_starGenType_Swa
 
 func (m *MoqValue_starGenType) ParamsKey_Swap(params MoqValue_starGenType_Swap_params, anyParams uint64) MoqValue_starGenType_Swap_paramsKey {
 	m.Scene.T.Helper()
-	var newUsed interface{}
+	var newUsed any
 	var newUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Swap.New == moq.ParamIndexByValue {
@@ -1128,7 +1128,7 @@ func (m *MoqValue_starGenType) ParamsKey_Swap(params MoqValue_starGenType_Swap_p
 		}
 	}
 	return MoqValue_starGenType_Swap_paramsKey{
-		Params: struct{ New interface{} }{
+		Params: struct{ New any }{
 			New: newUsed,
 		},
 		Hashes: struct{ New hash.Hash }{
@@ -1137,7 +1137,7 @@ func (m *MoqValue_starGenType) ParamsKey_Swap(params MoqValue_starGenType_Swap_p
 	}
 }
 
-func (m *MoqValue_starGenType_recorder) CompareAndSwap(old, new interface{}) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+func (m *MoqValue_starGenType_recorder) CompareAndSwap(old, new any) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
 	return &MoqValue_starGenType_CompareAndSwap_fnRecorder{
 		Params: MoqValue_starGenType_CompareAndSwap_params{
 			Old: old,
@@ -1319,7 +1319,7 @@ func (m *MoqValue_starGenType) PrettyParams_CompareAndSwap(params MoqValue_starG
 
 func (m *MoqValue_starGenType) ParamsKey_CompareAndSwap(params MoqValue_starGenType_CompareAndSwap_params, anyParams uint64) MoqValue_starGenType_CompareAndSwap_paramsKey {
 	m.Scene.T.Helper()
-	var oldUsed interface{}
+	var oldUsed any
 	var oldUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.CompareAndSwap.Old == moq.ParamIndexByValue {
@@ -1328,7 +1328,7 @@ func (m *MoqValue_starGenType) ParamsKey_CompareAndSwap(params MoqValue_starGenT
 			oldUsedHash = hash.DeepHash(params.Old)
 		}
 	}
-	var newUsed interface{}
+	var newUsed any
 	var newUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.CompareAndSwap.New == moq.ParamIndexByValue {
@@ -1338,7 +1338,7 @@ func (m *MoqValue_starGenType) ParamsKey_CompareAndSwap(params MoqValue_starGenT
 		}
 	}
 	return MoqValue_starGenType_CompareAndSwap_paramsKey{
-		Params: struct{ Old, New interface{} }{
+		Params: struct{ Old, New any }{
 			Old: oldUsed,
 			New: newUsed,
 		},

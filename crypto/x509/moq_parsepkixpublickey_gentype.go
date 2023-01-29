@@ -13,7 +13,7 @@ import (
 
 // ParsePKIXPublicKey_genType is the fabricated implementation type of this
 // mock (emitted when mocking functions directly and not from a function type)
-type ParsePKIXPublicKey_genType func(derBytes []byte) (pub interface{}, err error)
+type ParsePKIXPublicKey_genType func(derBytes []byte) (pub any, err error)
 
 // MoqParsePKIXPublicKey_genType holds the state of a moq of the
 // ParsePKIXPublicKey_genType type
@@ -62,7 +62,7 @@ type MoqParsePKIXPublicKey_genType_doFn func(derBytes []byte)
 
 // MoqParsePKIXPublicKey_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the ParsePKIXPublicKey_genType type
-type MoqParsePKIXPublicKey_genType_doReturnFn func(derBytes []byte) (pub interface{}, err error)
+type MoqParsePKIXPublicKey_genType_doReturnFn func(derBytes []byte) (pub any, err error)
 
 // MoqParsePKIXPublicKey_genType_results holds the results of the
 // ParsePKIXPublicKey_genType type
@@ -70,7 +70,7 @@ type MoqParsePKIXPublicKey_genType_results struct {
 	Params  MoqParsePKIXPublicKey_genType_params
 	Results []struct {
 		Values *struct {
-			Pub interface{}
+			Pub any
 			Err error
 		}
 		Sequence   uint32
@@ -126,14 +126,14 @@ func NewMoqParsePKIXPublicKey_genType(scene *moq.Scene, config *moq.Config) *Moq
 
 // Mock returns the moq implementation of the ParsePKIXPublicKey_genType type
 func (m *MoqParsePKIXPublicKey_genType) Mock() ParsePKIXPublicKey_genType {
-	return func(derBytes []byte) (_ interface{}, _ error) {
+	return func(derBytes []byte) (_ any, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqParsePKIXPublicKey_genType_mock{Moq: m}
 		return moq.Fn(derBytes)
 	}
 }
 
-func (m *MoqParsePKIXPublicKey_genType_mock) Fn(derBytes []byte) (pub interface{}, err error) {
+func (m *MoqParsePKIXPublicKey_genType_mock) Fn(derBytes []byte) (pub any, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParsePKIXPublicKey_genType_params{
 		DerBytes: derBytes,
@@ -231,7 +231,7 @@ func (r *MoqParsePKIXPublicKey_genType_fnRecorder) NoSeq() *MoqParsePKIXPublicKe
 	return r
 }
 
-func (r *MoqParsePKIXPublicKey_genType_fnRecorder) ReturnResults(pub interface{}, err error) *MoqParsePKIXPublicKey_genType_fnRecorder {
+func (r *MoqParsePKIXPublicKey_genType_fnRecorder) ReturnResults(pub any, err error) *MoqParsePKIXPublicKey_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -242,7 +242,7 @@ func (r *MoqParsePKIXPublicKey_genType_fnRecorder) ReturnResults(pub interface{}
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Pub interface{}
+			Pub any
 			Err error
 		}
 		Sequence   uint32
@@ -250,7 +250,7 @@ func (r *MoqParsePKIXPublicKey_genType_fnRecorder) ReturnResults(pub interface{}
 		DoReturnFn MoqParsePKIXPublicKey_genType_doReturnFn
 	}{
 		Values: &struct {
-			Pub interface{}
+			Pub any
 			Err error
 		}{
 			Pub: pub,
@@ -283,7 +283,7 @@ func (r *MoqParsePKIXPublicKey_genType_fnRecorder) DoReturnResults(fn MoqParsePK
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Pub interface{}
+			Pub any
 			Err error
 		}
 		Sequence   uint32
@@ -354,7 +354,7 @@ func (r *MoqParsePKIXPublicKey_genType_fnRecorder) Repeat(repeaters ...moq.Repea
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Pub interface{}
+					Pub any
 					Err error
 				}
 				Sequence   uint32

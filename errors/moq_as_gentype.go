@@ -13,7 +13,7 @@ import (
 
 // As_genType is the fabricated implementation type of this mock (emitted when
 // mocking functions directly and not from a function type)
-type As_genType func(err error, target interface{}) bool
+type As_genType func(err error, target any) bool
 
 // MoqAs_genType holds the state of a moq of the As_genType type
 type MoqAs_genType struct {
@@ -39,14 +39,14 @@ type MoqAs_genType_mock struct {
 // MoqAs_genType_params holds the params of the As_genType type
 type MoqAs_genType_params struct {
 	Err    error
-	Target interface{}
+	Target any
 }
 
 // MoqAs_genType_paramsKey holds the map key params of the As_genType type
 type MoqAs_genType_paramsKey struct {
 	Params struct {
 		Err    error
-		Target interface{}
+		Target any
 	}
 	Hashes struct {
 		Err    hash.Hash
@@ -64,11 +64,11 @@ type MoqAs_genType_resultsByParams struct {
 
 // MoqAs_genType_doFn defines the type of function needed when calling AndDo
 // for the As_genType type
-type MoqAs_genType_doFn func(err error, target interface{})
+type MoqAs_genType_doFn func(err error, target any)
 
 // MoqAs_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the As_genType type
-type MoqAs_genType_doReturnFn func(err error, target interface{}) bool
+type MoqAs_genType_doReturnFn func(err error, target any) bool
 
 // MoqAs_genType_results holds the results of the As_genType type
 type MoqAs_genType_results struct {
@@ -121,7 +121,7 @@ func NewMoqAs_genType(scene *moq.Scene, config *moq.Config) *MoqAs_genType {
 			Target moq.ParamIndexing
 		}{
 			Err:    moq.ParamIndexByHash,
-			Target: moq.ParamIndexByHash,
+			Target: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -132,14 +132,14 @@ func NewMoqAs_genType(scene *moq.Scene, config *moq.Config) *MoqAs_genType {
 
 // Mock returns the moq implementation of the As_genType type
 func (m *MoqAs_genType) Mock() As_genType {
-	return func(err error, target interface{}) bool {
+	return func(err error, target any) bool {
 		m.Scene.T.Helper()
 		moq := &MoqAs_genType_mock{Moq: m}
 		return moq.Fn(err, target)
 	}
 }
 
-func (m *MoqAs_genType_mock) Fn(err error, target interface{}) (result1 bool) {
+func (m *MoqAs_genType_mock) Fn(err error, target any) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqAs_genType_params{
 		Err:    err,
@@ -193,7 +193,7 @@ func (m *MoqAs_genType_mock) Fn(err error, target interface{}) (result1 bool) {
 	return
 }
 
-func (m *MoqAs_genType) OnCall(err error, target interface{}) *MoqAs_genType_fnRecorder {
+func (m *MoqAs_genType) OnCall(err error, target any) *MoqAs_genType_fnRecorder {
 	return &MoqAs_genType_fnRecorder{
 		Params: MoqAs_genType_params{
 			Err:    err,
@@ -392,7 +392,7 @@ func (m *MoqAs_genType) ParamsKey(params MoqAs_genType_params, anyParams uint64)
 			errUsedHash = hash.DeepHash(params.Err)
 		}
 	}
-	var targetUsed interface{}
+	var targetUsed any
 	var targetUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Target == moq.ParamIndexByValue {
@@ -404,7 +404,7 @@ func (m *MoqAs_genType) ParamsKey(params MoqAs_genType_params, anyParams uint64)
 	return MoqAs_genType_paramsKey{
 		Params: struct {
 			Err    error
-			Target interface{}
+			Target any
 		}{
 			Err:    errUsed,
 			Target: targetUsed,

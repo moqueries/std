@@ -16,7 +16,7 @@ import (
 
 // ParseFile_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type ParseFile_genType func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (f *ast.File, err error)
+type ParseFile_genType func(fset *token.FileSet, filename string, src any, mode parser.Mode) (f *ast.File, err error)
 
 // MoqParseFile_genType holds the state of a moq of the ParseFile_genType type
 type MoqParseFile_genType struct {
@@ -46,7 +46,7 @@ type MoqParseFile_genType_mock struct {
 type MoqParseFile_genType_params struct {
 	Fset     *token.FileSet
 	Filename string
-	Src      interface{}
+	Src      any
 	Mode     parser.Mode
 }
 
@@ -56,7 +56,7 @@ type MoqParseFile_genType_paramsKey struct {
 	Params struct {
 		Fset     *token.FileSet
 		Filename string
-		Src      interface{}
+		Src      any
 		Mode     parser.Mode
 	}
 	Hashes struct {
@@ -77,11 +77,11 @@ type MoqParseFile_genType_resultsByParams struct {
 
 // MoqParseFile_genType_doFn defines the type of function needed when calling
 // AndDo for the ParseFile_genType type
-type MoqParseFile_genType_doFn func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode)
+type MoqParseFile_genType_doFn func(fset *token.FileSet, filename string, src any, mode parser.Mode)
 
 // MoqParseFile_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the ParseFile_genType type
-type MoqParseFile_genType_doReturnFn func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (f *ast.File, err error)
+type MoqParseFile_genType_doReturnFn func(fset *token.FileSet, filename string, src any, mode parser.Mode) (f *ast.File, err error)
 
 // MoqParseFile_genType_results holds the results of the ParseFile_genType type
 type MoqParseFile_genType_results struct {
@@ -140,7 +140,7 @@ func NewMoqParseFile_genType(scene *moq.Scene, config *moq.Config) *MoqParseFile
 		}{
 			Fset:     moq.ParamIndexByHash,
 			Filename: moq.ParamIndexByValue,
-			Src:      moq.ParamIndexByHash,
+			Src:      moq.ParamIndexByValue,
 			Mode:     moq.ParamIndexByValue,
 		}},
 	}
@@ -152,14 +152,14 @@ func NewMoqParseFile_genType(scene *moq.Scene, config *moq.Config) *MoqParseFile
 
 // Mock returns the moq implementation of the ParseFile_genType type
 func (m *MoqParseFile_genType) Mock() ParseFile_genType {
-	return func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (_ *ast.File, _ error) {
+	return func(fset *token.FileSet, filename string, src any, mode parser.Mode) (_ *ast.File, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqParseFile_genType_mock{Moq: m}
 		return moq.Fn(fset, filename, src, mode)
 	}
 }
 
-func (m *MoqParseFile_genType_mock) Fn(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (f *ast.File, err error) {
+func (m *MoqParseFile_genType_mock) Fn(fset *token.FileSet, filename string, src any, mode parser.Mode) (f *ast.File, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParseFile_genType_params{
 		Fset:     fset,
@@ -216,7 +216,7 @@ func (m *MoqParseFile_genType_mock) Fn(fset *token.FileSet, filename string, src
 	return
 }
 
-func (m *MoqParseFile_genType) OnCall(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) *MoqParseFile_genType_fnRecorder {
+func (m *MoqParseFile_genType) OnCall(fset *token.FileSet, filename string, src any, mode parser.Mode) *MoqParseFile_genType_fnRecorder {
 	return &MoqParseFile_genType_fnRecorder{
 		Params: MoqParseFile_genType_params{
 			Fset:     fset,
@@ -441,7 +441,7 @@ func (m *MoqParseFile_genType) ParamsKey(params MoqParseFile_genType_params, any
 			filenameUsedHash = hash.DeepHash(params.Filename)
 		}
 	}
-	var srcUsed interface{}
+	var srcUsed any
 	var srcUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Src == moq.ParamIndexByValue {
@@ -463,7 +463,7 @@ func (m *MoqParseFile_genType) ParamsKey(params MoqParseFile_genType_params, any
 		Params: struct {
 			Fset     *token.FileSet
 			Filename string
-			Src      interface{}
+			Src      any
 			Mode     parser.Mode
 		}{
 			Fset:     fsetUsed,

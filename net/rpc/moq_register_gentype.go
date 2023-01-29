@@ -13,7 +13,7 @@ import (
 
 // Register_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Register_genType func(rcvr interface{}) error
+type Register_genType func(rcvr any) error
 
 // MoqRegister_genType holds the state of a moq of the Register_genType type
 type MoqRegister_genType struct {
@@ -37,12 +37,12 @@ type MoqRegister_genType_mock struct {
 }
 
 // MoqRegister_genType_params holds the params of the Register_genType type
-type MoqRegister_genType_params struct{ Rcvr interface{} }
+type MoqRegister_genType_params struct{ Rcvr any }
 
 // MoqRegister_genType_paramsKey holds the map key params of the
 // Register_genType type
 type MoqRegister_genType_paramsKey struct {
-	Params struct{ Rcvr interface{} }
+	Params struct{ Rcvr any }
 	Hashes struct{ Rcvr hash.Hash }
 }
 
@@ -56,11 +56,11 @@ type MoqRegister_genType_resultsByParams struct {
 
 // MoqRegister_genType_doFn defines the type of function needed when calling
 // AndDo for the Register_genType type
-type MoqRegister_genType_doFn func(rcvr interface{})
+type MoqRegister_genType_doFn func(rcvr any)
 
 // MoqRegister_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Register_genType type
-type MoqRegister_genType_doReturnFn func(rcvr interface{}) error
+type MoqRegister_genType_doReturnFn func(rcvr any) error
 
 // MoqRegister_genType_results holds the results of the Register_genType type
 type MoqRegister_genType_results struct {
@@ -110,7 +110,7 @@ func NewMoqRegister_genType(scene *moq.Scene, config *moq.Config) *MoqRegister_g
 		}{ParameterIndexing: struct {
 			Rcvr moq.ParamIndexing
 		}{
-			Rcvr: moq.ParamIndexByHash,
+			Rcvr: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -121,14 +121,14 @@ func NewMoqRegister_genType(scene *moq.Scene, config *moq.Config) *MoqRegister_g
 
 // Mock returns the moq implementation of the Register_genType type
 func (m *MoqRegister_genType) Mock() Register_genType {
-	return func(rcvr interface{}) error {
+	return func(rcvr any) error {
 		m.Scene.T.Helper()
 		moq := &MoqRegister_genType_mock{Moq: m}
 		return moq.Fn(rcvr)
 	}
 }
 
-func (m *MoqRegister_genType_mock) Fn(rcvr interface{}) (result1 error) {
+func (m *MoqRegister_genType_mock) Fn(rcvr any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRegister_genType_params{
 		Rcvr: rcvr,
@@ -181,7 +181,7 @@ func (m *MoqRegister_genType_mock) Fn(rcvr interface{}) (result1 error) {
 	return
 }
 
-func (m *MoqRegister_genType) OnCall(rcvr interface{}) *MoqRegister_genType_fnRecorder {
+func (m *MoqRegister_genType) OnCall(rcvr any) *MoqRegister_genType_fnRecorder {
 	return &MoqRegister_genType_fnRecorder{
 		Params: MoqRegister_genType_params{
 			Rcvr: rcvr,
@@ -365,7 +365,7 @@ func (m *MoqRegister_genType) PrettyParams(params MoqRegister_genType_params) st
 
 func (m *MoqRegister_genType) ParamsKey(params MoqRegister_genType_params, anyParams uint64) MoqRegister_genType_paramsKey {
 	m.Scene.T.Helper()
-	var rcvrUsed interface{}
+	var rcvrUsed any
 	var rcvrUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Rcvr == moq.ParamIndexByValue {
@@ -375,7 +375,7 @@ func (m *MoqRegister_genType) ParamsKey(params MoqRegister_genType_params, anyPa
 		}
 	}
 	return MoqRegister_genType_paramsKey{
-		Params: struct{ Rcvr interface{} }{
+		Params: struct{ Rcvr any }{
 			Rcvr: rcvrUsed,
 		},
 		Hashes: struct{ Rcvr hash.Hash }{

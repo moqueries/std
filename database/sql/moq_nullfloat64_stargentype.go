@@ -19,7 +19,7 @@ var _ NullFloat64_starGenType = (*MoqNullFloat64_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type NullFloat64_starGenType interface {
-	Scan(value interface{}) error
+	Scan(value any) error
 }
 
 // MoqNullFloat64_starGenType holds the state of a moq of the
@@ -54,12 +54,12 @@ type MoqNullFloat64_starGenType_recorder struct {
 
 // MoqNullFloat64_starGenType_Scan_params holds the params of the
 // NullFloat64_starGenType type
-type MoqNullFloat64_starGenType_Scan_params struct{ Value interface{} }
+type MoqNullFloat64_starGenType_Scan_params struct{ Value any }
 
 // MoqNullFloat64_starGenType_Scan_paramsKey holds the map key params of the
 // NullFloat64_starGenType type
 type MoqNullFloat64_starGenType_Scan_paramsKey struct {
-	Params struct{ Value interface{} }
+	Params struct{ Value any }
 	Hashes struct{ Value hash.Hash }
 }
 
@@ -73,11 +73,11 @@ type MoqNullFloat64_starGenType_Scan_resultsByParams struct {
 
 // MoqNullFloat64_starGenType_Scan_doFn defines the type of function needed
 // when calling AndDo for the NullFloat64_starGenType type
-type MoqNullFloat64_starGenType_Scan_doFn func(value interface{})
+type MoqNullFloat64_starGenType_Scan_doFn func(value any)
 
 // MoqNullFloat64_starGenType_Scan_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the NullFloat64_starGenType type
-type MoqNullFloat64_starGenType_Scan_doReturnFn func(value interface{}) error
+type MoqNullFloat64_starGenType_Scan_doReturnFn func(value any) error
 
 // MoqNullFloat64_starGenType_Scan_results holds the results of the
 // NullFloat64_starGenType type
@@ -136,7 +136,7 @@ func NewMoqNullFloat64_starGenType(scene *moq.Scene, config *moq.Config) *MoqNul
 			Scan: struct {
 				Value moq.ParamIndexing
 			}{
-				Value: moq.ParamIndexByHash,
+				Value: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -149,7 +149,7 @@ func NewMoqNullFloat64_starGenType(scene *moq.Scene, config *moq.Config) *MoqNul
 // Mock returns the mock implementation of the NullFloat64_starGenType type
 func (m *MoqNullFloat64_starGenType) Mock() *MoqNullFloat64_starGenType_mock { return m.Moq }
 
-func (m *MoqNullFloat64_starGenType_mock) Scan(value interface{}) (result1 error) {
+func (m *MoqNullFloat64_starGenType_mock) Scan(value any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNullFloat64_starGenType_Scan_params{
 		Value: value,
@@ -210,7 +210,7 @@ func (m *MoqNullFloat64_starGenType) OnCall() *MoqNullFloat64_starGenType_record
 	}
 }
 
-func (m *MoqNullFloat64_starGenType_recorder) Scan(value interface{}) *MoqNullFloat64_starGenType_Scan_fnRecorder {
+func (m *MoqNullFloat64_starGenType_recorder) Scan(value any) *MoqNullFloat64_starGenType_Scan_fnRecorder {
 	return &MoqNullFloat64_starGenType_Scan_fnRecorder{
 		Params: MoqNullFloat64_starGenType_Scan_params{
 			Value: value,
@@ -394,7 +394,7 @@ func (m *MoqNullFloat64_starGenType) PrettyParams_Scan(params MoqNullFloat64_sta
 
 func (m *MoqNullFloat64_starGenType) ParamsKey_Scan(params MoqNullFloat64_starGenType_Scan_params, anyParams uint64) MoqNullFloat64_starGenType_Scan_paramsKey {
 	m.Scene.T.Helper()
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Scan.Value == moq.ParamIndexByValue {
@@ -404,7 +404,7 @@ func (m *MoqNullFloat64_starGenType) ParamsKey_Scan(params MoqNullFloat64_starGe
 		}
 	}
 	return MoqNullFloat64_starGenType_Scan_paramsKey{
-		Params: struct{ Value interface{} }{
+		Params: struct{ Value any }{
 			Value: valueUsed,
 		},
 		Hashes: struct{ Value hash.Hash }{

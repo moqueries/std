@@ -20,7 +20,7 @@ var _ Entry_starGenType = (*MoqEntry_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Entry_starGenType interface {
-	Val(a dwarf.Attr) interface{}
+	Val(a dwarf.Attr) any
 	AttrField(a dwarf.Attr) *dwarf.Field
 }
 
@@ -82,7 +82,7 @@ type MoqEntry_starGenType_Val_doFn func(a dwarf.Attr)
 
 // MoqEntry_starGenType_Val_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Entry_starGenType type
-type MoqEntry_starGenType_Val_doReturnFn func(a dwarf.Attr) interface{}
+type MoqEntry_starGenType_Val_doReturnFn func(a dwarf.Attr) any
 
 // MoqEntry_starGenType_Val_results holds the results of the Entry_starGenType
 // type
@@ -90,7 +90,7 @@ type MoqEntry_starGenType_Val_results struct {
 	Params  MoqEntry_starGenType_Val_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqEntry_starGenType_Val_doFn
@@ -223,7 +223,7 @@ func NewMoqEntry_starGenType(scene *moq.Scene, config *moq.Config) *MoqEntry_sta
 // Mock returns the mock implementation of the Entry_starGenType type
 func (m *MoqEntry_starGenType) Mock() *MoqEntry_starGenType_mock { return m.Moq }
 
-func (m *MoqEntry_starGenType_mock) Val(a dwarf.Attr) (result1 interface{}) {
+func (m *MoqEntry_starGenType_mock) Val(a dwarf.Attr) (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqEntry_starGenType_Val_params{
 		A: a,
@@ -380,7 +380,7 @@ func (r *MoqEntry_starGenType_Val_fnRecorder) NoSeq() *MoqEntry_starGenType_Val_
 	return r
 }
 
-func (r *MoqEntry_starGenType_Val_fnRecorder) ReturnResults(result1 interface{}) *MoqEntry_starGenType_Val_fnRecorder {
+func (r *MoqEntry_starGenType_Val_fnRecorder) ReturnResults(result1 any) *MoqEntry_starGenType_Val_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -391,14 +391,14 @@ func (r *MoqEntry_starGenType_Val_fnRecorder) ReturnResults(result1 interface{})
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqEntry_starGenType_Val_doFn
 		DoReturnFn MoqEntry_starGenType_Val_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -429,7 +429,7 @@ func (r *MoqEntry_starGenType_Val_fnRecorder) DoReturnResults(fn MoqEntry_starGe
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqEntry_starGenType_Val_doFn
@@ -499,7 +499,7 @@ func (r *MoqEntry_starGenType_Val_fnRecorder) Repeat(repeaters ...moq.Repeater) 
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqEntry_starGenType_Val_doFn
