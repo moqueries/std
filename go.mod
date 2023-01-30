@@ -1,6 +1,6 @@
 module moqueries.org/std
 
-go 1.18
+go 1.19
 
 require moqueries.org/runtime v0.1.0
 
