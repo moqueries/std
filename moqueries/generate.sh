@@ -33,6 +33,9 @@ fi
 
 find . -path ./moqueries -prune -type f -o -name \*.go -exec rm {} \;
 
-./moqueries/moqueries package std --destination-dir .
+./moqueries/moqueries package std \
+  --destination-dir . \
+  --exclude-pkg-path-regex syscall
+
 go build ./...
 go test ./...
