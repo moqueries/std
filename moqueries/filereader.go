@@ -33,10 +33,25 @@ func (r *FileReader) Read(name string) (string, error) {
 		return "", err
 	}
 
-	contents, err := io.ReadAll(r.readerFn(f))
-	if err != nil {
-		return "", err
+	// TODO: Use io.ReadAll when older standard libraries are behind us
+	// b, err := io.ReadAll(r.readerFn(f))
+	// if err != nil {
+	// 	return "", err
+	// }
+	// return string(b), nil
+	b := make([]byte, 0, 512)
+	for {
+		if len(b) == cap(b) {
+			// Add more capacity (let append pick how much).
+			b = append(b, 0)[:len(b)]
+		}
+		n, err := r.readerFn(f).Read(b[len(b):cap(b)])
+		b = b[:len(b)+n]
+		if err != nil {
+			if err == io.EOF {
+				err = nil
+			}
+			return string(b), err
+		}
 	}
-
-	return string(contents), nil
 }
