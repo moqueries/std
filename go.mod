@@ -1,7 +1,7 @@
 module moqueries.org/std
 
-go 1.19
+go 1.14
 
-require moqueries.org/runtime v0.1.0
+require moqueries.org/runtime v0.2.0
 
 require github.com/davegardnerisme/deephash v0.0.0-20210406090112-6d072427d830 // indirect
