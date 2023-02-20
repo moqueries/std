@@ -33,6 +33,7 @@ type TB_reduced interface {
 	SkipNow()
 	Skipf(format string, args ...interface{})
 	Skipped() bool
+	TempDir() string
 }
 
 // MoqTB holds the state of a moq of the TB_reduced type
@@ -57,6 +58,7 @@ type MoqTB struct {
 	ResultsByParams_SkipNow []MoqTB_SkipNow_resultsByParams
 	ResultsByParams_Skipf   []MoqTB_Skipf_resultsByParams
 	ResultsByParams_Skipped []MoqTB_Skipped_resultsByParams
+	ResultsByParams_TempDir []MoqTB_TempDir_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
@@ -98,6 +100,7 @@ type MoqTB struct {
 				Args   moq.ParamIndexing
 			}
 			Skipped struct{}
+			TempDir struct{}
 		}
 	}
 }
@@ -974,6 +977,60 @@ type MoqTB_Skipped_anyParams struct {
 	Recorder *MoqTB_Skipped_fnRecorder
 }
 
+// MoqTB_TempDir_params holds the params of the TB type
+type MoqTB_TempDir_params struct{}
+
+// MoqTB_TempDir_paramsKey holds the map key params of the TB type
+type MoqTB_TempDir_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTB_TempDir_resultsByParams contains the results for a given set of
+// parameters for the TB type
+type MoqTB_TempDir_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTB_TempDir_paramsKey]*MoqTB_TempDir_results
+}
+
+// MoqTB_TempDir_doFn defines the type of function needed when calling AndDo
+// for the TB type
+type MoqTB_TempDir_doFn func()
+
+// MoqTB_TempDir_doReturnFn defines the type of function needed when calling
+// DoReturnResults for the TB type
+type MoqTB_TempDir_doReturnFn func() string
+
+// MoqTB_TempDir_results holds the results of the TB type
+type MoqTB_TempDir_results struct {
+	Params  MoqTB_TempDir_params
+	Results []struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTB_TempDir_doFn
+		DoReturnFn MoqTB_TempDir_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTB_TempDir_fnRecorder routes recorded function calls to the MoqTB moq
+type MoqTB_TempDir_fnRecorder struct {
+	Params    MoqTB_TempDir_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTB_TempDir_results
+	Moq       *MoqTB
+}
+
+// MoqTB_TempDir_anyParams isolates the any params functions of the TB type
+type MoqTB_TempDir_anyParams struct {
+	Recorder *MoqTB_TempDir_fnRecorder
+}
+
 // NewMoqTB creates a new moq of the TB type
 func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 	if config == nil {
@@ -1024,6 +1081,7 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 					Args   moq.ParamIndexing
 				}
 				Skipped struct{}
+				TempDir struct{}
 			}
 		}{ParameterIndexing: struct {
 			Cleanup struct {
@@ -1064,6 +1122,7 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 				Args   moq.ParamIndexing
 			}
 			Skipped struct{}
+			TempDir struct{}
 		}{
 			Cleanup: struct {
 				Param1 moq.ParamIndexing
@@ -1125,6 +1184,7 @@ func NewMoqTB(scene *moq.Scene, config *moq.Config) *MoqTB {
 				Args:   moq.ParamIndexByHash,
 			},
 			Skipped: struct{}{},
+			TempDir: struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -1919,6 +1979,57 @@ func (m *MoqTB_mock) Skipped() (result1 bool) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Skipped(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqTB_mock) TempDir() (result1 string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTB_TempDir_params{}
+	var results *MoqTB_TempDir_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TempDir {
+		paramsKey := m.Moq.ParamsKey_TempDir(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TempDir(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TempDir(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TempDir(params))
 		}
 	}
 
@@ -4964,6 +5075,189 @@ func (m *MoqTB) ParamsKey_Skipped(params MoqTB_Skipped_params, anyParams uint64)
 	}
 }
 
+func (m *MoqTB_recorder) TempDir() *MoqTB_TempDir_fnRecorder {
+	return &MoqTB_TempDir_fnRecorder{
+		Params:   MoqTB_TempDir_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTB_TempDir_fnRecorder) Any() *MoqTB_TempDir_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TempDir(r.Params))
+		return nil
+	}
+	return &MoqTB_TempDir_anyParams{Recorder: r}
+}
+
+func (r *MoqTB_TempDir_fnRecorder) Seq() *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TempDir(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTB_TempDir_fnRecorder) NoSeq() *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TempDir(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTB_TempDir_fnRecorder) ReturnResults(result1 string) *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTB_TempDir_doFn
+		DoReturnFn MoqTB_TempDir_doReturnFn
+	}{
+		Values: &struct {
+			Result1 string
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTB_TempDir_fnRecorder) AndDo(fn MoqTB_TempDir_doFn) *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTB_TempDir_fnRecorder) DoReturnResults(fn MoqTB_TempDir_doReturnFn) *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqTB_TempDir_doFn
+		DoReturnFn MoqTB_TempDir_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTB_TempDir_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTB_TempDir_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TempDir {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTB_TempDir_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTB_TempDir_paramsKey]*MoqTB_TempDir_results{},
+		}
+		r.Moq.ResultsByParams_TempDir = append(r.Moq.ResultsByParams_TempDir, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TempDir) {
+			copy(r.Moq.ResultsByParams_TempDir[insertAt+1:], r.Moq.ResultsByParams_TempDir[insertAt:0])
+			r.Moq.ResultsByParams_TempDir[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TempDir(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTB_TempDir_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTB_TempDir_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTB_TempDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 string
+				}
+				Sequence   uint32
+				DoFn       MoqTB_TempDir_doFn
+				DoReturnFn MoqTB_TempDir_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTB) PrettyParams_TempDir(params MoqTB_TempDir_params) string {
+	return fmt.Sprintf("TempDir()")
+}
+
+func (m *MoqTB) ParamsKey_TempDir(params MoqTB_TempDir_params, anyParams uint64) MoqTB_TempDir_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTB_TempDir_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 // Reset resets the state of the moq
 func (m *MoqTB) Reset() {
 	m.ResultsByParams_Cleanup = nil
@@ -4982,6 +5276,7 @@ func (m *MoqTB) Reset() {
 	m.ResultsByParams_SkipNow = nil
 	m.ResultsByParams_Skipf = nil
 	m.ResultsByParams_Skipped = nil
+	m.ResultsByParams_TempDir = nil
 }
 
 // AssertExpectationsMet asserts that all expectations have been met
@@ -5112,6 +5407,14 @@ func (m *MoqTB) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Skipped(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TempDir {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TempDir(results.Params))
 			}
 		}
 	}

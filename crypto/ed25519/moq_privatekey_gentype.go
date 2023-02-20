@@ -22,6 +22,7 @@ var _ PrivateKey_genType = (*MoqPrivateKey_genType_mock)(nil)
 // interface type)
 type PrivateKey_genType interface {
 	Public() crypto.PublicKey
+	Equal(x crypto.PrivateKey) bool
 	Seed() []byte
 	Sign(rand io.Reader, message []byte, opts crypto.SignerOpts) (signature []byte, err error)
 }
@@ -34,14 +35,18 @@ type MoqPrivateKey_genType struct {
 	Moq    *MoqPrivateKey_genType_mock
 
 	ResultsByParams_Public []MoqPrivateKey_genType_Public_resultsByParams
+	ResultsByParams_Equal  []MoqPrivateKey_genType_Equal_resultsByParams
 	ResultsByParams_Seed   []MoqPrivateKey_genType_Seed_resultsByParams
 	ResultsByParams_Sign   []MoqPrivateKey_genType_Sign_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			Public struct{}
-			Seed   struct{}
-			Sign   struct {
+			Equal  struct {
+				X moq.ParamIndexing
+			}
+			Seed struct{}
+			Sign struct {
 				Rand    moq.ParamIndexing
 				Message moq.ParamIndexing
 				Opts    moq.ParamIndexing
@@ -119,6 +124,65 @@ type MoqPrivateKey_genType_Public_fnRecorder struct {
 // the PrivateKey_genType type
 type MoqPrivateKey_genType_Public_anyParams struct {
 	Recorder *MoqPrivateKey_genType_Public_fnRecorder
+}
+
+// MoqPrivateKey_genType_Equal_params holds the params of the
+// PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_params struct{ X crypto.PrivateKey }
+
+// MoqPrivateKey_genType_Equal_paramsKey holds the map key params of the
+// PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_paramsKey struct {
+	Params struct{ X crypto.PrivateKey }
+	Hashes struct{ X hash.Hash }
+}
+
+// MoqPrivateKey_genType_Equal_resultsByParams contains the results for a given
+// set of parameters for the PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqPrivateKey_genType_Equal_paramsKey]*MoqPrivateKey_genType_Equal_results
+}
+
+// MoqPrivateKey_genType_Equal_doFn defines the type of function needed when
+// calling AndDo for the PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_doFn func(x crypto.PrivateKey)
+
+// MoqPrivateKey_genType_Equal_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_doReturnFn func(x crypto.PrivateKey) bool
+
+// MoqPrivateKey_genType_Equal_results holds the results of the
+// PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_results struct {
+	Params  MoqPrivateKey_genType_Equal_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqPrivateKey_genType_Equal_doFn
+		DoReturnFn MoqPrivateKey_genType_Equal_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqPrivateKey_genType_Equal_fnRecorder routes recorded function calls to the
+// MoqPrivateKey_genType moq
+type MoqPrivateKey_genType_Equal_fnRecorder struct {
+	Params    MoqPrivateKey_genType_Equal_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqPrivateKey_genType_Equal_results
+	Moq       *MoqPrivateKey_genType
+}
+
+// MoqPrivateKey_genType_Equal_anyParams isolates the any params functions of
+// the PrivateKey_genType type
+type MoqPrivateKey_genType_Equal_anyParams struct {
+	Recorder *MoqPrivateKey_genType_Equal_fnRecorder
 }
 
 // MoqPrivateKey_genType_Seed_params holds the params of the PrivateKey_genType
@@ -264,8 +328,11 @@ func NewMoqPrivateKey_genType(scene *moq.Scene, config *moq.Config) *MoqPrivateK
 		Runtime: struct {
 			ParameterIndexing struct {
 				Public struct{}
-				Seed   struct{}
-				Sign   struct {
+				Equal  struct {
+					X moq.ParamIndexing
+				}
+				Seed struct{}
+				Sign struct {
 					Rand    moq.ParamIndexing
 					Message moq.ParamIndexing
 					Opts    moq.ParamIndexing
@@ -273,15 +340,23 @@ func NewMoqPrivateKey_genType(scene *moq.Scene, config *moq.Config) *MoqPrivateK
 			}
 		}{ParameterIndexing: struct {
 			Public struct{}
-			Seed   struct{}
-			Sign   struct {
+			Equal  struct {
+				X moq.ParamIndexing
+			}
+			Seed struct{}
+			Sign struct {
 				Rand    moq.ParamIndexing
 				Message moq.ParamIndexing
 				Opts    moq.ParamIndexing
 			}
 		}{
 			Public: struct{}{},
-			Seed:   struct{}{},
+			Equal: struct {
+				X moq.ParamIndexing
+			}{
+				X: moq.ParamIndexByHash,
+			},
+			Seed: struct{}{},
 			Sign: struct {
 				Rand    moq.ParamIndexing
 				Message moq.ParamIndexing
@@ -349,6 +424,59 @@ func (m *MoqPrivateKey_genType_mock) Public() (result1 crypto.PublicKey) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqPrivateKey_genType_mock) Equal(x crypto.PrivateKey) (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqPrivateKey_genType_Equal_params{
+		X: x,
+	}
+	var results *MoqPrivateKey_genType_Equal_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Equal {
+		paramsKey := m.Moq.ParamsKey_Equal(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Equal(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Equal(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Equal(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(x)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(x)
 	}
 	return
 }
@@ -647,6 +775,209 @@ func (m *MoqPrivateKey_genType) ParamsKey_Public(params MoqPrivateKey_genType_Pu
 	return MoqPrivateKey_genType_Public_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqPrivateKey_genType_recorder) Equal(x crypto.PrivateKey) *MoqPrivateKey_genType_Equal_fnRecorder {
+	return &MoqPrivateKey_genType_Equal_fnRecorder{
+		Params: MoqPrivateKey_genType_Equal_params{
+			X: x,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) Any() *MoqPrivateKey_genType_Equal_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Equal(r.Params))
+		return nil
+	}
+	return &MoqPrivateKey_genType_Equal_anyParams{Recorder: r}
+}
+
+func (a *MoqPrivateKey_genType_Equal_anyParams) X() *MoqPrivateKey_genType_Equal_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) Seq() *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Equal(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) NoSeq() *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Equal(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) ReturnResults(result1 bool) *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqPrivateKey_genType_Equal_doFn
+		DoReturnFn MoqPrivateKey_genType_Equal_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) AndDo(fn MoqPrivateKey_genType_Equal_doFn) *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) DoReturnResults(fn MoqPrivateKey_genType_Equal_doReturnFn) *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqPrivateKey_genType_Equal_doFn
+		DoReturnFn MoqPrivateKey_genType_Equal_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqPrivateKey_genType_Equal_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Equal {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqPrivateKey_genType_Equal_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqPrivateKey_genType_Equal_paramsKey]*MoqPrivateKey_genType_Equal_results{},
+		}
+		r.Moq.ResultsByParams_Equal = append(r.Moq.ResultsByParams_Equal, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Equal) {
+			copy(r.Moq.ResultsByParams_Equal[insertAt+1:], r.Moq.ResultsByParams_Equal[insertAt:0])
+			r.Moq.ResultsByParams_Equal[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Equal(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqPrivateKey_genType_Equal_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqPrivateKey_genType_Equal_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqPrivateKey_genType_Equal_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqPrivateKey_genType_Equal_doFn
+				DoReturnFn MoqPrivateKey_genType_Equal_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqPrivateKey_genType) PrettyParams_Equal(params MoqPrivateKey_genType_Equal_params) string {
+	return fmt.Sprintf("Equal(%#v)", params.X)
+}
+
+func (m *MoqPrivateKey_genType) ParamsKey_Equal(params MoqPrivateKey_genType_Equal_params, anyParams uint64) MoqPrivateKey_genType_Equal_paramsKey {
+	m.Scene.T.Helper()
+	var xUsed crypto.PrivateKey
+	var xUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Equal.X == moq.ParamIndexByValue {
+			xUsed = params.X
+		} else {
+			xUsedHash = hash.DeepHash(params.X)
+		}
+	}
+	return MoqPrivateKey_genType_Equal_paramsKey{
+		Params: struct{ X crypto.PrivateKey }{
+			X: xUsed,
+		},
+		Hashes: struct{ X hash.Hash }{
+			X: xUsedHash,
+		},
 	}
 }
 
@@ -1082,6 +1413,7 @@ func (m *MoqPrivateKey_genType) ParamsKey_Sign(params MoqPrivateKey_genType_Sign
 // Reset resets the state of the moq
 func (m *MoqPrivateKey_genType) Reset() {
 	m.ResultsByParams_Public = nil
+	m.ResultsByParams_Equal = nil
 	m.ResultsByParams_Seed = nil
 	m.ResultsByParams_Sign = nil
 }
@@ -1094,6 +1426,14 @@ func (m *MoqPrivateKey_genType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Public(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Equal {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Equal(results.Params))
 			}
 		}
 	}

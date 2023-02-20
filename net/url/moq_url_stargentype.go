@@ -21,7 +21,9 @@ var _ URL_starGenType = (*MoqURL_starGenType_mock)(nil)
 // type)
 type URL_starGenType interface {
 	EscapedPath() string
+	EscapedFragment() string
 	String() string
+	Redacted() string
 	IsAbs() bool
 	Parse(ref string) (*url.URL, error)
 	ResolveReference(ref *url.URL) *url.URL
@@ -40,7 +42,9 @@ type MoqURL_starGenType struct {
 	Moq    *MoqURL_starGenType_mock
 
 	ResultsByParams_EscapedPath      []MoqURL_starGenType_EscapedPath_resultsByParams
+	ResultsByParams_EscapedFragment  []MoqURL_starGenType_EscapedFragment_resultsByParams
 	ResultsByParams_String           []MoqURL_starGenType_String_resultsByParams
+	ResultsByParams_Redacted         []MoqURL_starGenType_Redacted_resultsByParams
 	ResultsByParams_IsAbs            []MoqURL_starGenType_IsAbs_resultsByParams
 	ResultsByParams_Parse            []MoqURL_starGenType_Parse_resultsByParams
 	ResultsByParams_ResolveReference []MoqURL_starGenType_ResolveReference_resultsByParams
@@ -53,10 +57,12 @@ type MoqURL_starGenType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			EscapedPath struct{}
-			String      struct{}
-			IsAbs       struct{}
-			Parse       struct {
+			EscapedPath     struct{}
+			EscapedFragment struct{}
+			String          struct{}
+			Redacted        struct{}
+			IsAbs           struct{}
+			Parse           struct {
 				Ref moq.ParamIndexing
 			}
 			ResolveReference struct {
@@ -145,6 +151,65 @@ type MoqURL_starGenType_EscapedPath_anyParams struct {
 	Recorder *MoqURL_starGenType_EscapedPath_fnRecorder
 }
 
+// MoqURL_starGenType_EscapedFragment_params holds the params of the
+// URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_params struct{}
+
+// MoqURL_starGenType_EscapedFragment_paramsKey holds the map key params of the
+// URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqURL_starGenType_EscapedFragment_resultsByParams contains the results for
+// a given set of parameters for the URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqURL_starGenType_EscapedFragment_paramsKey]*MoqURL_starGenType_EscapedFragment_results
+}
+
+// MoqURL_starGenType_EscapedFragment_doFn defines the type of function needed
+// when calling AndDo for the URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_doFn func()
+
+// MoqURL_starGenType_EscapedFragment_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_doReturnFn func() string
+
+// MoqURL_starGenType_EscapedFragment_results holds the results of the
+// URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_results struct {
+	Params  MoqURL_starGenType_EscapedFragment_params
+	Results []struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_EscapedFragment_doFn
+		DoReturnFn MoqURL_starGenType_EscapedFragment_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqURL_starGenType_EscapedFragment_fnRecorder routes recorded function calls
+// to the MoqURL_starGenType moq
+type MoqURL_starGenType_EscapedFragment_fnRecorder struct {
+	Params    MoqURL_starGenType_EscapedFragment_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqURL_starGenType_EscapedFragment_results
+	Moq       *MoqURL_starGenType
+}
+
+// MoqURL_starGenType_EscapedFragment_anyParams isolates the any params
+// functions of the URL_starGenType type
+type MoqURL_starGenType_EscapedFragment_anyParams struct {
+	Recorder *MoqURL_starGenType_EscapedFragment_fnRecorder
+}
+
 // MoqURL_starGenType_String_params holds the params of the URL_starGenType
 // type
 type MoqURL_starGenType_String_params struct{}
@@ -202,6 +267,65 @@ type MoqURL_starGenType_String_fnRecorder struct {
 // URL_starGenType type
 type MoqURL_starGenType_String_anyParams struct {
 	Recorder *MoqURL_starGenType_String_fnRecorder
+}
+
+// MoqURL_starGenType_Redacted_params holds the params of the URL_starGenType
+// type
+type MoqURL_starGenType_Redacted_params struct{}
+
+// MoqURL_starGenType_Redacted_paramsKey holds the map key params of the
+// URL_starGenType type
+type MoqURL_starGenType_Redacted_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqURL_starGenType_Redacted_resultsByParams contains the results for a given
+// set of parameters for the URL_starGenType type
+type MoqURL_starGenType_Redacted_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqURL_starGenType_Redacted_paramsKey]*MoqURL_starGenType_Redacted_results
+}
+
+// MoqURL_starGenType_Redacted_doFn defines the type of function needed when
+// calling AndDo for the URL_starGenType type
+type MoqURL_starGenType_Redacted_doFn func()
+
+// MoqURL_starGenType_Redacted_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the URL_starGenType type
+type MoqURL_starGenType_Redacted_doReturnFn func() string
+
+// MoqURL_starGenType_Redacted_results holds the results of the URL_starGenType
+// type
+type MoqURL_starGenType_Redacted_results struct {
+	Params  MoqURL_starGenType_Redacted_params
+	Results []struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_Redacted_doFn
+		DoReturnFn MoqURL_starGenType_Redacted_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqURL_starGenType_Redacted_fnRecorder routes recorded function calls to the
+// MoqURL_starGenType moq
+type MoqURL_starGenType_Redacted_fnRecorder struct {
+	Params    MoqURL_starGenType_Redacted_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqURL_starGenType_Redacted_results
+	Moq       *MoqURL_starGenType
+}
+
+// MoqURL_starGenType_Redacted_anyParams isolates the any params functions of
+// the URL_starGenType type
+type MoqURL_starGenType_Redacted_anyParams struct {
+	Recorder *MoqURL_starGenType_Redacted_fnRecorder
 }
 
 // MoqURL_starGenType_IsAbs_params holds the params of the URL_starGenType type
@@ -745,10 +869,12 @@ func NewMoqURL_starGenType(scene *moq.Scene, config *moq.Config) *MoqURL_starGen
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				EscapedPath struct{}
-				String      struct{}
-				IsAbs       struct{}
-				Parse       struct {
+				EscapedPath     struct{}
+				EscapedFragment struct{}
+				String          struct{}
+				Redacted        struct{}
+				IsAbs           struct{}
+				Parse           struct {
 					Ref moq.ParamIndexing
 				}
 				ResolveReference struct {
@@ -764,10 +890,12 @@ func NewMoqURL_starGenType(scene *moq.Scene, config *moq.Config) *MoqURL_starGen
 				}
 			}
 		}{ParameterIndexing: struct {
-			EscapedPath struct{}
-			String      struct{}
-			IsAbs       struct{}
-			Parse       struct {
+			EscapedPath     struct{}
+			EscapedFragment struct{}
+			String          struct{}
+			Redacted        struct{}
+			IsAbs           struct{}
+			Parse           struct {
 				Ref moq.ParamIndexing
 			}
 			ResolveReference struct {
@@ -782,9 +910,11 @@ func NewMoqURL_starGenType(scene *moq.Scene, config *moq.Config) *MoqURL_starGen
 				Text moq.ParamIndexing
 			}
 		}{
-			EscapedPath: struct{}{},
-			String:      struct{}{},
-			IsAbs:       struct{}{},
+			EscapedPath:     struct{}{},
+			EscapedFragment: struct{}{},
+			String:          struct{}{},
+			Redacted:        struct{}{},
+			IsAbs:           struct{}{},
 			Parse: struct {
 				Ref moq.ParamIndexing
 			}{
@@ -867,6 +997,57 @@ func (m *MoqURL_starGenType_mock) EscapedPath() (result1 string) {
 	return
 }
 
+func (m *MoqURL_starGenType_mock) EscapedFragment() (result1 string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqURL_starGenType_EscapedFragment_params{}
+	var results *MoqURL_starGenType_EscapedFragment_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_EscapedFragment {
+		paramsKey := m.Moq.ParamsKey_EscapedFragment(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_EscapedFragment(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_EscapedFragment(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_EscapedFragment(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
 func (m *MoqURL_starGenType_mock) String() (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqURL_starGenType_String_params{}
@@ -902,6 +1083,57 @@ func (m *MoqURL_starGenType_mock) String() (result1 string) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_String(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqURL_starGenType_mock) Redacted() (result1 string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqURL_starGenType_Redacted_params{}
+	var results *MoqURL_starGenType_Redacted_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Redacted {
+		paramsKey := m.Moq.ParamsKey_Redacted(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Redacted(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Redacted(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Redacted(params))
 		}
 	}
 
@@ -1575,6 +1807,189 @@ func (m *MoqURL_starGenType) ParamsKey_EscapedPath(params MoqURL_starGenType_Esc
 	}
 }
 
+func (m *MoqURL_starGenType_recorder) EscapedFragment() *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	return &MoqURL_starGenType_EscapedFragment_fnRecorder{
+		Params:   MoqURL_starGenType_EscapedFragment_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) Any() *MoqURL_starGenType_EscapedFragment_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_EscapedFragment(r.Params))
+		return nil
+	}
+	return &MoqURL_starGenType_EscapedFragment_anyParams{Recorder: r}
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) Seq() *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_EscapedFragment(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) NoSeq() *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_EscapedFragment(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) ReturnResults(result1 string) *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_EscapedFragment_doFn
+		DoReturnFn MoqURL_starGenType_EscapedFragment_doReturnFn
+	}{
+		Values: &struct {
+			Result1 string
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) AndDo(fn MoqURL_starGenType_EscapedFragment_doFn) *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) DoReturnResults(fn MoqURL_starGenType_EscapedFragment_doReturnFn) *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_EscapedFragment_doFn
+		DoReturnFn MoqURL_starGenType_EscapedFragment_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqURL_starGenType_EscapedFragment_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_EscapedFragment {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqURL_starGenType_EscapedFragment_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqURL_starGenType_EscapedFragment_paramsKey]*MoqURL_starGenType_EscapedFragment_results{},
+		}
+		r.Moq.ResultsByParams_EscapedFragment = append(r.Moq.ResultsByParams_EscapedFragment, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_EscapedFragment) {
+			copy(r.Moq.ResultsByParams_EscapedFragment[insertAt+1:], r.Moq.ResultsByParams_EscapedFragment[insertAt:0])
+			r.Moq.ResultsByParams_EscapedFragment[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_EscapedFragment(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqURL_starGenType_EscapedFragment_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqURL_starGenType_EscapedFragment_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqURL_starGenType_EscapedFragment_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 string
+				}
+				Sequence   uint32
+				DoFn       MoqURL_starGenType_EscapedFragment_doFn
+				DoReturnFn MoqURL_starGenType_EscapedFragment_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqURL_starGenType) PrettyParams_EscapedFragment(params MoqURL_starGenType_EscapedFragment_params) string {
+	return fmt.Sprintf("EscapedFragment()")
+}
+
+func (m *MoqURL_starGenType) ParamsKey_EscapedFragment(params MoqURL_starGenType_EscapedFragment_params, anyParams uint64) MoqURL_starGenType_EscapedFragment_paramsKey {
+	m.Scene.T.Helper()
+	return MoqURL_starGenType_EscapedFragment_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 func (m *MoqURL_starGenType_recorder) String() *MoqURL_starGenType_String_fnRecorder {
 	return &MoqURL_starGenType_String_fnRecorder{
 		Params:   MoqURL_starGenType_String_params{},
@@ -1753,6 +2168,189 @@ func (m *MoqURL_starGenType) PrettyParams_String(params MoqURL_starGenType_Strin
 func (m *MoqURL_starGenType) ParamsKey_String(params MoqURL_starGenType_String_params, anyParams uint64) MoqURL_starGenType_String_paramsKey {
 	m.Scene.T.Helper()
 	return MoqURL_starGenType_String_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqURL_starGenType_recorder) Redacted() *MoqURL_starGenType_Redacted_fnRecorder {
+	return &MoqURL_starGenType_Redacted_fnRecorder{
+		Params:   MoqURL_starGenType_Redacted_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) Any() *MoqURL_starGenType_Redacted_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Redacted(r.Params))
+		return nil
+	}
+	return &MoqURL_starGenType_Redacted_anyParams{Recorder: r}
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) Seq() *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Redacted(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) NoSeq() *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Redacted(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) ReturnResults(result1 string) *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_Redacted_doFn
+		DoReturnFn MoqURL_starGenType_Redacted_doReturnFn
+	}{
+		Values: &struct {
+			Result1 string
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) AndDo(fn MoqURL_starGenType_Redacted_doFn) *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) DoReturnResults(fn MoqURL_starGenType_Redacted_doReturnFn) *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 string
+		}
+		Sequence   uint32
+		DoFn       MoqURL_starGenType_Redacted_doFn
+		DoReturnFn MoqURL_starGenType_Redacted_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqURL_starGenType_Redacted_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Redacted {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqURL_starGenType_Redacted_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqURL_starGenType_Redacted_paramsKey]*MoqURL_starGenType_Redacted_results{},
+		}
+		r.Moq.ResultsByParams_Redacted = append(r.Moq.ResultsByParams_Redacted, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Redacted) {
+			copy(r.Moq.ResultsByParams_Redacted[insertAt+1:], r.Moq.ResultsByParams_Redacted[insertAt:0])
+			r.Moq.ResultsByParams_Redacted[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Redacted(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqURL_starGenType_Redacted_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqURL_starGenType_Redacted_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqURL_starGenType_Redacted_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 string
+				}
+				Sequence   uint32
+				DoFn       MoqURL_starGenType_Redacted_doFn
+				DoReturnFn MoqURL_starGenType_Redacted_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqURL_starGenType) PrettyParams_Redacted(params MoqURL_starGenType_Redacted_params) string {
+	return fmt.Sprintf("Redacted()")
+}
+
+func (m *MoqURL_starGenType) ParamsKey_Redacted(params MoqURL_starGenType_Redacted_params, anyParams uint64) MoqURL_starGenType_Redacted_paramsKey {
+	m.Scene.T.Helper()
+	return MoqURL_starGenType_Redacted_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -3474,7 +4072,9 @@ func (m *MoqURL_starGenType) ParamsKey_UnmarshalBinary(params MoqURL_starGenType
 // Reset resets the state of the moq
 func (m *MoqURL_starGenType) Reset() {
 	m.ResultsByParams_EscapedPath = nil
+	m.ResultsByParams_EscapedFragment = nil
 	m.ResultsByParams_String = nil
+	m.ResultsByParams_Redacted = nil
 	m.ResultsByParams_IsAbs = nil
 	m.ResultsByParams_Parse = nil
 	m.ResultsByParams_ResolveReference = nil
@@ -3497,11 +4097,27 @@ func (m *MoqURL_starGenType) AssertExpectationsMet() {
 			}
 		}
 	}
+	for _, res := range m.ResultsByParams_EscapedFragment {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_EscapedFragment(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_String {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_String(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Redacted {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Redacted(results.Params))
 			}
 		}
 	}

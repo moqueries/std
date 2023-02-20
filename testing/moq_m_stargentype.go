@@ -18,7 +18,7 @@ var _ M_starGenType = (*MoqM_starGenType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type M_starGenType interface {
-	Run() int
+	Run() (code int)
 }
 
 // MoqM_starGenType holds the state of a moq of the M_starGenType type
@@ -71,15 +71,13 @@ type MoqM_starGenType_Run_doFn func()
 
 // MoqM_starGenType_Run_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the M_starGenType type
-type MoqM_starGenType_Run_doReturnFn func() int
+type MoqM_starGenType_Run_doReturnFn func() (code int)
 
 // MoqM_starGenType_Run_results holds the results of the M_starGenType type
 type MoqM_starGenType_Run_results struct {
 	Params  MoqM_starGenType_Run_params
 	Results []struct {
-		Values *struct {
-			Result1 int
-		}
+		Values     *struct{ Code int }
 		Sequence   uint32
 		DoFn       MoqM_starGenType_Run_doFn
 		DoReturnFn MoqM_starGenType_Run_doReturnFn
@@ -133,7 +131,7 @@ func NewMoqM_starGenType(scene *moq.Scene, config *moq.Config) *MoqM_starGenType
 // Mock returns the mock implementation of the M_starGenType type
 func (m *MoqM_starGenType) Mock() *MoqM_starGenType_mock { return m.Moq }
 
-func (m *MoqM_starGenType_mock) Run() (result1 int) {
+func (m *MoqM_starGenType_mock) Run() (code int) {
 	m.Moq.Scene.T.Helper()
 	params := MoqM_starGenType_Run_params{}
 	var results *MoqM_starGenType_Run_results
@@ -176,10 +174,10 @@ func (m *MoqM_starGenType_mock) Run() (result1 int) {
 	}
 
 	if result.Values != nil {
-		result1 = result.Values.Result1
+		code = result.Values.Code
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn()
+		code = result.DoReturnFn()
 	}
 	return
 }
@@ -228,7 +226,7 @@ func (r *MoqM_starGenType_Run_fnRecorder) NoSeq() *MoqM_starGenType_Run_fnRecord
 	return r
 }
 
-func (r *MoqM_starGenType_Run_fnRecorder) ReturnResults(result1 int) *MoqM_starGenType_Run_fnRecorder {
+func (r *MoqM_starGenType_Run_fnRecorder) ReturnResults(code int) *MoqM_starGenType_Run_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -238,17 +236,13 @@ func (r *MoqM_starGenType_Run_fnRecorder) ReturnResults(result1 int) *MoqM_starG
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values *struct {
-			Result1 int
-		}
+		Values     *struct{ Code int }
 		Sequence   uint32
 		DoFn       MoqM_starGenType_Run_doFn
 		DoReturnFn MoqM_starGenType_Run_doReturnFn
 	}{
-		Values: &struct {
-			Result1 int
-		}{
-			Result1: result1,
+		Values: &struct{ Code int }{
+			Code: code,
 		},
 		Sequence: sequence,
 	})
@@ -276,9 +270,7 @@ func (r *MoqM_starGenType_Run_fnRecorder) DoReturnResults(fn MoqM_starGenType_Ru
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values *struct {
-			Result1 int
-		}
+		Values     *struct{ Code int }
 		Sequence   uint32
 		DoFn       MoqM_starGenType_Run_doFn
 		DoReturnFn MoqM_starGenType_Run_doReturnFn
@@ -346,9 +338,7 @@ func (r *MoqM_starGenType_Run_fnRecorder) Repeat(repeaters ...moq.Repeater) *Moq
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values *struct {
-					Result1 int
-				}
+				Values     *struct{ Code int }
 				Sequence   uint32
 				DoFn       MoqM_starGenType_Run_doFn
 				DoReturnFn MoqM_starGenType_Run_doReturnFn

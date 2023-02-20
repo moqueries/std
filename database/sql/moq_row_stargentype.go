@@ -20,6 +20,7 @@ var _ Row_starGenType = (*MoqRow_starGenType_mock)(nil)
 // type)
 type Row_starGenType interface {
 	Scan(dest ...interface{}) error
+	Err() error
 }
 
 // MoqRow_starGenType holds the state of a moq of the Row_starGenType type
@@ -29,17 +30,19 @@ type MoqRow_starGenType struct {
 	Moq    *MoqRow_starGenType_mock
 
 	ResultsByParams_Scan []MoqRow_starGenType_Scan_resultsByParams
+	ResultsByParams_Err  []MoqRow_starGenType_Err_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			Scan struct {
 				Dest moq.ParamIndexing
 			}
+			Err struct{}
 		}
 	}
-	// MoqRow_starGenType_mock isolates the mock interface of the Row_starGenType
 }
 
+// MoqRow_starGenType_mock isolates the mock interface of the Row_starGenType
 // type
 type MoqRow_starGenType_mock struct {
 	Moq *MoqRow_starGenType
@@ -109,6 +112,63 @@ type MoqRow_starGenType_Scan_anyParams struct {
 	Recorder *MoqRow_starGenType_Scan_fnRecorder
 }
 
+// MoqRow_starGenType_Err_params holds the params of the Row_starGenType type
+type MoqRow_starGenType_Err_params struct{}
+
+// MoqRow_starGenType_Err_paramsKey holds the map key params of the
+// Row_starGenType type
+type MoqRow_starGenType_Err_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqRow_starGenType_Err_resultsByParams contains the results for a given set
+// of parameters for the Row_starGenType type
+type MoqRow_starGenType_Err_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqRow_starGenType_Err_paramsKey]*MoqRow_starGenType_Err_results
+}
+
+// MoqRow_starGenType_Err_doFn defines the type of function needed when calling
+// AndDo for the Row_starGenType type
+type MoqRow_starGenType_Err_doFn func()
+
+// MoqRow_starGenType_Err_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the Row_starGenType type
+type MoqRow_starGenType_Err_doReturnFn func() error
+
+// MoqRow_starGenType_Err_results holds the results of the Row_starGenType type
+type MoqRow_starGenType_Err_results struct {
+	Params  MoqRow_starGenType_Err_params
+	Results []struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqRow_starGenType_Err_doFn
+		DoReturnFn MoqRow_starGenType_Err_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqRow_starGenType_Err_fnRecorder routes recorded function calls to the
+// MoqRow_starGenType moq
+type MoqRow_starGenType_Err_fnRecorder struct {
+	Params    MoqRow_starGenType_Err_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqRow_starGenType_Err_results
+	Moq       *MoqRow_starGenType
+}
+
+// MoqRow_starGenType_Err_anyParams isolates the any params functions of the
+// Row_starGenType type
+type MoqRow_starGenType_Err_anyParams struct {
+	Recorder *MoqRow_starGenType_Err_fnRecorder
+}
+
 // NewMoqRow_starGenType creates a new moq of the Row_starGenType type
 func NewMoqRow_starGenType(scene *moq.Scene, config *moq.Config) *MoqRow_starGenType {
 	if config == nil {
@@ -124,17 +184,20 @@ func NewMoqRow_starGenType(scene *moq.Scene, config *moq.Config) *MoqRow_starGen
 				Scan struct {
 					Dest moq.ParamIndexing
 				}
+				Err struct{}
 			}
 		}{ParameterIndexing: struct {
 			Scan struct {
 				Dest moq.ParamIndexing
 			}
+			Err struct{}
 		}{
 			Scan: struct {
 				Dest moq.ParamIndexing
 			}{
 				Dest: moq.ParamIndexByHash,
 			},
+			Err: struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -195,6 +258,57 @@ func (m *MoqRow_starGenType_mock) Scan(dest ...interface{}) (result1 error) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn(dest...)
+	}
+	return
+}
+
+func (m *MoqRow_starGenType_mock) Err() (result1 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqRow_starGenType_Err_params{}
+	var results *MoqRow_starGenType_Err_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Err {
+		paramsKey := m.Moq.ParamsKey_Err(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Err(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Err(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Err(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -405,8 +519,191 @@ func (m *MoqRow_starGenType) ParamsKey_Scan(params MoqRow_starGenType_Scan_param
 	}
 }
 
+func (m *MoqRow_starGenType_recorder) Err() *MoqRow_starGenType_Err_fnRecorder {
+	return &MoqRow_starGenType_Err_fnRecorder{
+		Params:   MoqRow_starGenType_Err_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) Any() *MoqRow_starGenType_Err_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Err(r.Params))
+		return nil
+	}
+	return &MoqRow_starGenType_Err_anyParams{Recorder: r}
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) Seq() *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Err(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) NoSeq() *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Err(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) ReturnResults(result1 error) *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqRow_starGenType_Err_doFn
+		DoReturnFn MoqRow_starGenType_Err_doReturnFn
+	}{
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) AndDo(fn MoqRow_starGenType_Err_doFn) *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) DoReturnResults(fn MoqRow_starGenType_Err_doReturnFn) *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqRow_starGenType_Err_doFn
+		DoReturnFn MoqRow_starGenType_Err_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqRow_starGenType_Err_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Err {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqRow_starGenType_Err_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqRow_starGenType_Err_paramsKey]*MoqRow_starGenType_Err_results{},
+		}
+		r.Moq.ResultsByParams_Err = append(r.Moq.ResultsByParams_Err, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Err) {
+			copy(r.Moq.ResultsByParams_Err[insertAt+1:], r.Moq.ResultsByParams_Err[insertAt:0])
+			r.Moq.ResultsByParams_Err[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Err(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqRow_starGenType_Err_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqRow_starGenType_Err_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRow_starGenType_Err_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 error
+				}
+				Sequence   uint32
+				DoFn       MoqRow_starGenType_Err_doFn
+				DoReturnFn MoqRow_starGenType_Err_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqRow_starGenType) PrettyParams_Err(params MoqRow_starGenType_Err_params) string {
+	return fmt.Sprintf("Err()")
+}
+
+func (m *MoqRow_starGenType) ParamsKey_Err(params MoqRow_starGenType_Err_params, anyParams uint64) MoqRow_starGenType_Err_paramsKey {
+	m.Scene.T.Helper()
+	return MoqRow_starGenType_Err_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 // Reset resets the state of the moq
-func (m *MoqRow_starGenType) Reset() { m.ResultsByParams_Scan = nil }
+func (m *MoqRow_starGenType) Reset() { m.ResultsByParams_Scan = nil; m.ResultsByParams_Err = nil }
 
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqRow_starGenType) AssertExpectationsMet() {
@@ -416,6 +713,14 @@ func (m *MoqRow_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Scan(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Err {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Err(results.Params))
 			}
 		}
 	}

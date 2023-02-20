@@ -49,6 +49,7 @@ type Int_starGenType interface {
 	SetString(s string, base int) (*big.Int, bool)
 	SetBytes(buf []byte) *big.Int
 	Bytes() []byte
+	FillBytes(buf []byte) []byte
 	BitLen() int
 	TrailingZeroBits() uint
 	Exp(x, y, m *big.Int) *big.Int
@@ -114,6 +115,7 @@ type MoqInt_starGenType struct {
 	ResultsByParams_SetString        []MoqInt_starGenType_SetString_resultsByParams
 	ResultsByParams_SetBytes         []MoqInt_starGenType_SetBytes_resultsByParams
 	ResultsByParams_Bytes            []MoqInt_starGenType_Bytes_resultsByParams
+	ResultsByParams_FillBytes        []MoqInt_starGenType_FillBytes_resultsByParams
 	ResultsByParams_BitLen           []MoqInt_starGenType_BitLen_resultsByParams
 	ResultsByParams_TrailingZeroBits []MoqInt_starGenType_TrailingZeroBits_resultsByParams
 	ResultsByParams_Exp              []MoqInt_starGenType_Exp_resultsByParams
@@ -229,7 +231,10 @@ type MoqInt_starGenType struct {
 			SetBytes struct {
 				Buf moq.ParamIndexing
 			}
-			Bytes            struct{}
+			Bytes     struct{}
+			FillBytes struct {
+				Buf moq.ParamIndexing
+			}
 			BitLen           struct{}
 			TrailingZeroBits struct{}
 			Exp              struct {
@@ -1974,6 +1979,65 @@ type MoqInt_starGenType_Bytes_fnRecorder struct {
 // Int_starGenType type
 type MoqInt_starGenType_Bytes_anyParams struct {
 	Recorder *MoqInt_starGenType_Bytes_fnRecorder
+}
+
+// MoqInt_starGenType_FillBytes_params holds the params of the Int_starGenType
+// type
+type MoqInt_starGenType_FillBytes_params struct{ Buf []byte }
+
+// MoqInt_starGenType_FillBytes_paramsKey holds the map key params of the
+// Int_starGenType type
+type MoqInt_starGenType_FillBytes_paramsKey struct {
+	Params struct{}
+	Hashes struct{ Buf hash.Hash }
+}
+
+// MoqInt_starGenType_FillBytes_resultsByParams contains the results for a
+// given set of parameters for the Int_starGenType type
+type MoqInt_starGenType_FillBytes_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqInt_starGenType_FillBytes_paramsKey]*MoqInt_starGenType_FillBytes_results
+}
+
+// MoqInt_starGenType_FillBytes_doFn defines the type of function needed when
+// calling AndDo for the Int_starGenType type
+type MoqInt_starGenType_FillBytes_doFn func(buf []byte)
+
+// MoqInt_starGenType_FillBytes_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Int_starGenType type
+type MoqInt_starGenType_FillBytes_doReturnFn func(buf []byte) []byte
+
+// MoqInt_starGenType_FillBytes_results holds the results of the
+// Int_starGenType type
+type MoqInt_starGenType_FillBytes_results struct {
+	Params  MoqInt_starGenType_FillBytes_params
+	Results []struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqInt_starGenType_FillBytes_doFn
+		DoReturnFn MoqInt_starGenType_FillBytes_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqInt_starGenType_FillBytes_fnRecorder routes recorded function calls to
+// the MoqInt_starGenType moq
+type MoqInt_starGenType_FillBytes_fnRecorder struct {
+	Params    MoqInt_starGenType_FillBytes_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqInt_starGenType_FillBytes_results
+	Moq       *MoqInt_starGenType
+}
+
+// MoqInt_starGenType_FillBytes_anyParams isolates the any params functions of
+// the Int_starGenType type
+type MoqInt_starGenType_FillBytes_anyParams struct {
+	Recorder *MoqInt_starGenType_FillBytes_fnRecorder
 }
 
 // MoqInt_starGenType_BitLen_params holds the params of the Int_starGenType
@@ -3824,7 +3888,10 @@ func NewMoqInt_starGenType(scene *moq.Scene, config *moq.Config) *MoqInt_starGen
 				SetBytes struct {
 					Buf moq.ParamIndexing
 				}
-				Bytes            struct{}
+				Bytes     struct{}
+				FillBytes struct {
+					Buf moq.ParamIndexing
+				}
 				BitLen           struct{}
 				TrailingZeroBits struct{}
 				Exp              struct {
@@ -4004,7 +4071,10 @@ func NewMoqInt_starGenType(scene *moq.Scene, config *moq.Config) *MoqInt_starGen
 			SetBytes struct {
 				Buf moq.ParamIndexing
 			}
-			Bytes            struct{}
+			Bytes     struct{}
+			FillBytes struct {
+				Buf moq.ParamIndexing
+			}
 			BitLen           struct{}
 			TrailingZeroBits struct{}
 			Exp              struct {
@@ -4239,7 +4309,12 @@ func NewMoqInt_starGenType(scene *moq.Scene, config *moq.Config) *MoqInt_starGen
 			}{
 				Buf: moq.ParamIndexByHash,
 			},
-			Bytes:            struct{}{},
+			Bytes: struct{}{},
+			FillBytes: struct {
+				Buf moq.ParamIndexing
+			}{
+				Buf: moq.ParamIndexByHash,
+			},
 			BitLen:           struct{}{},
 			TrailingZeroBits: struct{}{},
 			Exp: struct {
@@ -5893,6 +5968,59 @@ func (m *MoqInt_starGenType_mock) Bytes() (result1 []byte) {
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqInt_starGenType_mock) FillBytes(buf []byte) (result1 []byte) {
+	m.Moq.Scene.T.Helper()
+	params := MoqInt_starGenType_FillBytes_params{
+		Buf: buf,
+	}
+	var results *MoqInt_starGenType_FillBytes_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_FillBytes {
+		paramsKey := m.Moq.ParamsKey_FillBytes(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_FillBytes(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_FillBytes(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_FillBytes(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(buf)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(buf)
 	}
 	return
 }
@@ -13235,6 +13363,205 @@ func (m *MoqInt_starGenType) ParamsKey_Bytes(params MoqInt_starGenType_Bytes_par
 	}
 }
 
+func (m *MoqInt_starGenType_recorder) FillBytes(buf []byte) *MoqInt_starGenType_FillBytes_fnRecorder {
+	return &MoqInt_starGenType_FillBytes_fnRecorder{
+		Params: MoqInt_starGenType_FillBytes_params{
+			Buf: buf,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) Any() *MoqInt_starGenType_FillBytes_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FillBytes(r.Params))
+		return nil
+	}
+	return &MoqInt_starGenType_FillBytes_anyParams{Recorder: r}
+}
+
+func (a *MoqInt_starGenType_FillBytes_anyParams) Buf() *MoqInt_starGenType_FillBytes_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) Seq() *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FillBytes(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) NoSeq() *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_FillBytes(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) ReturnResults(result1 []byte) *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqInt_starGenType_FillBytes_doFn
+		DoReturnFn MoqInt_starGenType_FillBytes_doReturnFn
+	}{
+		Values: &struct {
+			Result1 []byte
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) AndDo(fn MoqInt_starGenType_FillBytes_doFn) *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) DoReturnResults(fn MoqInt_starGenType_FillBytes_doReturnFn) *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqInt_starGenType_FillBytes_doFn
+		DoReturnFn MoqInt_starGenType_FillBytes_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqInt_starGenType_FillBytes_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_FillBytes {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqInt_starGenType_FillBytes_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqInt_starGenType_FillBytes_paramsKey]*MoqInt_starGenType_FillBytes_results{},
+		}
+		r.Moq.ResultsByParams_FillBytes = append(r.Moq.ResultsByParams_FillBytes, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_FillBytes) {
+			copy(r.Moq.ResultsByParams_FillBytes[insertAt+1:], r.Moq.ResultsByParams_FillBytes[insertAt:0])
+			r.Moq.ResultsByParams_FillBytes[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_FillBytes(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqInt_starGenType_FillBytes_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqInt_starGenType_FillBytes_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInt_starGenType_FillBytes_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 []byte
+				}
+				Sequence   uint32
+				DoFn       MoqInt_starGenType_FillBytes_doFn
+				DoReturnFn MoqInt_starGenType_FillBytes_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqInt_starGenType) PrettyParams_FillBytes(params MoqInt_starGenType_FillBytes_params) string {
+	return fmt.Sprintf("FillBytes(%#v)", params.Buf)
+}
+
+func (m *MoqInt_starGenType) ParamsKey_FillBytes(params MoqInt_starGenType_FillBytes_params, anyParams uint64) MoqInt_starGenType_FillBytes_paramsKey {
+	m.Scene.T.Helper()
+	var bufUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.FillBytes.Buf == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The buf parameter of the FillBytes function can't be indexed by value")
+		}
+		bufUsedHash = hash.DeepHash(params.Buf)
+	}
+	return MoqInt_starGenType_FillBytes_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{ Buf hash.Hash }{
+			Buf: bufUsedHash,
+		},
+	}
+}
+
 func (m *MoqInt_starGenType_recorder) BitLen() *MoqInt_starGenType_BitLen_fnRecorder {
 	return &MoqInt_starGenType_BitLen_fnRecorder{
 		Params:   MoqInt_starGenType_BitLen_params{},
@@ -19386,6 +19713,7 @@ func (m *MoqInt_starGenType) Reset() {
 	m.ResultsByParams_SetString = nil
 	m.ResultsByParams_SetBytes = nil
 	m.ResultsByParams_Bytes = nil
+	m.ResultsByParams_FillBytes = nil
 	m.ResultsByParams_BitLen = nil
 	m.ResultsByParams_TrailingZeroBits = nil
 	m.ResultsByParams_Exp = nil
@@ -19641,6 +19969,14 @@ func (m *MoqInt_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Bytes(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_FillBytes {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_FillBytes(results.Params))
 			}
 		}
 	}

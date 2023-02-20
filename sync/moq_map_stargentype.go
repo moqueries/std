@@ -22,6 +22,7 @@ type Map_starGenType interface {
 	Load(key interface{}) (value interface{}, ok bool)
 	Store(key, value interface{})
 	LoadOrStore(key, value interface{}) (actual interface{}, loaded bool)
+	LoadAndDelete(key interface{}) (value interface{}, loaded bool)
 	Delete(key interface{})
 	Range(f func(key, value interface{}) bool)
 }
@@ -32,11 +33,12 @@ type MoqMap_starGenType struct {
 	Config moq.Config
 	Moq    *MoqMap_starGenType_mock
 
-	ResultsByParams_Load        []MoqMap_starGenType_Load_resultsByParams
-	ResultsByParams_Store       []MoqMap_starGenType_Store_resultsByParams
-	ResultsByParams_LoadOrStore []MoqMap_starGenType_LoadOrStore_resultsByParams
-	ResultsByParams_Delete      []MoqMap_starGenType_Delete_resultsByParams
-	ResultsByParams_Range       []MoqMap_starGenType_Range_resultsByParams
+	ResultsByParams_Load          []MoqMap_starGenType_Load_resultsByParams
+	ResultsByParams_Store         []MoqMap_starGenType_Store_resultsByParams
+	ResultsByParams_LoadOrStore   []MoqMap_starGenType_LoadOrStore_resultsByParams
+	ResultsByParams_LoadAndDelete []MoqMap_starGenType_LoadAndDelete_resultsByParams
+	ResultsByParams_Delete        []MoqMap_starGenType_Delete_resultsByParams
+	ResultsByParams_Range         []MoqMap_starGenType_Range_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
@@ -50,6 +52,9 @@ type MoqMap_starGenType struct {
 			LoadOrStore struct {
 				Key   moq.ParamIndexing
 				Value moq.ParamIndexing
+			}
+			LoadAndDelete struct {
+				Key moq.ParamIndexing
 			}
 			Delete struct {
 				Key moq.ParamIndexing
@@ -248,6 +253,66 @@ type MoqMap_starGenType_LoadOrStore_anyParams struct {
 	Recorder *MoqMap_starGenType_LoadOrStore_fnRecorder
 }
 
+// MoqMap_starGenType_LoadAndDelete_params holds the params of the
+// Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_params struct{ Key interface{} }
+
+// MoqMap_starGenType_LoadAndDelete_paramsKey holds the map key params of the
+// Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_paramsKey struct {
+	Params struct{ Key interface{} }
+	Hashes struct{ Key hash.Hash }
+}
+
+// MoqMap_starGenType_LoadAndDelete_resultsByParams contains the results for a
+// given set of parameters for the Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqMap_starGenType_LoadAndDelete_paramsKey]*MoqMap_starGenType_LoadAndDelete_results
+}
+
+// MoqMap_starGenType_LoadAndDelete_doFn defines the type of function needed
+// when calling AndDo for the Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_doFn func(key interface{})
+
+// MoqMap_starGenType_LoadAndDelete_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_doReturnFn func(key interface{}) (value interface{}, loaded bool)
+
+// MoqMap_starGenType_LoadAndDelete_results holds the results of the
+// Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_results struct {
+	Params  MoqMap_starGenType_LoadAndDelete_params
+	Results []struct {
+		Values *struct {
+			Value  interface{}
+			Loaded bool
+		}
+		Sequence   uint32
+		DoFn       MoqMap_starGenType_LoadAndDelete_doFn
+		DoReturnFn MoqMap_starGenType_LoadAndDelete_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqMap_starGenType_LoadAndDelete_fnRecorder routes recorded function calls
+// to the MoqMap_starGenType moq
+type MoqMap_starGenType_LoadAndDelete_fnRecorder struct {
+	Params    MoqMap_starGenType_LoadAndDelete_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqMap_starGenType_LoadAndDelete_results
+	Moq       *MoqMap_starGenType
+}
+
+// MoqMap_starGenType_LoadAndDelete_anyParams isolates the any params functions
+// of the Map_starGenType type
+type MoqMap_starGenType_LoadAndDelete_anyParams struct {
+	Recorder *MoqMap_starGenType_LoadAndDelete_fnRecorder
+}
+
 // MoqMap_starGenType_Delete_params holds the params of the Map_starGenType
 // type
 type MoqMap_starGenType_Delete_params struct{ Key interface{} }
@@ -386,6 +451,9 @@ func NewMoqMap_starGenType(scene *moq.Scene, config *moq.Config) *MoqMap_starGen
 					Key   moq.ParamIndexing
 					Value moq.ParamIndexing
 				}
+				LoadAndDelete struct {
+					Key moq.ParamIndexing
+				}
 				Delete struct {
 					Key moq.ParamIndexing
 				}
@@ -404,6 +472,9 @@ func NewMoqMap_starGenType(scene *moq.Scene, config *moq.Config) *MoqMap_starGen
 			LoadOrStore struct {
 				Key   moq.ParamIndexing
 				Value moq.ParamIndexing
+			}
+			LoadAndDelete struct {
+				Key moq.ParamIndexing
 			}
 			Delete struct {
 				Key moq.ParamIndexing
@@ -430,6 +501,11 @@ func NewMoqMap_starGenType(scene *moq.Scene, config *moq.Config) *MoqMap_starGen
 			}{
 				Key:   moq.ParamIndexByHash,
 				Value: moq.ParamIndexByHash,
+			},
+			LoadAndDelete: struct {
+				Key moq.ParamIndexing
+			}{
+				Key: moq.ParamIndexByHash,
 			},
 			Delete: struct {
 				Key moq.ParamIndexing
@@ -608,6 +684,60 @@ func (m *MoqMap_starGenType_mock) LoadOrStore(key, value interface{}) (actual in
 	}
 	if result.DoReturnFn != nil {
 		actual, loaded = result.DoReturnFn(key, value)
+	}
+	return
+}
+
+func (m *MoqMap_starGenType_mock) LoadAndDelete(key interface{}) (value interface{}, loaded bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqMap_starGenType_LoadAndDelete_params{
+		Key: key,
+	}
+	var results *MoqMap_starGenType_LoadAndDelete_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_LoadAndDelete {
+		paramsKey := m.Moq.ParamsKey_LoadAndDelete(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_LoadAndDelete(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_LoadAndDelete(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_LoadAndDelete(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(key)
+	}
+
+	if result.Values != nil {
+		value = result.Values.Value
+		loaded = result.Values.Loaded
+	}
+	if result.DoReturnFn != nil {
+		value, loaded = result.DoReturnFn(key)
 	}
 	return
 }
@@ -1362,6 +1492,214 @@ func (m *MoqMap_starGenType) ParamsKey_LoadOrStore(params MoqMap_starGenType_Loa
 	}
 }
 
+func (m *MoqMap_starGenType_recorder) LoadAndDelete(key interface{}) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	return &MoqMap_starGenType_LoadAndDelete_fnRecorder{
+		Params: MoqMap_starGenType_LoadAndDelete_params{
+			Key: key,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) Any() *MoqMap_starGenType_LoadAndDelete_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LoadAndDelete(r.Params))
+		return nil
+	}
+	return &MoqMap_starGenType_LoadAndDelete_anyParams{Recorder: r}
+}
+
+func (a *MoqMap_starGenType_LoadAndDelete_anyParams) Key() *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) Seq() *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LoadAndDelete(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) NoSeq() *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_LoadAndDelete(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) ReturnResults(value interface{}, loaded bool) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Value  interface{}
+			Loaded bool
+		}
+		Sequence   uint32
+		DoFn       MoqMap_starGenType_LoadAndDelete_doFn
+		DoReturnFn MoqMap_starGenType_LoadAndDelete_doReturnFn
+	}{
+		Values: &struct {
+			Value  interface{}
+			Loaded bool
+		}{
+			Value:  value,
+			Loaded: loaded,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) AndDo(fn MoqMap_starGenType_LoadAndDelete_doFn) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) DoReturnResults(fn MoqMap_starGenType_LoadAndDelete_doReturnFn) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Value  interface{}
+			Loaded bool
+		}
+		Sequence   uint32
+		DoFn       MoqMap_starGenType_LoadAndDelete_doFn
+		DoReturnFn MoqMap_starGenType_LoadAndDelete_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqMap_starGenType_LoadAndDelete_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_LoadAndDelete {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqMap_starGenType_LoadAndDelete_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqMap_starGenType_LoadAndDelete_paramsKey]*MoqMap_starGenType_LoadAndDelete_results{},
+		}
+		r.Moq.ResultsByParams_LoadAndDelete = append(r.Moq.ResultsByParams_LoadAndDelete, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_LoadAndDelete) {
+			copy(r.Moq.ResultsByParams_LoadAndDelete[insertAt+1:], r.Moq.ResultsByParams_LoadAndDelete[insertAt:0])
+			r.Moq.ResultsByParams_LoadAndDelete[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_LoadAndDelete(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqMap_starGenType_LoadAndDelete_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqMap_starGenType_LoadAndDelete_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqMap_starGenType_LoadAndDelete_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Value  interface{}
+					Loaded bool
+				}
+				Sequence   uint32
+				DoFn       MoqMap_starGenType_LoadAndDelete_doFn
+				DoReturnFn MoqMap_starGenType_LoadAndDelete_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqMap_starGenType) PrettyParams_LoadAndDelete(params MoqMap_starGenType_LoadAndDelete_params) string {
+	return fmt.Sprintf("LoadAndDelete(%#v)", params.Key)
+}
+
+func (m *MoqMap_starGenType) ParamsKey_LoadAndDelete(params MoqMap_starGenType_LoadAndDelete_params, anyParams uint64) MoqMap_starGenType_LoadAndDelete_paramsKey {
+	m.Scene.T.Helper()
+	var keyUsed interface{}
+	var keyUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.LoadAndDelete.Key == moq.ParamIndexByValue {
+			keyUsed = params.Key
+		} else {
+			keyUsedHash = hash.DeepHash(params.Key)
+		}
+	}
+	return MoqMap_starGenType_LoadAndDelete_paramsKey{
+		Params: struct{ Key interface{} }{
+			Key: keyUsed,
+		},
+		Hashes: struct{ Key hash.Hash }{
+			Key: keyUsedHash,
+		},
+	}
+}
+
 func (m *MoqMap_starGenType_recorder) Delete(key interface{}) *MoqMap_starGenType_Delete_fnRecorder {
 	return &MoqMap_starGenType_Delete_fnRecorder{
 		Params: MoqMap_starGenType_Delete_params{
@@ -1749,6 +2087,7 @@ func (m *MoqMap_starGenType) Reset() {
 	m.ResultsByParams_Load = nil
 	m.ResultsByParams_Store = nil
 	m.ResultsByParams_LoadOrStore = nil
+	m.ResultsByParams_LoadAndDelete = nil
 	m.ResultsByParams_Delete = nil
 	m.ResultsByParams_Range = nil
 }
@@ -1777,6 +2116,14 @@ func (m *MoqMap_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_LoadOrStore(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_LoadAndDelete {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_LoadAndDelete(results.Params))
 			}
 		}
 	}

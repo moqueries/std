@@ -16,7 +16,7 @@ import (
 
 // SignPSS_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type SignPSS_genType func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions) ([]byte, error)
+type SignPSS_genType func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions) ([]byte, error)
 
 // MoqSignPSS_genType holds the state of a moq of the SignPSS_genType type
 type MoqSignPSS_genType struct {
@@ -31,7 +31,7 @@ type MoqSignPSS_genType struct {
 			Rand   moq.ParamIndexing
 			Priv   moq.ParamIndexing
 			Hash   moq.ParamIndexing
-			Hashed moq.ParamIndexing
+			Digest moq.ParamIndexing
 			Opts   moq.ParamIndexing
 		}
 	}
@@ -48,7 +48,7 @@ type MoqSignPSS_genType_params struct {
 	Rand   io.Reader
 	Priv   *rsa.PrivateKey
 	Hash   crypto.Hash
-	Hashed []byte
+	Digest []byte
 	Opts   *rsa.PSSOptions
 }
 
@@ -65,7 +65,7 @@ type MoqSignPSS_genType_paramsKey struct {
 		Rand   hash.Hash
 		Priv   hash.Hash
 		Hash   hash.Hash
-		Hashed hash.Hash
+		Digest hash.Hash
 		Opts   hash.Hash
 	}
 }
@@ -80,11 +80,11 @@ type MoqSignPSS_genType_resultsByParams struct {
 
 // MoqSignPSS_genType_doFn defines the type of function needed when calling
 // AndDo for the SignPSS_genType type
-type MoqSignPSS_genType_doFn func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions)
+type MoqSignPSS_genType_doFn func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions)
 
 // MoqSignPSS_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the SignPSS_genType type
-type MoqSignPSS_genType_doReturnFn func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions) ([]byte, error)
+type MoqSignPSS_genType_doReturnFn func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions) ([]byte, error)
 
 // MoqSignPSS_genType_results holds the results of the SignPSS_genType type
 type MoqSignPSS_genType_results struct {
@@ -133,20 +133,20 @@ func NewMoqSignPSS_genType(scene *moq.Scene, config *moq.Config) *MoqSignPSS_gen
 				Rand   moq.ParamIndexing
 				Priv   moq.ParamIndexing
 				Hash   moq.ParamIndexing
-				Hashed moq.ParamIndexing
+				Digest moq.ParamIndexing
 				Opts   moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
 			Rand   moq.ParamIndexing
 			Priv   moq.ParamIndexing
 			Hash   moq.ParamIndexing
-			Hashed moq.ParamIndexing
+			Digest moq.ParamIndexing
 			Opts   moq.ParamIndexing
 		}{
 			Rand:   moq.ParamIndexByHash,
 			Priv:   moq.ParamIndexByHash,
 			Hash:   moq.ParamIndexByValue,
-			Hashed: moq.ParamIndexByHash,
+			Digest: moq.ParamIndexByHash,
 			Opts:   moq.ParamIndexByHash,
 		}},
 	}
@@ -158,20 +158,20 @@ func NewMoqSignPSS_genType(scene *moq.Scene, config *moq.Config) *MoqSignPSS_gen
 
 // Mock returns the moq implementation of the SignPSS_genType type
 func (m *MoqSignPSS_genType) Mock() SignPSS_genType {
-	return func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions) ([]byte, error) {
+	return func(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqSignPSS_genType_mock{Moq: m}
-		return moq.Fn(rand, priv, hash, hashed, opts)
+		return moq.Fn(rand, priv, hash, digest, opts)
 	}
 }
 
-func (m *MoqSignPSS_genType_mock) Fn(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions) (result1 []byte, result2 error) {
+func (m *MoqSignPSS_genType_mock) Fn(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSignPSS_genType_params{
 		Rand:   rand,
 		Priv:   priv,
 		Hash:   hash,
-		Hashed: hashed,
+		Digest: digest,
 		Opts:   opts,
 	}
 	var results *MoqSignPSS_genType_results
@@ -210,7 +210,7 @@ func (m *MoqSignPSS_genType_mock) Fn(rand io.Reader, priv *rsa.PrivateKey, hash 
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(rand, priv, hash, hashed, opts)
+		result.DoFn(rand, priv, hash, digest, opts)
 	}
 
 	if result.Values != nil {
@@ -218,18 +218,18 @@ func (m *MoqSignPSS_genType_mock) Fn(rand io.Reader, priv *rsa.PrivateKey, hash 
 		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		result1, result2 = result.DoReturnFn(rand, priv, hash, hashed, opts)
+		result1, result2 = result.DoReturnFn(rand, priv, hash, digest, opts)
 	}
 	return
 }
 
-func (m *MoqSignPSS_genType) OnCall(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, hashed []byte, opts *rsa.PSSOptions) *MoqSignPSS_genType_fnRecorder {
+func (m *MoqSignPSS_genType) OnCall(rand io.Reader, priv *rsa.PrivateKey, hash crypto.Hash, digest []byte, opts *rsa.PSSOptions) *MoqSignPSS_genType_fnRecorder {
 	return &MoqSignPSS_genType_fnRecorder{
 		Params: MoqSignPSS_genType_params{
 			Rand:   rand,
 			Priv:   priv,
 			Hash:   hash,
-			Hashed: hashed,
+			Digest: digest,
 			Opts:   opts,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
@@ -261,7 +261,7 @@ func (a *MoqSignPSS_genType_anyParams) Hash() *MoqSignPSS_genType_fnRecorder {
 	return a.Recorder
 }
 
-func (a *MoqSignPSS_genType_anyParams) Hashed() *MoqSignPSS_genType_fnRecorder {
+func (a *MoqSignPSS_genType_anyParams) Digest() *MoqSignPSS_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 3
 	return a.Recorder
 }
@@ -431,7 +431,7 @@ func (r *MoqSignPSS_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqSi
 }
 
 func (m *MoqSignPSS_genType) PrettyParams(params MoqSignPSS_genType_params) string {
-	return fmt.Sprintf("SignPSS_genType(%#v, %#v, %#v, %#v, %#v)", params.Rand, params.Priv, params.Hash, params.Hashed, params.Opts)
+	return fmt.Sprintf("SignPSS_genType(%#v, %#v, %#v, %#v, %#v)", params.Rand, params.Priv, params.Hash, params.Digest, params.Opts)
 }
 
 func (m *MoqSignPSS_genType) ParamsKey(params MoqSignPSS_genType_params, anyParams uint64) MoqSignPSS_genType_paramsKey {
@@ -463,12 +463,12 @@ func (m *MoqSignPSS_genType) ParamsKey(params MoqSignPSS_genType_params, anyPara
 			hashUsedHash = hash.DeepHash(params.Hash)
 		}
 	}
-	var hashedUsedHash hash.Hash
+	var digestUsedHash hash.Hash
 	if anyParams&(1<<3) == 0 {
-		if m.Runtime.ParameterIndexing.Hashed == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The hashed parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.Digest == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The digest parameter can't be indexed by value")
 		}
-		hashedUsedHash = hash.DeepHash(params.Hashed)
+		digestUsedHash = hash.DeepHash(params.Digest)
 	}
 	var optsUsed *rsa.PSSOptions
 	var optsUsedHash hash.Hash
@@ -495,13 +495,13 @@ func (m *MoqSignPSS_genType) ParamsKey(params MoqSignPSS_genType_params, anyPara
 			Rand   hash.Hash
 			Priv   hash.Hash
 			Hash   hash.Hash
-			Hashed hash.Hash
+			Digest hash.Hash
 			Opts   hash.Hash
 		}{
 			Rand:   randUsedHash,
 			Priv:   privUsedHash,
 			Hash:   hashUsedHash,
-			Hashed: hashedUsedHash,
+			Digest: digestUsedHash,
 			Opts:   optsUsedHash,
 		},
 	}
