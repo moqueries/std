@@ -25,12 +25,12 @@ type Resolver_starGenType interface {
 	LookupIPAddr(ctx context.Context, host string) ([]net.IPAddr, error)
 	LookupIP(ctx context.Context, network, host string) ([]net.IP, error)
 	LookupPort(ctx context.Context, network, service string) (port int, err error)
-	LookupCNAME(ctx context.Context, host string) (cname string, err error)
-	LookupSRV(ctx context.Context, service, proto, name string) (cname string, addrs []*net.SRV, err error)
+	LookupCNAME(ctx context.Context, host string) (string, error)
+	LookupSRV(ctx context.Context, service, proto, name string) (string, []*net.SRV, error)
 	LookupMX(ctx context.Context, name string) ([]*net.MX, error)
 	LookupNS(ctx context.Context, name string) ([]*net.NS, error)
 	LookupTXT(ctx context.Context, name string) ([]string, error)
-	LookupAddr(ctx context.Context, addr string) (names []string, err error)
+	LookupAddr(ctx context.Context, addr string) ([]string, error)
 }
 
 // MoqResolver_starGenType holds the state of a moq of the Resolver_starGenType
@@ -423,7 +423,7 @@ type MoqResolver_starGenType_LookupCNAME_doFn func(ctx context.Context, host str
 
 // MoqResolver_starGenType_LookupCNAME_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Resolver_starGenType type
-type MoqResolver_starGenType_LookupCNAME_doReturnFn func(ctx context.Context, host string) (cname string, err error)
+type MoqResolver_starGenType_LookupCNAME_doReturnFn func(ctx context.Context, host string) (string, error)
 
 // MoqResolver_starGenType_LookupCNAME_results holds the results of the
 // Resolver_starGenType type
@@ -431,8 +431,8 @@ type MoqResolver_starGenType_LookupCNAME_results struct {
 	Params  MoqResolver_starGenType_LookupCNAME_params
 	Results []struct {
 		Values *struct {
-			Cname string
-			Err   error
+			Result1 string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupCNAME_doFn
@@ -492,7 +492,7 @@ type MoqResolver_starGenType_LookupSRV_doFn func(ctx context.Context, service, p
 
 // MoqResolver_starGenType_LookupSRV_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Resolver_starGenType type
-type MoqResolver_starGenType_LookupSRV_doReturnFn func(ctx context.Context, service, proto, name string) (cname string, addrs []*net.SRV, err error)
+type MoqResolver_starGenType_LookupSRV_doReturnFn func(ctx context.Context, service, proto, name string) (string, []*net.SRV, error)
 
 // MoqResolver_starGenType_LookupSRV_results holds the results of the
 // Resolver_starGenType type
@@ -500,9 +500,9 @@ type MoqResolver_starGenType_LookupSRV_results struct {
 	Params  MoqResolver_starGenType_LookupSRV_params
 	Results []struct {
 		Values *struct {
-			Cname string
-			Addrs []*net.SRV
-			Err   error
+			Result1 string
+			Result2 []*net.SRV
+			Result3 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupSRV_doFn
@@ -769,7 +769,7 @@ type MoqResolver_starGenType_LookupAddr_doFn func(ctx context.Context, addr stri
 
 // MoqResolver_starGenType_LookupAddr_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Resolver_starGenType type
-type MoqResolver_starGenType_LookupAddr_doReturnFn func(ctx context.Context, addr string) (names []string, err error)
+type MoqResolver_starGenType_LookupAddr_doReturnFn func(ctx context.Context, addr string) ([]string, error)
 
 // MoqResolver_starGenType_LookupAddr_results holds the results of the
 // Resolver_starGenType type
@@ -777,8 +777,8 @@ type MoqResolver_starGenType_LookupAddr_results struct {
 	Params  MoqResolver_starGenType_LookupAddr_params
 	Results []struct {
 		Values *struct {
-			Names []string
-			Err   error
+			Result1 []string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupAddr_doFn
@@ -1219,7 +1219,7 @@ func (m *MoqResolver_starGenType_mock) LookupPort(ctx context.Context, network, 
 	return
 }
 
-func (m *MoqResolver_starGenType_mock) LookupCNAME(ctx context.Context, host string) (cname string, err error) {
+func (m *MoqResolver_starGenType_mock) LookupCNAME(ctx context.Context, host string) (result1 string, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqResolver_starGenType_LookupCNAME_params{
 		Ctx:  ctx,
@@ -1265,16 +1265,16 @@ func (m *MoqResolver_starGenType_mock) LookupCNAME(ctx context.Context, host str
 	}
 
 	if result.Values != nil {
-		cname = result.Values.Cname
-		err = result.Values.Err
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		cname, err = result.DoReturnFn(ctx, host)
+		result1, result2 = result.DoReturnFn(ctx, host)
 	}
 	return
 }
 
-func (m *MoqResolver_starGenType_mock) LookupSRV(ctx context.Context, service, proto, name string) (cname string, addrs []*net.SRV, err error) {
+func (m *MoqResolver_starGenType_mock) LookupSRV(ctx context.Context, service, proto, name string) (result1 string, result2 []*net.SRV, result3 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqResolver_starGenType_LookupSRV_params{
 		Ctx:     ctx,
@@ -1322,12 +1322,12 @@ func (m *MoqResolver_starGenType_mock) LookupSRV(ctx context.Context, service, p
 	}
 
 	if result.Values != nil {
-		cname = result.Values.Cname
-		addrs = result.Values.Addrs
-		err = result.Values.Err
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+		result3 = result.Values.Result3
 	}
 	if result.DoReturnFn != nil {
-		cname, addrs, err = result.DoReturnFn(ctx, service, proto, name)
+		result1, result2, result3 = result.DoReturnFn(ctx, service, proto, name)
 	}
 	return
 }
@@ -1497,7 +1497,7 @@ func (m *MoqResolver_starGenType_mock) LookupTXT(ctx context.Context, name strin
 	return
 }
 
-func (m *MoqResolver_starGenType_mock) LookupAddr(ctx context.Context, addr string) (names []string, err error) {
+func (m *MoqResolver_starGenType_mock) LookupAddr(ctx context.Context, addr string) (result1 []string, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqResolver_starGenType_LookupAddr_params{
 		Ctx:  ctx,
@@ -1543,11 +1543,11 @@ func (m *MoqResolver_starGenType_mock) LookupAddr(ctx context.Context, addr stri
 	}
 
 	if result.Values != nil {
-		names = result.Values.Names
-		err = result.Values.Err
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		names, err = result.DoReturnFn(ctx, addr)
+		result1, result2 = result.DoReturnFn(ctx, addr)
 	}
 	return
 }
@@ -2567,7 +2567,7 @@ func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) NoSeq() *MoqResolver_st
 	return r
 }
 
-func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) ReturnResults(cname string, err error) *MoqResolver_starGenType_LookupCNAME_fnRecorder {
+func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) ReturnResults(result1 string, result2 error) *MoqResolver_starGenType_LookupCNAME_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -2578,19 +2578,19 @@ func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) ReturnResults(cname str
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cname string
-			Err   error
+			Result1 string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupCNAME_doFn
 		DoReturnFn MoqResolver_starGenType_LookupCNAME_doReturnFn
 	}{
 		Values: &struct {
-			Cname string
-			Err   error
+			Result1 string
+			Result2 error
 		}{
-			Cname: cname,
-			Err:   err,
+			Result1: result1,
+			Result2: result2,
 		},
 		Sequence: sequence,
 	})
@@ -2619,8 +2619,8 @@ func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) DoReturnResults(fn MoqR
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cname string
-			Err   error
+			Result1 string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupCNAME_doFn
@@ -2690,8 +2690,8 @@ func (r *MoqResolver_starGenType_LookupCNAME_fnRecorder) Repeat(repeaters ...moq
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Cname string
-					Err   error
+					Result1 string
+					Result2 error
 				}
 				Sequence   uint32
 				DoFn       MoqResolver_starGenType_LookupCNAME_doFn
@@ -2810,7 +2810,7 @@ func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) NoSeq() *MoqResolver_star
 	return r
 }
 
-func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) ReturnResults(cname string, addrs []*net.SRV, err error) *MoqResolver_starGenType_LookupSRV_fnRecorder {
+func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) ReturnResults(result1 string, result2 []*net.SRV, result3 error) *MoqResolver_starGenType_LookupSRV_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -2821,22 +2821,22 @@ func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) ReturnResults(cname strin
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cname string
-			Addrs []*net.SRV
-			Err   error
+			Result1 string
+			Result2 []*net.SRV
+			Result3 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupSRV_doFn
 		DoReturnFn MoqResolver_starGenType_LookupSRV_doReturnFn
 	}{
 		Values: &struct {
-			Cname string
-			Addrs []*net.SRV
-			Err   error
+			Result1 string
+			Result2 []*net.SRV
+			Result3 error
 		}{
-			Cname: cname,
-			Addrs: addrs,
-			Err:   err,
+			Result1: result1,
+			Result2: result2,
+			Result3: result3,
 		},
 		Sequence: sequence,
 	})
@@ -2865,9 +2865,9 @@ func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) DoReturnResults(fn MoqRes
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Cname string
-			Addrs []*net.SRV
-			Err   error
+			Result1 string
+			Result2 []*net.SRV
+			Result3 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupSRV_doFn
@@ -2937,9 +2937,9 @@ func (r *MoqResolver_starGenType_LookupSRV_fnRecorder) Repeat(repeaters ...moq.R
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Cname string
-					Addrs []*net.SRV
-					Err   error
+					Result1 string
+					Result2 []*net.SRV
+					Result3 error
 				}
 				Sequence   uint32
 				DoFn       MoqResolver_starGenType_LookupSRV_doFn
@@ -3761,7 +3761,7 @@ func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) NoSeq() *MoqResolver_sta
 	return r
 }
 
-func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) ReturnResults(names []string, err error) *MoqResolver_starGenType_LookupAddr_fnRecorder {
+func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) ReturnResults(result1 []string, result2 error) *MoqResolver_starGenType_LookupAddr_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -3772,19 +3772,19 @@ func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) ReturnResults(names []st
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Names []string
-			Err   error
+			Result1 []string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupAddr_doFn
 		DoReturnFn MoqResolver_starGenType_LookupAddr_doReturnFn
 	}{
 		Values: &struct {
-			Names []string
-			Err   error
+			Result1 []string
+			Result2 error
 		}{
-			Names: names,
-			Err:   err,
+			Result1: result1,
+			Result2: result2,
 		},
 		Sequence: sequence,
 	})
@@ -3813,8 +3813,8 @@ func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) DoReturnResults(fn MoqRe
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Names []string
-			Err   error
+			Result1 []string
+			Result2 error
 		}
 		Sequence   uint32
 		DoFn       MoqResolver_starGenType_LookupAddr_doFn
@@ -3884,8 +3884,8 @@ func (r *MoqResolver_starGenType_LookupAddr_fnRecorder) Repeat(repeaters ...moq.
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Names []string
-					Err   error
+					Result1 []string
+					Result2 error
 				}
 				Sequence   uint32
 				DoFn       MoqResolver_starGenType_LookupAddr_doFn
