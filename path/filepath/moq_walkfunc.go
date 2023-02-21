@@ -4,8 +4,8 @@ package filepath
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"path/filepath"
 	"sync/atomic"
 
@@ -38,7 +38,7 @@ type MoqWalkFunc_mock struct {
 // MoqWalkFunc_params holds the params of the WalkFunc type
 type MoqWalkFunc_params struct {
 	Path string
-	Info os.FileInfo
+	Info fs.FileInfo
 	Err  error
 }
 
@@ -46,7 +46,7 @@ type MoqWalkFunc_params struct {
 type MoqWalkFunc_paramsKey struct {
 	Params struct {
 		Path string
-		Info os.FileInfo
+		Info fs.FileInfo
 		Err  error
 	}
 	Hashes struct {
@@ -66,11 +66,11 @@ type MoqWalkFunc_resultsByParams struct {
 
 // MoqWalkFunc_doFn defines the type of function needed when calling AndDo for
 // the WalkFunc type
-type MoqWalkFunc_doFn func(path string, info os.FileInfo, err error)
+type MoqWalkFunc_doFn func(path string, info fs.FileInfo, err error)
 
 // MoqWalkFunc_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the WalkFunc type
-type MoqWalkFunc_doReturnFn func(path string, info os.FileInfo, err error) error
+type MoqWalkFunc_doReturnFn func(path string, info fs.FileInfo, err error) error
 
 // MoqWalkFunc_results holds the results of the WalkFunc type
 type MoqWalkFunc_results struct {
@@ -135,14 +135,14 @@ func NewMoqWalkFunc(scene *moq.Scene, config *moq.Config) *MoqWalkFunc {
 
 // Mock returns the moq implementation of the WalkFunc type
 func (m *MoqWalkFunc) Mock() filepath.WalkFunc {
-	return func(path string, info os.FileInfo, err error) error {
+	return func(path string, info fs.FileInfo, err error) error {
 		m.Scene.T.Helper()
 		moq := &MoqWalkFunc_mock{Moq: m}
 		return moq.Fn(path, info, err)
 	}
 }
 
-func (m *MoqWalkFunc_mock) Fn(path string, info os.FileInfo, err error) (result1 error) {
+func (m *MoqWalkFunc_mock) Fn(path string, info fs.FileInfo, err error) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWalkFunc_params{
 		Path: path,
@@ -197,7 +197,7 @@ func (m *MoqWalkFunc_mock) Fn(path string, info os.FileInfo, err error) (result1
 	return
 }
 
-func (m *MoqWalkFunc) OnCall(path string, info os.FileInfo, err error) *MoqWalkFunc_fnRecorder {
+func (m *MoqWalkFunc) OnCall(path string, info fs.FileInfo, err error) *MoqWalkFunc_fnRecorder {
 	return &MoqWalkFunc_fnRecorder{
 		Params: MoqWalkFunc_params{
 			Path: path,
@@ -402,7 +402,7 @@ func (m *MoqWalkFunc) ParamsKey(params MoqWalkFunc_params, anyParams uint64) Moq
 			pathUsedHash = hash.DeepHash(params.Path)
 		}
 	}
-	var infoUsed os.FileInfo
+	var infoUsed fs.FileInfo
 	var infoUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Info == moq.ParamIndexByValue {
@@ -423,7 +423,7 @@ func (m *MoqWalkFunc) ParamsKey(params MoqWalkFunc_params, anyParams uint64) Moq
 	return MoqWalkFunc_paramsKey{
 		Params: struct {
 			Path string
-			Info os.FileInfo
+			Info fs.FileInfo
 			Err  error
 		}{
 			Path: pathUsed,

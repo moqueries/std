@@ -5,8 +5,8 @@ package tar
 import (
 	"archive/tar"
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -15,7 +15,7 @@ import (
 
 // FileInfoHeader_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type FileInfoHeader_genType func(fi os.FileInfo, link string) (*tar.Header, error)
+type FileInfoHeader_genType func(fi fs.FileInfo, link string) (*tar.Header, error)
 
 // MoqFileInfoHeader_genType holds the state of a moq of the
 // FileInfoHeader_genType type
@@ -43,7 +43,7 @@ type MoqFileInfoHeader_genType_mock struct {
 // MoqFileInfoHeader_genType_params holds the params of the
 // FileInfoHeader_genType type
 type MoqFileInfoHeader_genType_params struct {
-	Fi   os.FileInfo
+	Fi   fs.FileInfo
 	Link string
 }
 
@@ -51,7 +51,7 @@ type MoqFileInfoHeader_genType_params struct {
 // FileInfoHeader_genType type
 type MoqFileInfoHeader_genType_paramsKey struct {
 	Params struct {
-		Fi   os.FileInfo
+		Fi   fs.FileInfo
 		Link string
 	}
 	Hashes struct {
@@ -70,11 +70,11 @@ type MoqFileInfoHeader_genType_resultsByParams struct {
 
 // MoqFileInfoHeader_genType_doFn defines the type of function needed when
 // calling AndDo for the FileInfoHeader_genType type
-type MoqFileInfoHeader_genType_doFn func(fi os.FileInfo, link string)
+type MoqFileInfoHeader_genType_doFn func(fi fs.FileInfo, link string)
 
 // MoqFileInfoHeader_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the FileInfoHeader_genType type
-type MoqFileInfoHeader_genType_doReturnFn func(fi os.FileInfo, link string) (*tar.Header, error)
+type MoqFileInfoHeader_genType_doReturnFn func(fi fs.FileInfo, link string) (*tar.Header, error)
 
 // MoqFileInfoHeader_genType_results holds the results of the
 // FileInfoHeader_genType type
@@ -141,14 +141,14 @@ func NewMoqFileInfoHeader_genType(scene *moq.Scene, config *moq.Config) *MoqFile
 
 // Mock returns the moq implementation of the FileInfoHeader_genType type
 func (m *MoqFileInfoHeader_genType) Mock() FileInfoHeader_genType {
-	return func(fi os.FileInfo, link string) (*tar.Header, error) {
+	return func(fi fs.FileInfo, link string) (*tar.Header, error) {
 		m.Scene.T.Helper()
 		moq := &MoqFileInfoHeader_genType_mock{Moq: m}
 		return moq.Fn(fi, link)
 	}
 }
 
-func (m *MoqFileInfoHeader_genType_mock) Fn(fi os.FileInfo, link string) (result1 *tar.Header, result2 error) {
+func (m *MoqFileInfoHeader_genType_mock) Fn(fi fs.FileInfo, link string) (result1 *tar.Header, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileInfoHeader_genType_params{
 		Fi:   fi,
@@ -203,7 +203,7 @@ func (m *MoqFileInfoHeader_genType_mock) Fn(fi os.FileInfo, link string) (result
 	return
 }
 
-func (m *MoqFileInfoHeader_genType) OnCall(fi os.FileInfo, link string) *MoqFileInfoHeader_genType_fnRecorder {
+func (m *MoqFileInfoHeader_genType) OnCall(fi fs.FileInfo, link string) *MoqFileInfoHeader_genType_fnRecorder {
 	return &MoqFileInfoHeader_genType_fnRecorder{
 		Params: MoqFileInfoHeader_genType_params{
 			Fi:   fi,
@@ -398,7 +398,7 @@ func (m *MoqFileInfoHeader_genType) PrettyParams(params MoqFileInfoHeader_genTyp
 
 func (m *MoqFileInfoHeader_genType) ParamsKey(params MoqFileInfoHeader_genType_params, anyParams uint64) MoqFileInfoHeader_genType_paramsKey {
 	m.Scene.T.Helper()
-	var fiUsed os.FileInfo
+	var fiUsed fs.FileInfo
 	var fiUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Fi == moq.ParamIndexByValue {
@@ -418,7 +418,7 @@ func (m *MoqFileInfoHeader_genType) ParamsKey(params MoqFileInfoHeader_genType_p
 	}
 	return MoqFileInfoHeader_genType_paramsKey{
 		Params: struct {
-			Fi   os.FileInfo
+			Fi   fs.FileInfo
 			Link string
 		}{
 			Fi:   fiUsed,

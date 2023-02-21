@@ -13,7 +13,7 @@ import (
 
 // Float64sAreSorted_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type Float64sAreSorted_genType func(a []float64) bool
+type Float64sAreSorted_genType func(x []float64) bool
 
 // MoqFloat64sAreSorted_genType holds the state of a moq of the
 // Float64sAreSorted_genType type
@@ -26,7 +26,7 @@ type MoqFloat64sAreSorted_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}
 	}
 }
@@ -39,13 +39,13 @@ type MoqFloat64sAreSorted_genType_mock struct {
 
 // MoqFloat64sAreSorted_genType_params holds the params of the
 // Float64sAreSorted_genType type
-type MoqFloat64sAreSorted_genType_params struct{ A []float64 }
+type MoqFloat64sAreSorted_genType_params struct{ X []float64 }
 
 // MoqFloat64sAreSorted_genType_paramsKey holds the map key params of the
 // Float64sAreSorted_genType type
 type MoqFloat64sAreSorted_genType_paramsKey struct {
 	Params struct{}
-	Hashes struct{ A hash.Hash }
+	Hashes struct{ X hash.Hash }
 }
 
 // MoqFloat64sAreSorted_genType_resultsByParams contains the results for a
@@ -58,11 +58,11 @@ type MoqFloat64sAreSorted_genType_resultsByParams struct {
 
 // MoqFloat64sAreSorted_genType_doFn defines the type of function needed when
 // calling AndDo for the Float64sAreSorted_genType type
-type MoqFloat64sAreSorted_genType_doFn func(a []float64)
+type MoqFloat64sAreSorted_genType_doFn func(x []float64)
 
 // MoqFloat64sAreSorted_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Float64sAreSorted_genType type
-type MoqFloat64sAreSorted_genType_doReturnFn func(a []float64) bool
+type MoqFloat64sAreSorted_genType_doReturnFn func(x []float64) bool
 
 // MoqFloat64sAreSorted_genType_results holds the results of the
 // Float64sAreSorted_genType type
@@ -109,12 +109,12 @@ func NewMoqFloat64sAreSorted_genType(scene *moq.Scene, config *moq.Config) *MoqF
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				A moq.ParamIndexing
+				X moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}{
-			A: moq.ParamIndexByHash,
+			X: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -125,17 +125,17 @@ func NewMoqFloat64sAreSorted_genType(scene *moq.Scene, config *moq.Config) *MoqF
 
 // Mock returns the moq implementation of the Float64sAreSorted_genType type
 func (m *MoqFloat64sAreSorted_genType) Mock() Float64sAreSorted_genType {
-	return func(a []float64) bool {
+	return func(x []float64) bool {
 		m.Scene.T.Helper()
 		moq := &MoqFloat64sAreSorted_genType_mock{Moq: m}
-		return moq.Fn(a)
+		return moq.Fn(x)
 	}
 }
 
-func (m *MoqFloat64sAreSorted_genType_mock) Fn(a []float64) (result1 bool) {
+func (m *MoqFloat64sAreSorted_genType_mock) Fn(x []float64) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFloat64sAreSorted_genType_params{
-		A: a,
+		X: x,
 	}
 	var results *MoqFloat64sAreSorted_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -173,22 +173,22 @@ func (m *MoqFloat64sAreSorted_genType_mock) Fn(a []float64) (result1 bool) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(a)
+		result.DoFn(x)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(a)
+		result1 = result.DoReturnFn(x)
 	}
 	return
 }
 
-func (m *MoqFloat64sAreSorted_genType) OnCall(a []float64) *MoqFloat64sAreSorted_genType_fnRecorder {
+func (m *MoqFloat64sAreSorted_genType) OnCall(x []float64) *MoqFloat64sAreSorted_genType_fnRecorder {
 	return &MoqFloat64sAreSorted_genType_fnRecorder{
 		Params: MoqFloat64sAreSorted_genType_params{
-			A: a,
+			X: x,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -204,7 +204,7 @@ func (r *MoqFloat64sAreSorted_genType_fnRecorder) Any() *MoqFloat64sAreSorted_ge
 	return &MoqFloat64sAreSorted_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqFloat64sAreSorted_genType_anyParams) A() *MoqFloat64sAreSorted_genType_fnRecorder {
+func (a *MoqFloat64sAreSorted_genType_anyParams) X() *MoqFloat64sAreSorted_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -364,22 +364,22 @@ func (r *MoqFloat64sAreSorted_genType_fnRecorder) Repeat(repeaters ...moq.Repeat
 }
 
 func (m *MoqFloat64sAreSorted_genType) PrettyParams(params MoqFloat64sAreSorted_genType_params) string {
-	return fmt.Sprintf("Float64sAreSorted_genType(%#v)", params.A)
+	return fmt.Sprintf("Float64sAreSorted_genType(%#v)", params.X)
 }
 
 func (m *MoqFloat64sAreSorted_genType) ParamsKey(params MoqFloat64sAreSorted_genType_params, anyParams uint64) MoqFloat64sAreSorted_genType_paramsKey {
 	m.Scene.T.Helper()
-	var aUsedHash hash.Hash
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.A == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The a parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The x parameter can't be indexed by value")
 		}
-		aUsedHash = hash.DeepHash(params.A)
+		xUsedHash = hash.DeepHash(params.X)
 	}
 	return MoqFloat64sAreSorted_genType_paramsKey{
 		Params: struct{}{},
-		Hashes: struct{ A hash.Hash }{
-			A: aUsedHash,
+		Hashes: struct{ X hash.Hash }{
+			X: xUsedHash,
 		},
 	}
 }

@@ -25,8 +25,8 @@ type MoqFormatter struct {
 	Runtime struct {
 		ParameterIndexing struct {
 			Format struct {
-				F moq.ParamIndexing
-				C moq.ParamIndexing
+				F    moq.ParamIndexing
+				Verb moq.ParamIndexing
 			}
 		}
 	}
@@ -44,19 +44,19 @@ type MoqFormatter_recorder struct {
 
 // MoqFormatter_Format_params holds the params of the Formatter type
 type MoqFormatter_Format_params struct {
-	F fmt.State
-	C rune
+	F    fmt.State
+	Verb rune
 }
 
 // MoqFormatter_Format_paramsKey holds the map key params of the Formatter type
 type MoqFormatter_Format_paramsKey struct {
 	Params struct {
-		F fmt.State
-		C rune
+		F    fmt.State
+		Verb rune
 	}
 	Hashes struct {
-		F hash.Hash
-		C hash.Hash
+		F    hash.Hash
+		Verb hash.Hash
 	}
 }
 
@@ -70,11 +70,11 @@ type MoqFormatter_Format_resultsByParams struct {
 
 // MoqFormatter_Format_doFn defines the type of function needed when calling
 // AndDo for the Formatter type
-type MoqFormatter_Format_doFn func(f fmt.State, c rune)
+type MoqFormatter_Format_doFn func(f fmt.State, verb rune)
 
 // MoqFormatter_Format_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Formatter type
-type MoqFormatter_Format_doReturnFn func(f fmt.State, c rune)
+type MoqFormatter_Format_doReturnFn func(f fmt.State, verb rune)
 
 // MoqFormatter_Format_results holds the results of the Formatter type
 type MoqFormatter_Format_results struct {
@@ -118,22 +118,22 @@ func NewMoqFormatter(scene *moq.Scene, config *moq.Config) *MoqFormatter {
 		Runtime: struct {
 			ParameterIndexing struct {
 				Format struct {
-					F moq.ParamIndexing
-					C moq.ParamIndexing
+					F    moq.ParamIndexing
+					Verb moq.ParamIndexing
 				}
 			}
 		}{ParameterIndexing: struct {
 			Format struct {
-				F moq.ParamIndexing
-				C moq.ParamIndexing
+				F    moq.ParamIndexing
+				Verb moq.ParamIndexing
 			}
 		}{
 			Format: struct {
-				F moq.ParamIndexing
-				C moq.ParamIndexing
+				F    moq.ParamIndexing
+				Verb moq.ParamIndexing
 			}{
-				F: moq.ParamIndexByHash,
-				C: moq.ParamIndexByValue,
+				F:    moq.ParamIndexByHash,
+				Verb: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -146,11 +146,11 @@ func NewMoqFormatter(scene *moq.Scene, config *moq.Config) *MoqFormatter {
 // Mock returns the mock implementation of the Formatter type
 func (m *MoqFormatter) Mock() *MoqFormatter_mock { return m.Moq }
 
-func (m *MoqFormatter_mock) Format(f fmt.State, c rune) {
+func (m *MoqFormatter_mock) Format(f fmt.State, verb rune) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFormatter_Format_params{
-		F: f,
-		C: c,
+		F:    f,
+		Verb: verb,
 	}
 	var results *MoqFormatter_Format_results
 	for _, resultsByParams := range m.Moq.ResultsByParams_Format {
@@ -188,11 +188,11 @@ func (m *MoqFormatter_mock) Format(f fmt.State, c rune) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(f, c)
+		result.DoFn(f, verb)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(f, c)
+		result.DoReturnFn(f, verb)
 	}
 	return
 }
@@ -204,11 +204,11 @@ func (m *MoqFormatter) OnCall() *MoqFormatter_recorder {
 	}
 }
 
-func (m *MoqFormatter_recorder) Format(f fmt.State, c rune) *MoqFormatter_Format_fnRecorder {
+func (m *MoqFormatter_recorder) Format(f fmt.State, verb rune) *MoqFormatter_Format_fnRecorder {
 	return &MoqFormatter_Format_fnRecorder{
 		Params: MoqFormatter_Format_params{
-			F: f,
-			C: c,
+			F:    f,
+			Verb: verb,
 		},
 		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m.Moq,
@@ -229,7 +229,7 @@ func (a *MoqFormatter_Format_anyParams) F() *MoqFormatter_Format_fnRecorder {
 	return a.Recorder
 }
 
-func (a *MoqFormatter_Format_anyParams) C() *MoqFormatter_Format_fnRecorder {
+func (a *MoqFormatter_Format_anyParams) Verb() *MoqFormatter_Format_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 1
 	return a.Recorder
 }
@@ -379,7 +379,7 @@ func (r *MoqFormatter_Format_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqF
 }
 
 func (m *MoqFormatter) PrettyParams_Format(params MoqFormatter_Format_params) string {
-	return fmt.Sprintf("Format(%#v, %#v)", params.F, params.C)
+	return fmt.Sprintf("Format(%#v, %#v)", params.F, params.Verb)
 }
 
 func (m *MoqFormatter) ParamsKey_Format(params MoqFormatter_Format_params, anyParams uint64) MoqFormatter_Format_paramsKey {
@@ -393,29 +393,29 @@ func (m *MoqFormatter) ParamsKey_Format(params MoqFormatter_Format_params, anyPa
 			fUsedHash = hash.DeepHash(params.F)
 		}
 	}
-	var cUsed rune
-	var cUsedHash hash.Hash
+	var verbUsed rune
+	var verbUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
-		if m.Runtime.ParameterIndexing.Format.C == moq.ParamIndexByValue {
-			cUsed = params.C
+		if m.Runtime.ParameterIndexing.Format.Verb == moq.ParamIndexByValue {
+			verbUsed = params.Verb
 		} else {
-			cUsedHash = hash.DeepHash(params.C)
+			verbUsedHash = hash.DeepHash(params.Verb)
 		}
 	}
 	return MoqFormatter_Format_paramsKey{
 		Params: struct {
-			F fmt.State
-			C rune
+			F    fmt.State
+			Verb rune
 		}{
-			F: fUsed,
-			C: cUsed,
+			F:    fUsed,
+			Verb: verbUsed,
 		},
 		Hashes: struct {
-			F hash.Hash
-			C hash.Hash
+			F    hash.Hash
+			Verb hash.Hash
 		}{
-			F: fUsedHash,
-			C: cUsedHash,
+			F:    fUsedHash,
+			Verb: verbUsedHash,
 		},
 	}
 }

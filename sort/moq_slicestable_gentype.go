@@ -13,7 +13,7 @@ import (
 
 // SliceStable_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type SliceStable_genType func(slice interface{}, less func(i, j int) bool)
+type SliceStable_genType func(x interface{}, less func(i, j int) bool)
 
 // MoqSliceStable_genType holds the state of a moq of the SliceStable_genType
 // type
@@ -26,8 +26,8 @@ type MoqSliceStable_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Slice moq.ParamIndexing
-			Less  moq.ParamIndexing
+			X    moq.ParamIndexing
+			Less moq.ParamIndexing
 		}
 	}
 }
@@ -41,17 +41,17 @@ type MoqSliceStable_genType_mock struct {
 // MoqSliceStable_genType_params holds the params of the SliceStable_genType
 // type
 type MoqSliceStable_genType_params struct {
-	Slice interface{}
-	Less  func(i, j int) bool
+	X    interface{}
+	Less func(i, j int) bool
 }
 
 // MoqSliceStable_genType_paramsKey holds the map key params of the
 // SliceStable_genType type
 type MoqSliceStable_genType_paramsKey struct {
-	Params struct{ Slice interface{} }
+	Params struct{ X interface{} }
 	Hashes struct {
-		Slice hash.Hash
-		Less  hash.Hash
+		X    hash.Hash
+		Less hash.Hash
 	}
 }
 
@@ -65,11 +65,11 @@ type MoqSliceStable_genType_resultsByParams struct {
 
 // MoqSliceStable_genType_doFn defines the type of function needed when calling
 // AndDo for the SliceStable_genType type
-type MoqSliceStable_genType_doFn func(slice interface{}, less func(i, j int) bool)
+type MoqSliceStable_genType_doFn func(x interface{}, less func(i, j int) bool)
 
 // MoqSliceStable_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the SliceStable_genType type
-type MoqSliceStable_genType_doReturnFn func(slice interface{}, less func(i, j int) bool)
+type MoqSliceStable_genType_doReturnFn func(x interface{}, less func(i, j int) bool)
 
 // MoqSliceStable_genType_results holds the results of the SliceStable_genType
 // type
@@ -113,15 +113,15 @@ func NewMoqSliceStable_genType(scene *moq.Scene, config *moq.Config) *MoqSliceSt
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Slice moq.ParamIndexing
-				Less  moq.ParamIndexing
+				X    moq.ParamIndexing
+				Less moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Slice moq.ParamIndexing
-			Less  moq.ParamIndexing
+			X    moq.ParamIndexing
+			Less moq.ParamIndexing
 		}{
-			Slice: moq.ParamIndexByHash,
-			Less:  moq.ParamIndexByHash,
+			X:    moq.ParamIndexByHash,
+			Less: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -132,18 +132,18 @@ func NewMoqSliceStable_genType(scene *moq.Scene, config *moq.Config) *MoqSliceSt
 
 // Mock returns the moq implementation of the SliceStable_genType type
 func (m *MoqSliceStable_genType) Mock() SliceStable_genType {
-	return func(slice interface{}, less func(i, j int) bool) {
+	return func(x interface{}, less func(i, j int) bool) {
 		m.Scene.T.Helper()
 		moq := &MoqSliceStable_genType_mock{Moq: m}
-		moq.Fn(slice, less)
+		moq.Fn(x, less)
 	}
 }
 
-func (m *MoqSliceStable_genType_mock) Fn(slice interface{}, less func(i, j int) bool) {
+func (m *MoqSliceStable_genType_mock) Fn(x interface{}, less func(i, j int) bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSliceStable_genType_params{
-		Slice: slice,
-		Less:  less,
+		X:    x,
+		Less: less,
 	}
 	var results *MoqSliceStable_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -181,20 +181,20 @@ func (m *MoqSliceStable_genType_mock) Fn(slice interface{}, less func(i, j int) 
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(slice, less)
+		result.DoFn(x, less)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(slice, less)
+		result.DoReturnFn(x, less)
 	}
 	return
 }
 
-func (m *MoqSliceStable_genType) OnCall(slice interface{}, less func(i, j int) bool) *MoqSliceStable_genType_fnRecorder {
+func (m *MoqSliceStable_genType) OnCall(x interface{}, less func(i, j int) bool) *MoqSliceStable_genType_fnRecorder {
 	return &MoqSliceStable_genType_fnRecorder{
 		Params: MoqSliceStable_genType_params{
-			Slice: slice,
-			Less:  less,
+			X:    x,
+			Less: less,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -210,7 +210,7 @@ func (r *MoqSliceStable_genType_fnRecorder) Any() *MoqSliceStable_genType_anyPar
 	return &MoqSliceStable_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqSliceStable_genType_anyParams) Slice() *MoqSliceStable_genType_fnRecorder {
+func (a *MoqSliceStable_genType_anyParams) X() *MoqSliceStable_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -365,18 +365,18 @@ func (r *MoqSliceStable_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *M
 }
 
 func (m *MoqSliceStable_genType) PrettyParams(params MoqSliceStable_genType_params) string {
-	return fmt.Sprintf("SliceStable_genType(%#v, %#v)", params.Slice, moq.FnString(params.Less))
+	return fmt.Sprintf("SliceStable_genType(%#v, %#v)", params.X, moq.FnString(params.Less))
 }
 
 func (m *MoqSliceStable_genType) ParamsKey(params MoqSliceStable_genType_params, anyParams uint64) MoqSliceStable_genType_paramsKey {
 	m.Scene.T.Helper()
-	var sliceUsed interface{}
-	var sliceUsedHash hash.Hash
+	var xUsed interface{}
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Slice == moq.ParamIndexByValue {
-			sliceUsed = params.Slice
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			xUsed = params.X
 		} else {
-			sliceUsedHash = hash.DeepHash(params.Slice)
+			xUsedHash = hash.DeepHash(params.X)
 		}
 	}
 	var lessUsedHash hash.Hash
@@ -387,15 +387,15 @@ func (m *MoqSliceStable_genType) ParamsKey(params MoqSliceStable_genType_params,
 		lessUsedHash = hash.DeepHash(params.Less)
 	}
 	return MoqSliceStable_genType_paramsKey{
-		Params: struct{ Slice interface{} }{
-			Slice: sliceUsed,
+		Params: struct{ X interface{} }{
+			X: xUsed,
 		},
 		Hashes: struct {
-			Slice hash.Hash
-			Less  hash.Hash
+			X    hash.Hash
+			Less hash.Hash
 		}{
-			Slice: sliceUsedHash,
-			Less:  lessUsedHash,
+			X:    xUsedHash,
+			Less: lessUsedHash,
 		},
 	}
 }

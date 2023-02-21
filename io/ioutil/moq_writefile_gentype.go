@@ -4,8 +4,8 @@ package ioutil
 
 import (
 	"fmt"
+	"io/fs"
 	"math/bits"
-	"os"
 	"sync/atomic"
 
 	"moqueries.org/runtime/hash"
@@ -14,7 +14,7 @@ import (
 
 // WriteFile_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type WriteFile_genType func(filename string, data []byte, perm os.FileMode) error
+type WriteFile_genType func(filename string, data []byte, perm fs.FileMode) error
 
 // MoqWriteFile_genType holds the state of a moq of the WriteFile_genType type
 type MoqWriteFile_genType struct {
@@ -43,7 +43,7 @@ type MoqWriteFile_genType_mock struct {
 type MoqWriteFile_genType_params struct {
 	Filename string
 	Data     []byte
-	Perm     os.FileMode
+	Perm     fs.FileMode
 }
 
 // MoqWriteFile_genType_paramsKey holds the map key params of the
@@ -51,7 +51,7 @@ type MoqWriteFile_genType_params struct {
 type MoqWriteFile_genType_paramsKey struct {
 	Params struct {
 		Filename string
-		Perm     os.FileMode
+		Perm     fs.FileMode
 	}
 	Hashes struct {
 		Filename hash.Hash
@@ -70,11 +70,11 @@ type MoqWriteFile_genType_resultsByParams struct {
 
 // MoqWriteFile_genType_doFn defines the type of function needed when calling
 // AndDo for the WriteFile_genType type
-type MoqWriteFile_genType_doFn func(filename string, data []byte, perm os.FileMode)
+type MoqWriteFile_genType_doFn func(filename string, data []byte, perm fs.FileMode)
 
 // MoqWriteFile_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the WriteFile_genType type
-type MoqWriteFile_genType_doReturnFn func(filename string, data []byte, perm os.FileMode) error
+type MoqWriteFile_genType_doReturnFn func(filename string, data []byte, perm fs.FileMode) error
 
 // MoqWriteFile_genType_results holds the results of the WriteFile_genType type
 type MoqWriteFile_genType_results struct {
@@ -141,14 +141,14 @@ func NewMoqWriteFile_genType(scene *moq.Scene, config *moq.Config) *MoqWriteFile
 
 // Mock returns the moq implementation of the WriteFile_genType type
 func (m *MoqWriteFile_genType) Mock() WriteFile_genType {
-	return func(filename string, data []byte, perm os.FileMode) error {
+	return func(filename string, data []byte, perm fs.FileMode) error {
 		m.Scene.T.Helper()
 		moq := &MoqWriteFile_genType_mock{Moq: m}
 		return moq.Fn(filename, data, perm)
 	}
 }
 
-func (m *MoqWriteFile_genType_mock) Fn(filename string, data []byte, perm os.FileMode) (result1 error) {
+func (m *MoqWriteFile_genType_mock) Fn(filename string, data []byte, perm fs.FileMode) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWriteFile_genType_params{
 		Filename: filename,
@@ -203,7 +203,7 @@ func (m *MoqWriteFile_genType_mock) Fn(filename string, data []byte, perm os.Fil
 	return
 }
 
-func (m *MoqWriteFile_genType) OnCall(filename string, data []byte, perm os.FileMode) *MoqWriteFile_genType_fnRecorder {
+func (m *MoqWriteFile_genType) OnCall(filename string, data []byte, perm fs.FileMode) *MoqWriteFile_genType_fnRecorder {
 	return &MoqWriteFile_genType_fnRecorder{
 		Params: MoqWriteFile_genType_params{
 			Filename: filename,
@@ -415,7 +415,7 @@ func (m *MoqWriteFile_genType) ParamsKey(params MoqWriteFile_genType_params, any
 		}
 		dataUsedHash = hash.DeepHash(params.Data)
 	}
-	var permUsed os.FileMode
+	var permUsed fs.FileMode
 	var permUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Perm == moq.ParamIndexByValue {
@@ -427,7 +427,7 @@ func (m *MoqWriteFile_genType) ParamsKey(params MoqWriteFile_genType_params, any
 	return MoqWriteFile_genType_paramsKey{
 		Params: struct {
 			Filename string
-			Perm     os.FileMode
+			Perm     fs.FileMode
 		}{
 			Filename: filenameUsed,
 			Perm:     permUsed,

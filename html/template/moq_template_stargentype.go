@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/fs"
 	"math/bits"
 	"sync/atomic"
 	"text/template/parse"
@@ -37,6 +38,7 @@ type Template_starGenType interface {
 	Lookup(name string) *template.Template
 	ParseFiles(filenames ...string) (*template.Template, error)
 	ParseGlob(pattern string) (*template.Template, error)
+	ParseFS(fs fs.FS, patterns ...string) (*template.Template, error)
 }
 
 // MoqTemplate_starGenType holds the state of a moq of the Template_starGenType
@@ -61,6 +63,7 @@ type MoqTemplate_starGenType struct {
 	ResultsByParams_Lookup           []MoqTemplate_starGenType_Lookup_resultsByParams
 	ResultsByParams_ParseFiles       []MoqTemplate_starGenType_ParseFiles_resultsByParams
 	ResultsByParams_ParseGlob        []MoqTemplate_starGenType_ParseGlob_resultsByParams
+	ResultsByParams_ParseFS          []MoqTemplate_starGenType_ParseFS_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
@@ -105,6 +108,10 @@ type MoqTemplate_starGenType struct {
 			}
 			ParseGlob struct {
 				Pattern moq.ParamIndexing
+			}
+			ParseFS struct {
+				Fs       moq.ParamIndexing
+				Patterns moq.ParamIndexing
 			}
 		}
 	}
@@ -1044,6 +1051,72 @@ type MoqTemplate_starGenType_ParseGlob_anyParams struct {
 	Recorder *MoqTemplate_starGenType_ParseGlob_fnRecorder
 }
 
+// MoqTemplate_starGenType_ParseFS_params holds the params of the
+// Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_params struct {
+	Fs       fs.FS
+	Patterns []string
+}
+
+// MoqTemplate_starGenType_ParseFS_paramsKey holds the map key params of the
+// Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_paramsKey struct {
+	Params struct{ Fs fs.FS }
+	Hashes struct {
+		Fs       hash.Hash
+		Patterns hash.Hash
+	}
+}
+
+// MoqTemplate_starGenType_ParseFS_resultsByParams contains the results for a
+// given set of parameters for the Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTemplate_starGenType_ParseFS_paramsKey]*MoqTemplate_starGenType_ParseFS_results
+}
+
+// MoqTemplate_starGenType_ParseFS_doFn defines the type of function needed
+// when calling AndDo for the Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_doFn func(fs fs.FS, patterns ...string)
+
+// MoqTemplate_starGenType_ParseFS_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_doReturnFn func(fs fs.FS, patterns ...string) (*template.Template, error)
+
+// MoqTemplate_starGenType_ParseFS_results holds the results of the
+// Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_results struct {
+	Params  MoqTemplate_starGenType_ParseFS_params
+	Results []struct {
+		Values *struct {
+			Result1 *template.Template
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqTemplate_starGenType_ParseFS_doFn
+		DoReturnFn MoqTemplate_starGenType_ParseFS_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTemplate_starGenType_ParseFS_fnRecorder routes recorded function calls to
+// the MoqTemplate_starGenType moq
+type MoqTemplate_starGenType_ParseFS_fnRecorder struct {
+	Params    MoqTemplate_starGenType_ParseFS_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTemplate_starGenType_ParseFS_results
+	Moq       *MoqTemplate_starGenType
+}
+
+// MoqTemplate_starGenType_ParseFS_anyParams isolates the any params functions
+// of the Template_starGenType type
+type MoqTemplate_starGenType_ParseFS_anyParams struct {
+	Recorder *MoqTemplate_starGenType_ParseFS_fnRecorder
+}
+
 // NewMoqTemplate_starGenType creates a new moq of the Template_starGenType
 // type
 func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTemplate_starGenType {
@@ -1099,6 +1172,10 @@ func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTempla
 				ParseGlob struct {
 					Pattern moq.ParamIndexing
 				}
+				ParseFS struct {
+					Fs       moq.ParamIndexing
+					Patterns moq.ParamIndexing
+				}
 			}
 		}{ParameterIndexing: struct {
 			Templates struct{}
@@ -1142,6 +1219,10 @@ func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTempla
 			}
 			ParseGlob struct {
 				Pattern moq.ParamIndexing
+			}
+			ParseFS struct {
+				Fs       moq.ParamIndexing
+				Patterns moq.ParamIndexing
 			}
 		}{
 			Templates: struct{}{},
@@ -1212,6 +1293,13 @@ func NewMoqTemplate_starGenType(scene *moq.Scene, config *moq.Config) *MoqTempla
 				Pattern moq.ParamIndexing
 			}{
 				Pattern: moq.ParamIndexByValue,
+			},
+			ParseFS: struct {
+				Fs       moq.ParamIndexing
+				Patterns moq.ParamIndexing
+			}{
+				Fs:       moq.ParamIndexByHash,
+				Patterns: moq.ParamIndexByHash,
 			},
 		}},
 	}
@@ -2017,6 +2105,61 @@ func (m *MoqTemplate_starGenType_mock) ParseGlob(pattern string) (result1 *templ
 	}
 	if result.DoReturnFn != nil {
 		result1, result2 = result.DoReturnFn(pattern)
+	}
+	return
+}
+
+func (m *MoqTemplate_starGenType_mock) ParseFS(fs fs.FS, patterns ...string) (result1 *template.Template, result2 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTemplate_starGenType_ParseFS_params{
+		Fs:       fs,
+		Patterns: patterns,
+	}
+	var results *MoqTemplate_starGenType_ParseFS_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_ParseFS {
+		paramsKey := m.Moq.ParamsKey_ParseFS(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_ParseFS(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_ParseFS(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_ParseFS(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(fs, patterns...)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+	}
+	if result.DoReturnFn != nil {
+		result1, result2 = result.DoReturnFn(fs, patterns...)
 	}
 	return
 }
@@ -5111,6 +5254,231 @@ func (m *MoqTemplate_starGenType) ParamsKey_ParseGlob(params MoqTemplate_starGen
 	}
 }
 
+func (m *MoqTemplate_starGenType_recorder) ParseFS(fs fs.FS, patterns ...string) *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	return &MoqTemplate_starGenType_ParseFS_fnRecorder{
+		Params: MoqTemplate_starGenType_ParseFS_params{
+			Fs:       fs,
+			Patterns: patterns,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) Any() *MoqTemplate_starGenType_ParseFS_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ParseFS(r.Params))
+		return nil
+	}
+	return &MoqTemplate_starGenType_ParseFS_anyParams{Recorder: r}
+}
+
+func (a *MoqTemplate_starGenType_ParseFS_anyParams) Fs() *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqTemplate_starGenType_ParseFS_anyParams) Patterns() *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) Seq() *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ParseFS(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) NoSeq() *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ParseFS(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) ReturnResults(result1 *template.Template, result2 error) *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *template.Template
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqTemplate_starGenType_ParseFS_doFn
+		DoReturnFn MoqTemplate_starGenType_ParseFS_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *template.Template
+			Result2 error
+		}{
+			Result1: result1,
+			Result2: result2,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) AndDo(fn MoqTemplate_starGenType_ParseFS_doFn) *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) DoReturnResults(fn MoqTemplate_starGenType_ParseFS_doReturnFn) *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *template.Template
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqTemplate_starGenType_ParseFS_doFn
+		DoReturnFn MoqTemplate_starGenType_ParseFS_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTemplate_starGenType_ParseFS_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_ParseFS {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTemplate_starGenType_ParseFS_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTemplate_starGenType_ParseFS_paramsKey]*MoqTemplate_starGenType_ParseFS_results{},
+		}
+		r.Moq.ResultsByParams_ParseFS = append(r.Moq.ResultsByParams_ParseFS, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_ParseFS) {
+			copy(r.Moq.ResultsByParams_ParseFS[insertAt+1:], r.Moq.ResultsByParams_ParseFS[insertAt:0])
+			r.Moq.ResultsByParams_ParseFS[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_ParseFS(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTemplate_starGenType_ParseFS_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTemplate_starGenType_ParseFS_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTemplate_starGenType_ParseFS_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *template.Template
+					Result2 error
+				}
+				Sequence   uint32
+				DoFn       MoqTemplate_starGenType_ParseFS_doFn
+				DoReturnFn MoqTemplate_starGenType_ParseFS_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTemplate_starGenType) PrettyParams_ParseFS(params MoqTemplate_starGenType_ParseFS_params) string {
+	return fmt.Sprintf("ParseFS(%#v, %#v)", params.Fs, params.Patterns)
+}
+
+func (m *MoqTemplate_starGenType) ParamsKey_ParseFS(params MoqTemplate_starGenType_ParseFS_params, anyParams uint64) MoqTemplate_starGenType_ParseFS_paramsKey {
+	m.Scene.T.Helper()
+	var fsUsed fs.FS
+	var fsUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.ParseFS.Fs == moq.ParamIndexByValue {
+			fsUsed = params.Fs
+		} else {
+			fsUsedHash = hash.DeepHash(params.Fs)
+		}
+	}
+	var patternsUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.ParseFS.Patterns == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The patterns parameter of the ParseFS function can't be indexed by value")
+		}
+		patternsUsedHash = hash.DeepHash(params.Patterns)
+	}
+	return MoqTemplate_starGenType_ParseFS_paramsKey{
+		Params: struct{ Fs fs.FS }{
+			Fs: fsUsed,
+		},
+		Hashes: struct {
+			Fs       hash.Hash
+			Patterns hash.Hash
+		}{
+			Fs:       fsUsedHash,
+			Patterns: patternsUsedHash,
+		},
+	}
+}
+
 // Reset resets the state of the moq
 func (m *MoqTemplate_starGenType) Reset() {
 	m.ResultsByParams_Templates = nil
@@ -5128,6 +5496,7 @@ func (m *MoqTemplate_starGenType) Reset() {
 	m.ResultsByParams_Lookup = nil
 	m.ResultsByParams_ParseFiles = nil
 	m.ResultsByParams_ParseGlob = nil
+	m.ResultsByParams_ParseFS = nil
 }
 
 // AssertExpectationsMet asserts that all expectations have been met
@@ -5250,6 +5619,14 @@ func (m *MoqTemplate_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_ParseGlob(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_ParseFS {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_ParseFS(results.Params))
 			}
 		}
 	}

@@ -25,6 +25,7 @@ var _ File_starGenType = (*MoqFile_starGenType_mock)(nil)
 type File_starGenType interface {
 	Readdir(n int) ([]os.FileInfo, error)
 	Readdirnames(n int) (names []string, err error)
+	ReadDir(n int) ([]os.DirEntry, error)
 	Name() string
 	Read(b []byte) (n int, err error)
 	ReadAt(b []byte, off int64) (n int, err error)
@@ -55,6 +56,7 @@ type MoqFile_starGenType struct {
 
 	ResultsByParams_Readdir          []MoqFile_starGenType_Readdir_resultsByParams
 	ResultsByParams_Readdirnames     []MoqFile_starGenType_Readdirnames_resultsByParams
+	ResultsByParams_ReadDir          []MoqFile_starGenType_ReadDir_resultsByParams
 	ResultsByParams_Name             []MoqFile_starGenType_Name_resultsByParams
 	ResultsByParams_Read             []MoqFile_starGenType_Read_resultsByParams
 	ResultsByParams_ReadAt           []MoqFile_starGenType_ReadAt_resultsByParams
@@ -82,6 +84,9 @@ type MoqFile_starGenType struct {
 				N moq.ParamIndexing
 			}
 			Readdirnames struct {
+				N moq.ParamIndexing
+			}
+			ReadDir struct {
 				N moq.ParamIndexing
 			}
 			Name struct{}
@@ -268,6 +273,66 @@ type MoqFile_starGenType_Readdirnames_fnRecorder struct {
 // of the File_starGenType type
 type MoqFile_starGenType_Readdirnames_anyParams struct {
 	Recorder *MoqFile_starGenType_Readdirnames_fnRecorder
+}
+
+// MoqFile_starGenType_ReadDir_params holds the params of the File_starGenType
+// type
+type MoqFile_starGenType_ReadDir_params struct{ N int }
+
+// MoqFile_starGenType_ReadDir_paramsKey holds the map key params of the
+// File_starGenType type
+type MoqFile_starGenType_ReadDir_paramsKey struct {
+	Params struct{ N int }
+	Hashes struct{ N hash.Hash }
+}
+
+// MoqFile_starGenType_ReadDir_resultsByParams contains the results for a given
+// set of parameters for the File_starGenType type
+type MoqFile_starGenType_ReadDir_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqFile_starGenType_ReadDir_paramsKey]*MoqFile_starGenType_ReadDir_results
+}
+
+// MoqFile_starGenType_ReadDir_doFn defines the type of function needed when
+// calling AndDo for the File_starGenType type
+type MoqFile_starGenType_ReadDir_doFn func(n int)
+
+// MoqFile_starGenType_ReadDir_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the File_starGenType type
+type MoqFile_starGenType_ReadDir_doReturnFn func(n int) ([]os.DirEntry, error)
+
+// MoqFile_starGenType_ReadDir_results holds the results of the
+// File_starGenType type
+type MoqFile_starGenType_ReadDir_results struct {
+	Params  MoqFile_starGenType_ReadDir_params
+	Results []struct {
+		Values *struct {
+			Result1 []os.DirEntry
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadDir_doFn
+		DoReturnFn MoqFile_starGenType_ReadDir_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqFile_starGenType_ReadDir_fnRecorder routes recorded function calls to the
+// MoqFile_starGenType moq
+type MoqFile_starGenType_ReadDir_fnRecorder struct {
+	Params    MoqFile_starGenType_ReadDir_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqFile_starGenType_ReadDir_results
+	Moq       *MoqFile_starGenType
+}
+
+// MoqFile_starGenType_ReadDir_anyParams isolates the any params functions of
+// the File_starGenType type
+type MoqFile_starGenType_ReadDir_anyParams struct {
+	Recorder *MoqFile_starGenType_ReadDir_fnRecorder
 }
 
 // MoqFile_starGenType_Name_params holds the params of the File_starGenType
@@ -1497,6 +1562,9 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				Readdirnames struct {
 					N moq.ParamIndexing
 				}
+				ReadDir struct {
+					N moq.ParamIndexing
+				}
 				Name struct{}
 				Read struct {
 					B moq.ParamIndexing
@@ -1553,6 +1621,9 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				N moq.ParamIndexing
 			}
 			Readdirnames struct {
+				N moq.ParamIndexing
+			}
+			ReadDir struct {
 				N moq.ParamIndexing
 			}
 			Name struct{}
@@ -1612,6 +1683,11 @@ func NewMoqFile_starGenType(scene *moq.Scene, config *moq.Config) *MoqFile_starG
 				N: moq.ParamIndexByValue,
 			},
 			Readdirnames: struct {
+				N moq.ParamIndexing
+			}{
+				N: moq.ParamIndexByValue,
+			},
+			ReadDir: struct {
 				N moq.ParamIndexing
 			}{
 				N: moq.ParamIndexByValue,
@@ -1811,6 +1887,60 @@ func (m *MoqFile_starGenType_mock) Readdirnames(n int) (names []string, err erro
 	}
 	if result.DoReturnFn != nil {
 		names, err = result.DoReturnFn(n)
+	}
+	return
+}
+
+func (m *MoqFile_starGenType_mock) ReadDir(n int) (result1 []os.DirEntry, result2 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqFile_starGenType_ReadDir_params{
+		N: n,
+	}
+	var results *MoqFile_starGenType_ReadDir_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_ReadDir {
+		paramsKey := m.Moq.ParamsKey_ReadDir(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_ReadDir(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_ReadDir(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_ReadDir(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(n)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+	}
+	if result.DoReturnFn != nil {
+		result1, result2 = result.DoReturnFn(n)
 	}
 	return
 }
@@ -3288,6 +3418,214 @@ func (m *MoqFile_starGenType) ParamsKey_Readdirnames(params MoqFile_starGenType_
 		}
 	}
 	return MoqFile_starGenType_Readdirnames_paramsKey{
+		Params: struct{ N int }{
+			N: nUsed,
+		},
+		Hashes: struct{ N hash.Hash }{
+			N: nUsedHash,
+		},
+	}
+}
+
+func (m *MoqFile_starGenType_recorder) ReadDir(n int) *MoqFile_starGenType_ReadDir_fnRecorder {
+	return &MoqFile_starGenType_ReadDir_fnRecorder{
+		Params: MoqFile_starGenType_ReadDir_params{
+			N: n,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) Any() *MoqFile_starGenType_ReadDir_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadDir(r.Params))
+		return nil
+	}
+	return &MoqFile_starGenType_ReadDir_anyParams{Recorder: r}
+}
+
+func (a *MoqFile_starGenType_ReadDir_anyParams) N() *MoqFile_starGenType_ReadDir_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) Seq() *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadDir(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) NoSeq() *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_ReadDir(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) ReturnResults(result1 []os.DirEntry, result2 error) *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []os.DirEntry
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadDir_doFn
+		DoReturnFn MoqFile_starGenType_ReadDir_doReturnFn
+	}{
+		Values: &struct {
+			Result1 []os.DirEntry
+			Result2 error
+		}{
+			Result1: result1,
+			Result2: result2,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) AndDo(fn MoqFile_starGenType_ReadDir_doFn) *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) DoReturnResults(fn MoqFile_starGenType_ReadDir_doReturnFn) *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []os.DirEntry
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqFile_starGenType_ReadDir_doFn
+		DoReturnFn MoqFile_starGenType_ReadDir_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqFile_starGenType_ReadDir_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_ReadDir {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqFile_starGenType_ReadDir_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqFile_starGenType_ReadDir_paramsKey]*MoqFile_starGenType_ReadDir_results{},
+		}
+		r.Moq.ResultsByParams_ReadDir = append(r.Moq.ResultsByParams_ReadDir, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_ReadDir) {
+			copy(r.Moq.ResultsByParams_ReadDir[insertAt+1:], r.Moq.ResultsByParams_ReadDir[insertAt:0])
+			r.Moq.ResultsByParams_ReadDir[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_ReadDir(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqFile_starGenType_ReadDir_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqFile_starGenType_ReadDir_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFile_starGenType_ReadDir_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 []os.DirEntry
+					Result2 error
+				}
+				Sequence   uint32
+				DoFn       MoqFile_starGenType_ReadDir_doFn
+				DoReturnFn MoqFile_starGenType_ReadDir_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqFile_starGenType) PrettyParams_ReadDir(params MoqFile_starGenType_ReadDir_params) string {
+	return fmt.Sprintf("ReadDir(%#v)", params.N)
+}
+
+func (m *MoqFile_starGenType) ParamsKey_ReadDir(params MoqFile_starGenType_ReadDir_params, anyParams uint64) MoqFile_starGenType_ReadDir_paramsKey {
+	m.Scene.T.Helper()
+	var nUsed int
+	var nUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.ReadDir.N == moq.ParamIndexByValue {
+			nUsed = params.N
+		} else {
+			nUsedHash = hash.DeepHash(params.N)
+		}
+	}
+	return MoqFile_starGenType_ReadDir_paramsKey{
 		Params: struct{ N int }{
 			N: nUsed,
 		},
@@ -7332,6 +7670,7 @@ func (m *MoqFile_starGenType) ParamsKey_Stat(params MoqFile_starGenType_Stat_par
 func (m *MoqFile_starGenType) Reset() {
 	m.ResultsByParams_Readdir = nil
 	m.ResultsByParams_Readdirnames = nil
+	m.ResultsByParams_ReadDir = nil
 	m.ResultsByParams_Name = nil
 	m.ResultsByParams_Read = nil
 	m.ResultsByParams_ReadAt = nil
@@ -7370,6 +7709,14 @@ func (m *MoqFile_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Readdirnames(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_ReadDir {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_ReadDir(results.Params))
 			}
 		}
 	}

@@ -13,7 +13,7 @@ import (
 
 // Strings_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Strings_genType func(a []string)
+type Strings_genType func(x []string)
 
 // MoqStrings_genType holds the state of a moq of the Strings_genType type
 type MoqStrings_genType struct {
@@ -25,7 +25,7 @@ type MoqStrings_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}
 	}
 }
@@ -37,13 +37,13 @@ type MoqStrings_genType_mock struct {
 }
 
 // MoqStrings_genType_params holds the params of the Strings_genType type
-type MoqStrings_genType_params struct{ A []string }
+type MoqStrings_genType_params struct{ X []string }
 
 // MoqStrings_genType_paramsKey holds the map key params of the Strings_genType
 // type
 type MoqStrings_genType_paramsKey struct {
 	Params struct{}
-	Hashes struct{ A hash.Hash }
+	Hashes struct{ X hash.Hash }
 }
 
 // MoqStrings_genType_resultsByParams contains the results for a given set of
@@ -56,11 +56,11 @@ type MoqStrings_genType_resultsByParams struct {
 
 // MoqStrings_genType_doFn defines the type of function needed when calling
 // AndDo for the Strings_genType type
-type MoqStrings_genType_doFn func(a []string)
+type MoqStrings_genType_doFn func(x []string)
 
 // MoqStrings_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Strings_genType type
-type MoqStrings_genType_doReturnFn func(a []string)
+type MoqStrings_genType_doReturnFn func(x []string)
 
 // MoqStrings_genType_results holds the results of the Strings_genType type
 type MoqStrings_genType_results struct {
@@ -103,12 +103,12 @@ func NewMoqStrings_genType(scene *moq.Scene, config *moq.Config) *MoqStrings_gen
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				A moq.ParamIndexing
+				X moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}{
-			A: moq.ParamIndexByHash,
+			X: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -119,13 +119,13 @@ func NewMoqStrings_genType(scene *moq.Scene, config *moq.Config) *MoqStrings_gen
 
 // Mock returns the moq implementation of the Strings_genType type
 func (m *MoqStrings_genType) Mock() Strings_genType {
-	return func(a []string) { m.Scene.T.Helper(); moq := &MoqStrings_genType_mock{Moq: m}; moq.Fn(a) }
+	return func(x []string) { m.Scene.T.Helper(); moq := &MoqStrings_genType_mock{Moq: m}; moq.Fn(x) }
 }
 
-func (m *MoqStrings_genType_mock) Fn(a []string) {
+func (m *MoqStrings_genType_mock) Fn(x []string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqStrings_genType_params{
-		A: a,
+		X: x,
 	}
 	var results *MoqStrings_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -163,19 +163,19 @@ func (m *MoqStrings_genType_mock) Fn(a []string) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(a)
+		result.DoFn(x)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(a)
+		result.DoReturnFn(x)
 	}
 	return
 }
 
-func (m *MoqStrings_genType) OnCall(a []string) *MoqStrings_genType_fnRecorder {
+func (m *MoqStrings_genType) OnCall(x []string) *MoqStrings_genType_fnRecorder {
 	return &MoqStrings_genType_fnRecorder{
 		Params: MoqStrings_genType_params{
-			A: a,
+			X: x,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -191,7 +191,7 @@ func (r *MoqStrings_genType_fnRecorder) Any() *MoqStrings_genType_anyParams {
 	return &MoqStrings_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqStrings_genType_anyParams) A() *MoqStrings_genType_fnRecorder {
+func (a *MoqStrings_genType_anyParams) X() *MoqStrings_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -341,22 +341,22 @@ func (r *MoqStrings_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqSt
 }
 
 func (m *MoqStrings_genType) PrettyParams(params MoqStrings_genType_params) string {
-	return fmt.Sprintf("Strings_genType(%#v)", params.A)
+	return fmt.Sprintf("Strings_genType(%#v)", params.X)
 }
 
 func (m *MoqStrings_genType) ParamsKey(params MoqStrings_genType_params, anyParams uint64) MoqStrings_genType_paramsKey {
 	m.Scene.T.Helper()
-	var aUsedHash hash.Hash
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.A == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The a parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The x parameter can't be indexed by value")
 		}
-		aUsedHash = hash.DeepHash(params.A)
+		xUsedHash = hash.DeepHash(params.X)
 	}
 	return MoqStrings_genType_paramsKey{
 		Params: struct{}{},
-		Hashes: struct{ A hash.Hash }{
-			A: aUsedHash,
+		Hashes: struct{ X hash.Hash }{
+			X: xUsedHash,
 		},
 	}
 }

@@ -51,6 +51,7 @@ type FlagSet_starGenType interface {
 	Float64(name string, value float64, usage string) *float64
 	DurationVar(p *time.Duration, name string, value time.Duration, usage string)
 	Duration(name string, value time.Duration, usage string) *time.Duration
+	Func(name, usage string, fn func(string) error)
 	Var(value flag.Value, name string, usage string)
 	Parse(arguments []string) error
 	Parsed() bool
@@ -93,6 +94,7 @@ type MoqFlagSet_starGenType struct {
 	ResultsByParams_Float64       []MoqFlagSet_starGenType_Float64_resultsByParams
 	ResultsByParams_DurationVar   []MoqFlagSet_starGenType_DurationVar_resultsByParams
 	ResultsByParams_Duration      []MoqFlagSet_starGenType_Duration_resultsByParams
+	ResultsByParams_Func          []MoqFlagSet_starGenType_Func_resultsByParams
 	ResultsByParams_Var           []MoqFlagSet_starGenType_Var_resultsByParams
 	ResultsByParams_Parse         []MoqFlagSet_starGenType_Parse_resultsByParams
 	ResultsByParams_Parsed        []MoqFlagSet_starGenType_Parsed_resultsByParams
@@ -213,6 +215,11 @@ type MoqFlagSet_starGenType struct {
 				Name  moq.ParamIndexing
 				Value moq.ParamIndexing
 				Usage moq.ParamIndexing
+			}
+			Func struct {
+				Name  moq.ParamIndexing
+				Usage moq.ParamIndexing
+				Fn    moq.ParamIndexing
 			}
 			Var struct {
 				Value moq.ParamIndexing
@@ -2146,6 +2153,69 @@ type MoqFlagSet_starGenType_Duration_anyParams struct {
 	Recorder *MoqFlagSet_starGenType_Duration_fnRecorder
 }
 
+// MoqFlagSet_starGenType_Func_params holds the params of the
+// FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_params struct {
+	Name, Usage string
+	Fn          func(string) error
+}
+
+// MoqFlagSet_starGenType_Func_paramsKey holds the map key params of the
+// FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_paramsKey struct {
+	Params struct{ Name, Usage string }
+	Hashes struct {
+		Name, Usage hash.Hash
+		Fn          hash.Hash
+	}
+}
+
+// MoqFlagSet_starGenType_Func_resultsByParams contains the results for a given
+// set of parameters for the FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqFlagSet_starGenType_Func_paramsKey]*MoqFlagSet_starGenType_Func_results
+}
+
+// MoqFlagSet_starGenType_Func_doFn defines the type of function needed when
+// calling AndDo for the FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_doFn func(name, usage string, fn func(string) error)
+
+// MoqFlagSet_starGenType_Func_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_doReturnFn func(name, usage string, fn func(string) error)
+
+// MoqFlagSet_starGenType_Func_results holds the results of the
+// FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_results struct {
+	Params  MoqFlagSet_starGenType_Func_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqFlagSet_starGenType_Func_doFn
+		DoReturnFn MoqFlagSet_starGenType_Func_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqFlagSet_starGenType_Func_fnRecorder routes recorded function calls to the
+// MoqFlagSet_starGenType moq
+type MoqFlagSet_starGenType_Func_fnRecorder struct {
+	Params    MoqFlagSet_starGenType_Func_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqFlagSet_starGenType_Func_results
+	Moq       *MoqFlagSet_starGenType
+}
+
+// MoqFlagSet_starGenType_Func_anyParams isolates the any params functions of
+// the FlagSet_starGenType type
+type MoqFlagSet_starGenType_Func_anyParams struct {
+	Recorder *MoqFlagSet_starGenType_Func_fnRecorder
+}
+
 // MoqFlagSet_starGenType_Var_params holds the params of the
 // FlagSet_starGenType type
 type MoqFlagSet_starGenType_Var_params struct {
@@ -2525,6 +2595,11 @@ func NewMoqFlagSet_starGenType(scene *moq.Scene, config *moq.Config) *MoqFlagSet
 					Value moq.ParamIndexing
 					Usage moq.ParamIndexing
 				}
+				Func struct {
+					Name  moq.ParamIndexing
+					Usage moq.ParamIndexing
+					Fn    moq.ParamIndexing
+				}
 				Var struct {
 					Value moq.ParamIndexing
 					Name  moq.ParamIndexing
@@ -2653,6 +2728,11 @@ func NewMoqFlagSet_starGenType(scene *moq.Scene, config *moq.Config) *MoqFlagSet
 				Name  moq.ParamIndexing
 				Value moq.ParamIndexing
 				Usage moq.ParamIndexing
+			}
+			Func struct {
+				Name  moq.ParamIndexing
+				Usage moq.ParamIndexing
+				Fn    moq.ParamIndexing
 			}
 			Var struct {
 				Value moq.ParamIndexing
@@ -2866,6 +2946,15 @@ func NewMoqFlagSet_starGenType(scene *moq.Scene, config *moq.Config) *MoqFlagSet
 				Name:  moq.ParamIndexByValue,
 				Value: moq.ParamIndexByValue,
 				Usage: moq.ParamIndexByValue,
+			},
+			Func: struct {
+				Name  moq.ParamIndexing
+				Usage moq.ParamIndexing
+				Fn    moq.ParamIndexing
+			}{
+				Name:  moq.ParamIndexByValue,
+				Usage: moq.ParamIndexByValue,
+				Fn:    moq.ParamIndexByHash,
 			},
 			Var: struct {
 				Value moq.ParamIndexing
@@ -4424,6 +4513,58 @@ func (m *MoqFlagSet_starGenType_mock) Duration(name string, value time.Duration,
 	}
 	if result.DoReturnFn != nil {
 		result1 = result.DoReturnFn(name, value, usage)
+	}
+	return
+}
+
+func (m *MoqFlagSet_starGenType_mock) Func(name, usage string, fn func(string) error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqFlagSet_starGenType_Func_params{
+		Name:  name,
+		Usage: usage,
+		Fn:    fn,
+	}
+	var results *MoqFlagSet_starGenType_Func_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Func {
+		paramsKey := m.Moq.ParamsKey_Func(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Func(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Func(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Func(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(name, usage, fn)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(name, usage, fn)
 	}
 	return
 }
@@ -11102,6 +11243,233 @@ func (m *MoqFlagSet_starGenType) ParamsKey_Duration(params MoqFlagSet_starGenTyp
 	}
 }
 
+func (m *MoqFlagSet_starGenType_recorder) Func(name, usage string, fn func(string) error) *MoqFlagSet_starGenType_Func_fnRecorder {
+	return &MoqFlagSet_starGenType_Func_fnRecorder{
+		Params: MoqFlagSet_starGenType_Func_params{
+			Name:  name,
+			Usage: usage,
+			Fn:    fn,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) Any() *MoqFlagSet_starGenType_Func_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Func(r.Params))
+		return nil
+	}
+	return &MoqFlagSet_starGenType_Func_anyParams{Recorder: r}
+}
+
+func (a *MoqFlagSet_starGenType_Func_anyParams) Name() *MoqFlagSet_starGenType_Func_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqFlagSet_starGenType_Func_anyParams) Usage() *MoqFlagSet_starGenType_Func_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (a *MoqFlagSet_starGenType_Func_anyParams) Fn() *MoqFlagSet_starGenType_Func_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 2
+	return a.Recorder
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) Seq() *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Func(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) NoSeq() *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Func(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) ReturnResults() *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqFlagSet_starGenType_Func_doFn
+		DoReturnFn MoqFlagSet_starGenType_Func_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) AndDo(fn MoqFlagSet_starGenType_Func_doFn) *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) DoReturnResults(fn MoqFlagSet_starGenType_Func_doReturnFn) *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqFlagSet_starGenType_Func_doFn
+		DoReturnFn MoqFlagSet_starGenType_Func_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqFlagSet_starGenType_Func_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Func {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqFlagSet_starGenType_Func_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqFlagSet_starGenType_Func_paramsKey]*MoqFlagSet_starGenType_Func_results{},
+		}
+		r.Moq.ResultsByParams_Func = append(r.Moq.ResultsByParams_Func, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Func) {
+			copy(r.Moq.ResultsByParams_Func[insertAt+1:], r.Moq.ResultsByParams_Func[insertAt:0])
+			r.Moq.ResultsByParams_Func[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Func(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqFlagSet_starGenType_Func_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqFlagSet_starGenType_Func_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFlagSet_starGenType_Func_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqFlagSet_starGenType_Func_doFn
+				DoReturnFn MoqFlagSet_starGenType_Func_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqFlagSet_starGenType) PrettyParams_Func(params MoqFlagSet_starGenType_Func_params) string {
+	return fmt.Sprintf("Func(%#v, %#v, %#v)", params.Name, params.Usage, moq.FnString(params.Fn))
+}
+
+func (m *MoqFlagSet_starGenType) ParamsKey_Func(params MoqFlagSet_starGenType_Func_params, anyParams uint64) MoqFlagSet_starGenType_Func_paramsKey {
+	m.Scene.T.Helper()
+	var nameUsed string
+	var nameUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Func.Name == moq.ParamIndexByValue {
+			nameUsed = params.Name
+		} else {
+			nameUsedHash = hash.DeepHash(params.Name)
+		}
+	}
+	var usageUsed string
+	var usageUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.Func.Usage == moq.ParamIndexByValue {
+			usageUsed = params.Usage
+		} else {
+			usageUsedHash = hash.DeepHash(params.Usage)
+		}
+	}
+	var fnUsedHash hash.Hash
+	if anyParams&(1<<2) == 0 {
+		if m.Runtime.ParameterIndexing.Func.Fn == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The fn parameter of the Func function can't be indexed by value")
+		}
+		fnUsedHash = hash.DeepHash(params.Fn)
+	}
+	return MoqFlagSet_starGenType_Func_paramsKey{
+		Params: struct{ Name, Usage string }{
+			Name:  nameUsed,
+			Usage: usageUsed,
+		},
+		Hashes: struct {
+			Name, Usage hash.Hash
+			Fn          hash.Hash
+		}{
+			Name:  nameUsedHash,
+			Usage: usageUsedHash,
+			Fn:    fnUsedHash,
+		},
+	}
+}
+
 func (m *MoqFlagSet_starGenType_recorder) Var(value flag.Value, name string, usage string) *MoqFlagSet_starGenType_Var_fnRecorder {
 	return &MoqFlagSet_starGenType_Var_fnRecorder{
 		Params: MoqFlagSet_starGenType_Var_params{
@@ -11966,6 +12334,7 @@ func (m *MoqFlagSet_starGenType) Reset() {
 	m.ResultsByParams_Float64 = nil
 	m.ResultsByParams_DurationVar = nil
 	m.ResultsByParams_Duration = nil
+	m.ResultsByParams_Func = nil
 	m.ResultsByParams_Var = nil
 	m.ResultsByParams_Parse = nil
 	m.ResultsByParams_Parsed = nil
@@ -12204,6 +12573,14 @@ func (m *MoqFlagSet_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Duration(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Func {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Func(results.Params))
 			}
 		}
 	}

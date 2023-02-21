@@ -13,7 +13,7 @@ import (
 
 // Ints_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Ints_genType func(a []int)
+type Ints_genType func(x []int)
 
 // MoqInts_genType holds the state of a moq of the Ints_genType type
 type MoqInts_genType struct {
@@ -25,7 +25,7 @@ type MoqInts_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}
 	}
 }
@@ -36,12 +36,12 @@ type MoqInts_genType_mock struct {
 }
 
 // MoqInts_genType_params holds the params of the Ints_genType type
-type MoqInts_genType_params struct{ A []int }
+type MoqInts_genType_params struct{ X []int }
 
 // MoqInts_genType_paramsKey holds the map key params of the Ints_genType type
 type MoqInts_genType_paramsKey struct {
 	Params struct{}
-	Hashes struct{ A hash.Hash }
+	Hashes struct{ X hash.Hash }
 }
 
 // MoqInts_genType_resultsByParams contains the results for a given set of
@@ -54,11 +54,11 @@ type MoqInts_genType_resultsByParams struct {
 
 // MoqInts_genType_doFn defines the type of function needed when calling AndDo
 // for the Ints_genType type
-type MoqInts_genType_doFn func(a []int)
+type MoqInts_genType_doFn func(x []int)
 
 // MoqInts_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Ints_genType type
-type MoqInts_genType_doReturnFn func(a []int)
+type MoqInts_genType_doReturnFn func(x []int)
 
 // MoqInts_genType_results holds the results of the Ints_genType type
 type MoqInts_genType_results struct {
@@ -101,12 +101,12 @@ func NewMoqInts_genType(scene *moq.Scene, config *moq.Config) *MoqInts_genType {
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				A moq.ParamIndexing
+				X moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			A moq.ParamIndexing
+			X moq.ParamIndexing
 		}{
-			A: moq.ParamIndexByHash,
+			X: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -117,13 +117,13 @@ func NewMoqInts_genType(scene *moq.Scene, config *moq.Config) *MoqInts_genType {
 
 // Mock returns the moq implementation of the Ints_genType type
 func (m *MoqInts_genType) Mock() Ints_genType {
-	return func(a []int) { m.Scene.T.Helper(); moq := &MoqInts_genType_mock{Moq: m}; moq.Fn(a) }
+	return func(x []int) { m.Scene.T.Helper(); moq := &MoqInts_genType_mock{Moq: m}; moq.Fn(x) }
 }
 
-func (m *MoqInts_genType_mock) Fn(a []int) {
+func (m *MoqInts_genType_mock) Fn(x []int) {
 	m.Moq.Scene.T.Helper()
 	params := MoqInts_genType_params{
-		A: a,
+		X: x,
 	}
 	var results *MoqInts_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -161,19 +161,19 @@ func (m *MoqInts_genType_mock) Fn(a []int) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(a)
+		result.DoFn(x)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(a)
+		result.DoReturnFn(x)
 	}
 	return
 }
 
-func (m *MoqInts_genType) OnCall(a []int) *MoqInts_genType_fnRecorder {
+func (m *MoqInts_genType) OnCall(x []int) *MoqInts_genType_fnRecorder {
 	return &MoqInts_genType_fnRecorder{
 		Params: MoqInts_genType_params{
-			A: a,
+			X: x,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -189,7 +189,7 @@ func (r *MoqInts_genType_fnRecorder) Any() *MoqInts_genType_anyParams {
 	return &MoqInts_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqInts_genType_anyParams) A() *MoqInts_genType_fnRecorder {
+func (a *MoqInts_genType_anyParams) X() *MoqInts_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -339,22 +339,22 @@ func (r *MoqInts_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqInts_
 }
 
 func (m *MoqInts_genType) PrettyParams(params MoqInts_genType_params) string {
-	return fmt.Sprintf("Ints_genType(%#v)", params.A)
+	return fmt.Sprintf("Ints_genType(%#v)", params.X)
 }
 
 func (m *MoqInts_genType) ParamsKey(params MoqInts_genType_params, anyParams uint64) MoqInts_genType_paramsKey {
 	m.Scene.T.Helper()
-	var aUsedHash hash.Hash
+	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.A == moq.ParamIndexByValue {
-			m.Scene.T.Fatalf("The a parameter can't be indexed by value")
+		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The x parameter can't be indexed by value")
 		}
-		aUsedHash = hash.DeepHash(params.A)
+		xUsedHash = hash.DeepHash(params.X)
 	}
 	return MoqInts_genType_paramsKey{
 		Params: struct{}{},
-		Hashes: struct{ A hash.Hash }{
-			A: aUsedHash,
+		Hashes: struct{ X hash.Hash }{
+			X: xUsedHash,
 		},
 	}
 }
