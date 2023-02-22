@@ -22,7 +22,7 @@ var _ UDPConn_starGenType = (*MoqUDPConn_starGenType_mock)(nil)
 // interface type)
 type UDPConn_starGenType interface {
 	SyscallConn() (syscall.RawConn, error)
-	ReadFromUDP(b []byte) (int, *net.UDPAddr, error)
+	ReadFromUDP(b []byte) (n int, addr *net.UDPAddr, err error)
 	ReadFrom(b []byte) (int, net.Addr, error)
 	ReadMsgUDP(b, oob []byte) (n, oobn, flags int, addr *net.UDPAddr, err error)
 	WriteToUDP(b []byte, addr *net.UDPAddr) (int, error)
@@ -172,7 +172,7 @@ type MoqUDPConn_starGenType_ReadFromUDP_doFn func(b []byte)
 
 // MoqUDPConn_starGenType_ReadFromUDP_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the UDPConn_starGenType type
-type MoqUDPConn_starGenType_ReadFromUDP_doReturnFn func(b []byte) (int, *net.UDPAddr, error)
+type MoqUDPConn_starGenType_ReadFromUDP_doReturnFn func(b []byte) (n int, addr *net.UDPAddr, err error)
 
 // MoqUDPConn_starGenType_ReadFromUDP_results holds the results of the
 // UDPConn_starGenType type
@@ -180,9 +180,9 @@ type MoqUDPConn_starGenType_ReadFromUDP_results struct {
 	Params  MoqUDPConn_starGenType_ReadFromUDP_params
 	Results []struct {
 		Values *struct {
-			Result1 int
-			Result2 *net.UDPAddr
-			Result3 error
+			N    int
+			Addr *net.UDPAddr
+			Err  error
 		}
 		Sequence   uint32
 		DoFn       MoqUDPConn_starGenType_ReadFromUDP_doFn
@@ -695,7 +695,7 @@ func (m *MoqUDPConn_starGenType_mock) SyscallConn() (result1 syscall.RawConn, re
 	return
 }
 
-func (m *MoqUDPConn_starGenType_mock) ReadFromUDP(b []byte) (result1 int, result2 *net.UDPAddr, result3 error) {
+func (m *MoqUDPConn_starGenType_mock) ReadFromUDP(b []byte) (n int, addr *net.UDPAddr, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqUDPConn_starGenType_ReadFromUDP_params{
 		B: b,
@@ -740,12 +740,12 @@ func (m *MoqUDPConn_starGenType_mock) ReadFromUDP(b []byte) (result1 int, result
 	}
 
 	if result.Values != nil {
-		result1 = result.Values.Result1
-		result2 = result.Values.Result2
-		result3 = result.Values.Result3
+		n = result.Values.N
+		addr = result.Values.Addr
+		err = result.Values.Err
 	}
 	if result.DoReturnFn != nil {
-		result1, result2, result3 = result.DoReturnFn(b)
+		n, addr, err = result.DoReturnFn(b)
 	}
 	return
 }
@@ -1269,7 +1269,7 @@ func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) NoSeq() *MoqUDPConn_star
 	return r
 }
 
-func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) ReturnResults(result1 int, result2 *net.UDPAddr, result3 error) *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder {
+func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) ReturnResults(n int, addr *net.UDPAddr, err error) *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1280,22 +1280,22 @@ func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) ReturnResults(result1 in
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 int
-			Result2 *net.UDPAddr
-			Result3 error
+			N    int
+			Addr *net.UDPAddr
+			Err  error
 		}
 		Sequence   uint32
 		DoFn       MoqUDPConn_starGenType_ReadFromUDP_doFn
 		DoReturnFn MoqUDPConn_starGenType_ReadFromUDP_doReturnFn
 	}{
 		Values: &struct {
-			Result1 int
-			Result2 *net.UDPAddr
-			Result3 error
+			N    int
+			Addr *net.UDPAddr
+			Err  error
 		}{
-			Result1: result1,
-			Result2: result2,
-			Result3: result3,
+			N:    n,
+			Addr: addr,
+			Err:  err,
 		},
 		Sequence: sequence,
 	})
@@ -1324,9 +1324,9 @@ func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) DoReturnResults(fn MoqUD
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 int
-			Result2 *net.UDPAddr
-			Result3 error
+			N    int
+			Addr *net.UDPAddr
+			Err  error
 		}
 		Sequence   uint32
 		DoFn       MoqUDPConn_starGenType_ReadFromUDP_doFn
@@ -1396,9 +1396,9 @@ func (r *MoqUDPConn_starGenType_ReadFromUDP_fnRecorder) Repeat(repeaters ...moq.
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 int
-					Result2 *net.UDPAddr
-					Result3 error
+					N    int
+					Addr *net.UDPAddr
+					Err  error
 				}
 				Sequence   uint32
 				DoFn       MoqUDPConn_starGenType_ReadFromUDP_doFn

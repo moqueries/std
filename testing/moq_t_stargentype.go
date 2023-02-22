@@ -22,6 +22,7 @@ var _ T_starGenType = (*MoqT_starGenType_mock)(nil)
 // type)
 type T_starGenType interface {
 	Parallel()
+	Setenv(key, value string)
 	Run(name string, f func(t *testing.T)) bool
 	Deadline() (deadline time.Time, ok bool)
 }
@@ -33,13 +34,18 @@ type MoqT_starGenType struct {
 	Moq    *MoqT_starGenType_mock
 
 	ResultsByParams_Parallel []MoqT_starGenType_Parallel_resultsByParams
+	ResultsByParams_Setenv   []MoqT_starGenType_Setenv_resultsByParams
 	ResultsByParams_Run      []MoqT_starGenType_Run_resultsByParams
 	ResultsByParams_Deadline []MoqT_starGenType_Deadline_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			Parallel struct{}
-			Run      struct {
+			Setenv   struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}
+			Run struct {
 				Name moq.ParamIndexing
 				F    moq.ParamIndexing
 			}
@@ -113,6 +119,61 @@ type MoqT_starGenType_Parallel_fnRecorder struct {
 // T_starGenType type
 type MoqT_starGenType_Parallel_anyParams struct {
 	Recorder *MoqT_starGenType_Parallel_fnRecorder
+}
+
+// MoqT_starGenType_Setenv_params holds the params of the T_starGenType type
+type MoqT_starGenType_Setenv_params struct{ Key, Value string }
+
+// MoqT_starGenType_Setenv_paramsKey holds the map key params of the
+// T_starGenType type
+type MoqT_starGenType_Setenv_paramsKey struct {
+	Params struct{ Key, Value string }
+	Hashes struct{ Key, Value hash.Hash }
+}
+
+// MoqT_starGenType_Setenv_resultsByParams contains the results for a given set
+// of parameters for the T_starGenType type
+type MoqT_starGenType_Setenv_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqT_starGenType_Setenv_paramsKey]*MoqT_starGenType_Setenv_results
+}
+
+// MoqT_starGenType_Setenv_doFn defines the type of function needed when
+// calling AndDo for the T_starGenType type
+type MoqT_starGenType_Setenv_doFn func(key, value string)
+
+// MoqT_starGenType_Setenv_doReturnFn defines the type of function needed when
+// calling DoReturnResults for the T_starGenType type
+type MoqT_starGenType_Setenv_doReturnFn func(key, value string)
+
+// MoqT_starGenType_Setenv_results holds the results of the T_starGenType type
+type MoqT_starGenType_Setenv_results struct {
+	Params  MoqT_starGenType_Setenv_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Setenv_doFn
+		DoReturnFn MoqT_starGenType_Setenv_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqT_starGenType_Setenv_fnRecorder routes recorded function calls to the
+// MoqT_starGenType moq
+type MoqT_starGenType_Setenv_fnRecorder struct {
+	Params    MoqT_starGenType_Setenv_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqT_starGenType_Setenv_results
+	Moq       *MoqT_starGenType
+}
+
+// MoqT_starGenType_Setenv_anyParams isolates the any params functions of the
+// T_starGenType type
+type MoqT_starGenType_Setenv_anyParams struct {
+	Recorder *MoqT_starGenType_Setenv_fnRecorder
 }
 
 // MoqT_starGenType_Run_params holds the params of the T_starGenType type
@@ -250,7 +311,11 @@ func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType
 		Runtime: struct {
 			ParameterIndexing struct {
 				Parallel struct{}
-				Run      struct {
+				Setenv   struct {
+					Key   moq.ParamIndexing
+					Value moq.ParamIndexing
+				}
+				Run struct {
 					Name moq.ParamIndexing
 					F    moq.ParamIndexing
 				}
@@ -258,13 +323,24 @@ func NewMoqT_starGenType(scene *moq.Scene, config *moq.Config) *MoqT_starGenType
 			}
 		}{ParameterIndexing: struct {
 			Parallel struct{}
-			Run      struct {
+			Setenv   struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}
+			Run struct {
 				Name moq.ParamIndexing
 				F    moq.ParamIndexing
 			}
 			Deadline struct{}
 		}{
 			Parallel: struct{}{},
+			Setenv: struct {
+				Key   moq.ParamIndexing
+				Value moq.ParamIndexing
+			}{
+				Key:   moq.ParamIndexByValue,
+				Value: moq.ParamIndexByValue,
+			},
 			Run: struct {
 				Name moq.ParamIndexing
 				F    moq.ParamIndexing
@@ -328,6 +404,57 @@ func (m *MoqT_starGenType_mock) Parallel() {
 
 	if result.DoReturnFn != nil {
 		result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqT_starGenType_mock) Setenv(key, value string) {
+	m.Moq.Scene.T.Helper()
+	params := MoqT_starGenType_Setenv_params{
+		Key:   key,
+		Value: value,
+	}
+	var results *MoqT_starGenType_Setenv_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Setenv {
+		paramsKey := m.Moq.ParamsKey_Setenv(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Setenv(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Setenv(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Setenv(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(key, value)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(key, value)
 	}
 	return
 }
@@ -615,6 +742,216 @@ func (m *MoqT_starGenType) ParamsKey_Parallel(params MoqT_starGenType_Parallel_p
 	return MoqT_starGenType_Parallel_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqT_starGenType_recorder) Setenv(key, value string) *MoqT_starGenType_Setenv_fnRecorder {
+	return &MoqT_starGenType_Setenv_fnRecorder{
+		Params: MoqT_starGenType_Setenv_params{
+			Key:   key,
+			Value: value,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) Any() *MoqT_starGenType_Setenv_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	return &MoqT_starGenType_Setenv_anyParams{Recorder: r}
+}
+
+func (a *MoqT_starGenType_Setenv_anyParams) Key() *MoqT_starGenType_Setenv_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqT_starGenType_Setenv_anyParams) Value() *MoqT_starGenType_Setenv_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) Seq() *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) NoSeq() *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Setenv(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) ReturnResults() *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Setenv_doFn
+		DoReturnFn MoqT_starGenType_Setenv_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) AndDo(fn MoqT_starGenType_Setenv_doFn) *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) DoReturnResults(fn MoqT_starGenType_Setenv_doReturnFn) *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqT_starGenType_Setenv_doFn
+		DoReturnFn MoqT_starGenType_Setenv_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqT_starGenType_Setenv_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Setenv {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqT_starGenType_Setenv_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqT_starGenType_Setenv_paramsKey]*MoqT_starGenType_Setenv_results{},
+		}
+		r.Moq.ResultsByParams_Setenv = append(r.Moq.ResultsByParams_Setenv, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Setenv) {
+			copy(r.Moq.ResultsByParams_Setenv[insertAt+1:], r.Moq.ResultsByParams_Setenv[insertAt:0])
+			r.Moq.ResultsByParams_Setenv[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Setenv(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqT_starGenType_Setenv_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqT_starGenType_Setenv_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqT_starGenType_Setenv_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqT_starGenType_Setenv_doFn
+				DoReturnFn MoqT_starGenType_Setenv_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqT_starGenType) PrettyParams_Setenv(params MoqT_starGenType_Setenv_params) string {
+	return fmt.Sprintf("Setenv(%#v, %#v)", params.Key, params.Value)
+}
+
+func (m *MoqT_starGenType) ParamsKey_Setenv(params MoqT_starGenType_Setenv_params, anyParams uint64) MoqT_starGenType_Setenv_paramsKey {
+	m.Scene.T.Helper()
+	var keyUsed string
+	var keyUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Setenv.Key == moq.ParamIndexByValue {
+			keyUsed = params.Key
+		} else {
+			keyUsedHash = hash.DeepHash(params.Key)
+		}
+	}
+	var valueUsed string
+	var valueUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.Setenv.Value == moq.ParamIndexByValue {
+			valueUsed = params.Value
+		} else {
+			valueUsedHash = hash.DeepHash(params.Value)
+		}
+	}
+	return MoqT_starGenType_Setenv_paramsKey{
+		Params: struct{ Key, Value string }{
+			Key:   keyUsed,
+			Value: valueUsed,
+		},
+		Hashes: struct{ Key, Value hash.Hash }{
+			Key:   keyUsedHash,
+			Value: valueUsedHash,
+		},
 	}
 }
 
@@ -1029,6 +1366,7 @@ func (m *MoqT_starGenType) ParamsKey_Deadline(params MoqT_starGenType_Deadline_p
 // Reset resets the state of the moq
 func (m *MoqT_starGenType) Reset() {
 	m.ResultsByParams_Parallel = nil
+	m.ResultsByParams_Setenv = nil
 	m.ResultsByParams_Run = nil
 	m.ResultsByParams_Deadline = nil
 }
@@ -1041,6 +1379,14 @@ func (m *MoqT_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Parallel(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Setenv {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Setenv(results.Params))
 			}
 		}
 	}

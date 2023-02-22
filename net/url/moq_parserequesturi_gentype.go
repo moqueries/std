@@ -14,7 +14,7 @@ import (
 
 // ParseRequestURI_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type ParseRequestURI_genType func(rawurl string) (*url.URL, error)
+type ParseRequestURI_genType func(rawURL string) (*url.URL, error)
 
 // MoqParseRequestURI_genType holds the state of a moq of the
 // ParseRequestURI_genType type
@@ -27,7 +27,7 @@ type MoqParseRequestURI_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Rawurl moq.ParamIndexing
+			RawURL moq.ParamIndexing
 		}
 	}
 }
@@ -40,13 +40,13 @@ type MoqParseRequestURI_genType_mock struct {
 
 // MoqParseRequestURI_genType_params holds the params of the
 // ParseRequestURI_genType type
-type MoqParseRequestURI_genType_params struct{ Rawurl string }
+type MoqParseRequestURI_genType_params struct{ RawURL string }
 
 // MoqParseRequestURI_genType_paramsKey holds the map key params of the
 // ParseRequestURI_genType type
 type MoqParseRequestURI_genType_paramsKey struct {
-	Params struct{ Rawurl string }
-	Hashes struct{ Rawurl hash.Hash }
+	Params struct{ RawURL string }
+	Hashes struct{ RawURL hash.Hash }
 }
 
 // MoqParseRequestURI_genType_resultsByParams contains the results for a given
@@ -59,11 +59,11 @@ type MoqParseRequestURI_genType_resultsByParams struct {
 
 // MoqParseRequestURI_genType_doFn defines the type of function needed when
 // calling AndDo for the ParseRequestURI_genType type
-type MoqParseRequestURI_genType_doFn func(rawurl string)
+type MoqParseRequestURI_genType_doFn func(rawURL string)
 
 // MoqParseRequestURI_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the ParseRequestURI_genType type
-type MoqParseRequestURI_genType_doReturnFn func(rawurl string) (*url.URL, error)
+type MoqParseRequestURI_genType_doReturnFn func(rawURL string) (*url.URL, error)
 
 // MoqParseRequestURI_genType_results holds the results of the
 // ParseRequestURI_genType type
@@ -111,12 +111,12 @@ func NewMoqParseRequestURI_genType(scene *moq.Scene, config *moq.Config) *MoqPar
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Rawurl moq.ParamIndexing
+				RawURL moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Rawurl moq.ParamIndexing
+			RawURL moq.ParamIndexing
 		}{
-			Rawurl: moq.ParamIndexByValue,
+			RawURL: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -127,17 +127,17 @@ func NewMoqParseRequestURI_genType(scene *moq.Scene, config *moq.Config) *MoqPar
 
 // Mock returns the moq implementation of the ParseRequestURI_genType type
 func (m *MoqParseRequestURI_genType) Mock() ParseRequestURI_genType {
-	return func(rawurl string) (*url.URL, error) {
+	return func(rawURL string) (*url.URL, error) {
 		m.Scene.T.Helper()
 		moq := &MoqParseRequestURI_genType_mock{Moq: m}
-		return moq.Fn(rawurl)
+		return moq.Fn(rawURL)
 	}
 }
 
-func (m *MoqParseRequestURI_genType_mock) Fn(rawurl string) (result1 *url.URL, result2 error) {
+func (m *MoqParseRequestURI_genType_mock) Fn(rawURL string) (result1 *url.URL, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParseRequestURI_genType_params{
-		Rawurl: rawurl,
+		RawURL: rawURL,
 	}
 	var results *MoqParseRequestURI_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -175,7 +175,7 @@ func (m *MoqParseRequestURI_genType_mock) Fn(rawurl string) (result1 *url.URL, r
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(rawurl)
+		result.DoFn(rawURL)
 	}
 
 	if result.Values != nil {
@@ -183,15 +183,15 @@ func (m *MoqParseRequestURI_genType_mock) Fn(rawurl string) (result1 *url.URL, r
 		result2 = result.Values.Result2
 	}
 	if result.DoReturnFn != nil {
-		result1, result2 = result.DoReturnFn(rawurl)
+		result1, result2 = result.DoReturnFn(rawURL)
 	}
 	return
 }
 
-func (m *MoqParseRequestURI_genType) OnCall(rawurl string) *MoqParseRequestURI_genType_fnRecorder {
+func (m *MoqParseRequestURI_genType) OnCall(rawURL string) *MoqParseRequestURI_genType_fnRecorder {
 	return &MoqParseRequestURI_genType_fnRecorder{
 		Params: MoqParseRequestURI_genType_params{
-			Rawurl: rawurl,
+			RawURL: rawURL,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -207,7 +207,7 @@ func (r *MoqParseRequestURI_genType_fnRecorder) Any() *MoqParseRequestURI_genTyp
 	return &MoqParseRequestURI_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqParseRequestURI_genType_anyParams) Rawurl() *MoqParseRequestURI_genType_fnRecorder {
+func (a *MoqParseRequestURI_genType_anyParams) RawURL() *MoqParseRequestURI_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -372,26 +372,26 @@ func (r *MoqParseRequestURI_genType_fnRecorder) Repeat(repeaters ...moq.Repeater
 }
 
 func (m *MoqParseRequestURI_genType) PrettyParams(params MoqParseRequestURI_genType_params) string {
-	return fmt.Sprintf("ParseRequestURI_genType(%#v)", params.Rawurl)
+	return fmt.Sprintf("ParseRequestURI_genType(%#v)", params.RawURL)
 }
 
 func (m *MoqParseRequestURI_genType) ParamsKey(params MoqParseRequestURI_genType_params, anyParams uint64) MoqParseRequestURI_genType_paramsKey {
 	m.Scene.T.Helper()
-	var rawurlUsed string
-	var rawurlUsedHash hash.Hash
+	var rawURLUsed string
+	var rawURLUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Rawurl == moq.ParamIndexByValue {
-			rawurlUsed = params.Rawurl
+		if m.Runtime.ParameterIndexing.RawURL == moq.ParamIndexByValue {
+			rawURLUsed = params.RawURL
 		} else {
-			rawurlUsedHash = hash.DeepHash(params.Rawurl)
+			rawURLUsedHash = hash.DeepHash(params.RawURL)
 		}
 	}
 	return MoqParseRequestURI_genType_paramsKey{
-		Params: struct{ Rawurl string }{
-			Rawurl: rawurlUsed,
+		Params: struct{ RawURL string }{
+			RawURL: rawURLUsed,
 		},
-		Hashes: struct{ Rawurl hash.Hash }{
-			Rawurl: rawurlUsedHash,
+		Hashes: struct{ RawURL hash.Hash }{
+			RawURL: rawURLUsedHash,
 		},
 	}
 }

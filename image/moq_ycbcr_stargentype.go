@@ -24,6 +24,7 @@ type YCbCr_starGenType interface {
 	ColorModel() color.Model
 	Bounds() image.Rectangle
 	At(x, y int) color.Color
+	RGBA64At(x, y int) color.RGBA64
 	YCbCrAt(x, y int) color.YCbCr
 	YOffset(x, y int) int
 	COffset(x, y int) int
@@ -40,6 +41,7 @@ type MoqYCbCr_starGenType struct {
 	ResultsByParams_ColorModel []MoqYCbCr_starGenType_ColorModel_resultsByParams
 	ResultsByParams_Bounds     []MoqYCbCr_starGenType_Bounds_resultsByParams
 	ResultsByParams_At         []MoqYCbCr_starGenType_At_resultsByParams
+	ResultsByParams_RGBA64At   []MoqYCbCr_starGenType_RGBA64At_resultsByParams
 	ResultsByParams_YCbCrAt    []MoqYCbCr_starGenType_YCbCrAt_resultsByParams
 	ResultsByParams_YOffset    []MoqYCbCr_starGenType_YOffset_resultsByParams
 	ResultsByParams_COffset    []MoqYCbCr_starGenType_COffset_resultsByParams
@@ -51,6 +53,10 @@ type MoqYCbCr_starGenType struct {
 			ColorModel struct{}
 			Bounds     struct{}
 			At         struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}
+			RGBA64At struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}
@@ -261,6 +267,65 @@ type MoqYCbCr_starGenType_At_fnRecorder struct {
 // YCbCr_starGenType type
 type MoqYCbCr_starGenType_At_anyParams struct {
 	Recorder *MoqYCbCr_starGenType_At_fnRecorder
+}
+
+// MoqYCbCr_starGenType_RGBA64At_params holds the params of the
+// YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_params struct{ X, Y int }
+
+// MoqYCbCr_starGenType_RGBA64At_paramsKey holds the map key params of the
+// YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_paramsKey struct {
+	Params struct{ X, Y int }
+	Hashes struct{ X, Y hash.Hash }
+}
+
+// MoqYCbCr_starGenType_RGBA64At_resultsByParams contains the results for a
+// given set of parameters for the YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqYCbCr_starGenType_RGBA64At_paramsKey]*MoqYCbCr_starGenType_RGBA64At_results
+}
+
+// MoqYCbCr_starGenType_RGBA64At_doFn defines the type of function needed when
+// calling AndDo for the YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_doFn func(x, y int)
+
+// MoqYCbCr_starGenType_RGBA64At_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_doReturnFn func(x, y int) color.RGBA64
+
+// MoqYCbCr_starGenType_RGBA64At_results holds the results of the
+// YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_results struct {
+	Params  MoqYCbCr_starGenType_RGBA64At_params
+	Results []struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqYCbCr_starGenType_RGBA64At_doFn
+		DoReturnFn MoqYCbCr_starGenType_RGBA64At_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqYCbCr_starGenType_RGBA64At_fnRecorder routes recorded function calls to
+// the MoqYCbCr_starGenType moq
+type MoqYCbCr_starGenType_RGBA64At_fnRecorder struct {
+	Params    MoqYCbCr_starGenType_RGBA64At_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqYCbCr_starGenType_RGBA64At_results
+	Moq       *MoqYCbCr_starGenType
+}
+
+// MoqYCbCr_starGenType_RGBA64At_anyParams isolates the any params functions of
+// the YCbCr_starGenType type
+type MoqYCbCr_starGenType_RGBA64At_anyParams struct {
+	Recorder *MoqYCbCr_starGenType_RGBA64At_fnRecorder
 }
 
 // MoqYCbCr_starGenType_YCbCrAt_params holds the params of the
@@ -576,6 +641,10 @@ func NewMoqYCbCr_starGenType(scene *moq.Scene, config *moq.Config) *MoqYCbCr_sta
 					X moq.ParamIndexing
 					Y moq.ParamIndexing
 				}
+				RGBA64At struct {
+					X moq.ParamIndexing
+					Y moq.ParamIndexing
+				}
 				YCbCrAt struct {
 					X moq.ParamIndexing
 					Y moq.ParamIndexing
@@ -600,6 +669,10 @@ func NewMoqYCbCr_starGenType(scene *moq.Scene, config *moq.Config) *MoqYCbCr_sta
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}
+			RGBA64At struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}
 			YCbCrAt struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
@@ -620,6 +693,13 @@ func NewMoqYCbCr_starGenType(scene *moq.Scene, config *moq.Config) *MoqYCbCr_sta
 			ColorModel: struct{}{},
 			Bounds:     struct{}{},
 			At: struct {
+				X moq.ParamIndexing
+				Y moq.ParamIndexing
+			}{
+				X: moq.ParamIndexByValue,
+				Y: moq.ParamIndexByValue,
+			},
+			RGBA64At: struct {
 				X moq.ParamIndexing
 				Y moq.ParamIndexing
 			}{
@@ -804,6 +884,60 @@ func (m *MoqYCbCr_starGenType_mock) At(x, y int) (result1 color.Color) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_At(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(x, y)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(x, y)
+	}
+	return
+}
+
+func (m *MoqYCbCr_starGenType_mock) RGBA64At(x, y int) (result1 color.RGBA64) {
+	m.Moq.Scene.T.Helper()
+	params := MoqYCbCr_starGenType_RGBA64At_params{
+		X: x,
+		Y: y,
+	}
+	var results *MoqYCbCr_starGenType_RGBA64At_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_RGBA64At {
+		paramsKey := m.Moq.ParamsKey_RGBA64At(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_RGBA64At(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_RGBA64At(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_RGBA64At(params))
 		}
 	}
 
@@ -1668,6 +1802,226 @@ func (m *MoqYCbCr_starGenType) ParamsKey_At(params MoqYCbCr_starGenType_At_param
 		}
 	}
 	return MoqYCbCr_starGenType_At_paramsKey{
+		Params: struct{ X, Y int }{
+			X: xUsed,
+			Y: yUsed,
+		},
+		Hashes: struct{ X, Y hash.Hash }{
+			X: xUsedHash,
+			Y: yUsedHash,
+		},
+	}
+}
+
+func (m *MoqYCbCr_starGenType_recorder) RGBA64At(x, y int) *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	return &MoqYCbCr_starGenType_RGBA64At_fnRecorder{
+		Params: MoqYCbCr_starGenType_RGBA64At_params{
+			X: x,
+			Y: y,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) Any() *MoqYCbCr_starGenType_RGBA64At_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	return &MoqYCbCr_starGenType_RGBA64At_anyParams{Recorder: r}
+}
+
+func (a *MoqYCbCr_starGenType_RGBA64At_anyParams) X() *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqYCbCr_starGenType_RGBA64At_anyParams) Y() *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) Seq() *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) NoSeq() *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_RGBA64At(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) ReturnResults(result1 color.RGBA64) *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqYCbCr_starGenType_RGBA64At_doFn
+		DoReturnFn MoqYCbCr_starGenType_RGBA64At_doReturnFn
+	}{
+		Values: &struct {
+			Result1 color.RGBA64
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) AndDo(fn MoqYCbCr_starGenType_RGBA64At_doFn) *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) DoReturnResults(fn MoqYCbCr_starGenType_RGBA64At_doReturnFn) *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 color.RGBA64
+		}
+		Sequence   uint32
+		DoFn       MoqYCbCr_starGenType_RGBA64At_doFn
+		DoReturnFn MoqYCbCr_starGenType_RGBA64At_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqYCbCr_starGenType_RGBA64At_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_RGBA64At {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqYCbCr_starGenType_RGBA64At_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqYCbCr_starGenType_RGBA64At_paramsKey]*MoqYCbCr_starGenType_RGBA64At_results{},
+		}
+		r.Moq.ResultsByParams_RGBA64At = append(r.Moq.ResultsByParams_RGBA64At, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_RGBA64At) {
+			copy(r.Moq.ResultsByParams_RGBA64At[insertAt+1:], r.Moq.ResultsByParams_RGBA64At[insertAt:0])
+			r.Moq.ResultsByParams_RGBA64At[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_RGBA64At(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqYCbCr_starGenType_RGBA64At_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqYCbCr_starGenType_RGBA64At_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqYCbCr_starGenType_RGBA64At_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 color.RGBA64
+				}
+				Sequence   uint32
+				DoFn       MoqYCbCr_starGenType_RGBA64At_doFn
+				DoReturnFn MoqYCbCr_starGenType_RGBA64At_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqYCbCr_starGenType) PrettyParams_RGBA64At(params MoqYCbCr_starGenType_RGBA64At_params) string {
+	return fmt.Sprintf("RGBA64At(%#v, %#v)", params.X, params.Y)
+}
+
+func (m *MoqYCbCr_starGenType) ParamsKey_RGBA64At(params MoqYCbCr_starGenType_RGBA64At_params, anyParams uint64) MoqYCbCr_starGenType_RGBA64At_paramsKey {
+	m.Scene.T.Helper()
+	var xUsed int
+	var xUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.RGBA64At.X == moq.ParamIndexByValue {
+			xUsed = params.X
+		} else {
+			xUsedHash = hash.DeepHash(params.X)
+		}
+	}
+	var yUsed int
+	var yUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.RGBA64At.Y == moq.ParamIndexByValue {
+			yUsed = params.Y
+		} else {
+			yUsedHash = hash.DeepHash(params.Y)
+		}
+	}
+	return MoqYCbCr_starGenType_RGBA64At_paramsKey{
 		Params: struct{ X, Y int }{
 			X: xUsed,
 			Y: yUsed,
@@ -2730,6 +3084,7 @@ func (m *MoqYCbCr_starGenType) Reset() {
 	m.ResultsByParams_ColorModel = nil
 	m.ResultsByParams_Bounds = nil
 	m.ResultsByParams_At = nil
+	m.ResultsByParams_RGBA64At = nil
 	m.ResultsByParams_YCbCrAt = nil
 	m.ResultsByParams_YOffset = nil
 	m.ResultsByParams_COffset = nil
@@ -2761,6 +3116,14 @@ func (m *MoqYCbCr_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_At(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_RGBA64At {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_RGBA64At(results.Params))
 			}
 		}
 	}

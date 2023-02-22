@@ -27,6 +27,8 @@ type Writer_starGenType interface {
 	Close() error
 	Create(name string) (io.Writer, error)
 	CreateHeader(fh *zip.FileHeader) (io.Writer, error)
+	CreateRaw(fh *zip.FileHeader) (io.Writer, error)
+	Copy(f *zip.File) error
 	RegisterCompressor(method uint16, comp zip.Compressor)
 }
 
@@ -43,6 +45,8 @@ type MoqWriter_starGenType struct {
 	ResultsByParams_Close              []MoqWriter_starGenType_Close_resultsByParams
 	ResultsByParams_Create             []MoqWriter_starGenType_Create_resultsByParams
 	ResultsByParams_CreateHeader       []MoqWriter_starGenType_CreateHeader_resultsByParams
+	ResultsByParams_CreateRaw          []MoqWriter_starGenType_CreateRaw_resultsByParams
+	ResultsByParams_Copy               []MoqWriter_starGenType_Copy_resultsByParams
 	ResultsByParams_RegisterCompressor []MoqWriter_starGenType_RegisterCompressor_resultsByParams
 
 	Runtime struct {
@@ -60,6 +64,12 @@ type MoqWriter_starGenType struct {
 			}
 			CreateHeader struct {
 				Fh moq.ParamIndexing
+			}
+			CreateRaw struct {
+				Fh moq.ParamIndexing
+			}
+			Copy struct {
+				F moq.ParamIndexing
 			}
 			RegisterCompressor struct {
 				Method moq.ParamIndexing
@@ -435,6 +445,125 @@ type MoqWriter_starGenType_CreateHeader_anyParams struct {
 	Recorder *MoqWriter_starGenType_CreateHeader_fnRecorder
 }
 
+// MoqWriter_starGenType_CreateRaw_params holds the params of the
+// Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_params struct{ Fh *zip.FileHeader }
+
+// MoqWriter_starGenType_CreateRaw_paramsKey holds the map key params of the
+// Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_paramsKey struct {
+	Params struct{ Fh *zip.FileHeader }
+	Hashes struct{ Fh hash.Hash }
+}
+
+// MoqWriter_starGenType_CreateRaw_resultsByParams contains the results for a
+// given set of parameters for the Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqWriter_starGenType_CreateRaw_paramsKey]*MoqWriter_starGenType_CreateRaw_results
+}
+
+// MoqWriter_starGenType_CreateRaw_doFn defines the type of function needed
+// when calling AndDo for the Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_doFn func(fh *zip.FileHeader)
+
+// MoqWriter_starGenType_CreateRaw_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_doReturnFn func(fh *zip.FileHeader) (io.Writer, error)
+
+// MoqWriter_starGenType_CreateRaw_results holds the results of the
+// Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_results struct {
+	Params  MoqWriter_starGenType_CreateRaw_params
+	Results []struct {
+		Values *struct {
+			Result1 io.Writer
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_CreateRaw_doFn
+		DoReturnFn MoqWriter_starGenType_CreateRaw_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqWriter_starGenType_CreateRaw_fnRecorder routes recorded function calls to
+// the MoqWriter_starGenType moq
+type MoqWriter_starGenType_CreateRaw_fnRecorder struct {
+	Params    MoqWriter_starGenType_CreateRaw_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqWriter_starGenType_CreateRaw_results
+	Moq       *MoqWriter_starGenType
+}
+
+// MoqWriter_starGenType_CreateRaw_anyParams isolates the any params functions
+// of the Writer_starGenType type
+type MoqWriter_starGenType_CreateRaw_anyParams struct {
+	Recorder *MoqWriter_starGenType_CreateRaw_fnRecorder
+}
+
+// MoqWriter_starGenType_Copy_params holds the params of the Writer_starGenType
+// type
+type MoqWriter_starGenType_Copy_params struct{ F *zip.File }
+
+// MoqWriter_starGenType_Copy_paramsKey holds the map key params of the
+// Writer_starGenType type
+type MoqWriter_starGenType_Copy_paramsKey struct {
+	Params struct{ F *zip.File }
+	Hashes struct{ F hash.Hash }
+}
+
+// MoqWriter_starGenType_Copy_resultsByParams contains the results for a given
+// set of parameters for the Writer_starGenType type
+type MoqWriter_starGenType_Copy_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqWriter_starGenType_Copy_paramsKey]*MoqWriter_starGenType_Copy_results
+}
+
+// MoqWriter_starGenType_Copy_doFn defines the type of function needed when
+// calling AndDo for the Writer_starGenType type
+type MoqWriter_starGenType_Copy_doFn func(f *zip.File)
+
+// MoqWriter_starGenType_Copy_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Writer_starGenType type
+type MoqWriter_starGenType_Copy_doReturnFn func(f *zip.File) error
+
+// MoqWriter_starGenType_Copy_results holds the results of the
+// Writer_starGenType type
+type MoqWriter_starGenType_Copy_results struct {
+	Params  MoqWriter_starGenType_Copy_params
+	Results []struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_Copy_doFn
+		DoReturnFn MoqWriter_starGenType_Copy_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqWriter_starGenType_Copy_fnRecorder routes recorded function calls to the
+// MoqWriter_starGenType moq
+type MoqWriter_starGenType_Copy_fnRecorder struct {
+	Params    MoqWriter_starGenType_Copy_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqWriter_starGenType_Copy_results
+	Moq       *MoqWriter_starGenType
+}
+
+// MoqWriter_starGenType_Copy_anyParams isolates the any params functions of
+// the Writer_starGenType type
+type MoqWriter_starGenType_Copy_anyParams struct {
+	Recorder *MoqWriter_starGenType_Copy_fnRecorder
+}
+
 // MoqWriter_starGenType_RegisterCompressor_params holds the params of the
 // Writer_starGenType type
 type MoqWriter_starGenType_RegisterCompressor_params struct {
@@ -524,6 +653,12 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 				CreateHeader struct {
 					Fh moq.ParamIndexing
 				}
+				CreateRaw struct {
+					Fh moq.ParamIndexing
+				}
+				Copy struct {
+					F moq.ParamIndexing
+				}
 				RegisterCompressor struct {
 					Method moq.ParamIndexing
 					Comp   moq.ParamIndexing
@@ -543,6 +678,12 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 			}
 			CreateHeader struct {
 				Fh moq.ParamIndexing
+			}
+			CreateRaw struct {
+				Fh moq.ParamIndexing
+			}
+			Copy struct {
+				F moq.ParamIndexing
 			}
 			RegisterCompressor struct {
 				Method moq.ParamIndexing
@@ -570,6 +711,16 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 				Fh moq.ParamIndexing
 			}{
 				Fh: moq.ParamIndexByHash,
+			},
+			CreateRaw: struct {
+				Fh moq.ParamIndexing
+			}{
+				Fh: moq.ParamIndexByHash,
+			},
+			Copy: struct {
+				F moq.ParamIndexing
+			}{
+				F: moq.ParamIndexByHash,
 			},
 			RegisterCompressor: struct {
 				Method moq.ParamIndexing
@@ -898,6 +1049,113 @@ func (m *MoqWriter_starGenType_mock) CreateHeader(fh *zip.FileHeader) (result1 i
 	}
 	if result.DoReturnFn != nil {
 		result1, result2 = result.DoReturnFn(fh)
+	}
+	return
+}
+
+func (m *MoqWriter_starGenType_mock) CreateRaw(fh *zip.FileHeader) (result1 io.Writer, result2 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqWriter_starGenType_CreateRaw_params{
+		Fh: fh,
+	}
+	var results *MoqWriter_starGenType_CreateRaw_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CreateRaw {
+		paramsKey := m.Moq.ParamsKey_CreateRaw(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CreateRaw(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CreateRaw(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CreateRaw(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(fh)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+		result2 = result.Values.Result2
+	}
+	if result.DoReturnFn != nil {
+		result1, result2 = result.DoReturnFn(fh)
+	}
+	return
+}
+
+func (m *MoqWriter_starGenType_mock) Copy(f *zip.File) (result1 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqWriter_starGenType_Copy_params{
+		F: f,
+	}
+	var results *MoqWriter_starGenType_Copy_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Copy {
+		paramsKey := m.Moq.ParamsKey_Copy(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Copy(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Copy(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Copy(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(f)
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn(f)
 	}
 	return
 }
@@ -2138,6 +2396,417 @@ func (m *MoqWriter_starGenType) ParamsKey_CreateHeader(params MoqWriter_starGenT
 	}
 }
 
+func (m *MoqWriter_starGenType_recorder) CreateRaw(fh *zip.FileHeader) *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	return &MoqWriter_starGenType_CreateRaw_fnRecorder{
+		Params: MoqWriter_starGenType_CreateRaw_params{
+			Fh: fh,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) Any() *MoqWriter_starGenType_CreateRaw_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CreateRaw(r.Params))
+		return nil
+	}
+	return &MoqWriter_starGenType_CreateRaw_anyParams{Recorder: r}
+}
+
+func (a *MoqWriter_starGenType_CreateRaw_anyParams) Fh() *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) Seq() *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CreateRaw(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) NoSeq() *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CreateRaw(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) ReturnResults(result1 io.Writer, result2 error) *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 io.Writer
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_CreateRaw_doFn
+		DoReturnFn MoqWriter_starGenType_CreateRaw_doReturnFn
+	}{
+		Values: &struct {
+			Result1 io.Writer
+			Result2 error
+		}{
+			Result1: result1,
+			Result2: result2,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) AndDo(fn MoqWriter_starGenType_CreateRaw_doFn) *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) DoReturnResults(fn MoqWriter_starGenType_CreateRaw_doReturnFn) *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 io.Writer
+			Result2 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_CreateRaw_doFn
+		DoReturnFn MoqWriter_starGenType_CreateRaw_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqWriter_starGenType_CreateRaw_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CreateRaw {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqWriter_starGenType_CreateRaw_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqWriter_starGenType_CreateRaw_paramsKey]*MoqWriter_starGenType_CreateRaw_results{},
+		}
+		r.Moq.ResultsByParams_CreateRaw = append(r.Moq.ResultsByParams_CreateRaw, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CreateRaw) {
+			copy(r.Moq.ResultsByParams_CreateRaw[insertAt+1:], r.Moq.ResultsByParams_CreateRaw[insertAt:0])
+			r.Moq.ResultsByParams_CreateRaw[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CreateRaw(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqWriter_starGenType_CreateRaw_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqWriter_starGenType_CreateRaw_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqWriter_starGenType_CreateRaw_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 io.Writer
+					Result2 error
+				}
+				Sequence   uint32
+				DoFn       MoqWriter_starGenType_CreateRaw_doFn
+				DoReturnFn MoqWriter_starGenType_CreateRaw_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqWriter_starGenType) PrettyParams_CreateRaw(params MoqWriter_starGenType_CreateRaw_params) string {
+	return fmt.Sprintf("CreateRaw(%#v)", params.Fh)
+}
+
+func (m *MoqWriter_starGenType) ParamsKey_CreateRaw(params MoqWriter_starGenType_CreateRaw_params, anyParams uint64) MoqWriter_starGenType_CreateRaw_paramsKey {
+	m.Scene.T.Helper()
+	var fhUsed *zip.FileHeader
+	var fhUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.CreateRaw.Fh == moq.ParamIndexByValue {
+			fhUsed = params.Fh
+		} else {
+			fhUsedHash = hash.DeepHash(params.Fh)
+		}
+	}
+	return MoqWriter_starGenType_CreateRaw_paramsKey{
+		Params: struct{ Fh *zip.FileHeader }{
+			Fh: fhUsed,
+		},
+		Hashes: struct{ Fh hash.Hash }{
+			Fh: fhUsedHash,
+		},
+	}
+}
+
+func (m *MoqWriter_starGenType_recorder) Copy(f *zip.File) *MoqWriter_starGenType_Copy_fnRecorder {
+	return &MoqWriter_starGenType_Copy_fnRecorder{
+		Params: MoqWriter_starGenType_Copy_params{
+			F: f,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) Any() *MoqWriter_starGenType_Copy_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Copy(r.Params))
+		return nil
+	}
+	return &MoqWriter_starGenType_Copy_anyParams{Recorder: r}
+}
+
+func (a *MoqWriter_starGenType_Copy_anyParams) F() *MoqWriter_starGenType_Copy_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) Seq() *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Copy(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) NoSeq() *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Copy(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) ReturnResults(result1 error) *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_Copy_doFn
+		DoReturnFn MoqWriter_starGenType_Copy_doReturnFn
+	}{
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) AndDo(fn MoqWriter_starGenType_Copy_doFn) *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) DoReturnResults(fn MoqWriter_starGenType_Copy_doReturnFn) *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_Copy_doFn
+		DoReturnFn MoqWriter_starGenType_Copy_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqWriter_starGenType_Copy_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Copy {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqWriter_starGenType_Copy_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqWriter_starGenType_Copy_paramsKey]*MoqWriter_starGenType_Copy_results{},
+		}
+		r.Moq.ResultsByParams_Copy = append(r.Moq.ResultsByParams_Copy, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Copy) {
+			copy(r.Moq.ResultsByParams_Copy[insertAt+1:], r.Moq.ResultsByParams_Copy[insertAt:0])
+			r.Moq.ResultsByParams_Copy[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Copy(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqWriter_starGenType_Copy_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqWriter_starGenType_Copy_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqWriter_starGenType_Copy_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 error
+				}
+				Sequence   uint32
+				DoFn       MoqWriter_starGenType_Copy_doFn
+				DoReturnFn MoqWriter_starGenType_Copy_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqWriter_starGenType) PrettyParams_Copy(params MoqWriter_starGenType_Copy_params) string {
+	return fmt.Sprintf("Copy(%#v)", params.F)
+}
+
+func (m *MoqWriter_starGenType) ParamsKey_Copy(params MoqWriter_starGenType_Copy_params, anyParams uint64) MoqWriter_starGenType_Copy_paramsKey {
+	m.Scene.T.Helper()
+	var fUsed *zip.File
+	var fUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Copy.F == moq.ParamIndexByValue {
+			fUsed = params.F
+		} else {
+			fUsedHash = hash.DeepHash(params.F)
+		}
+	}
+	return MoqWriter_starGenType_Copy_paramsKey{
+		Params: struct{ F *zip.File }{
+			F: fUsed,
+		},
+		Hashes: struct{ F hash.Hash }{
+			F: fUsedHash,
+		},
+	}
+}
+
 func (m *MoqWriter_starGenType_recorder) RegisterCompressor(method uint16, comp zip.Compressor) *MoqWriter_starGenType_RegisterCompressor_fnRecorder {
 	return &MoqWriter_starGenType_RegisterCompressor_fnRecorder{
 		Params: MoqWriter_starGenType_RegisterCompressor_params{
@@ -2356,6 +3025,8 @@ func (m *MoqWriter_starGenType) Reset() {
 	m.ResultsByParams_Close = nil
 	m.ResultsByParams_Create = nil
 	m.ResultsByParams_CreateHeader = nil
+	m.ResultsByParams_CreateRaw = nil
+	m.ResultsByParams_Copy = nil
 	m.ResultsByParams_RegisterCompressor = nil
 }
 
@@ -2407,6 +3078,22 @@ func (m *MoqWriter_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CreateHeader(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_CreateRaw {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CreateRaw(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Copy {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Copy(results.Params))
 			}
 		}
 	}

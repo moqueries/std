@@ -19,8 +19,10 @@ var _ Value_starGenType = (*MoqValue_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Value_starGenType interface {
-	Load() (x interface{})
-	Store(x interface{})
+	Load() (val interface{})
+	Store(val interface{})
+	Swap(new interface{}) (old interface{})
+	CompareAndSwap(old, new interface{}) (swapped bool)
 }
 
 // MoqValue_starGenType holds the state of a moq of the Value_starGenType type
@@ -29,14 +31,23 @@ type MoqValue_starGenType struct {
 	Config moq.Config
 	Moq    *MoqValue_starGenType_mock
 
-	ResultsByParams_Load  []MoqValue_starGenType_Load_resultsByParams
-	ResultsByParams_Store []MoqValue_starGenType_Store_resultsByParams
+	ResultsByParams_Load           []MoqValue_starGenType_Load_resultsByParams
+	ResultsByParams_Store          []MoqValue_starGenType_Store_resultsByParams
+	ResultsByParams_Swap           []MoqValue_starGenType_Swap_resultsByParams
+	ResultsByParams_CompareAndSwap []MoqValue_starGenType_CompareAndSwap_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			Load  struct{}
 			Store struct {
-				X moq.ParamIndexing
+				Val moq.ParamIndexing
+			}
+			Swap struct {
+				New moq.ParamIndexing
+			}
+			CompareAndSwap struct {
+				Old moq.ParamIndexing
+				New moq.ParamIndexing
 			}
 		}
 	}
@@ -79,14 +90,14 @@ type MoqValue_starGenType_Load_doFn func()
 
 // MoqValue_starGenType_Load_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_Load_doReturnFn func() (x interface{})
+type MoqValue_starGenType_Load_doReturnFn func() (val interface{})
 
 // MoqValue_starGenType_Load_results holds the results of the Value_starGenType
 // type
 type MoqValue_starGenType_Load_results struct {
 	Params  MoqValue_starGenType_Load_params
 	Results []struct {
-		Values     *struct{ X interface{} }
+		Values     *struct{ Val interface{} }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -113,13 +124,13 @@ type MoqValue_starGenType_Load_anyParams struct {
 
 // MoqValue_starGenType_Store_params holds the params of the Value_starGenType
 // type
-type MoqValue_starGenType_Store_params struct{ X interface{} }
+type MoqValue_starGenType_Store_params struct{ Val interface{} }
 
 // MoqValue_starGenType_Store_paramsKey holds the map key params of the
 // Value_starGenType type
 type MoqValue_starGenType_Store_paramsKey struct {
-	Params struct{ X interface{} }
-	Hashes struct{ X hash.Hash }
+	Params struct{ Val interface{} }
+	Hashes struct{ Val hash.Hash }
 }
 
 // MoqValue_starGenType_Store_resultsByParams contains the results for a given
@@ -132,11 +143,11 @@ type MoqValue_starGenType_Store_resultsByParams struct {
 
 // MoqValue_starGenType_Store_doFn defines the type of function needed when
 // calling AndDo for the Value_starGenType type
-type MoqValue_starGenType_Store_doFn func(x interface{})
+type MoqValue_starGenType_Store_doFn func(val interface{})
 
 // MoqValue_starGenType_Store_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Value_starGenType type
-type MoqValue_starGenType_Store_doReturnFn func(x interface{})
+type MoqValue_starGenType_Store_doReturnFn func(val interface{})
 
 // MoqValue_starGenType_Store_results holds the results of the
 // Value_starGenType type
@@ -168,6 +179,120 @@ type MoqValue_starGenType_Store_anyParams struct {
 	Recorder *MoqValue_starGenType_Store_fnRecorder
 }
 
+// MoqValue_starGenType_Swap_params holds the params of the Value_starGenType
+// type
+type MoqValue_starGenType_Swap_params struct{ New interface{} }
+
+// MoqValue_starGenType_Swap_paramsKey holds the map key params of the
+// Value_starGenType type
+type MoqValue_starGenType_Swap_paramsKey struct {
+	Params struct{ New interface{} }
+	Hashes struct{ New hash.Hash }
+}
+
+// MoqValue_starGenType_Swap_resultsByParams contains the results for a given
+// set of parameters for the Value_starGenType type
+type MoqValue_starGenType_Swap_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_starGenType_Swap_paramsKey]*MoqValue_starGenType_Swap_results
+}
+
+// MoqValue_starGenType_Swap_doFn defines the type of function needed when
+// calling AndDo for the Value_starGenType type
+type MoqValue_starGenType_Swap_doFn func(new interface{})
+
+// MoqValue_starGenType_Swap_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Value_starGenType type
+type MoqValue_starGenType_Swap_doReturnFn func(new interface{}) (old interface{})
+
+// MoqValue_starGenType_Swap_results holds the results of the Value_starGenType
+// type
+type MoqValue_starGenType_Swap_results struct {
+	Params  MoqValue_starGenType_Swap_params
+	Results []struct {
+		Values     *struct{ Old interface{} }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_Swap_doFn
+		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_starGenType_Swap_fnRecorder routes recorded function calls to the
+// MoqValue_starGenType moq
+type MoqValue_starGenType_Swap_fnRecorder struct {
+	Params    MoqValue_starGenType_Swap_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_starGenType_Swap_results
+	Moq       *MoqValue_starGenType
+}
+
+// MoqValue_starGenType_Swap_anyParams isolates the any params functions of the
+// Value_starGenType type
+type MoqValue_starGenType_Swap_anyParams struct {
+	Recorder *MoqValue_starGenType_Swap_fnRecorder
+}
+
+// MoqValue_starGenType_CompareAndSwap_params holds the params of the
+// Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_params struct{ Old, New interface{} }
+
+// MoqValue_starGenType_CompareAndSwap_paramsKey holds the map key params of
+// the Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_paramsKey struct {
+	Params struct{ Old, New interface{} }
+	Hashes struct{ Old, New hash.Hash }
+}
+
+// MoqValue_starGenType_CompareAndSwap_resultsByParams contains the results for
+// a given set of parameters for the Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqValue_starGenType_CompareAndSwap_paramsKey]*MoqValue_starGenType_CompareAndSwap_results
+}
+
+// MoqValue_starGenType_CompareAndSwap_doFn defines the type of function needed
+// when calling AndDo for the Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_doFn func(old, new interface{})
+
+// MoqValue_starGenType_CompareAndSwap_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_doReturnFn func(old, new interface{}) (swapped bool)
+
+// MoqValue_starGenType_CompareAndSwap_results holds the results of the
+// Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_results struct {
+	Params  MoqValue_starGenType_CompareAndSwap_params
+	Results []struct {
+		Values     *struct{ Swapped bool }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_CompareAndSwap_doFn
+		DoReturnFn MoqValue_starGenType_CompareAndSwap_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqValue_starGenType_CompareAndSwap_fnRecorder routes recorded function
+// calls to the MoqValue_starGenType moq
+type MoqValue_starGenType_CompareAndSwap_fnRecorder struct {
+	Params    MoqValue_starGenType_CompareAndSwap_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqValue_starGenType_CompareAndSwap_results
+	Moq       *MoqValue_starGenType
+}
+
+// MoqValue_starGenType_CompareAndSwap_anyParams isolates the any params
+// functions of the Value_starGenType type
+type MoqValue_starGenType_CompareAndSwap_anyParams struct {
+	Recorder *MoqValue_starGenType_CompareAndSwap_fnRecorder
+}
+
 // NewMoqValue_starGenType creates a new moq of the Value_starGenType type
 func NewMoqValue_starGenType(scene *moq.Scene, config *moq.Config) *MoqValue_starGenType {
 	if config == nil {
@@ -182,20 +307,46 @@ func NewMoqValue_starGenType(scene *moq.Scene, config *moq.Config) *MoqValue_sta
 			ParameterIndexing struct {
 				Load  struct{}
 				Store struct {
-					X moq.ParamIndexing
+					Val moq.ParamIndexing
+				}
+				Swap struct {
+					New moq.ParamIndexing
+				}
+				CompareAndSwap struct {
+					Old moq.ParamIndexing
+					New moq.ParamIndexing
 				}
 			}
 		}{ParameterIndexing: struct {
 			Load  struct{}
 			Store struct {
-				X moq.ParamIndexing
+				Val moq.ParamIndexing
+			}
+			Swap struct {
+				New moq.ParamIndexing
+			}
+			CompareAndSwap struct {
+				Old moq.ParamIndexing
+				New moq.ParamIndexing
 			}
 		}{
 			Load: struct{}{},
 			Store: struct {
-				X moq.ParamIndexing
+				Val moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				Val: moq.ParamIndexByHash,
+			},
+			Swap: struct {
+				New moq.ParamIndexing
+			}{
+				New: moq.ParamIndexByHash,
+			},
+			CompareAndSwap: struct {
+				Old moq.ParamIndexing
+				New moq.ParamIndexing
+			}{
+				Old: moq.ParamIndexByHash,
+				New: moq.ParamIndexByHash,
 			},
 		}},
 	}
@@ -208,7 +359,7 @@ func NewMoqValue_starGenType(scene *moq.Scene, config *moq.Config) *MoqValue_sta
 // Mock returns the mock implementation of the Value_starGenType type
 func (m *MoqValue_starGenType) Mock() *MoqValue_starGenType_mock { return m.Moq }
 
-func (m *MoqValue_starGenType_mock) Load() (x interface{}) {
+func (m *MoqValue_starGenType_mock) Load() (val interface{}) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_Load_params{}
 	var results *MoqValue_starGenType_Load_results
@@ -251,18 +402,18 @@ func (m *MoqValue_starGenType_mock) Load() (x interface{}) {
 	}
 
 	if result.Values != nil {
-		x = result.Values.X
+		val = result.Values.Val
 	}
 	if result.DoReturnFn != nil {
-		x = result.DoReturnFn()
+		val = result.DoReturnFn()
 	}
 	return
 }
 
-func (m *MoqValue_starGenType_mock) Store(x interface{}) {
+func (m *MoqValue_starGenType_mock) Store(val interface{}) {
 	m.Moq.Scene.T.Helper()
 	params := MoqValue_starGenType_Store_params{
-		X: x,
+		Val: val,
 	}
 	var results *MoqValue_starGenType_Store_results
 	for _, resultsByParams := range m.Moq.ResultsByParams_Store {
@@ -300,11 +451,118 @@ func (m *MoqValue_starGenType_mock) Store(x interface{}) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(x)
+		result.DoFn(val)
 	}
 
 	if result.DoReturnFn != nil {
-		result.DoReturnFn(x)
+		result.DoReturnFn(val)
+	}
+	return
+}
+
+func (m *MoqValue_starGenType_mock) Swap(new interface{}) (old interface{}) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_starGenType_Swap_params{
+		New: new,
+	}
+	var results *MoqValue_starGenType_Swap_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Swap {
+		paramsKey := m.Moq.ParamsKey_Swap(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Swap(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Swap(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Swap(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(new)
+	}
+
+	if result.Values != nil {
+		old = result.Values.Old
+	}
+	if result.DoReturnFn != nil {
+		old = result.DoReturnFn(new)
+	}
+	return
+}
+
+func (m *MoqValue_starGenType_mock) CompareAndSwap(old, new interface{}) (swapped bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqValue_starGenType_CompareAndSwap_params{
+		Old: old,
+		New: new,
+	}
+	var results *MoqValue_starGenType_CompareAndSwap_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_CompareAndSwap {
+		paramsKey := m.Moq.ParamsKey_CompareAndSwap(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_CompareAndSwap(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_CompareAndSwap(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_CompareAndSwap(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(old, new)
+	}
+
+	if result.Values != nil {
+		swapped = result.Values.Swapped
+	}
+	if result.DoReturnFn != nil {
+		swapped = result.DoReturnFn(old, new)
 	}
 	return
 }
@@ -353,7 +611,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) NoSeq() *MoqValue_starGenType_Loa
 	return r
 }
 
-func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(x interface{}) *MoqValue_starGenType_Load_fnRecorder {
+func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(val interface{}) *MoqValue_starGenType_Load_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -363,13 +621,13 @@ func (r *MoqValue_starGenType_Load_fnRecorder) ReturnResults(x interface{}) *Moq
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ X interface{} }
+		Values     *struct{ Val interface{} }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
 	}{
-		Values: &struct{ X interface{} }{
-			X: x,
+		Values: &struct{ Val interface{} }{
+			Val: val,
 		},
 		Sequence: sequence,
 	})
@@ -397,7 +655,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) DoReturnResults(fn MoqValue_starG
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ X interface{} }
+		Values     *struct{ Val interface{} }
 		Sequence   uint32
 		DoFn       MoqValue_starGenType_Load_doFn
 		DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -465,7 +723,7 @@ func (r *MoqValue_starGenType_Load_fnRecorder) Repeat(repeaters ...moq.Repeater)
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ X interface{} }
+				Values     *struct{ Val interface{} }
 				Sequence   uint32
 				DoFn       MoqValue_starGenType_Load_doFn
 				DoReturnFn MoqValue_starGenType_Load_doReturnFn
@@ -491,10 +749,10 @@ func (m *MoqValue_starGenType) ParamsKey_Load(params MoqValue_starGenType_Load_p
 	}
 }
 
-func (m *MoqValue_starGenType_recorder) Store(x interface{}) *MoqValue_starGenType_Store_fnRecorder {
+func (m *MoqValue_starGenType_recorder) Store(val interface{}) *MoqValue_starGenType_Store_fnRecorder {
 	return &MoqValue_starGenType_Store_fnRecorder{
 		Params: MoqValue_starGenType_Store_params{
-			X: x,
+			Val: val,
 		},
 		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m.Moq,
@@ -510,7 +768,7 @@ func (r *MoqValue_starGenType_Store_fnRecorder) Any() *MoqValue_starGenType_Stor
 	return &MoqValue_starGenType_Store_anyParams{Recorder: r}
 }
 
-func (a *MoqValue_starGenType_Store_anyParams) X() *MoqValue_starGenType_Store_fnRecorder {
+func (a *MoqValue_starGenType_Store_anyParams) Val() *MoqValue_starGenType_Store_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -660,32 +918,444 @@ func (r *MoqValue_starGenType_Store_fnRecorder) Repeat(repeaters ...moq.Repeater
 }
 
 func (m *MoqValue_starGenType) PrettyParams_Store(params MoqValue_starGenType_Store_params) string {
-	return fmt.Sprintf("Store(%#v)", params.X)
+	return fmt.Sprintf("Store(%#v)", params.Val)
 }
 
 func (m *MoqValue_starGenType) ParamsKey_Store(params MoqValue_starGenType_Store_params, anyParams uint64) MoqValue_starGenType_Store_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
-	var xUsedHash hash.Hash
+	var valUsed interface{}
+	var valUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Store.X == moq.ParamIndexByValue {
-			xUsed = params.X
+		if m.Runtime.ParameterIndexing.Store.Val == moq.ParamIndexByValue {
+			valUsed = params.Val
 		} else {
-			xUsedHash = hash.DeepHash(params.X)
+			valUsedHash = hash.DeepHash(params.Val)
 		}
 	}
 	return MoqValue_starGenType_Store_paramsKey{
-		Params: struct{ X interface{} }{
-			X: xUsed,
+		Params: struct{ Val interface{} }{
+			Val: valUsed,
 		},
-		Hashes: struct{ X hash.Hash }{
-			X: xUsedHash,
+		Hashes: struct{ Val hash.Hash }{
+			Val: valUsedHash,
+		},
+	}
+}
+
+func (m *MoqValue_starGenType_recorder) Swap(new interface{}) *MoqValue_starGenType_Swap_fnRecorder {
+	return &MoqValue_starGenType_Swap_fnRecorder{
+		Params: MoqValue_starGenType_Swap_params{
+			New: new,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) Any() *MoqValue_starGenType_Swap_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Swap(r.Params))
+		return nil
+	}
+	return &MoqValue_starGenType_Swap_anyParams{Recorder: r}
+}
+
+func (a *MoqValue_starGenType_Swap_anyParams) New() *MoqValue_starGenType_Swap_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) Seq() *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Swap(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) NoSeq() *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Swap(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) ReturnResults(old interface{}) *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{ Old interface{} }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_Swap_doFn
+		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
+	}{
+		Values: &struct{ Old interface{} }{
+			Old: old,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) AndDo(fn MoqValue_starGenType_Swap_doFn) *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) DoReturnResults(fn MoqValue_starGenType_Swap_doReturnFn) *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{ Old interface{} }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_Swap_doFn
+		DoReturnFn MoqValue_starGenType_Swap_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_starGenType_Swap_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Swap {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_starGenType_Swap_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_starGenType_Swap_paramsKey]*MoqValue_starGenType_Swap_results{},
+		}
+		r.Moq.ResultsByParams_Swap = append(r.Moq.ResultsByParams_Swap, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Swap) {
+			copy(r.Moq.ResultsByParams_Swap[insertAt+1:], r.Moq.ResultsByParams_Swap[insertAt:0])
+			r.Moq.ResultsByParams_Swap[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Swap(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_starGenType_Swap_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_starGenType_Swap_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_starGenType_Swap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{ Old interface{} }
+				Sequence   uint32
+				DoFn       MoqValue_starGenType_Swap_doFn
+				DoReturnFn MoqValue_starGenType_Swap_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_starGenType) PrettyParams_Swap(params MoqValue_starGenType_Swap_params) string {
+	return fmt.Sprintf("Swap(%#v)", params.New)
+}
+
+func (m *MoqValue_starGenType) ParamsKey_Swap(params MoqValue_starGenType_Swap_params, anyParams uint64) MoqValue_starGenType_Swap_paramsKey {
+	m.Scene.T.Helper()
+	var newUsed interface{}
+	var newUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.Swap.New == moq.ParamIndexByValue {
+			newUsed = params.New
+		} else {
+			newUsedHash = hash.DeepHash(params.New)
+		}
+	}
+	return MoqValue_starGenType_Swap_paramsKey{
+		Params: struct{ New interface{} }{
+			New: newUsed,
+		},
+		Hashes: struct{ New hash.Hash }{
+			New: newUsedHash,
+		},
+	}
+}
+
+func (m *MoqValue_starGenType_recorder) CompareAndSwap(old, new interface{}) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	return &MoqValue_starGenType_CompareAndSwap_fnRecorder{
+		Params: MoqValue_starGenType_CompareAndSwap_params{
+			Old: old,
+			New: new,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) Any() *MoqValue_starGenType_CompareAndSwap_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CompareAndSwap(r.Params))
+		return nil
+	}
+	return &MoqValue_starGenType_CompareAndSwap_anyParams{Recorder: r}
+}
+
+func (a *MoqValue_starGenType_CompareAndSwap_anyParams) Old() *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (a *MoqValue_starGenType_CompareAndSwap_anyParams) New() *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 1
+	return a.Recorder
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) Seq() *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CompareAndSwap(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) NoSeq() *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_CompareAndSwap(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) ReturnResults(swapped bool) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{ Swapped bool }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_CompareAndSwap_doFn
+		DoReturnFn MoqValue_starGenType_CompareAndSwap_doReturnFn
+	}{
+		Values: &struct{ Swapped bool }{
+			Swapped: swapped,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) AndDo(fn MoqValue_starGenType_CompareAndSwap_doFn) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) DoReturnResults(fn MoqValue_starGenType_CompareAndSwap_doReturnFn) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{ Swapped bool }
+		Sequence   uint32
+		DoFn       MoqValue_starGenType_CompareAndSwap_doFn
+		DoReturnFn MoqValue_starGenType_CompareAndSwap_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqValue_starGenType_CompareAndSwap_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_CompareAndSwap {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqValue_starGenType_CompareAndSwap_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqValue_starGenType_CompareAndSwap_paramsKey]*MoqValue_starGenType_CompareAndSwap_results{},
+		}
+		r.Moq.ResultsByParams_CompareAndSwap = append(r.Moq.ResultsByParams_CompareAndSwap, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_CompareAndSwap) {
+			copy(r.Moq.ResultsByParams_CompareAndSwap[insertAt+1:], r.Moq.ResultsByParams_CompareAndSwap[insertAt:0])
+			r.Moq.ResultsByParams_CompareAndSwap[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_CompareAndSwap(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqValue_starGenType_CompareAndSwap_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqValue_starGenType_CompareAndSwap_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqValue_starGenType_CompareAndSwap_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{ Swapped bool }
+				Sequence   uint32
+				DoFn       MoqValue_starGenType_CompareAndSwap_doFn
+				DoReturnFn MoqValue_starGenType_CompareAndSwap_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqValue_starGenType) PrettyParams_CompareAndSwap(params MoqValue_starGenType_CompareAndSwap_params) string {
+	return fmt.Sprintf("CompareAndSwap(%#v, %#v)", params.Old, params.New)
+}
+
+func (m *MoqValue_starGenType) ParamsKey_CompareAndSwap(params MoqValue_starGenType_CompareAndSwap_params, anyParams uint64) MoqValue_starGenType_CompareAndSwap_paramsKey {
+	m.Scene.T.Helper()
+	var oldUsed interface{}
+	var oldUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.CompareAndSwap.Old == moq.ParamIndexByValue {
+			oldUsed = params.Old
+		} else {
+			oldUsedHash = hash.DeepHash(params.Old)
+		}
+	}
+	var newUsed interface{}
+	var newUsedHash hash.Hash
+	if anyParams&(1<<1) == 0 {
+		if m.Runtime.ParameterIndexing.CompareAndSwap.New == moq.ParamIndexByValue {
+			newUsed = params.New
+		} else {
+			newUsedHash = hash.DeepHash(params.New)
+		}
+	}
+	return MoqValue_starGenType_CompareAndSwap_paramsKey{
+		Params: struct{ Old, New interface{} }{
+			Old: oldUsed,
+			New: newUsed,
+		},
+		Hashes: struct{ Old, New hash.Hash }{
+			Old: oldUsedHash,
+			New: newUsedHash,
 		},
 	}
 }
 
 // Reset resets the state of the moq
-func (m *MoqValue_starGenType) Reset() { m.ResultsByParams_Load = nil; m.ResultsByParams_Store = nil }
+func (m *MoqValue_starGenType) Reset() {
+	m.ResultsByParams_Load = nil
+	m.ResultsByParams_Store = nil
+	m.ResultsByParams_Swap = nil
+	m.ResultsByParams_CompareAndSwap = nil
+}
 
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqValue_starGenType) AssertExpectationsMet() {
@@ -703,6 +1373,22 @@ func (m *MoqValue_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Store(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Swap {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Swap(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_CompareAndSwap {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_CompareAndSwap(results.Params))
 			}
 		}
 	}

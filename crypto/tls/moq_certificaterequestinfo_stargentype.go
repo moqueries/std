@@ -3,6 +3,7 @@
 package tls
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
 	"math/bits"
@@ -20,6 +21,7 @@ var _ CertificateRequestInfo_starGenType = (*MoqCertificateRequestInfo_starGenTy
 // this mock (emitted when mocking a collections of methods directly and not
 // from an interface type)
 type CertificateRequestInfo_starGenType interface {
+	Context() context.Context
 	SupportsCertificate(c *tls.Certificate) error
 }
 
@@ -30,10 +32,12 @@ type MoqCertificateRequestInfo_starGenType struct {
 	Config moq.Config
 	Moq    *MoqCertificateRequestInfo_starGenType_mock
 
+	ResultsByParams_Context             []MoqCertificateRequestInfo_starGenType_Context_resultsByParams
 	ResultsByParams_SupportsCertificate []MoqCertificateRequestInfo_starGenType_SupportsCertificate_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
+			Context             struct{}
 			SupportsCertificate struct {
 				C moq.ParamIndexing
 			}
@@ -51,6 +55,68 @@ type MoqCertificateRequestInfo_starGenType_mock struct {
 // interface of the CertificateRequestInfo_starGenType type
 type MoqCertificateRequestInfo_starGenType_recorder struct {
 	Moq *MoqCertificateRequestInfo_starGenType
+}
+
+// MoqCertificateRequestInfo_starGenType_Context_params holds the params of the
+// CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_params struct{}
+
+// MoqCertificateRequestInfo_starGenType_Context_paramsKey holds the map key
+// params of the CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqCertificateRequestInfo_starGenType_Context_resultsByParams contains the
+// results for a given set of parameters for the
+// CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqCertificateRequestInfo_starGenType_Context_paramsKey]*MoqCertificateRequestInfo_starGenType_Context_results
+}
+
+// MoqCertificateRequestInfo_starGenType_Context_doFn defines the type of
+// function needed when calling AndDo for the
+// CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_doFn func()
+
+// MoqCertificateRequestInfo_starGenType_Context_doReturnFn defines the type of
+// function needed when calling DoReturnResults for the
+// CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_doReturnFn func() context.Context
+
+// MoqCertificateRequestInfo_starGenType_Context_results holds the results of
+// the CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_results struct {
+	Params  MoqCertificateRequestInfo_starGenType_Context_params
+	Results []struct {
+		Values *struct {
+			Result1 context.Context
+		}
+		Sequence   uint32
+		DoFn       MoqCertificateRequestInfo_starGenType_Context_doFn
+		DoReturnFn MoqCertificateRequestInfo_starGenType_Context_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqCertificateRequestInfo_starGenType_Context_fnRecorder routes recorded
+// function calls to the MoqCertificateRequestInfo_starGenType moq
+type MoqCertificateRequestInfo_starGenType_Context_fnRecorder struct {
+	Params    MoqCertificateRequestInfo_starGenType_Context_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqCertificateRequestInfo_starGenType_Context_results
+	Moq       *MoqCertificateRequestInfo_starGenType
+}
+
+// MoqCertificateRequestInfo_starGenType_Context_anyParams isolates the any
+// params functions of the CertificateRequestInfo_starGenType type
+type MoqCertificateRequestInfo_starGenType_Context_anyParams struct {
+	Recorder *MoqCertificateRequestInfo_starGenType_Context_fnRecorder
 }
 
 // MoqCertificateRequestInfo_starGenType_SupportsCertificate_params holds the
@@ -128,15 +194,18 @@ func NewMoqCertificateRequestInfo_starGenType(scene *moq.Scene, config *moq.Conf
 
 		Runtime: struct {
 			ParameterIndexing struct {
+				Context             struct{}
 				SupportsCertificate struct {
 					C moq.ParamIndexing
 				}
 			}
 		}{ParameterIndexing: struct {
+			Context             struct{}
 			SupportsCertificate struct {
 				C moq.ParamIndexing
 			}
 		}{
+			Context: struct{}{},
 			SupportsCertificate: struct {
 				C moq.ParamIndexing
 			}{
@@ -154,6 +223,57 @@ func NewMoqCertificateRequestInfo_starGenType(scene *moq.Scene, config *moq.Conf
 // CertificateRequestInfo_starGenType type
 func (m *MoqCertificateRequestInfo_starGenType) Mock() *MoqCertificateRequestInfo_starGenType_mock {
 	return m.Moq
+}
+
+func (m *MoqCertificateRequestInfo_starGenType_mock) Context() (result1 context.Context) {
+	m.Moq.Scene.T.Helper()
+	params := MoqCertificateRequestInfo_starGenType_Context_params{}
+	var results *MoqCertificateRequestInfo_starGenType_Context_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Context {
+		paramsKey := m.Moq.ParamsKey_Context(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Context(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Context(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Context(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
 }
 
 func (m *MoqCertificateRequestInfo_starGenType_mock) SupportsCertificate(c *tls.Certificate) (result1 error) {
@@ -214,6 +334,189 @@ func (m *MoqCertificateRequestInfo_starGenType_mock) SupportsCertificate(c *tls.
 func (m *MoqCertificateRequestInfo_starGenType) OnCall() *MoqCertificateRequestInfo_starGenType_recorder {
 	return &MoqCertificateRequestInfo_starGenType_recorder{
 		Moq: m,
+	}
+}
+
+func (m *MoqCertificateRequestInfo_starGenType_recorder) Context() *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	return &MoqCertificateRequestInfo_starGenType_Context_fnRecorder{
+		Params:   MoqCertificateRequestInfo_starGenType_Context_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) Any() *MoqCertificateRequestInfo_starGenType_Context_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Context(r.Params))
+		return nil
+	}
+	return &MoqCertificateRequestInfo_starGenType_Context_anyParams{Recorder: r}
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) Seq() *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Context(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) NoSeq() *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Context(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) ReturnResults(result1 context.Context) *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 context.Context
+		}
+		Sequence   uint32
+		DoFn       MoqCertificateRequestInfo_starGenType_Context_doFn
+		DoReturnFn MoqCertificateRequestInfo_starGenType_Context_doReturnFn
+	}{
+		Values: &struct {
+			Result1 context.Context
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) AndDo(fn MoqCertificateRequestInfo_starGenType_Context_doFn) *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) DoReturnResults(fn MoqCertificateRequestInfo_starGenType_Context_doReturnFn) *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 context.Context
+		}
+		Sequence   uint32
+		DoFn       MoqCertificateRequestInfo_starGenType_Context_doFn
+		DoReturnFn MoqCertificateRequestInfo_starGenType_Context_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqCertificateRequestInfo_starGenType_Context_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Context {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqCertificateRequestInfo_starGenType_Context_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqCertificateRequestInfo_starGenType_Context_paramsKey]*MoqCertificateRequestInfo_starGenType_Context_results{},
+		}
+		r.Moq.ResultsByParams_Context = append(r.Moq.ResultsByParams_Context, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Context) {
+			copy(r.Moq.ResultsByParams_Context[insertAt+1:], r.Moq.ResultsByParams_Context[insertAt:0])
+			r.Moq.ResultsByParams_Context[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Context(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqCertificateRequestInfo_starGenType_Context_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqCertificateRequestInfo_starGenType_Context_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqCertificateRequestInfo_starGenType_Context_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 context.Context
+				}
+				Sequence   uint32
+				DoFn       MoqCertificateRequestInfo_starGenType_Context_doFn
+				DoReturnFn MoqCertificateRequestInfo_starGenType_Context_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqCertificateRequestInfo_starGenType) PrettyParams_Context(params MoqCertificateRequestInfo_starGenType_Context_params) string {
+	return fmt.Sprintf("Context()")
+}
+
+func (m *MoqCertificateRequestInfo_starGenType) ParamsKey_Context(params MoqCertificateRequestInfo_starGenType_Context_params, anyParams uint64) MoqCertificateRequestInfo_starGenType_Context_paramsKey {
+	m.Scene.T.Helper()
+	return MoqCertificateRequestInfo_starGenType_Context_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
 	}
 }
 
@@ -421,11 +724,22 @@ func (m *MoqCertificateRequestInfo_starGenType) ParamsKey_SupportsCertificate(pa
 }
 
 // Reset resets the state of the moq
-func (m *MoqCertificateRequestInfo_starGenType) Reset() { m.ResultsByParams_SupportsCertificate = nil }
+func (m *MoqCertificateRequestInfo_starGenType) Reset() {
+	m.ResultsByParams_Context = nil
+	m.ResultsByParams_SupportsCertificate = nil
+}
 
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqCertificateRequestInfo_starGenType) AssertExpectationsMet() {
 	m.Scene.T.Helper()
+	for _, res := range m.ResultsByParams_Context {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Context(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_SupportsCertificate {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
