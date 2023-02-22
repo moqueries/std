@@ -14,7 +14,7 @@ import (
 
 // Check_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Check_genType func(f interface{}, config *quick.Config) error
+type Check_genType func(f any, config *quick.Config) error
 
 // MoqCheck_genType holds the state of a moq of the Check_genType type
 type MoqCheck_genType struct {
@@ -39,7 +39,7 @@ type MoqCheck_genType_mock struct {
 
 // MoqCheck_genType_params holds the params of the Check_genType type
 type MoqCheck_genType_params struct {
-	F      interface{}
+	F      any
 	Config *quick.Config
 }
 
@@ -47,7 +47,7 @@ type MoqCheck_genType_params struct {
 // type
 type MoqCheck_genType_paramsKey struct {
 	Params struct {
-		F      interface{}
+		F      any
 		Config *quick.Config
 	}
 	Hashes struct {
@@ -66,11 +66,11 @@ type MoqCheck_genType_resultsByParams struct {
 
 // MoqCheck_genType_doFn defines the type of function needed when calling AndDo
 // for the Check_genType type
-type MoqCheck_genType_doFn func(f interface{}, config *quick.Config)
+type MoqCheck_genType_doFn func(f any, config *quick.Config)
 
 // MoqCheck_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Check_genType type
-type MoqCheck_genType_doReturnFn func(f interface{}, config *quick.Config) error
+type MoqCheck_genType_doReturnFn func(f any, config *quick.Config) error
 
 // MoqCheck_genType_results holds the results of the Check_genType type
 type MoqCheck_genType_results struct {
@@ -122,7 +122,7 @@ func NewMoqCheck_genType(scene *moq.Scene, config *moq.Config) *MoqCheck_genType
 			F      moq.ParamIndexing
 			Config moq.ParamIndexing
 		}{
-			F:      moq.ParamIndexByHash,
+			F:      moq.ParamIndexByValue,
 			Config: moq.ParamIndexByHash,
 		}},
 	}
@@ -134,14 +134,14 @@ func NewMoqCheck_genType(scene *moq.Scene, config *moq.Config) *MoqCheck_genType
 
 // Mock returns the moq implementation of the Check_genType type
 func (m *MoqCheck_genType) Mock() Check_genType {
-	return func(f interface{}, config *quick.Config) error {
+	return func(f any, config *quick.Config) error {
 		m.Scene.T.Helper()
 		moq := &MoqCheck_genType_mock{Moq: m}
 		return moq.Fn(f, config)
 	}
 }
 
-func (m *MoqCheck_genType_mock) Fn(f interface{}, config *quick.Config) (result1 error) {
+func (m *MoqCheck_genType_mock) Fn(f any, config *quick.Config) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqCheck_genType_params{
 		F:      f,
@@ -195,7 +195,7 @@ func (m *MoqCheck_genType_mock) Fn(f interface{}, config *quick.Config) (result1
 	return
 }
 
-func (m *MoqCheck_genType) OnCall(f interface{}, config *quick.Config) *MoqCheck_genType_fnRecorder {
+func (m *MoqCheck_genType) OnCall(f any, config *quick.Config) *MoqCheck_genType_fnRecorder {
 	return &MoqCheck_genType_fnRecorder{
 		Params: MoqCheck_genType_params{
 			F:      f,
@@ -385,7 +385,7 @@ func (m *MoqCheck_genType) PrettyParams(params MoqCheck_genType_params) string {
 
 func (m *MoqCheck_genType) ParamsKey(params MoqCheck_genType_params, anyParams uint64) MoqCheck_genType_paramsKey {
 	m.Scene.T.Helper()
-	var fUsed interface{}
+	var fUsed any
 	var fUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.F == moq.ParamIndexByValue {
@@ -405,7 +405,7 @@ func (m *MoqCheck_genType) ParamsKey(params MoqCheck_genType_params, anyParams u
 	}
 	return MoqCheck_genType_paramsKey{
 		Params: struct {
-			F      interface{}
+			F      any
 			Config *quick.Config
 		}{
 			F:      fUsed,

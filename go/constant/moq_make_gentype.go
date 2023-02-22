@@ -14,7 +14,7 @@ import (
 
 // Make_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Make_genType func(x interface{}) constant.Value
+type Make_genType func(x any) constant.Value
 
 // MoqMake_genType holds the state of a moq of the Make_genType type
 type MoqMake_genType struct {
@@ -37,11 +37,11 @@ type MoqMake_genType_mock struct {
 }
 
 // MoqMake_genType_params holds the params of the Make_genType type
-type MoqMake_genType_params struct{ X interface{} }
+type MoqMake_genType_params struct{ X any }
 
 // MoqMake_genType_paramsKey holds the map key params of the Make_genType type
 type MoqMake_genType_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct{ X hash.Hash }
 }
 
@@ -55,11 +55,11 @@ type MoqMake_genType_resultsByParams struct {
 
 // MoqMake_genType_doFn defines the type of function needed when calling AndDo
 // for the Make_genType type
-type MoqMake_genType_doFn func(x interface{})
+type MoqMake_genType_doFn func(x any)
 
 // MoqMake_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Make_genType type
-type MoqMake_genType_doReturnFn func(x interface{}) constant.Value
+type MoqMake_genType_doReturnFn func(x any) constant.Value
 
 // MoqMake_genType_results holds the results of the Make_genType type
 type MoqMake_genType_results struct {
@@ -109,7 +109,7 @@ func NewMoqMake_genType(scene *moq.Scene, config *moq.Config) *MoqMake_genType {
 		}{ParameterIndexing: struct {
 			X moq.ParamIndexing
 		}{
-			X: moq.ParamIndexByHash,
+			X: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -120,14 +120,10 @@ func NewMoqMake_genType(scene *moq.Scene, config *moq.Config) *MoqMake_genType {
 
 // Mock returns the moq implementation of the Make_genType type
 func (m *MoqMake_genType) Mock() Make_genType {
-	return func(x interface{}) constant.Value {
-		m.Scene.T.Helper()
-		moq := &MoqMake_genType_mock{Moq: m}
-		return moq.Fn(x)
-	}
+	return func(x any) constant.Value { m.Scene.T.Helper(); moq := &MoqMake_genType_mock{Moq: m}; return moq.Fn(x) }
 }
 
-func (m *MoqMake_genType_mock) Fn(x interface{}) (result1 constant.Value) {
+func (m *MoqMake_genType_mock) Fn(x any) (result1 constant.Value) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMake_genType_params{
 		X: x,
@@ -180,7 +176,7 @@ func (m *MoqMake_genType_mock) Fn(x interface{}) (result1 constant.Value) {
 	return
 }
 
-func (m *MoqMake_genType) OnCall(x interface{}) *MoqMake_genType_fnRecorder {
+func (m *MoqMake_genType) OnCall(x any) *MoqMake_genType_fnRecorder {
 	return &MoqMake_genType_fnRecorder{
 		Params: MoqMake_genType_params{
 			X: x,
@@ -364,7 +360,7 @@ func (m *MoqMake_genType) PrettyParams(params MoqMake_genType_params) string {
 
 func (m *MoqMake_genType) ParamsKey(params MoqMake_genType_params, anyParams uint64) MoqMake_genType_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -374,7 +370,7 @@ func (m *MoqMake_genType) ParamsKey(params MoqMake_genType_params, anyParams uin
 		}
 	}
 	return MoqMake_genType_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct{ X hash.Hash }{

@@ -14,7 +14,7 @@ import (
 
 // Fscanln_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Fscanln_genType func(r io.Reader, a ...interface{}) (n int, err error)
+type Fscanln_genType func(r io.Reader, a ...any) (n int, err error)
 
 // MoqFscanln_genType holds the state of a moq of the Fscanln_genType type
 type MoqFscanln_genType struct {
@@ -41,7 +41,7 @@ type MoqFscanln_genType_mock struct {
 // MoqFscanln_genType_params holds the params of the Fscanln_genType type
 type MoqFscanln_genType_params struct {
 	Param1 io.Reader
-	A      []interface{}
+	A      []any
 }
 
 // MoqFscanln_genType_paramsKey holds the map key params of the Fscanln_genType
@@ -64,11 +64,11 @@ type MoqFscanln_genType_resultsByParams struct {
 
 // MoqFscanln_genType_doFn defines the type of function needed when calling
 // AndDo for the Fscanln_genType type
-type MoqFscanln_genType_doFn func(r io.Reader, a ...interface{})
+type MoqFscanln_genType_doFn func(r io.Reader, a ...any)
 
 // MoqFscanln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Fscanln_genType type
-type MoqFscanln_genType_doReturnFn func(r io.Reader, a ...interface{}) (n int, err error)
+type MoqFscanln_genType_doReturnFn func(r io.Reader, a ...any) (n int, err error)
 
 // MoqFscanln_genType_results holds the results of the Fscanln_genType type
 type MoqFscanln_genType_results struct {
@@ -133,14 +133,14 @@ func NewMoqFscanln_genType(scene *moq.Scene, config *moq.Config) *MoqFscanln_gen
 
 // Mock returns the moq implementation of the Fscanln_genType type
 func (m *MoqFscanln_genType) Mock() Fscanln_genType {
-	return func(param1 io.Reader, a ...interface{}) (_ int, _ error) {
+	return func(param1 io.Reader, a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqFscanln_genType_mock{Moq: m}
 		return moq.Fn(param1, a...)
 	}
 }
 
-func (m *MoqFscanln_genType_mock) Fn(param1 io.Reader, a ...interface{}) (n int, err error) {
+func (m *MoqFscanln_genType_mock) Fn(param1 io.Reader, a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFscanln_genType_params{
 		Param1: param1,
@@ -195,7 +195,7 @@ func (m *MoqFscanln_genType_mock) Fn(param1 io.Reader, a ...interface{}) (n int,
 	return
 }
 
-func (m *MoqFscanln_genType) OnCall(param1 io.Reader, a ...interface{}) *MoqFscanln_genType_fnRecorder {
+func (m *MoqFscanln_genType) OnCall(param1 io.Reader, a ...any) *MoqFscanln_genType_fnRecorder {
 	return &MoqFscanln_genType_fnRecorder{
 		Params: MoqFscanln_genType_params{
 			Param1: param1,

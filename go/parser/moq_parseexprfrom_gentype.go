@@ -16,7 +16,7 @@ import (
 
 // ParseExprFrom_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type ParseExprFrom_genType func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (expr ast.Expr, err error)
+type ParseExprFrom_genType func(fset *token.FileSet, filename string, src any, mode parser.Mode) (expr ast.Expr, err error)
 
 // MoqParseExprFrom_genType holds the state of a moq of the
 // ParseExprFrom_genType type
@@ -48,7 +48,7 @@ type MoqParseExprFrom_genType_mock struct {
 type MoqParseExprFrom_genType_params struct {
 	Fset     *token.FileSet
 	Filename string
-	Src      interface{}
+	Src      any
 	Mode     parser.Mode
 }
 
@@ -58,7 +58,7 @@ type MoqParseExprFrom_genType_paramsKey struct {
 	Params struct {
 		Fset     *token.FileSet
 		Filename string
-		Src      interface{}
+		Src      any
 		Mode     parser.Mode
 	}
 	Hashes struct {
@@ -79,11 +79,11 @@ type MoqParseExprFrom_genType_resultsByParams struct {
 
 // MoqParseExprFrom_genType_doFn defines the type of function needed when
 // calling AndDo for the ParseExprFrom_genType type
-type MoqParseExprFrom_genType_doFn func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode)
+type MoqParseExprFrom_genType_doFn func(fset *token.FileSet, filename string, src any, mode parser.Mode)
 
 // MoqParseExprFrom_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the ParseExprFrom_genType type
-type MoqParseExprFrom_genType_doReturnFn func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (expr ast.Expr, err error)
+type MoqParseExprFrom_genType_doReturnFn func(fset *token.FileSet, filename string, src any, mode parser.Mode) (expr ast.Expr, err error)
 
 // MoqParseExprFrom_genType_results holds the results of the
 // ParseExprFrom_genType type
@@ -144,7 +144,7 @@ func NewMoqParseExprFrom_genType(scene *moq.Scene, config *moq.Config) *MoqParse
 		}{
 			Fset:     moq.ParamIndexByHash,
 			Filename: moq.ParamIndexByValue,
-			Src:      moq.ParamIndexByHash,
+			Src:      moq.ParamIndexByValue,
 			Mode:     moq.ParamIndexByValue,
 		}},
 	}
@@ -156,14 +156,14 @@ func NewMoqParseExprFrom_genType(scene *moq.Scene, config *moq.Config) *MoqParse
 
 // Mock returns the moq implementation of the ParseExprFrom_genType type
 func (m *MoqParseExprFrom_genType) Mock() ParseExprFrom_genType {
-	return func(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (_ ast.Expr, _ error) {
+	return func(fset *token.FileSet, filename string, src any, mode parser.Mode) (_ ast.Expr, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqParseExprFrom_genType_mock{Moq: m}
 		return moq.Fn(fset, filename, src, mode)
 	}
 }
 
-func (m *MoqParseExprFrom_genType_mock) Fn(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) (expr ast.Expr, err error) {
+func (m *MoqParseExprFrom_genType_mock) Fn(fset *token.FileSet, filename string, src any, mode parser.Mode) (expr ast.Expr, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParseExprFrom_genType_params{
 		Fset:     fset,
@@ -220,7 +220,7 @@ func (m *MoqParseExprFrom_genType_mock) Fn(fset *token.FileSet, filename string,
 	return
 }
 
-func (m *MoqParseExprFrom_genType) OnCall(fset *token.FileSet, filename string, src interface{}, mode parser.Mode) *MoqParseExprFrom_genType_fnRecorder {
+func (m *MoqParseExprFrom_genType) OnCall(fset *token.FileSet, filename string, src any, mode parser.Mode) *MoqParseExprFrom_genType_fnRecorder {
 	return &MoqParseExprFrom_genType_fnRecorder{
 		Params: MoqParseExprFrom_genType_params{
 			Fset:     fset,
@@ -445,7 +445,7 @@ func (m *MoqParseExprFrom_genType) ParamsKey(params MoqParseExprFrom_genType_par
 			filenameUsedHash = hash.DeepHash(params.Filename)
 		}
 	}
-	var srcUsed interface{}
+	var srcUsed any
 	var srcUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Src == moq.ParamIndexByValue {
@@ -467,7 +467,7 @@ func (m *MoqParseExprFrom_genType) ParamsKey(params MoqParseExprFrom_genType_par
 		Params: struct {
 			Fset     *token.FileSet
 			Filename string
-			Src      interface{}
+			Src      any
 			Mode     parser.Mode
 		}{
 			Fset:     fsetUsed,

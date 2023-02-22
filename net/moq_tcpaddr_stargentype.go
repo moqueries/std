@@ -5,6 +5,7 @@ package net
 import (
 	"fmt"
 	"math/bits"
+	"net/netip"
 	"sync/atomic"
 
 	"moqueries.org/runtime/moq"
@@ -18,6 +19,7 @@ var _ TCPAddr_starGenType = (*MoqTCPAddr_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type TCPAddr_starGenType interface {
+	AddrPort() netip.AddrPort
 	Network() string
 	String() string
 }
@@ -29,13 +31,15 @@ type MoqTCPAddr_starGenType struct {
 	Config moq.Config
 	Moq    *MoqTCPAddr_starGenType_mock
 
-	ResultsByParams_Network []MoqTCPAddr_starGenType_Network_resultsByParams
-	ResultsByParams_String  []MoqTCPAddr_starGenType_String_resultsByParams
+	ResultsByParams_AddrPort []MoqTCPAddr_starGenType_AddrPort_resultsByParams
+	ResultsByParams_Network  []MoqTCPAddr_starGenType_Network_resultsByParams
+	ResultsByParams_String   []MoqTCPAddr_starGenType_String_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Network struct{}
-			String  struct{}
+			AddrPort struct{}
+			Network  struct{}
+			String   struct{}
 		}
 	}
 }
@@ -50,6 +54,65 @@ type MoqTCPAddr_starGenType_mock struct {
 // TCPAddr_starGenType type
 type MoqTCPAddr_starGenType_recorder struct {
 	Moq *MoqTCPAddr_starGenType
+}
+
+// MoqTCPAddr_starGenType_AddrPort_params holds the params of the
+// TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_params struct{}
+
+// MoqTCPAddr_starGenType_AddrPort_paramsKey holds the map key params of the
+// TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqTCPAddr_starGenType_AddrPort_resultsByParams contains the results for a
+// given set of parameters for the TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqTCPAddr_starGenType_AddrPort_paramsKey]*MoqTCPAddr_starGenType_AddrPort_results
+}
+
+// MoqTCPAddr_starGenType_AddrPort_doFn defines the type of function needed
+// when calling AndDo for the TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_doFn func()
+
+// MoqTCPAddr_starGenType_AddrPort_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_doReturnFn func() netip.AddrPort
+
+// MoqTCPAddr_starGenType_AddrPort_results holds the results of the
+// TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_results struct {
+	Params  MoqTCPAddr_starGenType_AddrPort_params
+	Results []struct {
+		Values *struct {
+			Result1 netip.AddrPort
+		}
+		Sequence   uint32
+		DoFn       MoqTCPAddr_starGenType_AddrPort_doFn
+		DoReturnFn MoqTCPAddr_starGenType_AddrPort_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqTCPAddr_starGenType_AddrPort_fnRecorder routes recorded function calls to
+// the MoqTCPAddr_starGenType moq
+type MoqTCPAddr_starGenType_AddrPort_fnRecorder struct {
+	Params    MoqTCPAddr_starGenType_AddrPort_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqTCPAddr_starGenType_AddrPort_results
+	Moq       *MoqTCPAddr_starGenType
+}
+
+// MoqTCPAddr_starGenType_AddrPort_anyParams isolates the any params functions
+// of the TCPAddr_starGenType type
+type MoqTCPAddr_starGenType_AddrPort_anyParams struct {
+	Recorder *MoqTCPAddr_starGenType_AddrPort_fnRecorder
 }
 
 // MoqTCPAddr_starGenType_Network_params holds the params of the
@@ -182,15 +245,18 @@ func NewMoqTCPAddr_starGenType(scene *moq.Scene, config *moq.Config) *MoqTCPAddr
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Network struct{}
-				String  struct{}
+				AddrPort struct{}
+				Network  struct{}
+				String   struct{}
 			}
 		}{ParameterIndexing: struct {
-			Network struct{}
-			String  struct{}
+			AddrPort struct{}
+			Network  struct{}
+			String   struct{}
 		}{
-			Network: struct{}{},
-			String:  struct{}{},
+			AddrPort: struct{}{},
+			Network:  struct{}{},
+			String:   struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -201,6 +267,57 @@ func NewMoqTCPAddr_starGenType(scene *moq.Scene, config *moq.Config) *MoqTCPAddr
 
 // Mock returns the mock implementation of the TCPAddr_starGenType type
 func (m *MoqTCPAddr_starGenType) Mock() *MoqTCPAddr_starGenType_mock { return m.Moq }
+
+func (m *MoqTCPAddr_starGenType_mock) AddrPort() (result1 netip.AddrPort) {
+	m.Moq.Scene.T.Helper()
+	params := MoqTCPAddr_starGenType_AddrPort_params{}
+	var results *MoqTCPAddr_starGenType_AddrPort_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_AddrPort {
+		paramsKey := m.Moq.ParamsKey_AddrPort(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_AddrPort(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_AddrPort(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_AddrPort(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
 
 func (m *MoqTCPAddr_starGenType_mock) Network() (result1 string) {
 	m.Moq.Scene.T.Helper()
@@ -308,6 +425,189 @@ func (m *MoqTCPAddr_starGenType_mock) String() (result1 string) {
 func (m *MoqTCPAddr_starGenType) OnCall() *MoqTCPAddr_starGenType_recorder {
 	return &MoqTCPAddr_starGenType_recorder{
 		Moq: m,
+	}
+}
+
+func (m *MoqTCPAddr_starGenType_recorder) AddrPort() *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	return &MoqTCPAddr_starGenType_AddrPort_fnRecorder{
+		Params:   MoqTCPAddr_starGenType_AddrPort_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) Any() *MoqTCPAddr_starGenType_AddrPort_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AddrPort(r.Params))
+		return nil
+	}
+	return &MoqTCPAddr_starGenType_AddrPort_anyParams{Recorder: r}
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) Seq() *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AddrPort(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) NoSeq() *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AddrPort(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) ReturnResults(result1 netip.AddrPort) *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 netip.AddrPort
+		}
+		Sequence   uint32
+		DoFn       MoqTCPAddr_starGenType_AddrPort_doFn
+		DoReturnFn MoqTCPAddr_starGenType_AddrPort_doReturnFn
+	}{
+		Values: &struct {
+			Result1 netip.AddrPort
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) AndDo(fn MoqTCPAddr_starGenType_AddrPort_doFn) *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) DoReturnResults(fn MoqTCPAddr_starGenType_AddrPort_doReturnFn) *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 netip.AddrPort
+		}
+		Sequence   uint32
+		DoFn       MoqTCPAddr_starGenType_AddrPort_doFn
+		DoReturnFn MoqTCPAddr_starGenType_AddrPort_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqTCPAddr_starGenType_AddrPort_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_AddrPort {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqTCPAddr_starGenType_AddrPort_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqTCPAddr_starGenType_AddrPort_paramsKey]*MoqTCPAddr_starGenType_AddrPort_results{},
+		}
+		r.Moq.ResultsByParams_AddrPort = append(r.Moq.ResultsByParams_AddrPort, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_AddrPort) {
+			copy(r.Moq.ResultsByParams_AddrPort[insertAt+1:], r.Moq.ResultsByParams_AddrPort[insertAt:0])
+			r.Moq.ResultsByParams_AddrPort[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_AddrPort(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqTCPAddr_starGenType_AddrPort_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqTCPAddr_starGenType_AddrPort_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqTCPAddr_starGenType_AddrPort_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 netip.AddrPort
+				}
+				Sequence   uint32
+				DoFn       MoqTCPAddr_starGenType_AddrPort_doFn
+				DoReturnFn MoqTCPAddr_starGenType_AddrPort_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqTCPAddr_starGenType) PrettyParams_AddrPort(params MoqTCPAddr_starGenType_AddrPort_params) string {
+	return fmt.Sprintf("AddrPort()")
+}
+
+func (m *MoqTCPAddr_starGenType) ParamsKey_AddrPort(params MoqTCPAddr_starGenType_AddrPort_params, anyParams uint64) MoqTCPAddr_starGenType_AddrPort_paramsKey {
+	m.Scene.T.Helper()
+	return MoqTCPAddr_starGenType_AddrPort_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
 	}
 }
 
@@ -679,6 +979,7 @@ func (m *MoqTCPAddr_starGenType) ParamsKey_String(params MoqTCPAddr_starGenType_
 
 // Reset resets the state of the moq
 func (m *MoqTCPAddr_starGenType) Reset() {
+	m.ResultsByParams_AddrPort = nil
 	m.ResultsByParams_Network = nil
 	m.ResultsByParams_String = nil
 }
@@ -686,6 +987,14 @@ func (m *MoqTCPAddr_starGenType) Reset() {
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqTCPAddr_starGenType) AssertExpectationsMet() {
 	m.Scene.T.Helper()
+	for _, res := range m.ResultsByParams_AddrPort {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_AddrPort(results.Params))
+			}
+		}
+	}
 	for _, res := range m.ResultsByParams_Network {
 		for _, results := range res.Results {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))

@@ -22,8 +22,8 @@ var _ Profile_starGenType = (*MoqProfile_starGenType_mock)(nil)
 type Profile_starGenType interface {
 	Name() string
 	Count() int
-	Add(value interface{}, skip int)
-	Remove(value interface{})
+	Add(value any, skip int)
+	Remove(value any)
 	WriteTo(w io.Writer, debug int) error
 }
 
@@ -192,7 +192,7 @@ type MoqProfile_starGenType_Count_anyParams struct {
 // MoqProfile_starGenType_Add_params holds the params of the
 // Profile_starGenType type
 type MoqProfile_starGenType_Add_params struct {
-	Value interface{}
+	Value any
 	Skip  int
 }
 
@@ -200,7 +200,7 @@ type MoqProfile_starGenType_Add_params struct {
 // Profile_starGenType type
 type MoqProfile_starGenType_Add_paramsKey struct {
 	Params struct {
-		Value interface{}
+		Value any
 		Skip  int
 	}
 	Hashes struct {
@@ -219,11 +219,11 @@ type MoqProfile_starGenType_Add_resultsByParams struct {
 
 // MoqProfile_starGenType_Add_doFn defines the type of function needed when
 // calling AndDo for the Profile_starGenType type
-type MoqProfile_starGenType_Add_doFn func(value interface{}, skip int)
+type MoqProfile_starGenType_Add_doFn func(value any, skip int)
 
 // MoqProfile_starGenType_Add_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Profile_starGenType type
-type MoqProfile_starGenType_Add_doReturnFn func(value interface{}, skip int)
+type MoqProfile_starGenType_Add_doReturnFn func(value any, skip int)
 
 // MoqProfile_starGenType_Add_results holds the results of the
 // Profile_starGenType type
@@ -257,12 +257,12 @@ type MoqProfile_starGenType_Add_anyParams struct {
 
 // MoqProfile_starGenType_Remove_params holds the params of the
 // Profile_starGenType type
-type MoqProfile_starGenType_Remove_params struct{ Value interface{} }
+type MoqProfile_starGenType_Remove_params struct{ Value any }
 
 // MoqProfile_starGenType_Remove_paramsKey holds the map key params of the
 // Profile_starGenType type
 type MoqProfile_starGenType_Remove_paramsKey struct {
-	Params struct{ Value interface{} }
+	Params struct{ Value any }
 	Hashes struct{ Value hash.Hash }
 }
 
@@ -276,11 +276,11 @@ type MoqProfile_starGenType_Remove_resultsByParams struct {
 
 // MoqProfile_starGenType_Remove_doFn defines the type of function needed when
 // calling AndDo for the Profile_starGenType type
-type MoqProfile_starGenType_Remove_doFn func(value interface{})
+type MoqProfile_starGenType_Remove_doFn func(value any)
 
 // MoqProfile_starGenType_Remove_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Profile_starGenType type
-type MoqProfile_starGenType_Remove_doReturnFn func(value interface{})
+type MoqProfile_starGenType_Remove_doReturnFn func(value any)
 
 // MoqProfile_starGenType_Remove_results holds the results of the
 // Profile_starGenType type
@@ -427,13 +427,13 @@ func NewMoqProfile_starGenType(scene *moq.Scene, config *moq.Config) *MoqProfile
 				Value moq.ParamIndexing
 				Skip  moq.ParamIndexing
 			}{
-				Value: moq.ParamIndexByHash,
+				Value: moq.ParamIndexByValue,
 				Skip:  moq.ParamIndexByValue,
 			},
 			Remove: struct {
 				Value moq.ParamIndexing
 			}{
-				Value: moq.ParamIndexByHash,
+				Value: moq.ParamIndexByValue,
 			},
 			WriteTo: struct {
 				W     moq.ParamIndexing
@@ -555,7 +555,7 @@ func (m *MoqProfile_starGenType_mock) Count() (result1 int) {
 	return
 }
 
-func (m *MoqProfile_starGenType_mock) Add(value interface{}, skip int) {
+func (m *MoqProfile_starGenType_mock) Add(value any, skip int) {
 	m.Moq.Scene.T.Helper()
 	params := MoqProfile_starGenType_Add_params{
 		Value: value,
@@ -606,7 +606,7 @@ func (m *MoqProfile_starGenType_mock) Add(value interface{}, skip int) {
 	return
 }
 
-func (m *MoqProfile_starGenType_mock) Remove(value interface{}) {
+func (m *MoqProfile_starGenType_mock) Remove(value any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqProfile_starGenType_Remove_params{
 		Value: value,
@@ -1083,7 +1083,7 @@ func (m *MoqProfile_starGenType) ParamsKey_Count(params MoqProfile_starGenType_C
 	}
 }
 
-func (m *MoqProfile_starGenType_recorder) Add(value interface{}, skip int) *MoqProfile_starGenType_Add_fnRecorder {
+func (m *MoqProfile_starGenType_recorder) Add(value any, skip int) *MoqProfile_starGenType_Add_fnRecorder {
 	return &MoqProfile_starGenType_Add_fnRecorder{
 		Params: MoqProfile_starGenType_Add_params{
 			Value: value,
@@ -1263,7 +1263,7 @@ func (m *MoqProfile_starGenType) PrettyParams_Add(params MoqProfile_starGenType_
 
 func (m *MoqProfile_starGenType) ParamsKey_Add(params MoqProfile_starGenType_Add_params, anyParams uint64) MoqProfile_starGenType_Add_paramsKey {
 	m.Scene.T.Helper()
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Add.Value == moq.ParamIndexByValue {
@@ -1283,7 +1283,7 @@ func (m *MoqProfile_starGenType) ParamsKey_Add(params MoqProfile_starGenType_Add
 	}
 	return MoqProfile_starGenType_Add_paramsKey{
 		Params: struct {
-			Value interface{}
+			Value any
 			Skip  int
 		}{
 			Value: valueUsed,
@@ -1299,7 +1299,7 @@ func (m *MoqProfile_starGenType) ParamsKey_Add(params MoqProfile_starGenType_Add
 	}
 }
 
-func (m *MoqProfile_starGenType_recorder) Remove(value interface{}) *MoqProfile_starGenType_Remove_fnRecorder {
+func (m *MoqProfile_starGenType_recorder) Remove(value any) *MoqProfile_starGenType_Remove_fnRecorder {
 	return &MoqProfile_starGenType_Remove_fnRecorder{
 		Params: MoqProfile_starGenType_Remove_params{
 			Value: value,
@@ -1473,7 +1473,7 @@ func (m *MoqProfile_starGenType) PrettyParams_Remove(params MoqProfile_starGenTy
 
 func (m *MoqProfile_starGenType) ParamsKey_Remove(params MoqProfile_starGenType_Remove_params, anyParams uint64) MoqProfile_starGenType_Remove_paramsKey {
 	m.Scene.T.Helper()
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Remove.Value == moq.ParamIndexByValue {
@@ -1483,7 +1483,7 @@ func (m *MoqProfile_starGenType) ParamsKey_Remove(params MoqProfile_starGenType_
 		}
 	}
 	return MoqProfile_starGenType_Remove_paramsKey{
-		Params: struct{ Value interface{} }{
+		Params: struct{ Value any }{
 			Value: valueUsed,
 		},
 		Hashes: struct{ Value hash.Hash }{

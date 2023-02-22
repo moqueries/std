@@ -13,7 +13,7 @@ import (
 
 // SliceIsSorted_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type SliceIsSorted_genType func(x interface{}, less func(i, j int) bool) bool
+type SliceIsSorted_genType func(x any, less func(i, j int) bool) bool
 
 // MoqSliceIsSorted_genType holds the state of a moq of the
 // SliceIsSorted_genType type
@@ -41,14 +41,14 @@ type MoqSliceIsSorted_genType_mock struct {
 // MoqSliceIsSorted_genType_params holds the params of the
 // SliceIsSorted_genType type
 type MoqSliceIsSorted_genType_params struct {
-	X    interface{}
+	X    any
 	Less func(i, j int) bool
 }
 
 // MoqSliceIsSorted_genType_paramsKey holds the map key params of the
 // SliceIsSorted_genType type
 type MoqSliceIsSorted_genType_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct {
 		X    hash.Hash
 		Less hash.Hash
@@ -65,11 +65,11 @@ type MoqSliceIsSorted_genType_resultsByParams struct {
 
 // MoqSliceIsSorted_genType_doFn defines the type of function needed when
 // calling AndDo for the SliceIsSorted_genType type
-type MoqSliceIsSorted_genType_doFn func(x interface{}, less func(i, j int) bool)
+type MoqSliceIsSorted_genType_doFn func(x any, less func(i, j int) bool)
 
 // MoqSliceIsSorted_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the SliceIsSorted_genType type
-type MoqSliceIsSorted_genType_doReturnFn func(x interface{}, less func(i, j int) bool) bool
+type MoqSliceIsSorted_genType_doReturnFn func(x any, less func(i, j int) bool) bool
 
 // MoqSliceIsSorted_genType_results holds the results of the
 // SliceIsSorted_genType type
@@ -123,7 +123,7 @@ func NewMoqSliceIsSorted_genType(scene *moq.Scene, config *moq.Config) *MoqSlice
 			X    moq.ParamIndexing
 			Less moq.ParamIndexing
 		}{
-			X:    moq.ParamIndexByHash,
+			X:    moq.ParamIndexByValue,
 			Less: moq.ParamIndexByHash,
 		}},
 	}
@@ -135,14 +135,14 @@ func NewMoqSliceIsSorted_genType(scene *moq.Scene, config *moq.Config) *MoqSlice
 
 // Mock returns the moq implementation of the SliceIsSorted_genType type
 func (m *MoqSliceIsSorted_genType) Mock() SliceIsSorted_genType {
-	return func(x interface{}, less func(i, j int) bool) bool {
+	return func(x any, less func(i, j int) bool) bool {
 		m.Scene.T.Helper()
 		moq := &MoqSliceIsSorted_genType_mock{Moq: m}
 		return moq.Fn(x, less)
 	}
 }
 
-func (m *MoqSliceIsSorted_genType_mock) Fn(x interface{}, less func(i, j int) bool) (result1 bool) {
+func (m *MoqSliceIsSorted_genType_mock) Fn(x any, less func(i, j int) bool) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSliceIsSorted_genType_params{
 		X:    x,
@@ -196,7 +196,7 @@ func (m *MoqSliceIsSorted_genType_mock) Fn(x interface{}, less func(i, j int) bo
 	return
 }
 
-func (m *MoqSliceIsSorted_genType) OnCall(x interface{}, less func(i, j int) bool) *MoqSliceIsSorted_genType_fnRecorder {
+func (m *MoqSliceIsSorted_genType) OnCall(x any, less func(i, j int) bool) *MoqSliceIsSorted_genType_fnRecorder {
 	return &MoqSliceIsSorted_genType_fnRecorder{
 		Params: MoqSliceIsSorted_genType_params{
 			X:    x,
@@ -386,7 +386,7 @@ func (m *MoqSliceIsSorted_genType) PrettyParams(params MoqSliceIsSorted_genType_
 
 func (m *MoqSliceIsSorted_genType) ParamsKey(params MoqSliceIsSorted_genType_params, anyParams uint64) MoqSliceIsSorted_genType_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -403,7 +403,7 @@ func (m *MoqSliceIsSorted_genType) ParamsKey(params MoqSliceIsSorted_genType_par
 		lessUsedHash = hash.DeepHash(params.Less)
 	}
 	return MoqSliceIsSorted_genType_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct {

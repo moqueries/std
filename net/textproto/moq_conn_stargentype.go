@@ -20,7 +20,7 @@ var _ Conn_starGenType = (*MoqConn_starGenType_mock)(nil)
 // type)
 type Conn_starGenType interface {
 	Close() error
-	Cmd(format string, args ...interface{}) (id uint, err error)
+	Cmd(format string, args ...any) (id uint, err error)
 }
 
 // MoqConn_starGenType holds the state of a moq of the Conn_starGenType type
@@ -117,7 +117,7 @@ type MoqConn_starGenType_Close_anyParams struct {
 // MoqConn_starGenType_Cmd_params holds the params of the Conn_starGenType type
 type MoqConn_starGenType_Cmd_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqConn_starGenType_Cmd_paramsKey holds the map key params of the
@@ -140,11 +140,11 @@ type MoqConn_starGenType_Cmd_resultsByParams struct {
 
 // MoqConn_starGenType_Cmd_doFn defines the type of function needed when
 // calling AndDo for the Conn_starGenType type
-type MoqConn_starGenType_Cmd_doFn func(format string, args ...interface{})
+type MoqConn_starGenType_Cmd_doFn func(format string, args ...any)
 
 // MoqConn_starGenType_Cmd_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Conn_starGenType type
-type MoqConn_starGenType_Cmd_doReturnFn func(format string, args ...interface{}) (id uint, err error)
+type MoqConn_starGenType_Cmd_doReturnFn func(format string, args ...any) (id uint, err error)
 
 // MoqConn_starGenType_Cmd_results holds the results of the Conn_starGenType
 // type
@@ -274,7 +274,7 @@ func (m *MoqConn_starGenType_mock) Close() (result1 error) {
 	return
 }
 
-func (m *MoqConn_starGenType_mock) Cmd(format string, args ...interface{}) (id uint, err error) {
+func (m *MoqConn_starGenType_mock) Cmd(format string, args ...any) (id uint, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConn_starGenType_Cmd_params{
 		Format: format,
@@ -519,7 +519,7 @@ func (m *MoqConn_starGenType) ParamsKey_Close(params MoqConn_starGenType_Close_p
 	}
 }
 
-func (m *MoqConn_starGenType_recorder) Cmd(format string, args ...interface{}) *MoqConn_starGenType_Cmd_fnRecorder {
+func (m *MoqConn_starGenType_recorder) Cmd(format string, args ...any) *MoqConn_starGenType_Cmd_fnRecorder {
 	return &MoqConn_starGenType_Cmd_fnRecorder{
 		Params: MoqConn_starGenType_Cmd_params{
 			Format: format,

@@ -13,7 +13,7 @@ import (
 
 // Panic_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Panic_genType func(v ...interface{})
+type Panic_genType func(v ...any)
 
 // MoqPanic_genType holds the state of a moq of the Panic_genType type
 type MoqPanic_genType struct {
@@ -36,7 +36,7 @@ type MoqPanic_genType_mock struct {
 }
 
 // MoqPanic_genType_params holds the params of the Panic_genType type
-type MoqPanic_genType_params struct{ V []interface{} }
+type MoqPanic_genType_params struct{ V []any }
 
 // MoqPanic_genType_paramsKey holds the map key params of the Panic_genType
 // type
@@ -55,11 +55,11 @@ type MoqPanic_genType_resultsByParams struct {
 
 // MoqPanic_genType_doFn defines the type of function needed when calling AndDo
 // for the Panic_genType type
-type MoqPanic_genType_doFn func(v ...interface{})
+type MoqPanic_genType_doFn func(v ...any)
 
 // MoqPanic_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Panic_genType type
-type MoqPanic_genType_doReturnFn func(v ...interface{})
+type MoqPanic_genType_doReturnFn func(v ...any)
 
 // MoqPanic_genType_results holds the results of the Panic_genType type
 type MoqPanic_genType_results struct {
@@ -118,10 +118,10 @@ func NewMoqPanic_genType(scene *moq.Scene, config *moq.Config) *MoqPanic_genType
 
 // Mock returns the moq implementation of the Panic_genType type
 func (m *MoqPanic_genType) Mock() Panic_genType {
-	return func(v ...interface{}) { m.Scene.T.Helper(); moq := &MoqPanic_genType_mock{Moq: m}; moq.Fn(v...) }
+	return func(v ...any) { m.Scene.T.Helper(); moq := &MoqPanic_genType_mock{Moq: m}; moq.Fn(v...) }
 }
 
-func (m *MoqPanic_genType_mock) Fn(v ...interface{}) {
+func (m *MoqPanic_genType_mock) Fn(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPanic_genType_params{
 		V: v,
@@ -171,7 +171,7 @@ func (m *MoqPanic_genType_mock) Fn(v ...interface{}) {
 	return
 }
 
-func (m *MoqPanic_genType) OnCall(v ...interface{}) *MoqPanic_genType_fnRecorder {
+func (m *MoqPanic_genType) OnCall(v ...any) *MoqPanic_genType_fnRecorder {
 	return &MoqPanic_genType_fnRecorder{
 		Params: MoqPanic_genType_params{
 			V: v,

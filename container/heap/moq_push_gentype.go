@@ -14,7 +14,7 @@ import (
 
 // Push_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Push_genType func(h heap.Interface, x interface{})
+type Push_genType func(h heap.Interface, x any)
 
 // MoqPush_genType holds the state of a moq of the Push_genType type
 type MoqPush_genType struct {
@@ -40,14 +40,14 @@ type MoqPush_genType_mock struct {
 // MoqPush_genType_params holds the params of the Push_genType type
 type MoqPush_genType_params struct {
 	H heap.Interface
-	X interface{}
+	X any
 }
 
 // MoqPush_genType_paramsKey holds the map key params of the Push_genType type
 type MoqPush_genType_paramsKey struct {
 	Params struct {
 		H heap.Interface
-		X interface{}
+		X any
 	}
 	Hashes struct {
 		H hash.Hash
@@ -65,11 +65,11 @@ type MoqPush_genType_resultsByParams struct {
 
 // MoqPush_genType_doFn defines the type of function needed when calling AndDo
 // for the Push_genType type
-type MoqPush_genType_doFn func(h heap.Interface, x interface{})
+type MoqPush_genType_doFn func(h heap.Interface, x any)
 
 // MoqPush_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Push_genType type
-type MoqPush_genType_doReturnFn func(h heap.Interface, x interface{})
+type MoqPush_genType_doReturnFn func(h heap.Interface, x any)
 
 // MoqPush_genType_results holds the results of the Push_genType type
 type MoqPush_genType_results struct {
@@ -120,7 +120,7 @@ func NewMoqPush_genType(scene *moq.Scene, config *moq.Config) *MoqPush_genType {
 			X moq.ParamIndexing
 		}{
 			H: moq.ParamIndexByHash,
-			X: moq.ParamIndexByHash,
+			X: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -131,14 +131,10 @@ func NewMoqPush_genType(scene *moq.Scene, config *moq.Config) *MoqPush_genType {
 
 // Mock returns the moq implementation of the Push_genType type
 func (m *MoqPush_genType) Mock() Push_genType {
-	return func(h heap.Interface, x interface{}) {
-		m.Scene.T.Helper()
-		moq := &MoqPush_genType_mock{Moq: m}
-		moq.Fn(h, x)
-	}
+	return func(h heap.Interface, x any) { m.Scene.T.Helper(); moq := &MoqPush_genType_mock{Moq: m}; moq.Fn(h, x) }
 }
 
-func (m *MoqPush_genType_mock) Fn(h heap.Interface, x interface{}) {
+func (m *MoqPush_genType_mock) Fn(h heap.Interface, x any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPush_genType_params{
 		H: h,
@@ -189,7 +185,7 @@ func (m *MoqPush_genType_mock) Fn(h heap.Interface, x interface{}) {
 	return
 }
 
-func (m *MoqPush_genType) OnCall(h heap.Interface, x interface{}) *MoqPush_genType_fnRecorder {
+func (m *MoqPush_genType) OnCall(h heap.Interface, x any) *MoqPush_genType_fnRecorder {
 	return &MoqPush_genType_fnRecorder{
 		Params: MoqPush_genType_params{
 			H: h,
@@ -378,7 +374,7 @@ func (m *MoqPush_genType) ParamsKey(params MoqPush_genType_params, anyParams uin
 			hUsedHash = hash.DeepHash(params.H)
 		}
 	}
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -390,7 +386,7 @@ func (m *MoqPush_genType) ParamsKey(params MoqPush_genType_params, anyParams uin
 	return MoqPush_genType_paramsKey{
 		Params: struct {
 			H heap.Interface
-			X interface{}
+			X any
 		}{
 			H: hUsed,
 			X: xUsed,

@@ -22,11 +22,11 @@ var _ Conn_starGenType = (*MoqConn_starGenType_mock)(nil)
 // type)
 type Conn_starGenType interface {
 	PingContext(ctx context.Context) error
-	ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
-	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
-	QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row
+	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
+	QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error)
+	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
-	Raw(f func(driverConn interface{}) error) (err error)
+	Raw(f func(driverConn any) error) (err error)
 	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
 	Close() error
 }
@@ -158,7 +158,7 @@ type MoqConn_starGenType_PingContext_anyParams struct {
 type MoqConn_starGenType_ExecContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqConn_starGenType_ExecContext_paramsKey holds the map key params of the
@@ -185,11 +185,11 @@ type MoqConn_starGenType_ExecContext_resultsByParams struct {
 
 // MoqConn_starGenType_ExecContext_doFn defines the type of function needed
 // when calling AndDo for the Conn_starGenType type
-type MoqConn_starGenType_ExecContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqConn_starGenType_ExecContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqConn_starGenType_ExecContext_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Conn_starGenType type
-type MoqConn_starGenType_ExecContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
+type MoqConn_starGenType_ExecContext_doReturnFn func(ctx context.Context, query string, args ...any) (sql.Result, error)
 
 // MoqConn_starGenType_ExecContext_results holds the results of the
 // Conn_starGenType type
@@ -229,7 +229,7 @@ type MoqConn_starGenType_ExecContext_anyParams struct {
 type MoqConn_starGenType_QueryContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqConn_starGenType_QueryContext_paramsKey holds the map key params of the
@@ -256,11 +256,11 @@ type MoqConn_starGenType_QueryContext_resultsByParams struct {
 
 // MoqConn_starGenType_QueryContext_doFn defines the type of function needed
 // when calling AndDo for the Conn_starGenType type
-type MoqConn_starGenType_QueryContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqConn_starGenType_QueryContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqConn_starGenType_QueryContext_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Conn_starGenType type
-type MoqConn_starGenType_QueryContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
+type MoqConn_starGenType_QueryContext_doReturnFn func(ctx context.Context, query string, args ...any) (*sql.Rows, error)
 
 // MoqConn_starGenType_QueryContext_results holds the results of the
 // Conn_starGenType type
@@ -300,7 +300,7 @@ type MoqConn_starGenType_QueryContext_anyParams struct {
 type MoqConn_starGenType_QueryRowContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqConn_starGenType_QueryRowContext_paramsKey holds the map key params of
@@ -327,11 +327,11 @@ type MoqConn_starGenType_QueryRowContext_resultsByParams struct {
 
 // MoqConn_starGenType_QueryRowContext_doFn defines the type of function needed
 // when calling AndDo for the Conn_starGenType type
-type MoqConn_starGenType_QueryRowContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqConn_starGenType_QueryRowContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqConn_starGenType_QueryRowContext_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Conn_starGenType type
-type MoqConn_starGenType_QueryRowContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) *sql.Row
+type MoqConn_starGenType_QueryRowContext_doReturnFn func(ctx context.Context, query string, args ...any) *sql.Row
 
 // MoqConn_starGenType_QueryRowContext_results holds the results of the
 // Conn_starGenType type
@@ -435,9 +435,7 @@ type MoqConn_starGenType_PrepareContext_anyParams struct {
 }
 
 // MoqConn_starGenType_Raw_params holds the params of the Conn_starGenType type
-type MoqConn_starGenType_Raw_params struct {
-	F func(driverConn interface{}) error
-}
+type MoqConn_starGenType_Raw_params struct{ F func(driverConn any) error }
 
 // MoqConn_starGenType_Raw_paramsKey holds the map key params of the
 // Conn_starGenType type
@@ -456,11 +454,11 @@ type MoqConn_starGenType_Raw_resultsByParams struct {
 
 // MoqConn_starGenType_Raw_doFn defines the type of function needed when
 // calling AndDo for the Conn_starGenType type
-type MoqConn_starGenType_Raw_doFn func(f func(driverConn interface{}) error)
+type MoqConn_starGenType_Raw_doFn func(f func(driverConn any) error)
 
 // MoqConn_starGenType_Raw_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Conn_starGenType type
-type MoqConn_starGenType_Raw_doReturnFn func(f func(driverConn interface{}) error) (err error)
+type MoqConn_starGenType_Raw_doReturnFn func(f func(driverConn any) error) (err error)
 
 // MoqConn_starGenType_Raw_results holds the results of the Conn_starGenType
 // type
@@ -811,7 +809,7 @@ func (m *MoqConn_starGenType_mock) PingContext(ctx context.Context) (result1 err
 	return
 }
 
-func (m *MoqConn_starGenType_mock) ExecContext(ctx context.Context, query string, args ...interface{}) (result1 sql.Result, result2 error) {
+func (m *MoqConn_starGenType_mock) ExecContext(ctx context.Context, query string, args ...any) (result1 sql.Result, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConn_starGenType_ExecContext_params{
 		Ctx:   ctx,
@@ -867,7 +865,7 @@ func (m *MoqConn_starGenType_mock) ExecContext(ctx context.Context, query string
 	return
 }
 
-func (m *MoqConn_starGenType_mock) QueryContext(ctx context.Context, query string, args ...interface{}) (result1 *sql.Rows, result2 error) {
+func (m *MoqConn_starGenType_mock) QueryContext(ctx context.Context, query string, args ...any) (result1 *sql.Rows, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConn_starGenType_QueryContext_params{
 		Ctx:   ctx,
@@ -923,7 +921,7 @@ func (m *MoqConn_starGenType_mock) QueryContext(ctx context.Context, query strin
 	return
 }
 
-func (m *MoqConn_starGenType_mock) QueryRowContext(ctx context.Context, query string, args ...interface{}) (result1 *sql.Row) {
+func (m *MoqConn_starGenType_mock) QueryRowContext(ctx context.Context, query string, args ...any) (result1 *sql.Row) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConn_starGenType_QueryRowContext_params{
 		Ctx:   ctx,
@@ -1033,7 +1031,7 @@ func (m *MoqConn_starGenType_mock) PrepareContext(ctx context.Context, query str
 	return
 }
 
-func (m *MoqConn_starGenType_mock) Raw(f func(driverConn interface{}) error) (err error) {
+func (m *MoqConn_starGenType_mock) Raw(f func(driverConn any) error) (err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConn_starGenType_Raw_params{
 		F: f,
@@ -1402,7 +1400,7 @@ func (m *MoqConn_starGenType) ParamsKey_PingContext(params MoqConn_starGenType_P
 	}
 }
 
-func (m *MoqConn_starGenType_recorder) ExecContext(ctx context.Context, query string, args ...interface{}) *MoqConn_starGenType_ExecContext_fnRecorder {
+func (m *MoqConn_starGenType_recorder) ExecContext(ctx context.Context, query string, args ...any) *MoqConn_starGenType_ExecContext_fnRecorder {
 	return &MoqConn_starGenType_ExecContext_fnRecorder{
 		Params: MoqConn_starGenType_ExecContext_params{
 			Ctx:   ctx,
@@ -1648,7 +1646,7 @@ func (m *MoqConn_starGenType) ParamsKey_ExecContext(params MoqConn_starGenType_E
 	}
 }
 
-func (m *MoqConn_starGenType_recorder) QueryContext(ctx context.Context, query string, args ...interface{}) *MoqConn_starGenType_QueryContext_fnRecorder {
+func (m *MoqConn_starGenType_recorder) QueryContext(ctx context.Context, query string, args ...any) *MoqConn_starGenType_QueryContext_fnRecorder {
 	return &MoqConn_starGenType_QueryContext_fnRecorder{
 		Params: MoqConn_starGenType_QueryContext_params{
 			Ctx:   ctx,
@@ -1894,7 +1892,7 @@ func (m *MoqConn_starGenType) ParamsKey_QueryContext(params MoqConn_starGenType_
 	}
 }
 
-func (m *MoqConn_starGenType_recorder) QueryRowContext(ctx context.Context, query string, args ...interface{}) *MoqConn_starGenType_QueryRowContext_fnRecorder {
+func (m *MoqConn_starGenType_recorder) QueryRowContext(ctx context.Context, query string, args ...any) *MoqConn_starGenType_QueryRowContext_fnRecorder {
 	return &MoqConn_starGenType_QueryRowContext_fnRecorder{
 		Params: MoqConn_starGenType_QueryRowContext_params{
 			Ctx:   ctx,
@@ -2366,7 +2364,7 @@ func (m *MoqConn_starGenType) ParamsKey_PrepareContext(params MoqConn_starGenTyp
 	}
 }
 
-func (m *MoqConn_starGenType_recorder) Raw(f func(driverConn interface{}) error) *MoqConn_starGenType_Raw_fnRecorder {
+func (m *MoqConn_starGenType_recorder) Raw(f func(driverConn any) error) *MoqConn_starGenType_Raw_fnRecorder {
 	return &MoqConn_starGenType_Raw_fnRecorder{
 		Params: MoqConn_starGenType_Raw_params{
 			F: f,

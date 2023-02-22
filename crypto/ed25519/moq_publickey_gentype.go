@@ -135,7 +135,7 @@ func NewMoqPublicKey_genType(scene *moq.Scene, config *moq.Config) *MoqPublicKey
 			Equal: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 		}},
 	}

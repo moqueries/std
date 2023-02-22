@@ -18,21 +18,21 @@ var _ TB_reduced = (*MoqTB_mock)(nil)
 // the original interface contains non-exported methods)
 type TB_reduced interface {
 	Cleanup(func())
-	Error(args ...interface{})
-	Errorf(format string, args ...interface{})
+	Error(args ...any)
+	Errorf(format string, args ...any)
 	Fail()
 	FailNow()
 	Failed() bool
-	Fatal(args ...interface{})
-	Fatalf(format string, args ...interface{})
+	Fatal(args ...any)
+	Fatalf(format string, args ...any)
 	Helper()
-	Log(args ...interface{})
-	Logf(format string, args ...interface{})
+	Log(args ...any)
+	Logf(format string, args ...any)
 	Name() string
 	Setenv(key, value string)
-	Skip(args ...interface{})
+	Skip(args ...any)
 	SkipNow()
-	Skipf(format string, args ...interface{})
+	Skipf(format string, args ...any)
 	Skipped() bool
 	TempDir() string
 }
@@ -174,7 +174,7 @@ type MoqTB_Cleanup_anyParams struct {
 }
 
 // MoqTB_Error_params holds the params of the TB type
-type MoqTB_Error_params struct{ Args []interface{} }
+type MoqTB_Error_params struct{ Args []any }
 
 // MoqTB_Error_paramsKey holds the map key params of the TB type
 type MoqTB_Error_paramsKey struct {
@@ -192,11 +192,11 @@ type MoqTB_Error_resultsByParams struct {
 
 // MoqTB_Error_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Error_doFn func(args ...interface{})
+type MoqTB_Error_doFn func(args ...any)
 
 // MoqTB_Error_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Error_doReturnFn func(args ...interface{})
+type MoqTB_Error_doReturnFn func(args ...any)
 
 // MoqTB_Error_results holds the results of the TB type
 type MoqTB_Error_results struct {
@@ -228,7 +228,7 @@ type MoqTB_Error_anyParams struct {
 // MoqTB_Errorf_params holds the params of the TB type
 type MoqTB_Errorf_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqTB_Errorf_paramsKey holds the map key params of the TB type
@@ -250,11 +250,11 @@ type MoqTB_Errorf_resultsByParams struct {
 
 // MoqTB_Errorf_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Errorf_doFn func(format string, args ...interface{})
+type MoqTB_Errorf_doFn func(format string, args ...any)
 
 // MoqTB_Errorf_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Errorf_doReturnFn func(format string, args ...interface{})
+type MoqTB_Errorf_doReturnFn func(format string, args ...any)
 
 // MoqTB_Errorf_results holds the results of the TB type
 type MoqTB_Errorf_results struct {
@@ -442,7 +442,7 @@ type MoqTB_Failed_anyParams struct {
 }
 
 // MoqTB_Fatal_params holds the params of the TB type
-type MoqTB_Fatal_params struct{ Args []interface{} }
+type MoqTB_Fatal_params struct{ Args []any }
 
 // MoqTB_Fatal_paramsKey holds the map key params of the TB type
 type MoqTB_Fatal_paramsKey struct {
@@ -460,11 +460,11 @@ type MoqTB_Fatal_resultsByParams struct {
 
 // MoqTB_Fatal_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Fatal_doFn func(args ...interface{})
+type MoqTB_Fatal_doFn func(args ...any)
 
 // MoqTB_Fatal_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Fatal_doReturnFn func(args ...interface{})
+type MoqTB_Fatal_doReturnFn func(args ...any)
 
 // MoqTB_Fatal_results holds the results of the TB type
 type MoqTB_Fatal_results struct {
@@ -496,7 +496,7 @@ type MoqTB_Fatal_anyParams struct {
 // MoqTB_Fatalf_params holds the params of the TB type
 type MoqTB_Fatalf_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqTB_Fatalf_paramsKey holds the map key params of the TB type
@@ -518,11 +518,11 @@ type MoqTB_Fatalf_resultsByParams struct {
 
 // MoqTB_Fatalf_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Fatalf_doFn func(format string, args ...interface{})
+type MoqTB_Fatalf_doFn func(format string, args ...any)
 
 // MoqTB_Fatalf_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Fatalf_doReturnFn func(format string, args ...interface{})
+type MoqTB_Fatalf_doReturnFn func(format string, args ...any)
 
 // MoqTB_Fatalf_results holds the results of the TB type
 type MoqTB_Fatalf_results struct {
@@ -604,7 +604,7 @@ type MoqTB_Helper_anyParams struct {
 }
 
 // MoqTB_Log_params holds the params of the TB type
-type MoqTB_Log_params struct{ Args []interface{} }
+type MoqTB_Log_params struct{ Args []any }
 
 // MoqTB_Log_paramsKey holds the map key params of the TB type
 type MoqTB_Log_paramsKey struct {
@@ -622,11 +622,11 @@ type MoqTB_Log_resultsByParams struct {
 
 // MoqTB_Log_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Log_doFn func(args ...interface{})
+type MoqTB_Log_doFn func(args ...any)
 
 // MoqTB_Log_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Log_doReturnFn func(args ...interface{})
+type MoqTB_Log_doReturnFn func(args ...any)
 
 // MoqTB_Log_results holds the results of the TB type
 type MoqTB_Log_results struct {
@@ -658,7 +658,7 @@ type MoqTB_Log_anyParams struct {
 // MoqTB_Logf_params holds the params of the TB type
 type MoqTB_Logf_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqTB_Logf_paramsKey holds the map key params of the TB type
@@ -680,11 +680,11 @@ type MoqTB_Logf_resultsByParams struct {
 
 // MoqTB_Logf_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Logf_doFn func(format string, args ...interface{})
+type MoqTB_Logf_doFn func(format string, args ...any)
 
 // MoqTB_Logf_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Logf_doReturnFn func(format string, args ...interface{})
+type MoqTB_Logf_doReturnFn func(format string, args ...any)
 
 // MoqTB_Logf_results holds the results of the TB type
 type MoqTB_Logf_results struct {
@@ -820,7 +820,7 @@ type MoqTB_Setenv_anyParams struct {
 }
 
 // MoqTB_Skip_params holds the params of the TB type
-type MoqTB_Skip_params struct{ Args []interface{} }
+type MoqTB_Skip_params struct{ Args []any }
 
 // MoqTB_Skip_paramsKey holds the map key params of the TB type
 type MoqTB_Skip_paramsKey struct {
@@ -838,11 +838,11 @@ type MoqTB_Skip_resultsByParams struct {
 
 // MoqTB_Skip_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Skip_doFn func(args ...interface{})
+type MoqTB_Skip_doFn func(args ...any)
 
 // MoqTB_Skip_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Skip_doReturnFn func(args ...interface{})
+type MoqTB_Skip_doReturnFn func(args ...any)
 
 // MoqTB_Skip_results holds the results of the TB type
 type MoqTB_Skip_results struct {
@@ -926,7 +926,7 @@ type MoqTB_SkipNow_anyParams struct {
 // MoqTB_Skipf_params holds the params of the TB type
 type MoqTB_Skipf_params struct {
 	Format string
-	Args   []interface{}
+	Args   []any
 }
 
 // MoqTB_Skipf_paramsKey holds the map key params of the TB type
@@ -948,11 +948,11 @@ type MoqTB_Skipf_resultsByParams struct {
 
 // MoqTB_Skipf_doFn defines the type of function needed when calling AndDo for
 // the TB type
-type MoqTB_Skipf_doFn func(format string, args ...interface{})
+type MoqTB_Skipf_doFn func(format string, args ...any)
 
 // MoqTB_Skipf_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the TB type
-type MoqTB_Skipf_doReturnFn func(format string, args ...interface{})
+type MoqTB_Skipf_doReturnFn func(format string, args ...any)
 
 // MoqTB_Skipf_results holds the results of the TB type
 type MoqTB_Skipf_results struct {
@@ -1319,7 +1319,7 @@ func (m *MoqTB_mock) Cleanup(param1 func()) {
 	return
 }
 
-func (m *MoqTB_mock) Error(args ...interface{}) {
+func (m *MoqTB_mock) Error(args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Error_params{
 		Args: args,
@@ -1369,7 +1369,7 @@ func (m *MoqTB_mock) Error(args ...interface{}) {
 	return
 }
 
-func (m *MoqTB_mock) Errorf(format string, args ...interface{}) {
+func (m *MoqTB_mock) Errorf(format string, args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Errorf_params{
 		Format: format,
@@ -1567,7 +1567,7 @@ func (m *MoqTB_mock) Failed() (result1 bool) {
 	return
 }
 
-func (m *MoqTB_mock) Fatal(args ...interface{}) {
+func (m *MoqTB_mock) Fatal(args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Fatal_params{
 		Args: args,
@@ -1617,7 +1617,7 @@ func (m *MoqTB_mock) Fatal(args ...interface{}) {
 	return
 }
 
-func (m *MoqTB_mock) Fatalf(format string, args ...interface{}) {
+func (m *MoqTB_mock) Fatalf(format string, args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Fatalf_params{
 		Format: format,
@@ -1716,7 +1716,7 @@ func (m *MoqTB_mock) Helper() {
 	return
 }
 
-func (m *MoqTB_mock) Log(args ...interface{}) {
+func (m *MoqTB_mock) Log(args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Log_params{
 		Args: args,
@@ -1766,7 +1766,7 @@ func (m *MoqTB_mock) Log(args ...interface{}) {
 	return
 }
 
-func (m *MoqTB_mock) Logf(format string, args ...interface{}) {
+func (m *MoqTB_mock) Logf(format string, args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Logf_params{
 		Format: format,
@@ -1919,7 +1919,7 @@ func (m *MoqTB_mock) Setenv(key, value string) {
 	return
 }
 
-func (m *MoqTB_mock) Skip(args ...interface{}) {
+func (m *MoqTB_mock) Skip(args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Skip_params{
 		Args: args,
@@ -2017,7 +2017,7 @@ func (m *MoqTB_mock) SkipNow() {
 	return
 }
 
-func (m *MoqTB_mock) Skipf(format string, args ...interface{}) {
+func (m *MoqTB_mock) Skipf(format string, args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTB_Skipf_params{
 		Format: format,
@@ -2366,7 +2366,7 @@ func (m *MoqTB) ParamsKey_Cleanup(params MoqTB_Cleanup_params, anyParams uint64)
 	}
 }
 
-func (m *MoqTB_recorder) Error(args ...interface{}) *MoqTB_Error_fnRecorder {
+func (m *MoqTB_recorder) Error(args ...any) *MoqTB_Error_fnRecorder {
 	return &MoqTB_Error_fnRecorder{
 		Params: MoqTB_Error_params{
 			Args: args,
@@ -2555,7 +2555,7 @@ func (m *MoqTB) ParamsKey_Error(params MoqTB_Error_params, anyParams uint64) Moq
 	}
 }
 
-func (m *MoqTB_recorder) Errorf(format string, args ...interface{}) *MoqTB_Errorf_fnRecorder {
+func (m *MoqTB_recorder) Errorf(format string, args ...any) *MoqTB_Errorf_fnRecorder {
 	return &MoqTB_Errorf_fnRecorder{
 		Params: MoqTB_Errorf_params{
 			Format: format,
@@ -3292,7 +3292,7 @@ func (m *MoqTB) ParamsKey_Failed(params MoqTB_Failed_params, anyParams uint64) M
 	}
 }
 
-func (m *MoqTB_recorder) Fatal(args ...interface{}) *MoqTB_Fatal_fnRecorder {
+func (m *MoqTB_recorder) Fatal(args ...any) *MoqTB_Fatal_fnRecorder {
 	return &MoqTB_Fatal_fnRecorder{
 		Params: MoqTB_Fatal_params{
 			Args: args,
@@ -3481,7 +3481,7 @@ func (m *MoqTB) ParamsKey_Fatal(params MoqTB_Fatal_params, anyParams uint64) Moq
 	}
 }
 
-func (m *MoqTB_recorder) Fatalf(format string, args ...interface{}) *MoqTB_Fatalf_fnRecorder {
+func (m *MoqTB_recorder) Fatalf(format string, args ...any) *MoqTB_Fatalf_fnRecorder {
 	return &MoqTB_Fatalf_fnRecorder{
 		Params: MoqTB_Fatalf_params{
 			Format: format,
@@ -3864,7 +3864,7 @@ func (m *MoqTB) ParamsKey_Helper(params MoqTB_Helper_params, anyParams uint64) M
 	}
 }
 
-func (m *MoqTB_recorder) Log(args ...interface{}) *MoqTB_Log_fnRecorder {
+func (m *MoqTB_recorder) Log(args ...any) *MoqTB_Log_fnRecorder {
 	return &MoqTB_Log_fnRecorder{
 		Params: MoqTB_Log_params{
 			Args: args,
@@ -4053,7 +4053,7 @@ func (m *MoqTB) ParamsKey_Log(params MoqTB_Log_params, anyParams uint64) MoqTB_L
 	}
 }
 
-func (m *MoqTB_recorder) Logf(format string, args ...interface{}) *MoqTB_Logf_fnRecorder {
+func (m *MoqTB_recorder) Logf(format string, args ...any) *MoqTB_Logf_fnRecorder {
 	return &MoqTB_Logf_fnRecorder{
 		Params: MoqTB_Logf_params{
 			Format: format,
@@ -4654,7 +4654,7 @@ func (m *MoqTB) ParamsKey_Setenv(params MoqTB_Setenv_params, anyParams uint64) M
 	}
 }
 
-func (m *MoqTB_recorder) Skip(args ...interface{}) *MoqTB_Skip_fnRecorder {
+func (m *MoqTB_recorder) Skip(args ...any) *MoqTB_Skip_fnRecorder {
 	return &MoqTB_Skip_fnRecorder{
 		Params: MoqTB_Skip_params{
 			Args: args,
@@ -5016,7 +5016,7 @@ func (m *MoqTB) ParamsKey_SkipNow(params MoqTB_SkipNow_params, anyParams uint64)
 	}
 }
 
-func (m *MoqTB_recorder) Skipf(format string, args ...interface{}) *MoqTB_Skipf_fnRecorder {
+func (m *MoqTB_recorder) Skipf(format string, args ...any) *MoqTB_Skipf_fnRecorder {
 	return &MoqTB_Skipf_fnRecorder{
 		Params: MoqTB_Skipf_params{
 			Format: format,

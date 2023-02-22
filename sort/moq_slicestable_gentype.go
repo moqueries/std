@@ -13,7 +13,7 @@ import (
 
 // SliceStable_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type SliceStable_genType func(x interface{}, less func(i, j int) bool)
+type SliceStable_genType func(x any, less func(i, j int) bool)
 
 // MoqSliceStable_genType holds the state of a moq of the SliceStable_genType
 // type
@@ -41,14 +41,14 @@ type MoqSliceStable_genType_mock struct {
 // MoqSliceStable_genType_params holds the params of the SliceStable_genType
 // type
 type MoqSliceStable_genType_params struct {
-	X    interface{}
+	X    any
 	Less func(i, j int) bool
 }
 
 // MoqSliceStable_genType_paramsKey holds the map key params of the
 // SliceStable_genType type
 type MoqSliceStable_genType_paramsKey struct {
-	Params struct{ X interface{} }
+	Params struct{ X any }
 	Hashes struct {
 		X    hash.Hash
 		Less hash.Hash
@@ -65,11 +65,11 @@ type MoqSliceStable_genType_resultsByParams struct {
 
 // MoqSliceStable_genType_doFn defines the type of function needed when calling
 // AndDo for the SliceStable_genType type
-type MoqSliceStable_genType_doFn func(x interface{}, less func(i, j int) bool)
+type MoqSliceStable_genType_doFn func(x any, less func(i, j int) bool)
 
 // MoqSliceStable_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the SliceStable_genType type
-type MoqSliceStable_genType_doReturnFn func(x interface{}, less func(i, j int) bool)
+type MoqSliceStable_genType_doReturnFn func(x any, less func(i, j int) bool)
 
 // MoqSliceStable_genType_results holds the results of the SliceStable_genType
 // type
@@ -120,7 +120,7 @@ func NewMoqSliceStable_genType(scene *moq.Scene, config *moq.Config) *MoqSliceSt
 			X    moq.ParamIndexing
 			Less moq.ParamIndexing
 		}{
-			X:    moq.ParamIndexByHash,
+			X:    moq.ParamIndexByValue,
 			Less: moq.ParamIndexByHash,
 		}},
 	}
@@ -132,14 +132,14 @@ func NewMoqSliceStable_genType(scene *moq.Scene, config *moq.Config) *MoqSliceSt
 
 // Mock returns the moq implementation of the SliceStable_genType type
 func (m *MoqSliceStable_genType) Mock() SliceStable_genType {
-	return func(x interface{}, less func(i, j int) bool) {
+	return func(x any, less func(i, j int) bool) {
 		m.Scene.T.Helper()
 		moq := &MoqSliceStable_genType_mock{Moq: m}
 		moq.Fn(x, less)
 	}
 }
 
-func (m *MoqSliceStable_genType_mock) Fn(x interface{}, less func(i, j int) bool) {
+func (m *MoqSliceStable_genType_mock) Fn(x any, less func(i, j int) bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSliceStable_genType_params{
 		X:    x,
@@ -190,7 +190,7 @@ func (m *MoqSliceStable_genType_mock) Fn(x interface{}, less func(i, j int) bool
 	return
 }
 
-func (m *MoqSliceStable_genType) OnCall(x interface{}, less func(i, j int) bool) *MoqSliceStable_genType_fnRecorder {
+func (m *MoqSliceStable_genType) OnCall(x any, less func(i, j int) bool) *MoqSliceStable_genType_fnRecorder {
 	return &MoqSliceStable_genType_fnRecorder{
 		Params: MoqSliceStable_genType_params{
 			X:    x,
@@ -370,7 +370,7 @@ func (m *MoqSliceStable_genType) PrettyParams(params MoqSliceStable_genType_para
 
 func (m *MoqSliceStable_genType) ParamsKey(params MoqSliceStable_genType_params, anyParams uint64) MoqSliceStable_genType_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -387,7 +387,7 @@ func (m *MoqSliceStable_genType) ParamsKey(params MoqSliceStable_genType_params,
 		lessUsedHash = hash.DeepHash(params.Less)
 	}
 	return MoqSliceStable_genType_paramsKey{
-		Params: struct{ X interface{} }{
+		Params: struct{ X any }{
 			X: xUsed,
 		},
 		Hashes: struct {

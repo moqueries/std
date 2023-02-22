@@ -14,7 +14,7 @@ import (
 
 // Logf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Logf_genType func(ctx context.Context, category, format string, args ...interface{})
+type Logf_genType func(ctx context.Context, category, format string, args ...any)
 
 // MoqLogf_genType holds the state of a moq of the Logf_genType type
 type MoqLogf_genType struct {
@@ -43,7 +43,7 @@ type MoqLogf_genType_mock struct {
 type MoqLogf_genType_params struct {
 	Ctx              context.Context
 	Category, Format string
-	Args             []interface{}
+	Args             []any
 }
 
 // MoqLogf_genType_paramsKey holds the map key params of the Logf_genType type
@@ -69,11 +69,11 @@ type MoqLogf_genType_resultsByParams struct {
 
 // MoqLogf_genType_doFn defines the type of function needed when calling AndDo
 // for the Logf_genType type
-type MoqLogf_genType_doFn func(ctx context.Context, category, format string, args ...interface{})
+type MoqLogf_genType_doFn func(ctx context.Context, category, format string, args ...any)
 
 // MoqLogf_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Logf_genType type
-type MoqLogf_genType_doReturnFn func(ctx context.Context, category, format string, args ...interface{})
+type MoqLogf_genType_doReturnFn func(ctx context.Context, category, format string, args ...any)
 
 // MoqLogf_genType_results holds the results of the Logf_genType type
 type MoqLogf_genType_results struct {
@@ -141,14 +141,14 @@ func NewMoqLogf_genType(scene *moq.Scene, config *moq.Config) *MoqLogf_genType {
 
 // Mock returns the moq implementation of the Logf_genType type
 func (m *MoqLogf_genType) Mock() Logf_genType {
-	return func(ctx context.Context, category, format string, args ...interface{}) {
+	return func(ctx context.Context, category, format string, args ...any) {
 		m.Scene.T.Helper()
 		moq := &MoqLogf_genType_mock{Moq: m}
 		moq.Fn(ctx, category, format, args...)
 	}
 }
 
-func (m *MoqLogf_genType_mock) Fn(ctx context.Context, category, format string, args ...interface{}) {
+func (m *MoqLogf_genType_mock) Fn(ctx context.Context, category, format string, args ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqLogf_genType_params{
 		Ctx:      ctx,
@@ -201,7 +201,7 @@ func (m *MoqLogf_genType_mock) Fn(ctx context.Context, category, format string, 
 	return
 }
 
-func (m *MoqLogf_genType) OnCall(ctx context.Context, category, format string, args ...interface{}) *MoqLogf_genType_fnRecorder {
+func (m *MoqLogf_genType) OnCall(ctx context.Context, category, format string, args ...any) *MoqLogf_genType_fnRecorder {
 	return &MoqLogf_genType_fnRecorder{
 		Params: MoqLogf_genType_params{
 			Ctx:      ctx,

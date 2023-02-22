@@ -220,11 +220,11 @@ type MoqContext_Err_anyParams struct {
 }
 
 // MoqContext_Value_params holds the params of the Context type
-type MoqContext_Value_params struct{ Key interface{} }
+type MoqContext_Value_params struct{ Key any }
 
 // MoqContext_Value_paramsKey holds the map key params of the Context type
 type MoqContext_Value_paramsKey struct {
-	Params struct{ Key interface{} }
+	Params struct{ Key any }
 	Hashes struct{ Key hash.Hash }
 }
 
@@ -238,18 +238,18 @@ type MoqContext_Value_resultsByParams struct {
 
 // MoqContext_Value_doFn defines the type of function needed when calling AndDo
 // for the Context type
-type MoqContext_Value_doFn func(key interface{})
+type MoqContext_Value_doFn func(key any)
 
 // MoqContext_Value_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Context type
-type MoqContext_Value_doReturnFn func(key interface{}) interface{}
+type MoqContext_Value_doReturnFn func(key any) any
 
 // MoqContext_Value_results holds the results of the Context type
 type MoqContext_Value_results struct {
 	Params  MoqContext_Value_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqContext_Value_doFn
@@ -308,7 +308,7 @@ func NewMoqContext(scene *moq.Scene, config *moq.Config) *MoqContext {
 			Value: struct {
 				Key moq.ParamIndexing
 			}{
-				Key: moq.ParamIndexByHash,
+				Key: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -475,7 +475,7 @@ func (m *MoqContext_mock) Err() (result1 error) {
 	return
 }
 
-func (m *MoqContext_mock) Value(key interface{}) (result1 interface{}) {
+func (m *MoqContext_mock) Value(key any) (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqContext_Value_params{
 		Key: key,
@@ -1089,7 +1089,7 @@ func (m *MoqContext) ParamsKey_Err(params MoqContext_Err_params, anyParams uint6
 	}
 }
 
-func (m *MoqContext_recorder) Value(key interface{}) *MoqContext_Value_fnRecorder {
+func (m *MoqContext_recorder) Value(key any) *MoqContext_Value_fnRecorder {
 	return &MoqContext_Value_fnRecorder{
 		Params: MoqContext_Value_params{
 			Key: key,
@@ -1133,7 +1133,7 @@ func (r *MoqContext_Value_fnRecorder) NoSeq() *MoqContext_Value_fnRecorder {
 	return r
 }
 
-func (r *MoqContext_Value_fnRecorder) ReturnResults(result1 interface{}) *MoqContext_Value_fnRecorder {
+func (r *MoqContext_Value_fnRecorder) ReturnResults(result1 any) *MoqContext_Value_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1144,14 +1144,14 @@ func (r *MoqContext_Value_fnRecorder) ReturnResults(result1 interface{}) *MoqCon
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqContext_Value_doFn
 		DoReturnFn MoqContext_Value_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -1182,7 +1182,7 @@ func (r *MoqContext_Value_fnRecorder) DoReturnResults(fn MoqContext_Value_doRetu
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqContext_Value_doFn
@@ -1252,7 +1252,7 @@ func (r *MoqContext_Value_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqCont
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqContext_Value_doFn
@@ -1273,7 +1273,7 @@ func (m *MoqContext) PrettyParams_Value(params MoqContext_Value_params) string {
 
 func (m *MoqContext) ParamsKey_Value(params MoqContext_Value_params, anyParams uint64) MoqContext_Value_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Value.Key == moq.ParamIndexByValue {
@@ -1283,7 +1283,7 @@ func (m *MoqContext) ParamsKey_Value(params MoqContext_Value_params, anyParams u
 		}
 	}
 	return MoqContext_Value_paramsKey{
-		Params: struct{ Key interface{} }{
+		Params: struct{ Key any }{
 			Key: keyUsed,
 		},
 		Hashes: struct{ Key hash.Hash }{

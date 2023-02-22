@@ -13,7 +13,7 @@ import (
 
 // MarshalIndent_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type MarshalIndent_genType func(v interface{}, prefix, indent string) ([]byte, error)
+type MarshalIndent_genType func(v any, prefix, indent string) ([]byte, error)
 
 // MoqMarshalIndent_genType holds the state of a moq of the
 // MarshalIndent_genType type
@@ -42,7 +42,7 @@ type MoqMarshalIndent_genType_mock struct {
 // MoqMarshalIndent_genType_params holds the params of the
 // MarshalIndent_genType type
 type MoqMarshalIndent_genType_params struct {
-	V              interface{}
+	V              any
 	Prefix, Indent string
 }
 
@@ -50,7 +50,7 @@ type MoqMarshalIndent_genType_params struct {
 // MarshalIndent_genType type
 type MoqMarshalIndent_genType_paramsKey struct {
 	Params struct {
-		V              interface{}
+		V              any
 		Prefix, Indent string
 	}
 	Hashes struct {
@@ -69,11 +69,11 @@ type MoqMarshalIndent_genType_resultsByParams struct {
 
 // MoqMarshalIndent_genType_doFn defines the type of function needed when
 // calling AndDo for the MarshalIndent_genType type
-type MoqMarshalIndent_genType_doFn func(v interface{}, prefix, indent string)
+type MoqMarshalIndent_genType_doFn func(v any, prefix, indent string)
 
 // MoqMarshalIndent_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the MarshalIndent_genType type
-type MoqMarshalIndent_genType_doReturnFn func(v interface{}, prefix, indent string) ([]byte, error)
+type MoqMarshalIndent_genType_doReturnFn func(v any, prefix, indent string) ([]byte, error)
 
 // MoqMarshalIndent_genType_results holds the results of the
 // MarshalIndent_genType type
@@ -130,7 +130,7 @@ func NewMoqMarshalIndent_genType(scene *moq.Scene, config *moq.Config) *MoqMarsh
 			Prefix moq.ParamIndexing
 			Indent moq.ParamIndexing
 		}{
-			V:      moq.ParamIndexByHash,
+			V:      moq.ParamIndexByValue,
 			Prefix: moq.ParamIndexByValue,
 			Indent: moq.ParamIndexByValue,
 		}},
@@ -143,14 +143,14 @@ func NewMoqMarshalIndent_genType(scene *moq.Scene, config *moq.Config) *MoqMarsh
 
 // Mock returns the moq implementation of the MarshalIndent_genType type
 func (m *MoqMarshalIndent_genType) Mock() MarshalIndent_genType {
-	return func(v interface{}, prefix, indent string) ([]byte, error) {
+	return func(v any, prefix, indent string) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqMarshalIndent_genType_mock{Moq: m}
 		return moq.Fn(v, prefix, indent)
 	}
 }
 
-func (m *MoqMarshalIndent_genType_mock) Fn(v interface{}, prefix, indent string) (result1 []byte, result2 error) {
+func (m *MoqMarshalIndent_genType_mock) Fn(v any, prefix, indent string) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMarshalIndent_genType_params{
 		V:      v,
@@ -206,7 +206,7 @@ func (m *MoqMarshalIndent_genType_mock) Fn(v interface{}, prefix, indent string)
 	return
 }
 
-func (m *MoqMarshalIndent_genType) OnCall(v interface{}, prefix, indent string) *MoqMarshalIndent_genType_fnRecorder {
+func (m *MoqMarshalIndent_genType) OnCall(v any, prefix, indent string) *MoqMarshalIndent_genType_fnRecorder {
 	return &MoqMarshalIndent_genType_fnRecorder{
 		Params: MoqMarshalIndent_genType_params{
 			V:      v,
@@ -407,7 +407,7 @@ func (m *MoqMarshalIndent_genType) PrettyParams(params MoqMarshalIndent_genType_
 
 func (m *MoqMarshalIndent_genType) ParamsKey(params MoqMarshalIndent_genType_params, anyParams uint64) MoqMarshalIndent_genType_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.V == moq.ParamIndexByValue {
@@ -436,7 +436,7 @@ func (m *MoqMarshalIndent_genType) ParamsKey(params MoqMarshalIndent_genType_par
 	}
 	return MoqMarshalIndent_genType_paramsKey{
 		Params: struct {
-			V              interface{}
+			V              any
 			Prefix, Indent string
 		}{
 			V:      vUsed,

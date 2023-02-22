@@ -111,7 +111,7 @@ func NewMoqCopyToken_genType(scene *moq.Scene, config *moq.Config) *MoqCopyToken
 		}{ParameterIndexing: struct {
 			T moq.ParamIndexing
 		}{
-			T: moq.ParamIndexByHash,
+			T: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m

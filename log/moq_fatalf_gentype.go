@@ -13,7 +13,7 @@ import (
 
 // Fatalf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Fatalf_genType func(format string, v ...interface{})
+type Fatalf_genType func(format string, v ...any)
 
 // MoqFatalf_genType holds the state of a moq of the Fatalf_genType type
 type MoqFatalf_genType struct {
@@ -40,7 +40,7 @@ type MoqFatalf_genType_mock struct {
 // MoqFatalf_genType_params holds the params of the Fatalf_genType type
 type MoqFatalf_genType_params struct {
 	Format string
-	V      []interface{}
+	V      []any
 }
 
 // MoqFatalf_genType_paramsKey holds the map key params of the Fatalf_genType
@@ -63,11 +63,11 @@ type MoqFatalf_genType_resultsByParams struct {
 
 // MoqFatalf_genType_doFn defines the type of function needed when calling
 // AndDo for the Fatalf_genType type
-type MoqFatalf_genType_doFn func(format string, v ...interface{})
+type MoqFatalf_genType_doFn func(format string, v ...any)
 
 // MoqFatalf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Fatalf_genType type
-type MoqFatalf_genType_doReturnFn func(format string, v ...interface{})
+type MoqFatalf_genType_doReturnFn func(format string, v ...any)
 
 // MoqFatalf_genType_results holds the results of the Fatalf_genType type
 type MoqFatalf_genType_results struct {
@@ -129,14 +129,14 @@ func NewMoqFatalf_genType(scene *moq.Scene, config *moq.Config) *MoqFatalf_genTy
 
 // Mock returns the moq implementation of the Fatalf_genType type
 func (m *MoqFatalf_genType) Mock() Fatalf_genType {
-	return func(format string, v ...interface{}) {
+	return func(format string, v ...any) {
 		m.Scene.T.Helper()
 		moq := &MoqFatalf_genType_mock{Moq: m}
 		moq.Fn(format, v...)
 	}
 }
 
-func (m *MoqFatalf_genType_mock) Fn(format string, v ...interface{}) {
+func (m *MoqFatalf_genType_mock) Fn(format string, v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFatalf_genType_params{
 		Format: format,
@@ -187,7 +187,7 @@ func (m *MoqFatalf_genType_mock) Fn(format string, v ...interface{}) {
 	return
 }
 
-func (m *MoqFatalf_genType) OnCall(format string, v ...interface{}) *MoqFatalf_genType_fnRecorder {
+func (m *MoqFatalf_genType) OnCall(format string, v ...any) *MoqFatalf_genType_fnRecorder {
 	return &MoqFatalf_genType_fnRecorder{
 		Params: MoqFatalf_genType_params{
 			Format: format,

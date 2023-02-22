@@ -14,7 +14,7 @@ import (
 
 // Named_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Named_genType func(name string, value interface{}) sql.NamedArg
+type Named_genType func(name string, value any) sql.NamedArg
 
 // MoqNamed_genType holds the state of a moq of the Named_genType type
 type MoqNamed_genType struct {
@@ -40,7 +40,7 @@ type MoqNamed_genType_mock struct {
 // MoqNamed_genType_params holds the params of the Named_genType type
 type MoqNamed_genType_params struct {
 	Name  string
-	Value interface{}
+	Value any
 }
 
 // MoqNamed_genType_paramsKey holds the map key params of the Named_genType
@@ -48,7 +48,7 @@ type MoqNamed_genType_params struct {
 type MoqNamed_genType_paramsKey struct {
 	Params struct {
 		Name  string
-		Value interface{}
+		Value any
 	}
 	Hashes struct {
 		Name  hash.Hash
@@ -66,11 +66,11 @@ type MoqNamed_genType_resultsByParams struct {
 
 // MoqNamed_genType_doFn defines the type of function needed when calling AndDo
 // for the Named_genType type
-type MoqNamed_genType_doFn func(name string, value interface{})
+type MoqNamed_genType_doFn func(name string, value any)
 
 // MoqNamed_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Named_genType type
-type MoqNamed_genType_doReturnFn func(name string, value interface{}) sql.NamedArg
+type MoqNamed_genType_doReturnFn func(name string, value any) sql.NamedArg
 
 // MoqNamed_genType_results holds the results of the Named_genType type
 type MoqNamed_genType_results struct {
@@ -123,7 +123,7 @@ func NewMoqNamed_genType(scene *moq.Scene, config *moq.Config) *MoqNamed_genType
 			Value moq.ParamIndexing
 		}{
 			Name:  moq.ParamIndexByValue,
-			Value: moq.ParamIndexByHash,
+			Value: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -134,14 +134,14 @@ func NewMoqNamed_genType(scene *moq.Scene, config *moq.Config) *MoqNamed_genType
 
 // Mock returns the moq implementation of the Named_genType type
 func (m *MoqNamed_genType) Mock() Named_genType {
-	return func(name string, value interface{}) sql.NamedArg {
+	return func(name string, value any) sql.NamedArg {
 		m.Scene.T.Helper()
 		moq := &MoqNamed_genType_mock{Moq: m}
 		return moq.Fn(name, value)
 	}
 }
 
-func (m *MoqNamed_genType_mock) Fn(name string, value interface{}) (result1 sql.NamedArg) {
+func (m *MoqNamed_genType_mock) Fn(name string, value any) (result1 sql.NamedArg) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNamed_genType_params{
 		Name:  name,
@@ -195,7 +195,7 @@ func (m *MoqNamed_genType_mock) Fn(name string, value interface{}) (result1 sql.
 	return
 }
 
-func (m *MoqNamed_genType) OnCall(name string, value interface{}) *MoqNamed_genType_fnRecorder {
+func (m *MoqNamed_genType) OnCall(name string, value any) *MoqNamed_genType_fnRecorder {
 	return &MoqNamed_genType_fnRecorder{
 		Params: MoqNamed_genType_params{
 			Name:  name,
@@ -394,7 +394,7 @@ func (m *MoqNamed_genType) ParamsKey(params MoqNamed_genType_params, anyParams u
 			nameUsedHash = hash.DeepHash(params.Name)
 		}
 	}
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Value == moq.ParamIndexByValue {
@@ -406,7 +406,7 @@ func (m *MoqNamed_genType) ParamsKey(params MoqNamed_genType_params, anyParams u
 	return MoqNamed_genType_paramsKey{
 		Params: struct {
 			Name  string
-			Value interface{}
+			Value any
 		}{
 			Name:  nameUsed,
 			Value: valueUsed,

@@ -15,7 +15,7 @@ import (
 
 // Read_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Read_genType func(r io.Reader, order binary.ByteOrder, data interface{}) error
+type Read_genType func(r io.Reader, order binary.ByteOrder, data any) error
 
 // MoqRead_genType holds the state of a moq of the Read_genType type
 type MoqRead_genType struct {
@@ -43,7 +43,7 @@ type MoqRead_genType_mock struct {
 type MoqRead_genType_params struct {
 	Param1 io.Reader
 	Order  binary.ByteOrder
-	Data   interface{}
+	Data   any
 }
 
 // MoqRead_genType_paramsKey holds the map key params of the Read_genType type
@@ -51,7 +51,7 @@ type MoqRead_genType_paramsKey struct {
 	Params struct {
 		Param1 io.Reader
 		Order  binary.ByteOrder
-		Data   interface{}
+		Data   any
 	}
 	Hashes struct {
 		Param1 hash.Hash
@@ -70,11 +70,11 @@ type MoqRead_genType_resultsByParams struct {
 
 // MoqRead_genType_doFn defines the type of function needed when calling AndDo
 // for the Read_genType type
-type MoqRead_genType_doFn func(r io.Reader, order binary.ByteOrder, data interface{})
+type MoqRead_genType_doFn func(r io.Reader, order binary.ByteOrder, data any)
 
 // MoqRead_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Read_genType type
-type MoqRead_genType_doReturnFn func(r io.Reader, order binary.ByteOrder, data interface{}) error
+type MoqRead_genType_doReturnFn func(r io.Reader, order binary.ByteOrder, data any) error
 
 // MoqRead_genType_results holds the results of the Read_genType type
 type MoqRead_genType_results struct {
@@ -130,7 +130,7 @@ func NewMoqRead_genType(scene *moq.Scene, config *moq.Config) *MoqRead_genType {
 		}{
 			Param1: moq.ParamIndexByHash,
 			Order:  moq.ParamIndexByHash,
-			Data:   moq.ParamIndexByHash,
+			Data:   moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -141,14 +141,14 @@ func NewMoqRead_genType(scene *moq.Scene, config *moq.Config) *MoqRead_genType {
 
 // Mock returns the moq implementation of the Read_genType type
 func (m *MoqRead_genType) Mock() Read_genType {
-	return func(param1 io.Reader, order binary.ByteOrder, data interface{}) error {
+	return func(param1 io.Reader, order binary.ByteOrder, data any) error {
 		m.Scene.T.Helper()
 		moq := &MoqRead_genType_mock{Moq: m}
 		return moq.Fn(param1, order, data)
 	}
 }
 
-func (m *MoqRead_genType_mock) Fn(param1 io.Reader, order binary.ByteOrder, data interface{}) (result1 error) {
+func (m *MoqRead_genType_mock) Fn(param1 io.Reader, order binary.ByteOrder, data any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqRead_genType_params{
 		Param1: param1,
@@ -203,7 +203,7 @@ func (m *MoqRead_genType_mock) Fn(param1 io.Reader, order binary.ByteOrder, data
 	return
 }
 
-func (m *MoqRead_genType) OnCall(param1 io.Reader, order binary.ByteOrder, data interface{}) *MoqRead_genType_fnRecorder {
+func (m *MoqRead_genType) OnCall(param1 io.Reader, order binary.ByteOrder, data any) *MoqRead_genType_fnRecorder {
 	return &MoqRead_genType_fnRecorder{
 		Params: MoqRead_genType_params{
 			Param1: param1,
@@ -417,7 +417,7 @@ func (m *MoqRead_genType) ParamsKey(params MoqRead_genType_params, anyParams uin
 			orderUsedHash = hash.DeepHash(params.Order)
 		}
 	}
-	var dataUsed interface{}
+	var dataUsed any
 	var dataUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Data == moq.ParamIndexByValue {
@@ -430,7 +430,7 @@ func (m *MoqRead_genType) ParamsKey(params MoqRead_genType_params, anyParams uin
 		Params: struct {
 			Param1 io.Reader
 			Order  binary.ByteOrder
-			Data   interface{}
+			Data   any
 		}{
 			Param1: param1Used,
 			Order:  orderUsed,

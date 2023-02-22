@@ -21,8 +21,8 @@ var _ Client_starGenType = (*MoqClient_starGenType_mock)(nil)
 // interface type)
 type Client_starGenType interface {
 	Close() error
-	Go(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) *rpc.Call
-	Call(serviceMethod string, args interface{}, reply interface{}) error
+	Go(serviceMethod string, args any, reply any, done chan *rpc.Call) *rpc.Call
+	Call(serviceMethod string, args any, reply any) error
 }
 
 // MoqClient_starGenType holds the state of a moq of the Client_starGenType
@@ -129,8 +129,8 @@ type MoqClient_starGenType_Close_anyParams struct {
 // type
 type MoqClient_starGenType_Go_params struct {
 	ServiceMethod string
-	Args          interface{}
-	Reply         interface{}
+	Args          any
+	Reply         any
 	Done          chan *rpc.Call
 }
 
@@ -139,8 +139,8 @@ type MoqClient_starGenType_Go_params struct {
 type MoqClient_starGenType_Go_paramsKey struct {
 	Params struct {
 		ServiceMethod string
-		Args          interface{}
-		Reply         interface{}
+		Args          any
+		Reply         any
 		Done          chan *rpc.Call
 	}
 	Hashes struct {
@@ -161,11 +161,11 @@ type MoqClient_starGenType_Go_resultsByParams struct {
 
 // MoqClient_starGenType_Go_doFn defines the type of function needed when
 // calling AndDo for the Client_starGenType type
-type MoqClient_starGenType_Go_doFn func(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call)
+type MoqClient_starGenType_Go_doFn func(serviceMethod string, args any, reply any, done chan *rpc.Call)
 
 // MoqClient_starGenType_Go_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Client_starGenType type
-type MoqClient_starGenType_Go_doReturnFn func(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) *rpc.Call
+type MoqClient_starGenType_Go_doReturnFn func(serviceMethod string, args any, reply any, done chan *rpc.Call) *rpc.Call
 
 // MoqClient_starGenType_Go_results holds the results of the Client_starGenType
 // type
@@ -203,8 +203,8 @@ type MoqClient_starGenType_Go_anyParams struct {
 // type
 type MoqClient_starGenType_Call_params struct {
 	ServiceMethod string
-	Args          interface{}
-	Reply         interface{}
+	Args          any
+	Reply         any
 }
 
 // MoqClient_starGenType_Call_paramsKey holds the map key params of the
@@ -212,8 +212,8 @@ type MoqClient_starGenType_Call_params struct {
 type MoqClient_starGenType_Call_paramsKey struct {
 	Params struct {
 		ServiceMethod string
-		Args          interface{}
-		Reply         interface{}
+		Args          any
+		Reply         any
 	}
 	Hashes struct {
 		ServiceMethod hash.Hash
@@ -232,11 +232,11 @@ type MoqClient_starGenType_Call_resultsByParams struct {
 
 // MoqClient_starGenType_Call_doFn defines the type of function needed when
 // calling AndDo for the Client_starGenType type
-type MoqClient_starGenType_Call_doFn func(serviceMethod string, args interface{}, reply interface{})
+type MoqClient_starGenType_Call_doFn func(serviceMethod string, args any, reply any)
 
 // MoqClient_starGenType_Call_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Client_starGenType type
-type MoqClient_starGenType_Call_doReturnFn func(serviceMethod string, args interface{}, reply interface{}) error
+type MoqClient_starGenType_Call_doReturnFn func(serviceMethod string, args any, reply any) error
 
 // MoqClient_starGenType_Call_results holds the results of the
 // Client_starGenType type
@@ -317,8 +317,8 @@ func NewMoqClient_starGenType(scene *moq.Scene, config *moq.Config) *MoqClient_s
 				Done          moq.ParamIndexing
 			}{
 				ServiceMethod: moq.ParamIndexByValue,
-				Args:          moq.ParamIndexByHash,
-				Reply:         moq.ParamIndexByHash,
+				Args:          moq.ParamIndexByValue,
+				Reply:         moq.ParamIndexByValue,
 				Done:          moq.ParamIndexByValue,
 			},
 			Call: struct {
@@ -327,8 +327,8 @@ func NewMoqClient_starGenType(scene *moq.Scene, config *moq.Config) *MoqClient_s
 				Reply         moq.ParamIndexing
 			}{
 				ServiceMethod: moq.ParamIndexByValue,
-				Args:          moq.ParamIndexByHash,
-				Reply:         moq.ParamIndexByHash,
+				Args:          moq.ParamIndexByValue,
+				Reply:         moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -392,7 +392,7 @@ func (m *MoqClient_starGenType_mock) Close() (result1 error) {
 	return
 }
 
-func (m *MoqClient_starGenType_mock) Go(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) (result1 *rpc.Call) {
+func (m *MoqClient_starGenType_mock) Go(serviceMethod string, args any, reply any, done chan *rpc.Call) (result1 *rpc.Call) {
 	m.Moq.Scene.T.Helper()
 	params := MoqClient_starGenType_Go_params{
 		ServiceMethod: serviceMethod,
@@ -448,7 +448,7 @@ func (m *MoqClient_starGenType_mock) Go(serviceMethod string, args interface{}, 
 	return
 }
 
-func (m *MoqClient_starGenType_mock) Call(serviceMethod string, args interface{}, reply interface{}) (result1 error) {
+func (m *MoqClient_starGenType_mock) Call(serviceMethod string, args any, reply any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqClient_starGenType_Call_params{
 		ServiceMethod: serviceMethod,
@@ -693,7 +693,7 @@ func (m *MoqClient_starGenType) ParamsKey_Close(params MoqClient_starGenType_Clo
 	}
 }
 
-func (m *MoqClient_starGenType_recorder) Go(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) *MoqClient_starGenType_Go_fnRecorder {
+func (m *MoqClient_starGenType_recorder) Go(serviceMethod string, args any, reply any, done chan *rpc.Call) *MoqClient_starGenType_Go_fnRecorder {
 	return &MoqClient_starGenType_Go_fnRecorder{
 		Params: MoqClient_starGenType_Go_params{
 			ServiceMethod: serviceMethod,
@@ -904,7 +904,7 @@ func (m *MoqClient_starGenType) ParamsKey_Go(params MoqClient_starGenType_Go_par
 			serviceMethodUsedHash = hash.DeepHash(params.ServiceMethod)
 		}
 	}
-	var argsUsed interface{}
+	var argsUsed any
 	var argsUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Go.Args == moq.ParamIndexByValue {
@@ -913,7 +913,7 @@ func (m *MoqClient_starGenType) ParamsKey_Go(params MoqClient_starGenType_Go_par
 			argsUsedHash = hash.DeepHash(params.Args)
 		}
 	}
-	var replyUsed interface{}
+	var replyUsed any
 	var replyUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Go.Reply == moq.ParamIndexByValue {
@@ -934,8 +934,8 @@ func (m *MoqClient_starGenType) ParamsKey_Go(params MoqClient_starGenType_Go_par
 	return MoqClient_starGenType_Go_paramsKey{
 		Params: struct {
 			ServiceMethod string
-			Args          interface{}
-			Reply         interface{}
+			Args          any
+			Reply         any
 			Done          chan *rpc.Call
 		}{
 			ServiceMethod: serviceMethodUsed,
@@ -957,7 +957,7 @@ func (m *MoqClient_starGenType) ParamsKey_Go(params MoqClient_starGenType_Go_par
 	}
 }
 
-func (m *MoqClient_starGenType_recorder) Call(serviceMethod string, args interface{}, reply interface{}) *MoqClient_starGenType_Call_fnRecorder {
+func (m *MoqClient_starGenType_recorder) Call(serviceMethod string, args any, reply any) *MoqClient_starGenType_Call_fnRecorder {
 	return &MoqClient_starGenType_Call_fnRecorder{
 		Params: MoqClient_starGenType_Call_params{
 			ServiceMethod: serviceMethod,
@@ -1162,7 +1162,7 @@ func (m *MoqClient_starGenType) ParamsKey_Call(params MoqClient_starGenType_Call
 			serviceMethodUsedHash = hash.DeepHash(params.ServiceMethod)
 		}
 	}
-	var argsUsed interface{}
+	var argsUsed any
 	var argsUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Call.Args == moq.ParamIndexByValue {
@@ -1171,7 +1171,7 @@ func (m *MoqClient_starGenType) ParamsKey_Call(params MoqClient_starGenType_Call
 			argsUsedHash = hash.DeepHash(params.Args)
 		}
 	}
-	var replyUsed interface{}
+	var replyUsed any
 	var replyUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Call.Reply == moq.ParamIndexByValue {
@@ -1183,8 +1183,8 @@ func (m *MoqClient_starGenType) ParamsKey_Call(params MoqClient_starGenType_Call
 	return MoqClient_starGenType_Call_paramsKey{
 		Params: struct {
 			ServiceMethod string
-			Args          interface{}
-			Reply         interface{}
+			Args          any
+			Reply         any
 		}{
 			ServiceMethod: serviceMethodUsed,
 			Args:          argsUsed,

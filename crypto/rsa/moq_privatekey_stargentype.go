@@ -505,7 +505,7 @@ func NewMoqPrivateKey_starGenType(scene *moq.Scene, config *moq.Config) *MoqPriv
 			Equal: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 			Sign: struct {
 				Rand   moq.ParamIndexing
@@ -523,7 +523,7 @@ func NewMoqPrivateKey_starGenType(scene *moq.Scene, config *moq.Config) *MoqPriv
 			}{
 				Rand:       moq.ParamIndexByHash,
 				Ciphertext: moq.ParamIndexByHash,
-				Opts:       moq.ParamIndexByHash,
+				Opts:       moq.ParamIndexByValue,
 			},
 			Validate:   struct{}{},
 			Precompute: struct{}{},

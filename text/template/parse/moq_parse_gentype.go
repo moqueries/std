@@ -14,7 +14,7 @@ import (
 
 // Parse_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Parse_genType func(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) (map[string]*parse.Tree, error)
+type Parse_genType func(name, text, leftDelim, rightDelim string, funcs ...map[string]any) (map[string]*parse.Tree, error)
 
 // MoqParse_genType holds the state of a moq of the Parse_genType type
 type MoqParse_genType struct {
@@ -43,7 +43,7 @@ type MoqParse_genType_mock struct {
 // MoqParse_genType_params holds the params of the Parse_genType type
 type MoqParse_genType_params struct {
 	Name, Text, LeftDelim, RightDelim string
-	Funcs                             []map[string]interface{}
+	Funcs                             []map[string]any
 }
 
 // MoqParse_genType_paramsKey holds the map key params of the Parse_genType
@@ -66,11 +66,11 @@ type MoqParse_genType_resultsByParams struct {
 
 // MoqParse_genType_doFn defines the type of function needed when calling AndDo
 // for the Parse_genType type
-type MoqParse_genType_doFn func(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{})
+type MoqParse_genType_doFn func(name, text, leftDelim, rightDelim string, funcs ...map[string]any)
 
 // MoqParse_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Parse_genType type
-type MoqParse_genType_doReturnFn func(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) (map[string]*parse.Tree, error)
+type MoqParse_genType_doReturnFn func(name, text, leftDelim, rightDelim string, funcs ...map[string]any) (map[string]*parse.Tree, error)
 
 // MoqParse_genType_results holds the results of the Parse_genType type
 type MoqParse_genType_results struct {
@@ -144,14 +144,14 @@ func NewMoqParse_genType(scene *moq.Scene, config *moq.Config) *MoqParse_genType
 
 // Mock returns the moq implementation of the Parse_genType type
 func (m *MoqParse_genType) Mock() Parse_genType {
-	return func(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) (map[string]*parse.Tree, error) {
+	return func(name, text, leftDelim, rightDelim string, funcs ...map[string]any) (map[string]*parse.Tree, error) {
 		m.Scene.T.Helper()
 		moq := &MoqParse_genType_mock{Moq: m}
 		return moq.Fn(name, text, leftDelim, rightDelim, funcs...)
 	}
 }
 
-func (m *MoqParse_genType_mock) Fn(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) (result1 map[string]*parse.Tree, result2 error) {
+func (m *MoqParse_genType_mock) Fn(name, text, leftDelim, rightDelim string, funcs ...map[string]any) (result1 map[string]*parse.Tree, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqParse_genType_params{
 		Name:       name,
@@ -209,7 +209,7 @@ func (m *MoqParse_genType_mock) Fn(name, text, leftDelim, rightDelim string, fun
 	return
 }
 
-func (m *MoqParse_genType) OnCall(name, text, leftDelim, rightDelim string, funcs ...map[string]interface{}) *MoqParse_genType_fnRecorder {
+func (m *MoqParse_genType) OnCall(name, text, leftDelim, rightDelim string, funcs ...map[string]any) *MoqParse_genType_fnRecorder {
 	return &MoqParse_genType_fnRecorder{
 		Params: MoqParse_genType_params{
 			Name:       name,

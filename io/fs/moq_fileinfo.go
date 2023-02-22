@@ -353,14 +353,14 @@ type MoqFileInfo_Sys_doFn func()
 
 // MoqFileInfo_Sys_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the FileInfo type
-type MoqFileInfo_Sys_doReturnFn func() interface{}
+type MoqFileInfo_Sys_doReturnFn func() any
 
 // MoqFileInfo_Sys_results holds the results of the FileInfo type
 type MoqFileInfo_Sys_results struct {
 	Params  MoqFileInfo_Sys_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFileInfo_Sys_doFn
@@ -685,7 +685,7 @@ func (m *MoqFileInfo_mock) IsDir() (result1 bool) {
 	return
 }
 
-func (m *MoqFileInfo_mock) Sys() (result1 interface{}) {
+func (m *MoqFileInfo_mock) Sys() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileInfo_Sys_params{}
 	var results *MoqFileInfo_Sys_results
@@ -1695,7 +1695,7 @@ func (r *MoqFileInfo_Sys_fnRecorder) NoSeq() *MoqFileInfo_Sys_fnRecorder {
 	return r
 }
 
-func (r *MoqFileInfo_Sys_fnRecorder) ReturnResults(result1 interface{}) *MoqFileInfo_Sys_fnRecorder {
+func (r *MoqFileInfo_Sys_fnRecorder) ReturnResults(result1 any) *MoqFileInfo_Sys_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -1706,14 +1706,14 @@ func (r *MoqFileInfo_Sys_fnRecorder) ReturnResults(result1 interface{}) *MoqFile
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFileInfo_Sys_doFn
 		DoReturnFn MoqFileInfo_Sys_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -1744,7 +1744,7 @@ func (r *MoqFileInfo_Sys_fnRecorder) DoReturnResults(fn MoqFileInfo_Sys_doReturn
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFileInfo_Sys_doFn
@@ -1814,7 +1814,7 @@ func (r *MoqFileInfo_Sys_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFileI
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqFileInfo_Sys_doFn

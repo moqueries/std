@@ -13,7 +13,7 @@ import (
 
 // DeepEqual_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type DeepEqual_genType func(x, y interface{}) bool
+type DeepEqual_genType func(x, y any) bool
 
 // MoqDeepEqual_genType holds the state of a moq of the DeepEqual_genType type
 type MoqDeepEqual_genType struct {
@@ -38,12 +38,12 @@ type MoqDeepEqual_genType_mock struct {
 }
 
 // MoqDeepEqual_genType_params holds the params of the DeepEqual_genType type
-type MoqDeepEqual_genType_params struct{ X, Y interface{} }
+type MoqDeepEqual_genType_params struct{ X, Y any }
 
 // MoqDeepEqual_genType_paramsKey holds the map key params of the
 // DeepEqual_genType type
 type MoqDeepEqual_genType_paramsKey struct {
-	Params struct{ X, Y interface{} }
+	Params struct{ X, Y any }
 	Hashes struct{ X, Y hash.Hash }
 }
 
@@ -57,11 +57,11 @@ type MoqDeepEqual_genType_resultsByParams struct {
 
 // MoqDeepEqual_genType_doFn defines the type of function needed when calling
 // AndDo for the DeepEqual_genType type
-type MoqDeepEqual_genType_doFn func(x, y interface{})
+type MoqDeepEqual_genType_doFn func(x, y any)
 
 // MoqDeepEqual_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the DeepEqual_genType type
-type MoqDeepEqual_genType_doReturnFn func(x, y interface{}) bool
+type MoqDeepEqual_genType_doReturnFn func(x, y any) bool
 
 // MoqDeepEqual_genType_results holds the results of the DeepEqual_genType type
 type MoqDeepEqual_genType_results struct {
@@ -113,8 +113,8 @@ func NewMoqDeepEqual_genType(scene *moq.Scene, config *moq.Config) *MoqDeepEqual
 			X moq.ParamIndexing
 			Y moq.ParamIndexing
 		}{
-			X: moq.ParamIndexByHash,
-			Y: moq.ParamIndexByHash,
+			X: moq.ParamIndexByValue,
+			Y: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -125,14 +125,14 @@ func NewMoqDeepEqual_genType(scene *moq.Scene, config *moq.Config) *MoqDeepEqual
 
 // Mock returns the moq implementation of the DeepEqual_genType type
 func (m *MoqDeepEqual_genType) Mock() DeepEqual_genType {
-	return func(x, y interface{}) bool {
+	return func(x, y any) bool {
 		m.Scene.T.Helper()
 		moq := &MoqDeepEqual_genType_mock{Moq: m}
 		return moq.Fn(x, y)
 	}
 }
 
-func (m *MoqDeepEqual_genType_mock) Fn(x, y interface{}) (result1 bool) {
+func (m *MoqDeepEqual_genType_mock) Fn(x, y any) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDeepEqual_genType_params{
 		X: x,
@@ -186,7 +186,7 @@ func (m *MoqDeepEqual_genType_mock) Fn(x, y interface{}) (result1 bool) {
 	return
 }
 
-func (m *MoqDeepEqual_genType) OnCall(x, y interface{}) *MoqDeepEqual_genType_fnRecorder {
+func (m *MoqDeepEqual_genType) OnCall(x, y any) *MoqDeepEqual_genType_fnRecorder {
 	return &MoqDeepEqual_genType_fnRecorder{
 		Params: MoqDeepEqual_genType_params{
 			X: x,
@@ -376,7 +376,7 @@ func (m *MoqDeepEqual_genType) PrettyParams(params MoqDeepEqual_genType_params) 
 
 func (m *MoqDeepEqual_genType) ParamsKey(params MoqDeepEqual_genType_params, anyParams uint64) MoqDeepEqual_genType_paramsKey {
 	m.Scene.T.Helper()
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -385,7 +385,7 @@ func (m *MoqDeepEqual_genType) ParamsKey(params MoqDeepEqual_genType_params, any
 			xUsedHash = hash.DeepHash(params.X)
 		}
 	}
-	var yUsed interface{}
+	var yUsed any
 	var yUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Y == moq.ParamIndexByValue {
@@ -395,7 +395,7 @@ func (m *MoqDeepEqual_genType) ParamsKey(params MoqDeepEqual_genType_params, any
 		}
 	}
 	return MoqDeepEqual_genType_paramsKey{
-		Params: struct{ X, Y interface{} }{
+		Params: struct{ X, Y any }{
 			X: xUsed,
 			Y: yUsed,
 		},

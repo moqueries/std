@@ -33,12 +33,12 @@ type DB_starGenType interface {
 	Stats() sql.DBStats
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
 	Prepare(query string) (*sql.Stmt, error)
-	ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
-	Exec(query string, args ...interface{}) (sql.Result, error)
-	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
-	Query(query string, args ...interface{}) (*sql.Rows, error)
-	QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row
-	QueryRow(query string, args ...interface{}) *sql.Row
+	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
+	Exec(query string, args ...any) (sql.Result, error)
+	QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error)
+	Query(query string, args ...any) (*sql.Rows, error)
+	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
+	QueryRow(query string, args ...any) *sql.Row
 	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
 	Begin() (*sql.Tx, error)
 	Driver() driver.Driver
@@ -742,7 +742,7 @@ type MoqDB_starGenType_Prepare_anyParams struct {
 type MoqDB_starGenType_ExecContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_ExecContext_paramsKey holds the map key params of the
@@ -769,11 +769,11 @@ type MoqDB_starGenType_ExecContext_resultsByParams struct {
 
 // MoqDB_starGenType_ExecContext_doFn defines the type of function needed when
 // calling AndDo for the DB_starGenType type
-type MoqDB_starGenType_ExecContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqDB_starGenType_ExecContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqDB_starGenType_ExecContext_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_ExecContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
+type MoqDB_starGenType_ExecContext_doReturnFn func(ctx context.Context, query string, args ...any) (sql.Result, error)
 
 // MoqDB_starGenType_ExecContext_results holds the results of the
 // DB_starGenType type
@@ -811,7 +811,7 @@ type MoqDB_starGenType_ExecContext_anyParams struct {
 // MoqDB_starGenType_Exec_params holds the params of the DB_starGenType type
 type MoqDB_starGenType_Exec_params struct {
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_Exec_paramsKey holds the map key params of the
@@ -834,11 +834,11 @@ type MoqDB_starGenType_Exec_resultsByParams struct {
 
 // MoqDB_starGenType_Exec_doFn defines the type of function needed when calling
 // AndDo for the DB_starGenType type
-type MoqDB_starGenType_Exec_doFn func(query string, args ...interface{})
+type MoqDB_starGenType_Exec_doFn func(query string, args ...any)
 
 // MoqDB_starGenType_Exec_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_Exec_doReturnFn func(query string, args ...interface{}) (sql.Result, error)
+type MoqDB_starGenType_Exec_doReturnFn func(query string, args ...any) (sql.Result, error)
 
 // MoqDB_starGenType_Exec_results holds the results of the DB_starGenType type
 type MoqDB_starGenType_Exec_results struct {
@@ -877,7 +877,7 @@ type MoqDB_starGenType_Exec_anyParams struct {
 type MoqDB_starGenType_QueryContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_QueryContext_paramsKey holds the map key params of the
@@ -904,11 +904,11 @@ type MoqDB_starGenType_QueryContext_resultsByParams struct {
 
 // MoqDB_starGenType_QueryContext_doFn defines the type of function needed when
 // calling AndDo for the DB_starGenType type
-type MoqDB_starGenType_QueryContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqDB_starGenType_QueryContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqDB_starGenType_QueryContext_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_QueryContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
+type MoqDB_starGenType_QueryContext_doReturnFn func(ctx context.Context, query string, args ...any) (*sql.Rows, error)
 
 // MoqDB_starGenType_QueryContext_results holds the results of the
 // DB_starGenType type
@@ -946,7 +946,7 @@ type MoqDB_starGenType_QueryContext_anyParams struct {
 // MoqDB_starGenType_Query_params holds the params of the DB_starGenType type
 type MoqDB_starGenType_Query_params struct {
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_Query_paramsKey holds the map key params of the
@@ -969,11 +969,11 @@ type MoqDB_starGenType_Query_resultsByParams struct {
 
 // MoqDB_starGenType_Query_doFn defines the type of function needed when
 // calling AndDo for the DB_starGenType type
-type MoqDB_starGenType_Query_doFn func(query string, args ...interface{})
+type MoqDB_starGenType_Query_doFn func(query string, args ...any)
 
 // MoqDB_starGenType_Query_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_Query_doReturnFn func(query string, args ...interface{}) (*sql.Rows, error)
+type MoqDB_starGenType_Query_doReturnFn func(query string, args ...any) (*sql.Rows, error)
 
 // MoqDB_starGenType_Query_results holds the results of the DB_starGenType type
 type MoqDB_starGenType_Query_results struct {
@@ -1012,7 +1012,7 @@ type MoqDB_starGenType_Query_anyParams struct {
 type MoqDB_starGenType_QueryRowContext_params struct {
 	Ctx   context.Context
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_QueryRowContext_paramsKey holds the map key params of the
@@ -1039,11 +1039,11 @@ type MoqDB_starGenType_QueryRowContext_resultsByParams struct {
 
 // MoqDB_starGenType_QueryRowContext_doFn defines the type of function needed
 // when calling AndDo for the DB_starGenType type
-type MoqDB_starGenType_QueryRowContext_doFn func(ctx context.Context, query string, args ...interface{})
+type MoqDB_starGenType_QueryRowContext_doFn func(ctx context.Context, query string, args ...any)
 
 // MoqDB_starGenType_QueryRowContext_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_QueryRowContext_doReturnFn func(ctx context.Context, query string, args ...interface{}) *sql.Row
+type MoqDB_starGenType_QueryRowContext_doReturnFn func(ctx context.Context, query string, args ...any) *sql.Row
 
 // MoqDB_starGenType_QueryRowContext_results holds the results of the
 // DB_starGenType type
@@ -1081,7 +1081,7 @@ type MoqDB_starGenType_QueryRowContext_anyParams struct {
 // type
 type MoqDB_starGenType_QueryRow_params struct {
 	Query string
-	Args  []interface{}
+	Args  []any
 }
 
 // MoqDB_starGenType_QueryRow_paramsKey holds the map key params of the
@@ -1104,11 +1104,11 @@ type MoqDB_starGenType_QueryRow_resultsByParams struct {
 
 // MoqDB_starGenType_QueryRow_doFn defines the type of function needed when
 // calling AndDo for the DB_starGenType type
-type MoqDB_starGenType_QueryRow_doFn func(query string, args ...interface{})
+type MoqDB_starGenType_QueryRow_doFn func(query string, args ...any)
 
 // MoqDB_starGenType_QueryRow_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the DB_starGenType type
-type MoqDB_starGenType_QueryRow_doReturnFn func(query string, args ...interface{}) *sql.Row
+type MoqDB_starGenType_QueryRow_doReturnFn func(query string, args ...any) *sql.Row
 
 // MoqDB_starGenType_QueryRow_results holds the results of the DB_starGenType
 // type
@@ -2149,7 +2149,7 @@ func (m *MoqDB_starGenType_mock) Prepare(query string) (result1 *sql.Stmt, resul
 	return
 }
 
-func (m *MoqDB_starGenType_mock) ExecContext(ctx context.Context, query string, args ...interface{}) (result1 sql.Result, result2 error) {
+func (m *MoqDB_starGenType_mock) ExecContext(ctx context.Context, query string, args ...any) (result1 sql.Result, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_ExecContext_params{
 		Ctx:   ctx,
@@ -2205,7 +2205,7 @@ func (m *MoqDB_starGenType_mock) ExecContext(ctx context.Context, query string, 
 	return
 }
 
-func (m *MoqDB_starGenType_mock) Exec(query string, args ...interface{}) (result1 sql.Result, result2 error) {
+func (m *MoqDB_starGenType_mock) Exec(query string, args ...any) (result1 sql.Result, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_Exec_params{
 		Query: query,
@@ -2260,7 +2260,7 @@ func (m *MoqDB_starGenType_mock) Exec(query string, args ...interface{}) (result
 	return
 }
 
-func (m *MoqDB_starGenType_mock) QueryContext(ctx context.Context, query string, args ...interface{}) (result1 *sql.Rows, result2 error) {
+func (m *MoqDB_starGenType_mock) QueryContext(ctx context.Context, query string, args ...any) (result1 *sql.Rows, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_QueryContext_params{
 		Ctx:   ctx,
@@ -2316,7 +2316,7 @@ func (m *MoqDB_starGenType_mock) QueryContext(ctx context.Context, query string,
 	return
 }
 
-func (m *MoqDB_starGenType_mock) Query(query string, args ...interface{}) (result1 *sql.Rows, result2 error) {
+func (m *MoqDB_starGenType_mock) Query(query string, args ...any) (result1 *sql.Rows, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_Query_params{
 		Query: query,
@@ -2371,7 +2371,7 @@ func (m *MoqDB_starGenType_mock) Query(query string, args ...interface{}) (resul
 	return
 }
 
-func (m *MoqDB_starGenType_mock) QueryRowContext(ctx context.Context, query string, args ...interface{}) (result1 *sql.Row) {
+func (m *MoqDB_starGenType_mock) QueryRowContext(ctx context.Context, query string, args ...any) (result1 *sql.Row) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_QueryRowContext_params{
 		Ctx:   ctx,
@@ -2426,7 +2426,7 @@ func (m *MoqDB_starGenType_mock) QueryRowContext(ctx context.Context, query stri
 	return
 }
 
-func (m *MoqDB_starGenType_mock) QueryRow(query string, args ...interface{}) (result1 *sql.Row) {
+func (m *MoqDB_starGenType_mock) QueryRow(query string, args ...any) (result1 *sql.Row) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDB_starGenType_QueryRow_params{
 		Query: query,
@@ -4662,7 +4662,7 @@ func (m *MoqDB_starGenType) ParamsKey_Prepare(params MoqDB_starGenType_Prepare_p
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) ExecContext(ctx context.Context, query string, args ...interface{}) *MoqDB_starGenType_ExecContext_fnRecorder {
+func (m *MoqDB_starGenType_recorder) ExecContext(ctx context.Context, query string, args ...any) *MoqDB_starGenType_ExecContext_fnRecorder {
 	return &MoqDB_starGenType_ExecContext_fnRecorder{
 		Params: MoqDB_starGenType_ExecContext_params{
 			Ctx:   ctx,
@@ -4908,7 +4908,7 @@ func (m *MoqDB_starGenType) ParamsKey_ExecContext(params MoqDB_starGenType_ExecC
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) Exec(query string, args ...interface{}) *MoqDB_starGenType_Exec_fnRecorder {
+func (m *MoqDB_starGenType_recorder) Exec(query string, args ...any) *MoqDB_starGenType_Exec_fnRecorder {
 	return &MoqDB_starGenType_Exec_fnRecorder{
 		Params: MoqDB_starGenType_Exec_params{
 			Query: query,
@@ -5133,7 +5133,7 @@ func (m *MoqDB_starGenType) ParamsKey_Exec(params MoqDB_starGenType_Exec_params,
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) QueryContext(ctx context.Context, query string, args ...interface{}) *MoqDB_starGenType_QueryContext_fnRecorder {
+func (m *MoqDB_starGenType_recorder) QueryContext(ctx context.Context, query string, args ...any) *MoqDB_starGenType_QueryContext_fnRecorder {
 	return &MoqDB_starGenType_QueryContext_fnRecorder{
 		Params: MoqDB_starGenType_QueryContext_params{
 			Ctx:   ctx,
@@ -5379,7 +5379,7 @@ func (m *MoqDB_starGenType) ParamsKey_QueryContext(params MoqDB_starGenType_Quer
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) Query(query string, args ...interface{}) *MoqDB_starGenType_Query_fnRecorder {
+func (m *MoqDB_starGenType_recorder) Query(query string, args ...any) *MoqDB_starGenType_Query_fnRecorder {
 	return &MoqDB_starGenType_Query_fnRecorder{
 		Params: MoqDB_starGenType_Query_params{
 			Query: query,
@@ -5604,7 +5604,7 @@ func (m *MoqDB_starGenType) ParamsKey_Query(params MoqDB_starGenType_Query_param
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) QueryRowContext(ctx context.Context, query string, args ...interface{}) *MoqDB_starGenType_QueryRowContext_fnRecorder {
+func (m *MoqDB_starGenType_recorder) QueryRowContext(ctx context.Context, query string, args ...any) *MoqDB_starGenType_QueryRowContext_fnRecorder {
 	return &MoqDB_starGenType_QueryRowContext_fnRecorder{
 		Params: MoqDB_starGenType_QueryRowContext_params{
 			Ctx:   ctx,
@@ -5845,7 +5845,7 @@ func (m *MoqDB_starGenType) ParamsKey_QueryRowContext(params MoqDB_starGenType_Q
 	}
 }
 
-func (m *MoqDB_starGenType_recorder) QueryRow(query string, args ...interface{}) *MoqDB_starGenType_QueryRow_fnRecorder {
+func (m *MoqDB_starGenType_recorder) QueryRow(query string, args ...any) *MoqDB_starGenType_QueryRow_fnRecorder {
 	return &MoqDB_starGenType_QueryRow_fnRecorder{
 		Params: MoqDB_starGenType_QueryRow_params{
 			Query: query,

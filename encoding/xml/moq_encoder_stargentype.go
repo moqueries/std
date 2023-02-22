@@ -21,8 +21,8 @@ var _ Encoder_starGenType = (*MoqEncoder_starGenType_mock)(nil)
 // interface type)
 type Encoder_starGenType interface {
 	Indent(prefix, indent string)
-	Encode(v interface{}) error
-	EncodeElement(v interface{}, start xml.StartElement) error
+	Encode(v any) error
+	EncodeElement(v any, start xml.StartElement) error
 	EncodeToken(t xml.Token) error
 	Flush() error
 }
@@ -132,12 +132,12 @@ type MoqEncoder_starGenType_Indent_anyParams struct {
 
 // MoqEncoder_starGenType_Encode_params holds the params of the
 // Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_params struct{ V interface{} }
+type MoqEncoder_starGenType_Encode_params struct{ V any }
 
 // MoqEncoder_starGenType_Encode_paramsKey holds the map key params of the
 // Encoder_starGenType type
 type MoqEncoder_starGenType_Encode_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -151,11 +151,11 @@ type MoqEncoder_starGenType_Encode_resultsByParams struct {
 
 // MoqEncoder_starGenType_Encode_doFn defines the type of function needed when
 // calling AndDo for the Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_doFn func(v interface{})
+type MoqEncoder_starGenType_Encode_doFn func(v any)
 
 // MoqEncoder_starGenType_Encode_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_doReturnFn func(v interface{}) error
+type MoqEncoder_starGenType_Encode_doReturnFn func(v any) error
 
 // MoqEncoder_starGenType_Encode_results holds the results of the
 // Encoder_starGenType type
@@ -192,14 +192,14 @@ type MoqEncoder_starGenType_Encode_anyParams struct {
 // MoqEncoder_starGenType_EncodeElement_params holds the params of the
 // Encoder_starGenType type
 type MoqEncoder_starGenType_EncodeElement_params struct {
-	V     interface{}
+	V     any
 	Start xml.StartElement
 }
 
 // MoqEncoder_starGenType_EncodeElement_paramsKey holds the map key params of
 // the Encoder_starGenType type
 type MoqEncoder_starGenType_EncodeElement_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct {
 		V     hash.Hash
 		Start hash.Hash
@@ -216,11 +216,11 @@ type MoqEncoder_starGenType_EncodeElement_resultsByParams struct {
 
 // MoqEncoder_starGenType_EncodeElement_doFn defines the type of function
 // needed when calling AndDo for the Encoder_starGenType type
-type MoqEncoder_starGenType_EncodeElement_doFn func(v interface{}, start xml.StartElement)
+type MoqEncoder_starGenType_EncodeElement_doFn func(v any, start xml.StartElement)
 
 // MoqEncoder_starGenType_EncodeElement_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Encoder_starGenType type
-type MoqEncoder_starGenType_EncodeElement_doReturnFn func(v interface{}, start xml.StartElement) error
+type MoqEncoder_starGenType_EncodeElement_doReturnFn func(v any, start xml.StartElement) error
 
 // MoqEncoder_starGenType_EncodeElement_results holds the results of the
 // Encoder_starGenType type
@@ -427,19 +427,19 @@ func NewMoqEncoder_starGenType(scene *moq.Scene, config *moq.Config) *MoqEncoder
 			Encode: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 			EncodeElement: struct {
 				V     moq.ParamIndexing
 				Start moq.ParamIndexing
 			}{
-				V:     moq.ParamIndexByHash,
+				V:     moq.ParamIndexByValue,
 				Start: moq.ParamIndexByHash,
 			},
 			EncodeToken: struct {
 				T moq.ParamIndexing
 			}{
-				T: moq.ParamIndexByHash,
+				T: moq.ParamIndexByValue,
 			},
 			Flush: struct{}{},
 		}},
@@ -504,7 +504,7 @@ func (m *MoqEncoder_starGenType_mock) Indent(prefix, indent string) {
 	return
 }
 
-func (m *MoqEncoder_starGenType_mock) Encode(v interface{}) (result1 error) {
+func (m *MoqEncoder_starGenType_mock) Encode(v any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqEncoder_starGenType_Encode_params{
 		V: v,
@@ -557,7 +557,7 @@ func (m *MoqEncoder_starGenType_mock) Encode(v interface{}) (result1 error) {
 	return
 }
 
-func (m *MoqEncoder_starGenType_mock) EncodeElement(v interface{}, start xml.StartElement) (result1 error) {
+func (m *MoqEncoder_starGenType_mock) EncodeElement(v any, start xml.StartElement) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqEncoder_starGenType_EncodeElement_params{
 		V:     v,
@@ -932,7 +932,7 @@ func (m *MoqEncoder_starGenType) ParamsKey_Indent(params MoqEncoder_starGenType_
 	}
 }
 
-func (m *MoqEncoder_starGenType_recorder) Encode(v interface{}) *MoqEncoder_starGenType_Encode_fnRecorder {
+func (m *MoqEncoder_starGenType_recorder) Encode(v any) *MoqEncoder_starGenType_Encode_fnRecorder {
 	return &MoqEncoder_starGenType_Encode_fnRecorder{
 		Params: MoqEncoder_starGenType_Encode_params{
 			V: v,
@@ -1116,7 +1116,7 @@ func (m *MoqEncoder_starGenType) PrettyParams_Encode(params MoqEncoder_starGenTy
 
 func (m *MoqEncoder_starGenType) ParamsKey_Encode(params MoqEncoder_starGenType_Encode_params, anyParams uint64) MoqEncoder_starGenType_Encode_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Encode.V == moq.ParamIndexByValue {
@@ -1126,7 +1126,7 @@ func (m *MoqEncoder_starGenType) ParamsKey_Encode(params MoqEncoder_starGenType_
 		}
 	}
 	return MoqEncoder_starGenType_Encode_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{
@@ -1135,7 +1135,7 @@ func (m *MoqEncoder_starGenType) ParamsKey_Encode(params MoqEncoder_starGenType_
 	}
 }
 
-func (m *MoqEncoder_starGenType_recorder) EncodeElement(v interface{}, start xml.StartElement) *MoqEncoder_starGenType_EncodeElement_fnRecorder {
+func (m *MoqEncoder_starGenType_recorder) EncodeElement(v any, start xml.StartElement) *MoqEncoder_starGenType_EncodeElement_fnRecorder {
 	return &MoqEncoder_starGenType_EncodeElement_fnRecorder{
 		Params: MoqEncoder_starGenType_EncodeElement_params{
 			V:     v,
@@ -1325,7 +1325,7 @@ func (m *MoqEncoder_starGenType) PrettyParams_EncodeElement(params MoqEncoder_st
 
 func (m *MoqEncoder_starGenType) ParamsKey_EncodeElement(params MoqEncoder_starGenType_EncodeElement_params, anyParams uint64) MoqEncoder_starGenType_EncodeElement_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.EncodeElement.V == moq.ParamIndexByValue {
@@ -1342,7 +1342,7 @@ func (m *MoqEncoder_starGenType) ParamsKey_EncodeElement(params MoqEncoder_starG
 		startUsedHash = hash.DeepHash(params.Start)
 	}
 	return MoqEncoder_starGenType_EncodeElement_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct {

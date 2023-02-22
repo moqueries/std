@@ -13,7 +13,7 @@ import (
 
 // Marshal_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Marshal_genType func(v interface{}) ([]byte, error)
+type Marshal_genType func(v any) ([]byte, error)
 
 // MoqMarshal_genType holds the state of a moq of the Marshal_genType type
 type MoqMarshal_genType struct {
@@ -37,12 +37,12 @@ type MoqMarshal_genType_mock struct {
 }
 
 // MoqMarshal_genType_params holds the params of the Marshal_genType type
-type MoqMarshal_genType_params struct{ V interface{} }
+type MoqMarshal_genType_params struct{ V any }
 
 // MoqMarshal_genType_paramsKey holds the map key params of the Marshal_genType
 // type
 type MoqMarshal_genType_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -56,11 +56,11 @@ type MoqMarshal_genType_resultsByParams struct {
 
 // MoqMarshal_genType_doFn defines the type of function needed when calling
 // AndDo for the Marshal_genType type
-type MoqMarshal_genType_doFn func(v interface{})
+type MoqMarshal_genType_doFn func(v any)
 
 // MoqMarshal_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Marshal_genType type
-type MoqMarshal_genType_doReturnFn func(v interface{}) ([]byte, error)
+type MoqMarshal_genType_doReturnFn func(v any) ([]byte, error)
 
 // MoqMarshal_genType_results holds the results of the Marshal_genType type
 type MoqMarshal_genType_results struct {
@@ -111,7 +111,7 @@ func NewMoqMarshal_genType(scene *moq.Scene, config *moq.Config) *MoqMarshal_gen
 		}{ParameterIndexing: struct {
 			V moq.ParamIndexing
 		}{
-			V: moq.ParamIndexByHash,
+			V: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -122,14 +122,14 @@ func NewMoqMarshal_genType(scene *moq.Scene, config *moq.Config) *MoqMarshal_gen
 
 // Mock returns the moq implementation of the Marshal_genType type
 func (m *MoqMarshal_genType) Mock() Marshal_genType {
-	return func(v interface{}) ([]byte, error) {
+	return func(v any) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqMarshal_genType_mock{Moq: m}
 		return moq.Fn(v)
 	}
 }
 
-func (m *MoqMarshal_genType_mock) Fn(v interface{}) (result1 []byte, result2 error) {
+func (m *MoqMarshal_genType_mock) Fn(v any) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMarshal_genType_params{
 		V: v,
@@ -183,7 +183,7 @@ func (m *MoqMarshal_genType_mock) Fn(v interface{}) (result1 []byte, result2 err
 	return
 }
 
-func (m *MoqMarshal_genType) OnCall(v interface{}) *MoqMarshal_genType_fnRecorder {
+func (m *MoqMarshal_genType) OnCall(v any) *MoqMarshal_genType_fnRecorder {
 	return &MoqMarshal_genType_fnRecorder{
 		Params: MoqMarshal_genType_params{
 			V: v,
@@ -372,7 +372,7 @@ func (m *MoqMarshal_genType) PrettyParams(params MoqMarshal_genType_params) stri
 
 func (m *MoqMarshal_genType) ParamsKey(params MoqMarshal_genType_params, anyParams uint64) MoqMarshal_genType_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.V == moq.ParamIndexByValue {
@@ -382,7 +382,7 @@ func (m *MoqMarshal_genType) ParamsKey(params MoqMarshal_genType_params, anyPara
 		}
 	}
 	return MoqMarshal_genType_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{

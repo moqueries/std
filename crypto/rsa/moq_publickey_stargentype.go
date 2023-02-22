@@ -202,7 +202,7 @@ func NewMoqPublicKey_starGenType(scene *moq.Scene, config *moq.Config) *MoqPubli
 			Equal: struct {
 				X moq.ParamIndexing
 			}{
-				X: moq.ParamIndexByHash,
+				X: moq.ParamIndexByValue,
 			},
 		}},
 	}

@@ -43,11 +43,11 @@ type MoqScanner_recorder struct {
 }
 
 // MoqScanner_Scan_params holds the params of the Scanner type
-type MoqScanner_Scan_params struct{ Src interface{} }
+type MoqScanner_Scan_params struct{ Src any }
 
 // MoqScanner_Scan_paramsKey holds the map key params of the Scanner type
 type MoqScanner_Scan_paramsKey struct {
-	Params struct{ Src interface{} }
+	Params struct{ Src any }
 	Hashes struct{ Src hash.Hash }
 }
 
@@ -61,11 +61,11 @@ type MoqScanner_Scan_resultsByParams struct {
 
 // MoqScanner_Scan_doFn defines the type of function needed when calling AndDo
 // for the Scanner type
-type MoqScanner_Scan_doFn func(src interface{})
+type MoqScanner_Scan_doFn func(src any)
 
 // MoqScanner_Scan_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Scanner type
-type MoqScanner_Scan_doReturnFn func(src interface{}) error
+type MoqScanner_Scan_doReturnFn func(src any) error
 
 // MoqScanner_Scan_results holds the results of the Scanner type
 type MoqScanner_Scan_results struct {
@@ -122,7 +122,7 @@ func NewMoqScanner(scene *moq.Scene, config *moq.Config) *MoqScanner {
 			Scan: struct {
 				Src moq.ParamIndexing
 			}{
-				Src: moq.ParamIndexByHash,
+				Src: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -135,7 +135,7 @@ func NewMoqScanner(scene *moq.Scene, config *moq.Config) *MoqScanner {
 // Mock returns the mock implementation of the Scanner type
 func (m *MoqScanner) Mock() *MoqScanner_mock { return m.Moq }
 
-func (m *MoqScanner_mock) Scan(src interface{}) (result1 error) {
+func (m *MoqScanner_mock) Scan(src any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqScanner_Scan_params{
 		Src: src,
@@ -195,7 +195,7 @@ func (m *MoqScanner) OnCall() *MoqScanner_recorder {
 	}
 }
 
-func (m *MoqScanner_recorder) Scan(src interface{}) *MoqScanner_Scan_fnRecorder {
+func (m *MoqScanner_recorder) Scan(src any) *MoqScanner_Scan_fnRecorder {
 	return &MoqScanner_Scan_fnRecorder{
 		Params: MoqScanner_Scan_params{
 			Src: src,
@@ -379,7 +379,7 @@ func (m *MoqScanner) PrettyParams_Scan(params MoqScanner_Scan_params) string {
 
 func (m *MoqScanner) ParamsKey_Scan(params MoqScanner_Scan_params, anyParams uint64) MoqScanner_Scan_paramsKey {
 	m.Scene.T.Helper()
-	var srcUsed interface{}
+	var srcUsed any
 	var srcUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Scan.Src == moq.ParamIndexByValue {
@@ -389,7 +389,7 @@ func (m *MoqScanner) ParamsKey_Scan(params MoqScanner_Scan_params, anyParams uin
 		}
 	}
 	return MoqScanner_Scan_paramsKey{
-		Params: struct{ Src interface{} }{
+		Params: struct{ Src any }{
 			Src: srcUsed,
 		},
 		Hashes: struct{ Src hash.Hash }{

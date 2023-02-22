@@ -26,8 +26,8 @@ type FileSet_starGenType interface {
 	File(p token.Pos) (f *token.File)
 	PositionFor(p token.Pos, adjusted bool) (pos token.Position)
 	Position(p token.Pos) (pos token.Position)
-	Read(decode func(interface{}) error) error
-	Write(encode func(interface{}) error) error
+	Read(decode func(any) error) error
+	Write(encode func(any) error) error
 }
 
 // MoqFileSet_starGenType holds the state of a moq of the FileSet_starGenType
@@ -455,7 +455,7 @@ type MoqFileSet_starGenType_Position_anyParams struct {
 
 // MoqFileSet_starGenType_Read_params holds the params of the
 // FileSet_starGenType type
-type MoqFileSet_starGenType_Read_params struct{ Decode func(interface{}) error }
+type MoqFileSet_starGenType_Read_params struct{ Decode func(any) error }
 
 // MoqFileSet_starGenType_Read_paramsKey holds the map key params of the
 // FileSet_starGenType type
@@ -474,11 +474,11 @@ type MoqFileSet_starGenType_Read_resultsByParams struct {
 
 // MoqFileSet_starGenType_Read_doFn defines the type of function needed when
 // calling AndDo for the FileSet_starGenType type
-type MoqFileSet_starGenType_Read_doFn func(decode func(interface{}) error)
+type MoqFileSet_starGenType_Read_doFn func(decode func(any) error)
 
 // MoqFileSet_starGenType_Read_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the FileSet_starGenType type
-type MoqFileSet_starGenType_Read_doReturnFn func(decode func(interface{}) error) error
+type MoqFileSet_starGenType_Read_doReturnFn func(decode func(any) error) error
 
 // MoqFileSet_starGenType_Read_results holds the results of the
 // FileSet_starGenType type
@@ -514,7 +514,7 @@ type MoqFileSet_starGenType_Read_anyParams struct {
 
 // MoqFileSet_starGenType_Write_params holds the params of the
 // FileSet_starGenType type
-type MoqFileSet_starGenType_Write_params struct{ Encode func(interface{}) error }
+type MoqFileSet_starGenType_Write_params struct{ Encode func(any) error }
 
 // MoqFileSet_starGenType_Write_paramsKey holds the map key params of the
 // FileSet_starGenType type
@@ -533,11 +533,11 @@ type MoqFileSet_starGenType_Write_resultsByParams struct {
 
 // MoqFileSet_starGenType_Write_doFn defines the type of function needed when
 // calling AndDo for the FileSet_starGenType type
-type MoqFileSet_starGenType_Write_doFn func(encode func(interface{}) error)
+type MoqFileSet_starGenType_Write_doFn func(encode func(any) error)
 
 // MoqFileSet_starGenType_Write_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the FileSet_starGenType type
-type MoqFileSet_starGenType_Write_doReturnFn func(encode func(interface{}) error) error
+type MoqFileSet_starGenType_Write_doReturnFn func(encode func(any) error) error
 
 // MoqFileSet_starGenType_Write_results holds the results of the
 // FileSet_starGenType type
@@ -1005,7 +1005,7 @@ func (m *MoqFileSet_starGenType_mock) Position(p token.Pos) (pos token.Position)
 	return
 }
 
-func (m *MoqFileSet_starGenType_mock) Read(decode func(interface{}) error) (result1 error) {
+func (m *MoqFileSet_starGenType_mock) Read(decode func(any) error) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileSet_starGenType_Read_params{
 		Decode: decode,
@@ -1058,7 +1058,7 @@ func (m *MoqFileSet_starGenType_mock) Read(decode func(interface{}) error) (resu
 	return
 }
 
-func (m *MoqFileSet_starGenType_mock) Write(encode func(interface{}) error) (result1 error) {
+func (m *MoqFileSet_starGenType_mock) Write(encode func(any) error) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFileSet_starGenType_Write_params{
 		Encode: encode,
@@ -2341,7 +2341,7 @@ func (m *MoqFileSet_starGenType) ParamsKey_Position(params MoqFileSet_starGenTyp
 	}
 }
 
-func (m *MoqFileSet_starGenType_recorder) Read(decode func(interface{}) error) *MoqFileSet_starGenType_Read_fnRecorder {
+func (m *MoqFileSet_starGenType_recorder) Read(decode func(any) error) *MoqFileSet_starGenType_Read_fnRecorder {
 	return &MoqFileSet_starGenType_Read_fnRecorder{
 		Params: MoqFileSet_starGenType_Read_params{
 			Decode: decode,
@@ -2540,7 +2540,7 @@ func (m *MoqFileSet_starGenType) ParamsKey_Read(params MoqFileSet_starGenType_Re
 	}
 }
 
-func (m *MoqFileSet_starGenType_recorder) Write(encode func(interface{}) error) *MoqFileSet_starGenType_Write_fnRecorder {
+func (m *MoqFileSet_starGenType_recorder) Write(encode func(any) error) *MoqFileSet_starGenType_Write_fnRecorder {
 	return &MoqFileSet_starGenType_Write_fnRecorder{
 		Params: MoqFileSet_starGenType_Write_params{
 			Encode: encode,

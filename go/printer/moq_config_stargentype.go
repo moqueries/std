@@ -21,7 +21,7 @@ var _ Config_starGenType = (*MoqConfig_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Config_starGenType interface {
-	Fprint(output io.Writer, fset *token.FileSet, node interface{}) error
+	Fprint(output io.Writer, fset *token.FileSet, node any) error
 }
 
 // MoqConfig_starGenType holds the state of a moq of the Config_starGenType
@@ -61,7 +61,7 @@ type MoqConfig_starGenType_recorder struct {
 type MoqConfig_starGenType_Fprint_params struct {
 	Output io.Writer
 	Fset   *token.FileSet
-	Node   interface{}
+	Node   any
 }
 
 // MoqConfig_starGenType_Fprint_paramsKey holds the map key params of the
@@ -70,7 +70,7 @@ type MoqConfig_starGenType_Fprint_paramsKey struct {
 	Params struct {
 		Output io.Writer
 		Fset   *token.FileSet
-		Node   interface{}
+		Node   any
 	}
 	Hashes struct {
 		Output hash.Hash
@@ -89,11 +89,11 @@ type MoqConfig_starGenType_Fprint_resultsByParams struct {
 
 // MoqConfig_starGenType_Fprint_doFn defines the type of function needed when
 // calling AndDo for the Config_starGenType type
-type MoqConfig_starGenType_Fprint_doFn func(output io.Writer, fset *token.FileSet, node interface{})
+type MoqConfig_starGenType_Fprint_doFn func(output io.Writer, fset *token.FileSet, node any)
 
 // MoqConfig_starGenType_Fprint_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Config_starGenType type
-type MoqConfig_starGenType_Fprint_doReturnFn func(output io.Writer, fset *token.FileSet, node interface{}) error
+type MoqConfig_starGenType_Fprint_doReturnFn func(output io.Writer, fset *token.FileSet, node any) error
 
 // MoqConfig_starGenType_Fprint_results holds the results of the
 // Config_starGenType type
@@ -159,7 +159,7 @@ func NewMoqConfig_starGenType(scene *moq.Scene, config *moq.Config) *MoqConfig_s
 			}{
 				Output: moq.ParamIndexByHash,
 				Fset:   moq.ParamIndexByHash,
-				Node:   moq.ParamIndexByHash,
+				Node:   moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -172,7 +172,7 @@ func NewMoqConfig_starGenType(scene *moq.Scene, config *moq.Config) *MoqConfig_s
 // Mock returns the mock implementation of the Config_starGenType type
 func (m *MoqConfig_starGenType) Mock() *MoqConfig_starGenType_mock { return m.Moq }
 
-func (m *MoqConfig_starGenType_mock) Fprint(output io.Writer, fset *token.FileSet, node interface{}) (result1 error) {
+func (m *MoqConfig_starGenType_mock) Fprint(output io.Writer, fset *token.FileSet, node any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqConfig_starGenType_Fprint_params{
 		Output: output,
@@ -234,7 +234,7 @@ func (m *MoqConfig_starGenType) OnCall() *MoqConfig_starGenType_recorder {
 	}
 }
 
-func (m *MoqConfig_starGenType_recorder) Fprint(output io.Writer, fset *token.FileSet, node interface{}) *MoqConfig_starGenType_Fprint_fnRecorder {
+func (m *MoqConfig_starGenType_recorder) Fprint(output io.Writer, fset *token.FileSet, node any) *MoqConfig_starGenType_Fprint_fnRecorder {
 	return &MoqConfig_starGenType_Fprint_fnRecorder{
 		Params: MoqConfig_starGenType_Fprint_params{
 			Output: output,
@@ -448,7 +448,7 @@ func (m *MoqConfig_starGenType) ParamsKey_Fprint(params MoqConfig_starGenType_Fp
 			fsetUsedHash = hash.DeepHash(params.Fset)
 		}
 	}
-	var nodeUsed interface{}
+	var nodeUsed any
 	var nodeUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Fprint.Node == moq.ParamIndexByValue {
@@ -461,7 +461,7 @@ func (m *MoqConfig_starGenType) ParamsKey_Fprint(params MoqConfig_starGenType_Fp
 		Params: struct {
 			Output io.Writer
 			Fset   *token.FileSet
-			Node   interface{}
+			Node   any
 		}{
 			Output: outputUsed,
 			Fset:   fsetUsed,

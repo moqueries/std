@@ -13,7 +13,7 @@ import (
 
 // IsTrue_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type IsTrue_genType func(val interface{}) (truth, ok bool)
+type IsTrue_genType func(val any) (truth, ok bool)
 
 // MoqIsTrue_genType holds the state of a moq of the IsTrue_genType type
 type MoqIsTrue_genType struct {
@@ -37,12 +37,12 @@ type MoqIsTrue_genType_mock struct {
 }
 
 // MoqIsTrue_genType_params holds the params of the IsTrue_genType type
-type MoqIsTrue_genType_params struct{ Val interface{} }
+type MoqIsTrue_genType_params struct{ Val any }
 
 // MoqIsTrue_genType_paramsKey holds the map key params of the IsTrue_genType
 // type
 type MoqIsTrue_genType_paramsKey struct {
-	Params struct{ Val interface{} }
+	Params struct{ Val any }
 	Hashes struct{ Val hash.Hash }
 }
 
@@ -56,11 +56,11 @@ type MoqIsTrue_genType_resultsByParams struct {
 
 // MoqIsTrue_genType_doFn defines the type of function needed when calling
 // AndDo for the IsTrue_genType type
-type MoqIsTrue_genType_doFn func(val interface{})
+type MoqIsTrue_genType_doFn func(val any)
 
 // MoqIsTrue_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the IsTrue_genType type
-type MoqIsTrue_genType_doReturnFn func(val interface{}) (truth, ok bool)
+type MoqIsTrue_genType_doReturnFn func(val any) (truth, ok bool)
 
 // MoqIsTrue_genType_results holds the results of the IsTrue_genType type
 type MoqIsTrue_genType_results struct {
@@ -108,7 +108,7 @@ func NewMoqIsTrue_genType(scene *moq.Scene, config *moq.Config) *MoqIsTrue_genTy
 		}{ParameterIndexing: struct {
 			Val moq.ParamIndexing
 		}{
-			Val: moq.ParamIndexByHash,
+			Val: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -119,14 +119,14 @@ func NewMoqIsTrue_genType(scene *moq.Scene, config *moq.Config) *MoqIsTrue_genTy
 
 // Mock returns the moq implementation of the IsTrue_genType type
 func (m *MoqIsTrue_genType) Mock() IsTrue_genType {
-	return func(val interface{}) (_, _ bool) {
+	return func(val any) (_, _ bool) {
 		m.Scene.T.Helper()
 		moq := &MoqIsTrue_genType_mock{Moq: m}
 		return moq.Fn(val)
 	}
 }
 
-func (m *MoqIsTrue_genType_mock) Fn(val interface{}) (truth, ok bool) {
+func (m *MoqIsTrue_genType_mock) Fn(val any) (truth, ok bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqIsTrue_genType_params{
 		Val: val,
@@ -180,7 +180,7 @@ func (m *MoqIsTrue_genType_mock) Fn(val interface{}) (truth, ok bool) {
 	return
 }
 
-func (m *MoqIsTrue_genType) OnCall(val interface{}) *MoqIsTrue_genType_fnRecorder {
+func (m *MoqIsTrue_genType) OnCall(val any) *MoqIsTrue_genType_fnRecorder {
 	return &MoqIsTrue_genType_fnRecorder{
 		Params: MoqIsTrue_genType_params{
 			Val: val,
@@ -357,7 +357,7 @@ func (m *MoqIsTrue_genType) PrettyParams(params MoqIsTrue_genType_params) string
 
 func (m *MoqIsTrue_genType) ParamsKey(params MoqIsTrue_genType_params, anyParams uint64) MoqIsTrue_genType_paramsKey {
 	m.Scene.T.Helper()
-	var valUsed interface{}
+	var valUsed any
 	var valUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Val == moq.ParamIndexByValue {
@@ -367,7 +367,7 @@ func (m *MoqIsTrue_genType) ParamsKey(params MoqIsTrue_genType_params, anyParams
 		}
 	}
 	return MoqIsTrue_genType_paramsKey{
-		Params: struct{ Val interface{} }{
+		Params: struct{ Val any }{
 			Val: valUsed,
 		},
 		Hashes: struct{ Val hash.Hash }{

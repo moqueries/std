@@ -22,7 +22,7 @@ var _ Tree_starGenType = (*MoqTree_starGenType_mock)(nil)
 type Tree_starGenType interface {
 	Copy() *parse.Tree
 	ErrorContext(n parse.Node) (location, context string)
-	Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]interface{}) (tree *parse.Tree, err error)
+	Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]any) (tree *parse.Tree, err error)
 }
 
 // MoqTree_starGenType holds the state of a moq of the Tree_starGenType type
@@ -185,7 +185,7 @@ type MoqTree_starGenType_ErrorContext_anyParams struct {
 type MoqTree_starGenType_Parse_params struct {
 	Text, LeftDelim, RightDelim string
 	TreeSet                     map[string]*parse.Tree
-	Funcs                       []map[string]interface{}
+	Funcs                       []map[string]any
 }
 
 // MoqTree_starGenType_Parse_paramsKey holds the map key params of the
@@ -209,11 +209,11 @@ type MoqTree_starGenType_Parse_resultsByParams struct {
 
 // MoqTree_starGenType_Parse_doFn defines the type of function needed when
 // calling AndDo for the Tree_starGenType type
-type MoqTree_starGenType_Parse_doFn func(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]interface{})
+type MoqTree_starGenType_Parse_doFn func(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]any)
 
 // MoqTree_starGenType_Parse_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Tree_starGenType type
-type MoqTree_starGenType_Parse_doReturnFn func(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]interface{}) (tree *parse.Tree, err error)
+type MoqTree_starGenType_Parse_doReturnFn func(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]any) (tree *parse.Tree, err error)
 
 // MoqTree_starGenType_Parse_results holds the results of the Tree_starGenType
 // type
@@ -420,7 +420,7 @@ func (m *MoqTree_starGenType_mock) ErrorContext(n parse.Node) (location, context
 	return
 }
 
-func (m *MoqTree_starGenType_mock) Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]interface{}) (tree *parse.Tree, err error) {
+func (m *MoqTree_starGenType_mock) Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]any) (tree *parse.Tree, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqTree_starGenType_Parse_params{
 		Text:       text,
@@ -864,7 +864,7 @@ func (m *MoqTree_starGenType) ParamsKey_ErrorContext(params MoqTree_starGenType_
 	}
 }
 
-func (m *MoqTree_starGenType_recorder) Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]interface{}) *MoqTree_starGenType_Parse_fnRecorder {
+func (m *MoqTree_starGenType_recorder) Parse(text, leftDelim, rightDelim string, treeSet map[string]*parse.Tree, funcs ...map[string]any) *MoqTree_starGenType_Parse_fnRecorder {
 	return &MoqTree_starGenType_Parse_fnRecorder{
 		Params: MoqTree_starGenType_Parse_params{
 			Text:       text,

@@ -13,7 +13,7 @@ import (
 
 // Sscanln_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Sscanln_genType func(str string, a ...interface{}) (n int, err error)
+type Sscanln_genType func(str string, a ...any) (n int, err error)
 
 // MoqSscanln_genType holds the state of a moq of the Sscanln_genType type
 type MoqSscanln_genType struct {
@@ -40,7 +40,7 @@ type MoqSscanln_genType_mock struct {
 // MoqSscanln_genType_params holds the params of the Sscanln_genType type
 type MoqSscanln_genType_params struct {
 	Str string
-	A   []interface{}
+	A   []any
 }
 
 // MoqSscanln_genType_paramsKey holds the map key params of the Sscanln_genType
@@ -63,11 +63,11 @@ type MoqSscanln_genType_resultsByParams struct {
 
 // MoqSscanln_genType_doFn defines the type of function needed when calling
 // AndDo for the Sscanln_genType type
-type MoqSscanln_genType_doFn func(str string, a ...interface{})
+type MoqSscanln_genType_doFn func(str string, a ...any)
 
 // MoqSscanln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Sscanln_genType type
-type MoqSscanln_genType_doReturnFn func(str string, a ...interface{}) (n int, err error)
+type MoqSscanln_genType_doReturnFn func(str string, a ...any) (n int, err error)
 
 // MoqSscanln_genType_results holds the results of the Sscanln_genType type
 type MoqSscanln_genType_results struct {
@@ -132,14 +132,14 @@ func NewMoqSscanln_genType(scene *moq.Scene, config *moq.Config) *MoqSscanln_gen
 
 // Mock returns the moq implementation of the Sscanln_genType type
 func (m *MoqSscanln_genType) Mock() Sscanln_genType {
-	return func(str string, a ...interface{}) (_ int, _ error) {
+	return func(str string, a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqSscanln_genType_mock{Moq: m}
 		return moq.Fn(str, a...)
 	}
 }
 
-func (m *MoqSscanln_genType_mock) Fn(str string, a ...interface{}) (n int, err error) {
+func (m *MoqSscanln_genType_mock) Fn(str string, a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSscanln_genType_params{
 		Str: str,
@@ -194,7 +194,7 @@ func (m *MoqSscanln_genType_mock) Fn(str string, a ...interface{}) (n int, err e
 	return
 }
 
-func (m *MoqSscanln_genType) OnCall(str string, a ...interface{}) *MoqSscanln_genType_fnRecorder {
+func (m *MoqSscanln_genType) OnCall(str string, a ...any) *MoqSscanln_genType_fnRecorder {
 	return &MoqSscanln_genType_fnRecorder{
 		Params: MoqSscanln_genType_params{
 			Str: str,

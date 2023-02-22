@@ -15,7 +15,7 @@ import (
 
 // Node_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Node_genType func(dst io.Writer, fset *token.FileSet, node interface{}) error
+type Node_genType func(dst io.Writer, fset *token.FileSet, node any) error
 
 // MoqNode_genType holds the state of a moq of the Node_genType type
 type MoqNode_genType struct {
@@ -43,7 +43,7 @@ type MoqNode_genType_mock struct {
 type MoqNode_genType_params struct {
 	Dst  io.Writer
 	Fset *token.FileSet
-	Node interface{}
+	Node any
 }
 
 // MoqNode_genType_paramsKey holds the map key params of the Node_genType type
@@ -51,7 +51,7 @@ type MoqNode_genType_paramsKey struct {
 	Params struct {
 		Dst  io.Writer
 		Fset *token.FileSet
-		Node interface{}
+		Node any
 	}
 	Hashes struct {
 		Dst  hash.Hash
@@ -70,11 +70,11 @@ type MoqNode_genType_resultsByParams struct {
 
 // MoqNode_genType_doFn defines the type of function needed when calling AndDo
 // for the Node_genType type
-type MoqNode_genType_doFn func(dst io.Writer, fset *token.FileSet, node interface{})
+type MoqNode_genType_doFn func(dst io.Writer, fset *token.FileSet, node any)
 
 // MoqNode_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Node_genType type
-type MoqNode_genType_doReturnFn func(dst io.Writer, fset *token.FileSet, node interface{}) error
+type MoqNode_genType_doReturnFn func(dst io.Writer, fset *token.FileSet, node any) error
 
 // MoqNode_genType_results holds the results of the Node_genType type
 type MoqNode_genType_results struct {
@@ -130,7 +130,7 @@ func NewMoqNode_genType(scene *moq.Scene, config *moq.Config) *MoqNode_genType {
 		}{
 			Dst:  moq.ParamIndexByHash,
 			Fset: moq.ParamIndexByHash,
-			Node: moq.ParamIndexByHash,
+			Node: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -141,14 +141,14 @@ func NewMoqNode_genType(scene *moq.Scene, config *moq.Config) *MoqNode_genType {
 
 // Mock returns the moq implementation of the Node_genType type
 func (m *MoqNode_genType) Mock() Node_genType {
-	return func(dst io.Writer, fset *token.FileSet, node interface{}) error {
+	return func(dst io.Writer, fset *token.FileSet, node any) error {
 		m.Scene.T.Helper()
 		moq := &MoqNode_genType_mock{Moq: m}
 		return moq.Fn(dst, fset, node)
 	}
 }
 
-func (m *MoqNode_genType_mock) Fn(dst io.Writer, fset *token.FileSet, node interface{}) (result1 error) {
+func (m *MoqNode_genType_mock) Fn(dst io.Writer, fset *token.FileSet, node any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNode_genType_params{
 		Dst:  dst,
@@ -203,7 +203,7 @@ func (m *MoqNode_genType_mock) Fn(dst io.Writer, fset *token.FileSet, node inter
 	return
 }
 
-func (m *MoqNode_genType) OnCall(dst io.Writer, fset *token.FileSet, node interface{}) *MoqNode_genType_fnRecorder {
+func (m *MoqNode_genType) OnCall(dst io.Writer, fset *token.FileSet, node any) *MoqNode_genType_fnRecorder {
 	return &MoqNode_genType_fnRecorder{
 		Params: MoqNode_genType_params{
 			Dst:  dst,
@@ -417,7 +417,7 @@ func (m *MoqNode_genType) ParamsKey(params MoqNode_genType_params, anyParams uin
 			fsetUsedHash = hash.DeepHash(params.Fset)
 		}
 	}
-	var nodeUsed interface{}
+	var nodeUsed any
 	var nodeUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Node == moq.ParamIndexByValue {
@@ -430,7 +430,7 @@ func (m *MoqNode_genType) ParamsKey(params MoqNode_genType_params, anyParams uin
 		Params: struct {
 			Dst  io.Writer
 			Fset *token.FileSet
-			Node interface{}
+			Node any
 		}{
 			Dst:  dstUsed,
 			Fset: fsetUsed,

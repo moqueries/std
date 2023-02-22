@@ -18,7 +18,7 @@ var _ Handle_genType = (*MoqHandle_genType_mock)(nil)
 // when mocking a collections of methods directly and not from an interface
 // type)
 type Handle_genType interface {
-	Value() interface{}
+	Value() any
 	Delete()
 }
 
@@ -75,14 +75,14 @@ type MoqHandle_genType_Value_doFn func()
 
 // MoqHandle_genType_Value_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Handle_genType type
-type MoqHandle_genType_Value_doReturnFn func() interface{}
+type MoqHandle_genType_Value_doReturnFn func() any
 
 // MoqHandle_genType_Value_results holds the results of the Handle_genType type
 type MoqHandle_genType_Value_results struct {
 	Params  MoqHandle_genType_Value_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqHandle_genType_Value_doFn
@@ -196,7 +196,7 @@ func NewMoqHandle_genType(scene *moq.Scene, config *moq.Config) *MoqHandle_genTy
 // Mock returns the mock implementation of the Handle_genType type
 func (m *MoqHandle_genType) Mock() *MoqHandle_genType_mock { return m.Moq }
 
-func (m *MoqHandle_genType_mock) Value() (result1 interface{}) {
+func (m *MoqHandle_genType_mock) Value() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqHandle_genType_Value_params{}
 	var results *MoqHandle_genType_Value_results
@@ -339,7 +339,7 @@ func (r *MoqHandle_genType_Value_fnRecorder) NoSeq() *MoqHandle_genType_Value_fn
 	return r
 }
 
-func (r *MoqHandle_genType_Value_fnRecorder) ReturnResults(result1 interface{}) *MoqHandle_genType_Value_fnRecorder {
+func (r *MoqHandle_genType_Value_fnRecorder) ReturnResults(result1 any) *MoqHandle_genType_Value_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -350,14 +350,14 @@ func (r *MoqHandle_genType_Value_fnRecorder) ReturnResults(result1 interface{}) 
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqHandle_genType_Value_doFn
 		DoReturnFn MoqHandle_genType_Value_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -388,7 +388,7 @@ func (r *MoqHandle_genType_Value_fnRecorder) DoReturnResults(fn MoqHandle_genTyp
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqHandle_genType_Value_doFn
@@ -458,7 +458,7 @@ func (r *MoqHandle_genType_Value_fnRecorder) Repeat(repeaters ...moq.Repeater) *
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqHandle_genType_Value_doFn

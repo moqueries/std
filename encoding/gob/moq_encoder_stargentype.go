@@ -20,7 +20,7 @@ var _ Encoder_starGenType = (*MoqEncoder_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Encoder_starGenType interface {
-	Encode(e interface{}) error
+	Encode(e any) error
 	EncodeValue(value reflect.Value) error
 }
 
@@ -60,12 +60,12 @@ type MoqEncoder_starGenType_recorder struct {
 
 // MoqEncoder_starGenType_Encode_params holds the params of the
 // Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_params struct{ E interface{} }
+type MoqEncoder_starGenType_Encode_params struct{ E any }
 
 // MoqEncoder_starGenType_Encode_paramsKey holds the map key params of the
 // Encoder_starGenType type
 type MoqEncoder_starGenType_Encode_paramsKey struct {
-	Params struct{ E interface{} }
+	Params struct{ E any }
 	Hashes struct{ E hash.Hash }
 }
 
@@ -79,11 +79,11 @@ type MoqEncoder_starGenType_Encode_resultsByParams struct {
 
 // MoqEncoder_starGenType_Encode_doFn defines the type of function needed when
 // calling AndDo for the Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_doFn func(e interface{})
+type MoqEncoder_starGenType_Encode_doFn func(e any)
 
 // MoqEncoder_starGenType_Encode_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Encoder_starGenType type
-type MoqEncoder_starGenType_Encode_doReturnFn func(e interface{}) error
+type MoqEncoder_starGenType_Encode_doReturnFn func(e any) error
 
 // MoqEncoder_starGenType_Encode_results holds the results of the
 // Encoder_starGenType type
@@ -206,7 +206,7 @@ func NewMoqEncoder_starGenType(scene *moq.Scene, config *moq.Config) *MoqEncoder
 			Encode: struct {
 				E moq.ParamIndexing
 			}{
-				E: moq.ParamIndexByHash,
+				E: moq.ParamIndexByValue,
 			},
 			EncodeValue: struct {
 				Value moq.ParamIndexing
@@ -224,7 +224,7 @@ func NewMoqEncoder_starGenType(scene *moq.Scene, config *moq.Config) *MoqEncoder
 // Mock returns the mock implementation of the Encoder_starGenType type
 func (m *MoqEncoder_starGenType) Mock() *MoqEncoder_starGenType_mock { return m.Moq }
 
-func (m *MoqEncoder_starGenType_mock) Encode(e interface{}) (result1 error) {
+func (m *MoqEncoder_starGenType_mock) Encode(e any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqEncoder_starGenType_Encode_params{
 		E: e,
@@ -337,7 +337,7 @@ func (m *MoqEncoder_starGenType) OnCall() *MoqEncoder_starGenType_recorder {
 	}
 }
 
-func (m *MoqEncoder_starGenType_recorder) Encode(e interface{}) *MoqEncoder_starGenType_Encode_fnRecorder {
+func (m *MoqEncoder_starGenType_recorder) Encode(e any) *MoqEncoder_starGenType_Encode_fnRecorder {
 	return &MoqEncoder_starGenType_Encode_fnRecorder{
 		Params: MoqEncoder_starGenType_Encode_params{
 			E: e,
@@ -521,7 +521,7 @@ func (m *MoqEncoder_starGenType) PrettyParams_Encode(params MoqEncoder_starGenTy
 
 func (m *MoqEncoder_starGenType) ParamsKey_Encode(params MoqEncoder_starGenType_Encode_params, anyParams uint64) MoqEncoder_starGenType_Encode_paramsKey {
 	m.Scene.T.Helper()
-	var eUsed interface{}
+	var eUsed any
 	var eUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Encode.E == moq.ParamIndexByValue {
@@ -531,7 +531,7 @@ func (m *MoqEncoder_starGenType) ParamsKey_Encode(params MoqEncoder_starGenType_
 		}
 	}
 	return MoqEncoder_starGenType_Encode_paramsKey{
-		Params: struct{ E interface{} }{
+		Params: struct{ E any }{
 			E: eUsed,
 		},
 		Hashes: struct{ E hash.Hash }{

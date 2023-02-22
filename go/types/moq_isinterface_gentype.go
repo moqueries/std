@@ -14,7 +14,7 @@ import (
 
 // IsInterface_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type IsInterface_genType func(typ types.Type) bool
+type IsInterface_genType func(t types.Type) bool
 
 // MoqIsInterface_genType holds the state of a moq of the IsInterface_genType
 // type
@@ -27,7 +27,7 @@ type MoqIsInterface_genType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Typ moq.ParamIndexing
+			T moq.ParamIndexing
 		}
 	}
 }
@@ -40,13 +40,13 @@ type MoqIsInterface_genType_mock struct {
 
 // MoqIsInterface_genType_params holds the params of the IsInterface_genType
 // type
-type MoqIsInterface_genType_params struct{ Typ types.Type }
+type MoqIsInterface_genType_params struct{ T types.Type }
 
 // MoqIsInterface_genType_paramsKey holds the map key params of the
 // IsInterface_genType type
 type MoqIsInterface_genType_paramsKey struct {
-	Params struct{ Typ types.Type }
-	Hashes struct{ Typ hash.Hash }
+	Params struct{ T types.Type }
+	Hashes struct{ T hash.Hash }
 }
 
 // MoqIsInterface_genType_resultsByParams contains the results for a given set
@@ -59,11 +59,11 @@ type MoqIsInterface_genType_resultsByParams struct {
 
 // MoqIsInterface_genType_doFn defines the type of function needed when calling
 // AndDo for the IsInterface_genType type
-type MoqIsInterface_genType_doFn func(typ types.Type)
+type MoqIsInterface_genType_doFn func(t types.Type)
 
 // MoqIsInterface_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the IsInterface_genType type
-type MoqIsInterface_genType_doReturnFn func(typ types.Type) bool
+type MoqIsInterface_genType_doReturnFn func(t types.Type) bool
 
 // MoqIsInterface_genType_results holds the results of the IsInterface_genType
 // type
@@ -109,12 +109,12 @@ func NewMoqIsInterface_genType(scene *moq.Scene, config *moq.Config) *MoqIsInter
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Typ moq.ParamIndexing
+				T moq.ParamIndexing
 			}
 		}{ParameterIndexing: struct {
-			Typ moq.ParamIndexing
+			T moq.ParamIndexing
 		}{
-			Typ: moq.ParamIndexByHash,
+			T: moq.ParamIndexByHash,
 		}},
 	}
 	m.Moq.Moq = m
@@ -125,17 +125,17 @@ func NewMoqIsInterface_genType(scene *moq.Scene, config *moq.Config) *MoqIsInter
 
 // Mock returns the moq implementation of the IsInterface_genType type
 func (m *MoqIsInterface_genType) Mock() IsInterface_genType {
-	return func(typ types.Type) bool {
+	return func(t types.Type) bool {
 		m.Scene.T.Helper()
 		moq := &MoqIsInterface_genType_mock{Moq: m}
-		return moq.Fn(typ)
+		return moq.Fn(t)
 	}
 }
 
-func (m *MoqIsInterface_genType_mock) Fn(typ types.Type) (result1 bool) {
+func (m *MoqIsInterface_genType_mock) Fn(t types.Type) (result1 bool) {
 	m.Moq.Scene.T.Helper()
 	params := MoqIsInterface_genType_params{
-		Typ: typ,
+		T: t,
 	}
 	var results *MoqIsInterface_genType_results
 	for _, resultsByParams := range m.Moq.ResultsByParams {
@@ -173,22 +173,22 @@ func (m *MoqIsInterface_genType_mock) Fn(typ types.Type) (result1 bool) {
 	}
 
 	if result.DoFn != nil {
-		result.DoFn(typ)
+		result.DoFn(t)
 	}
 
 	if result.Values != nil {
 		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		result1 = result.DoReturnFn(typ)
+		result1 = result.DoReturnFn(t)
 	}
 	return
 }
 
-func (m *MoqIsInterface_genType) OnCall(typ types.Type) *MoqIsInterface_genType_fnRecorder {
+func (m *MoqIsInterface_genType) OnCall(t types.Type) *MoqIsInterface_genType_fnRecorder {
 	return &MoqIsInterface_genType_fnRecorder{
 		Params: MoqIsInterface_genType_params{
-			Typ: typ,
+			T: t,
 		},
 		Sequence: m.Config.Sequence == moq.SeqDefaultOn,
 		Moq:      m,
@@ -204,7 +204,7 @@ func (r *MoqIsInterface_genType_fnRecorder) Any() *MoqIsInterface_genType_anyPar
 	return &MoqIsInterface_genType_anyParams{Recorder: r}
 }
 
-func (a *MoqIsInterface_genType_anyParams) Typ() *MoqIsInterface_genType_fnRecorder {
+func (a *MoqIsInterface_genType_anyParams) T() *MoqIsInterface_genType_fnRecorder {
 	a.Recorder.AnyParams |= 1 << 0
 	return a.Recorder
 }
@@ -364,26 +364,26 @@ func (r *MoqIsInterface_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *M
 }
 
 func (m *MoqIsInterface_genType) PrettyParams(params MoqIsInterface_genType_params) string {
-	return fmt.Sprintf("IsInterface_genType(%#v)", params.Typ)
+	return fmt.Sprintf("IsInterface_genType(%#v)", params.T)
 }
 
 func (m *MoqIsInterface_genType) ParamsKey(params MoqIsInterface_genType_params, anyParams uint64) MoqIsInterface_genType_paramsKey {
 	m.Scene.T.Helper()
-	var typUsed types.Type
-	var typUsedHash hash.Hash
+	var tUsed types.Type
+	var tUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
-		if m.Runtime.ParameterIndexing.Typ == moq.ParamIndexByValue {
-			typUsed = params.Typ
+		if m.Runtime.ParameterIndexing.T == moq.ParamIndexByValue {
+			tUsed = params.T
 		} else {
-			typUsedHash = hash.DeepHash(params.Typ)
+			tUsedHash = hash.DeepHash(params.T)
 		}
 	}
 	return MoqIsInterface_genType_paramsKey{
-		Params: struct{ Typ types.Type }{
-			Typ: typUsed,
+		Params: struct{ T types.Type }{
+			T: tUsed,
 		},
-		Hashes: struct{ Typ hash.Hash }{
-			Typ: typUsedHash,
+		Hashes: struct{ T hash.Hash }{
+			T: tUsedHash,
 		},
 	}
 }

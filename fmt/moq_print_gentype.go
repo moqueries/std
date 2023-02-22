@@ -13,7 +13,7 @@ import (
 
 // Print_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Print_genType func(a ...interface{}) (n int, err error)
+type Print_genType func(a ...any) (n int, err error)
 
 // MoqPrint_genType holds the state of a moq of the Print_genType type
 type MoqPrint_genType struct {
@@ -36,7 +36,7 @@ type MoqPrint_genType_mock struct {
 }
 
 // MoqPrint_genType_params holds the params of the Print_genType type
-type MoqPrint_genType_params struct{ A []interface{} }
+type MoqPrint_genType_params struct{ A []any }
 
 // MoqPrint_genType_paramsKey holds the map key params of the Print_genType
 // type
@@ -55,11 +55,11 @@ type MoqPrint_genType_resultsByParams struct {
 
 // MoqPrint_genType_doFn defines the type of function needed when calling AndDo
 // for the Print_genType type
-type MoqPrint_genType_doFn func(a ...interface{})
+type MoqPrint_genType_doFn func(a ...any)
 
 // MoqPrint_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Print_genType type
-type MoqPrint_genType_doReturnFn func(a ...interface{}) (n int, err error)
+type MoqPrint_genType_doReturnFn func(a ...any) (n int, err error)
 
 // MoqPrint_genType_results holds the results of the Print_genType type
 type MoqPrint_genType_results struct {
@@ -121,14 +121,14 @@ func NewMoqPrint_genType(scene *moq.Scene, config *moq.Config) *MoqPrint_genType
 
 // Mock returns the moq implementation of the Print_genType type
 func (m *MoqPrint_genType) Mock() Print_genType {
-	return func(a ...interface{}) (_ int, _ error) {
+	return func(a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqPrint_genType_mock{Moq: m}
 		return moq.Fn(a...)
 	}
 }
 
-func (m *MoqPrint_genType_mock) Fn(a ...interface{}) (n int, err error) {
+func (m *MoqPrint_genType_mock) Fn(a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPrint_genType_params{
 		A: a,
@@ -182,7 +182,7 @@ func (m *MoqPrint_genType_mock) Fn(a ...interface{}) (n int, err error) {
 	return
 }
 
-func (m *MoqPrint_genType) OnCall(a ...interface{}) *MoqPrint_genType_fnRecorder {
+func (m *MoqPrint_genType) OnCall(a ...any) *MoqPrint_genType_fnRecorder {
 	return &MoqPrint_genType_fnRecorder{
 		Params: MoqPrint_genType_params{
 			A: a,

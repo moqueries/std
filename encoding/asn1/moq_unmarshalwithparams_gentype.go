@@ -13,7 +13,7 @@ import (
 
 // UnmarshalWithParams_genType is the fabricated implementation type of this
 // mock (emitted when mocking functions directly and not from a function type)
-type UnmarshalWithParams_genType func(b []byte, val interface{}, params string) (rest []byte, err error)
+type UnmarshalWithParams_genType func(b []byte, val any, params string) (rest []byte, err error)
 
 // MoqUnmarshalWithParams_genType holds the state of a moq of the
 // UnmarshalWithParams_genType type
@@ -43,7 +43,7 @@ type MoqUnmarshalWithParams_genType_mock struct {
 // UnmarshalWithParams_genType type
 type MoqUnmarshalWithParams_genType_params struct {
 	B      []byte
-	Val    interface{}
+	Val    any
 	Param3 string
 }
 
@@ -51,7 +51,7 @@ type MoqUnmarshalWithParams_genType_params struct {
 // UnmarshalWithParams_genType type
 type MoqUnmarshalWithParams_genType_paramsKey struct {
 	Params struct {
-		Val    interface{}
+		Val    any
 		Param3 string
 	}
 	Hashes struct {
@@ -71,11 +71,11 @@ type MoqUnmarshalWithParams_genType_resultsByParams struct {
 
 // MoqUnmarshalWithParams_genType_doFn defines the type of function needed when
 // calling AndDo for the UnmarshalWithParams_genType type
-type MoqUnmarshalWithParams_genType_doFn func(b []byte, val interface{}, params string)
+type MoqUnmarshalWithParams_genType_doFn func(b []byte, val any, params string)
 
 // MoqUnmarshalWithParams_genType_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the UnmarshalWithParams_genType type
-type MoqUnmarshalWithParams_genType_doReturnFn func(b []byte, val interface{}, params string) (rest []byte, err error)
+type MoqUnmarshalWithParams_genType_doReturnFn func(b []byte, val any, params string) (rest []byte, err error)
 
 // MoqUnmarshalWithParams_genType_results holds the results of the
 // UnmarshalWithParams_genType type
@@ -133,7 +133,7 @@ func NewMoqUnmarshalWithParams_genType(scene *moq.Scene, config *moq.Config) *Mo
 			Param3 moq.ParamIndexing
 		}{
 			B:      moq.ParamIndexByHash,
-			Val:    moq.ParamIndexByHash,
+			Val:    moq.ParamIndexByValue,
 			Param3: moq.ParamIndexByValue,
 		}},
 	}
@@ -145,14 +145,14 @@ func NewMoqUnmarshalWithParams_genType(scene *moq.Scene, config *moq.Config) *Mo
 
 // Mock returns the moq implementation of the UnmarshalWithParams_genType type
 func (m *MoqUnmarshalWithParams_genType) Mock() UnmarshalWithParams_genType {
-	return func(b []byte, val interface{}, param3 string) (_ []byte, _ error) {
+	return func(b []byte, val any, param3 string) (_ []byte, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqUnmarshalWithParams_genType_mock{Moq: m}
 		return moq.Fn(b, val, param3)
 	}
 }
 
-func (m *MoqUnmarshalWithParams_genType_mock) Fn(b []byte, val interface{}, param3 string) (rest []byte, err error) {
+func (m *MoqUnmarshalWithParams_genType_mock) Fn(b []byte, val any, param3 string) (rest []byte, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqUnmarshalWithParams_genType_params{
 		B:      b,
@@ -208,7 +208,7 @@ func (m *MoqUnmarshalWithParams_genType_mock) Fn(b []byte, val interface{}, para
 	return
 }
 
-func (m *MoqUnmarshalWithParams_genType) OnCall(b []byte, val interface{}, param3 string) *MoqUnmarshalWithParams_genType_fnRecorder {
+func (m *MoqUnmarshalWithParams_genType) OnCall(b []byte, val any, param3 string) *MoqUnmarshalWithParams_genType_fnRecorder {
 	return &MoqUnmarshalWithParams_genType_fnRecorder{
 		Params: MoqUnmarshalWithParams_genType_params{
 			B:      b,
@@ -416,7 +416,7 @@ func (m *MoqUnmarshalWithParams_genType) ParamsKey(params MoqUnmarshalWithParams
 		}
 		bUsedHash = hash.DeepHash(params.B)
 	}
-	var valUsed interface{}
+	var valUsed any
 	var valUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Val == moq.ParamIndexByValue {
@@ -436,7 +436,7 @@ func (m *MoqUnmarshalWithParams_genType) ParamsKey(params MoqUnmarshalWithParams
 	}
 	return MoqUnmarshalWithParams_genType_paramsKey{
 		Params: struct {
-			Val    interface{}
+			Val    any
 			Param3 string
 		}{
 			Val:    valUsed,

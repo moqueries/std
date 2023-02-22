@@ -19,6 +19,7 @@ var _ Cookie_starGenType = (*MoqCookie_starGenType_mock)(nil)
 // interface type)
 type Cookie_starGenType interface {
 	String() string
+	Valid() error
 }
 
 // MoqCookie_starGenType holds the state of a moq of the Cookie_starGenType
@@ -29,10 +30,12 @@ type MoqCookie_starGenType struct {
 	Moq    *MoqCookie_starGenType_mock
 
 	ResultsByParams_String []MoqCookie_starGenType_String_resultsByParams
+	ResultsByParams_Valid  []MoqCookie_starGenType_Valid_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
 			String struct{}
+			Valid  struct{}
 		}
 	}
 }
@@ -108,6 +111,65 @@ type MoqCookie_starGenType_String_anyParams struct {
 	Recorder *MoqCookie_starGenType_String_fnRecorder
 }
 
+// MoqCookie_starGenType_Valid_params holds the params of the
+// Cookie_starGenType type
+type MoqCookie_starGenType_Valid_params struct{}
+
+// MoqCookie_starGenType_Valid_paramsKey holds the map key params of the
+// Cookie_starGenType type
+type MoqCookie_starGenType_Valid_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqCookie_starGenType_Valid_resultsByParams contains the results for a given
+// set of parameters for the Cookie_starGenType type
+type MoqCookie_starGenType_Valid_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqCookie_starGenType_Valid_paramsKey]*MoqCookie_starGenType_Valid_results
+}
+
+// MoqCookie_starGenType_Valid_doFn defines the type of function needed when
+// calling AndDo for the Cookie_starGenType type
+type MoqCookie_starGenType_Valid_doFn func()
+
+// MoqCookie_starGenType_Valid_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Cookie_starGenType type
+type MoqCookie_starGenType_Valid_doReturnFn func() error
+
+// MoqCookie_starGenType_Valid_results holds the results of the
+// Cookie_starGenType type
+type MoqCookie_starGenType_Valid_results struct {
+	Params  MoqCookie_starGenType_Valid_params
+	Results []struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqCookie_starGenType_Valid_doFn
+		DoReturnFn MoqCookie_starGenType_Valid_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqCookie_starGenType_Valid_fnRecorder routes recorded function calls to the
+// MoqCookie_starGenType moq
+type MoqCookie_starGenType_Valid_fnRecorder struct {
+	Params    MoqCookie_starGenType_Valid_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqCookie_starGenType_Valid_results
+	Moq       *MoqCookie_starGenType
+}
+
+// MoqCookie_starGenType_Valid_anyParams isolates the any params functions of
+// the Cookie_starGenType type
+type MoqCookie_starGenType_Valid_anyParams struct {
+	Recorder *MoqCookie_starGenType_Valid_fnRecorder
+}
+
 // NewMoqCookie_starGenType creates a new moq of the Cookie_starGenType type
 func NewMoqCookie_starGenType(scene *moq.Scene, config *moq.Config) *MoqCookie_starGenType {
 	if config == nil {
@@ -121,11 +183,14 @@ func NewMoqCookie_starGenType(scene *moq.Scene, config *moq.Config) *MoqCookie_s
 		Runtime: struct {
 			ParameterIndexing struct {
 				String struct{}
+				Valid  struct{}
 			}
 		}{ParameterIndexing: struct {
 			String struct{}
+			Valid  struct{}
 		}{
 			String: struct{}{},
+			Valid:  struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -172,6 +237,57 @@ func (m *MoqCookie_starGenType_mock) String() (result1 string) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_String(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqCookie_starGenType_mock) Valid() (result1 error) {
+	m.Moq.Scene.T.Helper()
+	params := MoqCookie_starGenType_Valid_params{}
+	var results *MoqCookie_starGenType_Valid_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Valid {
+		paramsKey := m.Moq.ParamsKey_Valid(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Valid(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Valid(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Valid(params))
 		}
 	}
 
@@ -378,8 +494,194 @@ func (m *MoqCookie_starGenType) ParamsKey_String(params MoqCookie_starGenType_St
 	}
 }
 
+func (m *MoqCookie_starGenType_recorder) Valid() *MoqCookie_starGenType_Valid_fnRecorder {
+	return &MoqCookie_starGenType_Valid_fnRecorder{
+		Params:   MoqCookie_starGenType_Valid_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) Any() *MoqCookie_starGenType_Valid_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Valid(r.Params))
+		return nil
+	}
+	return &MoqCookie_starGenType_Valid_anyParams{Recorder: r}
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) Seq() *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Valid(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) NoSeq() *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Valid(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) ReturnResults(result1 error) *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqCookie_starGenType_Valid_doFn
+		DoReturnFn MoqCookie_starGenType_Valid_doReturnFn
+	}{
+		Values: &struct {
+			Result1 error
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) AndDo(fn MoqCookie_starGenType_Valid_doFn) *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) DoReturnResults(fn MoqCookie_starGenType_Valid_doReturnFn) *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 error
+		}
+		Sequence   uint32
+		DoFn       MoqCookie_starGenType_Valid_doFn
+		DoReturnFn MoqCookie_starGenType_Valid_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqCookie_starGenType_Valid_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Valid {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqCookie_starGenType_Valid_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqCookie_starGenType_Valid_paramsKey]*MoqCookie_starGenType_Valid_results{},
+		}
+		r.Moq.ResultsByParams_Valid = append(r.Moq.ResultsByParams_Valid, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Valid) {
+			copy(r.Moq.ResultsByParams_Valid[insertAt+1:], r.Moq.ResultsByParams_Valid[insertAt:0])
+			r.Moq.ResultsByParams_Valid[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Valid(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqCookie_starGenType_Valid_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqCookie_starGenType_Valid_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqCookie_starGenType_Valid_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 error
+				}
+				Sequence   uint32
+				DoFn       MoqCookie_starGenType_Valid_doFn
+				DoReturnFn MoqCookie_starGenType_Valid_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqCookie_starGenType) PrettyParams_Valid(params MoqCookie_starGenType_Valid_params) string {
+	return fmt.Sprintf("Valid()")
+}
+
+func (m *MoqCookie_starGenType) ParamsKey_Valid(params MoqCookie_starGenType_Valid_params, anyParams uint64) MoqCookie_starGenType_Valid_paramsKey {
+	m.Scene.T.Helper()
+	return MoqCookie_starGenType_Valid_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
 // Reset resets the state of the moq
-func (m *MoqCookie_starGenType) Reset() { m.ResultsByParams_String = nil }
+func (m *MoqCookie_starGenType) Reset() {
+	m.ResultsByParams_String = nil
+	m.ResultsByParams_Valid = nil
+}
 
 // AssertExpectationsMet asserts that all expectations have been met
 func (m *MoqCookie_starGenType) AssertExpectationsMet() {
@@ -389,6 +691,14 @@ func (m *MoqCookie_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_String(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Valid {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Valid(results.Params))
 			}
 		}
 	}

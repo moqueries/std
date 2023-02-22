@@ -13,7 +13,7 @@ import (
 
 // Print_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Print_genType func(v ...interface{})
+type Print_genType func(v ...any)
 
 // MoqPrint_genType holds the state of a moq of the Print_genType type
 type MoqPrint_genType struct {
@@ -36,7 +36,7 @@ type MoqPrint_genType_mock struct {
 }
 
 // MoqPrint_genType_params holds the params of the Print_genType type
-type MoqPrint_genType_params struct{ V []interface{} }
+type MoqPrint_genType_params struct{ V []any }
 
 // MoqPrint_genType_paramsKey holds the map key params of the Print_genType
 // type
@@ -55,11 +55,11 @@ type MoqPrint_genType_resultsByParams struct {
 
 // MoqPrint_genType_doFn defines the type of function needed when calling AndDo
 // for the Print_genType type
-type MoqPrint_genType_doFn func(v ...interface{})
+type MoqPrint_genType_doFn func(v ...any)
 
 // MoqPrint_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Print_genType type
-type MoqPrint_genType_doReturnFn func(v ...interface{})
+type MoqPrint_genType_doReturnFn func(v ...any)
 
 // MoqPrint_genType_results holds the results of the Print_genType type
 type MoqPrint_genType_results struct {
@@ -118,10 +118,10 @@ func NewMoqPrint_genType(scene *moq.Scene, config *moq.Config) *MoqPrint_genType
 
 // Mock returns the moq implementation of the Print_genType type
 func (m *MoqPrint_genType) Mock() Print_genType {
-	return func(v ...interface{}) { m.Scene.T.Helper(); moq := &MoqPrint_genType_mock{Moq: m}; moq.Fn(v...) }
+	return func(v ...any) { m.Scene.T.Helper(); moq := &MoqPrint_genType_mock{Moq: m}; moq.Fn(v...) }
 }
 
-func (m *MoqPrint_genType_mock) Fn(v ...interface{}) {
+func (m *MoqPrint_genType_mock) Fn(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPrint_genType_params{
 		V: v,
@@ -171,7 +171,7 @@ func (m *MoqPrint_genType_mock) Fn(v ...interface{}) {
 	return
 }
 
-func (m *MoqPrint_genType) OnCall(v ...interface{}) *MoqPrint_genType_fnRecorder {
+func (m *MoqPrint_genType) OnCall(v ...any) *MoqPrint_genType_fnRecorder {
 	return &MoqPrint_genType_fnRecorder{
 		Params: MoqPrint_genType_params{
 			V: v,

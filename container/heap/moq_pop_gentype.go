@@ -14,7 +14,7 @@ import (
 
 // Pop_genType is the fabricated implementation type of this mock (emitted when
 // mocking functions directly and not from a function type)
-type Pop_genType func(h heap.Interface) interface{}
+type Pop_genType func(h heap.Interface) any
 
 // MoqPop_genType holds the state of a moq of the Pop_genType type
 type MoqPop_genType struct {
@@ -59,14 +59,14 @@ type MoqPop_genType_doFn func(h heap.Interface)
 
 // MoqPop_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Pop_genType type
-type MoqPop_genType_doReturnFn func(h heap.Interface) interface{}
+type MoqPop_genType_doReturnFn func(h heap.Interface) any
 
 // MoqPop_genType_results holds the results of the Pop_genType type
 type MoqPop_genType_results struct {
 	Params  MoqPop_genType_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPop_genType_doFn
@@ -120,14 +120,10 @@ func NewMoqPop_genType(scene *moq.Scene, config *moq.Config) *MoqPop_genType {
 
 // Mock returns the moq implementation of the Pop_genType type
 func (m *MoqPop_genType) Mock() Pop_genType {
-	return func(h heap.Interface) interface{} {
-		m.Scene.T.Helper()
-		moq := &MoqPop_genType_mock{Moq: m}
-		return moq.Fn(h)
-	}
+	return func(h heap.Interface) any { m.Scene.T.Helper(); moq := &MoqPop_genType_mock{Moq: m}; return moq.Fn(h) }
 }
 
-func (m *MoqPop_genType_mock) Fn(h heap.Interface) (result1 interface{}) {
+func (m *MoqPop_genType_mock) Fn(h heap.Interface) (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPop_genType_params{
 		H: h,
@@ -224,7 +220,7 @@ func (r *MoqPop_genType_fnRecorder) NoSeq() *MoqPop_genType_fnRecorder {
 	return r
 }
 
-func (r *MoqPop_genType_fnRecorder) ReturnResults(result1 interface{}) *MoqPop_genType_fnRecorder {
+func (r *MoqPop_genType_fnRecorder) ReturnResults(result1 any) *MoqPop_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -235,14 +231,14 @@ func (r *MoqPop_genType_fnRecorder) ReturnResults(result1 interface{}) *MoqPop_g
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPop_genType_doFn
 		DoReturnFn MoqPop_genType_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -273,7 +269,7 @@ func (r *MoqPop_genType_fnRecorder) DoReturnResults(fn MoqPop_genType_doReturnFn
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqPop_genType_doFn
@@ -343,7 +339,7 @@ func (r *MoqPop_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqPop_ge
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqPop_genType_doFn

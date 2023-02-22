@@ -23,8 +23,8 @@ var _ Server_starGenType = (*MoqServer_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Server_starGenType interface {
-	Register(rcvr interface{}) error
-	RegisterName(name string, rcvr interface{}) error
+	Register(rcvr any) error
+	RegisterName(name string, rcvr any) error
 	ServeConn(conn io.ReadWriteCloser)
 	ServeCodec(codec rpc.ServerCodec)
 	ServeRequest(codec rpc.ServerCodec) error
@@ -96,12 +96,12 @@ type MoqServer_starGenType_recorder struct {
 
 // MoqServer_starGenType_Register_params holds the params of the
 // Server_starGenType type
-type MoqServer_starGenType_Register_params struct{ Rcvr interface{} }
+type MoqServer_starGenType_Register_params struct{ Rcvr any }
 
 // MoqServer_starGenType_Register_paramsKey holds the map key params of the
 // Server_starGenType type
 type MoqServer_starGenType_Register_paramsKey struct {
-	Params struct{ Rcvr interface{} }
+	Params struct{ Rcvr any }
 	Hashes struct{ Rcvr hash.Hash }
 }
 
@@ -115,11 +115,11 @@ type MoqServer_starGenType_Register_resultsByParams struct {
 
 // MoqServer_starGenType_Register_doFn defines the type of function needed when
 // calling AndDo for the Server_starGenType type
-type MoqServer_starGenType_Register_doFn func(rcvr interface{})
+type MoqServer_starGenType_Register_doFn func(rcvr any)
 
 // MoqServer_starGenType_Register_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Server_starGenType type
-type MoqServer_starGenType_Register_doReturnFn func(rcvr interface{}) error
+type MoqServer_starGenType_Register_doReturnFn func(rcvr any) error
 
 // MoqServer_starGenType_Register_results holds the results of the
 // Server_starGenType type
@@ -157,7 +157,7 @@ type MoqServer_starGenType_Register_anyParams struct {
 // Server_starGenType type
 type MoqServer_starGenType_RegisterName_params struct {
 	Name string
-	Rcvr interface{}
+	Rcvr any
 }
 
 // MoqServer_starGenType_RegisterName_paramsKey holds the map key params of the
@@ -165,7 +165,7 @@ type MoqServer_starGenType_RegisterName_params struct {
 type MoqServer_starGenType_RegisterName_paramsKey struct {
 	Params struct {
 		Name string
-		Rcvr interface{}
+		Rcvr any
 	}
 	Hashes struct {
 		Name hash.Hash
@@ -183,11 +183,11 @@ type MoqServer_starGenType_RegisterName_resultsByParams struct {
 
 // MoqServer_starGenType_RegisterName_doFn defines the type of function needed
 // when calling AndDo for the Server_starGenType type
-type MoqServer_starGenType_RegisterName_doFn func(name string, rcvr interface{})
+type MoqServer_starGenType_RegisterName_doFn func(name string, rcvr any)
 
 // MoqServer_starGenType_RegisterName_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Server_starGenType type
-type MoqServer_starGenType_RegisterName_doReturnFn func(name string, rcvr interface{}) error
+type MoqServer_starGenType_RegisterName_doReturnFn func(name string, rcvr any) error
 
 // MoqServer_starGenType_RegisterName_results holds the results of the
 // Server_starGenType type
@@ -646,14 +646,14 @@ func NewMoqServer_starGenType(scene *moq.Scene, config *moq.Config) *MoqServer_s
 			Register: struct {
 				Rcvr moq.ParamIndexing
 			}{
-				Rcvr: moq.ParamIndexByHash,
+				Rcvr: moq.ParamIndexByValue,
 			},
 			RegisterName: struct {
 				Name moq.ParamIndexing
 				Rcvr moq.ParamIndexing
 			}{
 				Name: moq.ParamIndexByValue,
-				Rcvr: moq.ParamIndexByHash,
+				Rcvr: moq.ParamIndexByValue,
 			},
 			ServeConn: struct {
 				Conn moq.ParamIndexing
@@ -700,7 +700,7 @@ func NewMoqServer_starGenType(scene *moq.Scene, config *moq.Config) *MoqServer_s
 // Mock returns the mock implementation of the Server_starGenType type
 func (m *MoqServer_starGenType) Mock() *MoqServer_starGenType_mock { return m.Moq }
 
-func (m *MoqServer_starGenType_mock) Register(rcvr interface{}) (result1 error) {
+func (m *MoqServer_starGenType_mock) Register(rcvr any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqServer_starGenType_Register_params{
 		Rcvr: rcvr,
@@ -753,7 +753,7 @@ func (m *MoqServer_starGenType_mock) Register(rcvr interface{}) (result1 error) 
 	return
 }
 
-func (m *MoqServer_starGenType_mock) RegisterName(name string, rcvr interface{}) (result1 error) {
+func (m *MoqServer_starGenType_mock) RegisterName(name string, rcvr any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqServer_starGenType_RegisterName_params{
 		Name: name,
@@ -1119,7 +1119,7 @@ func (m *MoqServer_starGenType) OnCall() *MoqServer_starGenType_recorder {
 	}
 }
 
-func (m *MoqServer_starGenType_recorder) Register(rcvr interface{}) *MoqServer_starGenType_Register_fnRecorder {
+func (m *MoqServer_starGenType_recorder) Register(rcvr any) *MoqServer_starGenType_Register_fnRecorder {
 	return &MoqServer_starGenType_Register_fnRecorder{
 		Params: MoqServer_starGenType_Register_params{
 			Rcvr: rcvr,
@@ -1303,7 +1303,7 @@ func (m *MoqServer_starGenType) PrettyParams_Register(params MoqServer_starGenTy
 
 func (m *MoqServer_starGenType) ParamsKey_Register(params MoqServer_starGenType_Register_params, anyParams uint64) MoqServer_starGenType_Register_paramsKey {
 	m.Scene.T.Helper()
-	var rcvrUsed interface{}
+	var rcvrUsed any
 	var rcvrUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Register.Rcvr == moq.ParamIndexByValue {
@@ -1313,7 +1313,7 @@ func (m *MoqServer_starGenType) ParamsKey_Register(params MoqServer_starGenType_
 		}
 	}
 	return MoqServer_starGenType_Register_paramsKey{
-		Params: struct{ Rcvr interface{} }{
+		Params: struct{ Rcvr any }{
 			Rcvr: rcvrUsed,
 		},
 		Hashes: struct{ Rcvr hash.Hash }{
@@ -1322,7 +1322,7 @@ func (m *MoqServer_starGenType) ParamsKey_Register(params MoqServer_starGenType_
 	}
 }
 
-func (m *MoqServer_starGenType_recorder) RegisterName(name string, rcvr interface{}) *MoqServer_starGenType_RegisterName_fnRecorder {
+func (m *MoqServer_starGenType_recorder) RegisterName(name string, rcvr any) *MoqServer_starGenType_RegisterName_fnRecorder {
 	return &MoqServer_starGenType_RegisterName_fnRecorder{
 		Params: MoqServer_starGenType_RegisterName_params{
 			Name: name,
@@ -1521,7 +1521,7 @@ func (m *MoqServer_starGenType) ParamsKey_RegisterName(params MoqServer_starGenT
 			nameUsedHash = hash.DeepHash(params.Name)
 		}
 	}
-	var rcvrUsed interface{}
+	var rcvrUsed any
 	var rcvrUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.RegisterName.Rcvr == moq.ParamIndexByValue {
@@ -1533,7 +1533,7 @@ func (m *MoqServer_starGenType) ParamsKey_RegisterName(params MoqServer_starGenT
 	return MoqServer_starGenType_RegisterName_paramsKey{
 		Params: struct {
 			Name string
-			Rcvr interface{}
+			Rcvr any
 		}{
 			Name: nameUsed,
 			Rcvr: rcvrUsed,

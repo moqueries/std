@@ -29,7 +29,7 @@ type Certificate_starGenType interface {
 	CheckSignatureFrom(parent *x509.Certificate) error
 	CheckSignature(algo x509.SignatureAlgorithm, signed, signature []byte) error
 	CheckCRLSignature(crl *pkix.CertificateList) error
-	CreateCRL(rand io.Reader, priv interface{}, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error)
+	CreateCRL(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error)
 }
 
 // MoqCertificate_starGenType holds the state of a moq of the
@@ -461,7 +461,7 @@ type MoqCertificate_starGenType_CheckCRLSignature_anyParams struct {
 // Certificate_starGenType type
 type MoqCertificate_starGenType_CreateCRL_params struct {
 	Rand         io.Reader
-	Priv         interface{}
+	Priv         any
 	RevokedCerts []pkix.RevokedCertificate
 	Now, Expiry  time.Time
 }
@@ -471,7 +471,7 @@ type MoqCertificate_starGenType_CreateCRL_params struct {
 type MoqCertificate_starGenType_CreateCRL_paramsKey struct {
 	Params struct {
 		Rand        io.Reader
-		Priv        interface{}
+		Priv        any
 		Now, Expiry time.Time
 	}
 	Hashes struct {
@@ -492,11 +492,11 @@ type MoqCertificate_starGenType_CreateCRL_resultsByParams struct {
 
 // MoqCertificate_starGenType_CreateCRL_doFn defines the type of function
 // needed when calling AndDo for the Certificate_starGenType type
-type MoqCertificate_starGenType_CreateCRL_doFn func(rand io.Reader, priv interface{}, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time)
+type MoqCertificate_starGenType_CreateCRL_doFn func(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time)
 
 // MoqCertificate_starGenType_CreateCRL_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Certificate_starGenType type
-type MoqCertificate_starGenType_CreateCRL_doReturnFn func(rand io.Reader, priv interface{}, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error)
+type MoqCertificate_starGenType_CreateCRL_doReturnFn func(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error)
 
 // MoqCertificate_starGenType_CreateCRL_results holds the results of the
 // Certificate_starGenType type
@@ -643,7 +643,7 @@ func NewMoqCertificate_starGenType(scene *moq.Scene, config *moq.Config) *MoqCer
 				Expiry       moq.ParamIndexing
 			}{
 				Rand:         moq.ParamIndexByHash,
-				Priv:         moq.ParamIndexByHash,
+				Priv:         moq.ParamIndexByValue,
 				RevokedCerts: moq.ParamIndexByHash,
 				Now:          moq.ParamIndexByHash,
 				Expiry:       moq.ParamIndexByHash,
@@ -980,7 +980,7 @@ func (m *MoqCertificate_starGenType_mock) CheckCRLSignature(crl *pkix.Certificat
 	return
 }
 
-func (m *MoqCertificate_starGenType_mock) CreateCRL(rand io.Reader, priv interface{}, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error) {
+func (m *MoqCertificate_starGenType_mock) CreateCRL(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) (crlBytes []byte, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqCertificate_starGenType_CreateCRL_params{
 		Rand:         rand,
@@ -2296,7 +2296,7 @@ func (m *MoqCertificate_starGenType) ParamsKey_CheckCRLSignature(params MoqCerti
 	}
 }
 
-func (m *MoqCertificate_starGenType_recorder) CreateCRL(rand io.Reader, priv interface{}, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) *MoqCertificate_starGenType_CreateCRL_fnRecorder {
+func (m *MoqCertificate_starGenType_recorder) CreateCRL(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now, expiry time.Time) *MoqCertificate_starGenType_CreateCRL_fnRecorder {
 	return &MoqCertificate_starGenType_CreateCRL_fnRecorder{
 		Params: MoqCertificate_starGenType_CreateCRL_params{
 			Rand:         rand,
@@ -2518,7 +2518,7 @@ func (m *MoqCertificate_starGenType) ParamsKey_CreateCRL(params MoqCertificate_s
 			randUsedHash = hash.DeepHash(params.Rand)
 		}
 	}
-	var privUsed interface{}
+	var privUsed any
 	var privUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.CreateCRL.Priv == moq.ParamIndexByValue {
@@ -2555,7 +2555,7 @@ func (m *MoqCertificate_starGenType) ParamsKey_CreateCRL(params MoqCertificate_s
 	return MoqCertificate_starGenType_CreateCRL_paramsKey{
 		Params: struct {
 			Rand        io.Reader
-			Priv        interface{}
+			Priv        any
 			Now, Expiry time.Time
 		}{
 			Rand:   randUsed,

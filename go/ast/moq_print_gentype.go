@@ -14,7 +14,7 @@ import (
 
 // Print_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Print_genType func(fset *token.FileSet, x interface{}) error
+type Print_genType func(fset *token.FileSet, x any) error
 
 // MoqPrint_genType holds the state of a moq of the Print_genType type
 type MoqPrint_genType struct {
@@ -40,7 +40,7 @@ type MoqPrint_genType_mock struct {
 // MoqPrint_genType_params holds the params of the Print_genType type
 type MoqPrint_genType_params struct {
 	Fset *token.FileSet
-	X    interface{}
+	X    any
 }
 
 // MoqPrint_genType_paramsKey holds the map key params of the Print_genType
@@ -48,7 +48,7 @@ type MoqPrint_genType_params struct {
 type MoqPrint_genType_paramsKey struct {
 	Params struct {
 		Fset *token.FileSet
-		X    interface{}
+		X    any
 	}
 	Hashes struct {
 		Fset hash.Hash
@@ -66,11 +66,11 @@ type MoqPrint_genType_resultsByParams struct {
 
 // MoqPrint_genType_doFn defines the type of function needed when calling AndDo
 // for the Print_genType type
-type MoqPrint_genType_doFn func(fset *token.FileSet, x interface{})
+type MoqPrint_genType_doFn func(fset *token.FileSet, x any)
 
 // MoqPrint_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Print_genType type
-type MoqPrint_genType_doReturnFn func(fset *token.FileSet, x interface{}) error
+type MoqPrint_genType_doReturnFn func(fset *token.FileSet, x any) error
 
 // MoqPrint_genType_results holds the results of the Print_genType type
 type MoqPrint_genType_results struct {
@@ -123,7 +123,7 @@ func NewMoqPrint_genType(scene *moq.Scene, config *moq.Config) *MoqPrint_genType
 			X    moq.ParamIndexing
 		}{
 			Fset: moq.ParamIndexByHash,
-			X:    moq.ParamIndexByHash,
+			X:    moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -134,14 +134,14 @@ func NewMoqPrint_genType(scene *moq.Scene, config *moq.Config) *MoqPrint_genType
 
 // Mock returns the moq implementation of the Print_genType type
 func (m *MoqPrint_genType) Mock() Print_genType {
-	return func(fset *token.FileSet, x interface{}) error {
+	return func(fset *token.FileSet, x any) error {
 		m.Scene.T.Helper()
 		moq := &MoqPrint_genType_mock{Moq: m}
 		return moq.Fn(fset, x)
 	}
 }
 
-func (m *MoqPrint_genType_mock) Fn(fset *token.FileSet, x interface{}) (result1 error) {
+func (m *MoqPrint_genType_mock) Fn(fset *token.FileSet, x any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPrint_genType_params{
 		Fset: fset,
@@ -195,7 +195,7 @@ func (m *MoqPrint_genType_mock) Fn(fset *token.FileSet, x interface{}) (result1 
 	return
 }
 
-func (m *MoqPrint_genType) OnCall(fset *token.FileSet, x interface{}) *MoqPrint_genType_fnRecorder {
+func (m *MoqPrint_genType) OnCall(fset *token.FileSet, x any) *MoqPrint_genType_fnRecorder {
 	return &MoqPrint_genType_fnRecorder{
 		Params: MoqPrint_genType_params{
 			Fset: fset,
@@ -394,7 +394,7 @@ func (m *MoqPrint_genType) ParamsKey(params MoqPrint_genType_params, anyParams u
 			fsetUsedHash = hash.DeepHash(params.Fset)
 		}
 	}
-	var xUsed interface{}
+	var xUsed any
 	var xUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.X == moq.ParamIndexByValue {
@@ -406,7 +406,7 @@ func (m *MoqPrint_genType) ParamsKey(params MoqPrint_genType_params, anyParams u
 	return MoqPrint_genType_paramsKey{
 		Params: struct {
 			Fset *token.FileSet
-			X    interface{}
+			X    any
 		}{
 			Fset: fsetUsed,
 			X:    xUsed,

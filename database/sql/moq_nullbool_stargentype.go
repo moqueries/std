@@ -19,7 +19,7 @@ var _ NullBool_starGenType = (*MoqNullBool_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type NullBool_starGenType interface {
-	Scan(value interface{}) error
+	Scan(value any) error
 }
 
 // MoqNullBool_starGenType holds the state of a moq of the NullBool_starGenType
@@ -54,12 +54,12 @@ type MoqNullBool_starGenType_recorder struct {
 
 // MoqNullBool_starGenType_Scan_params holds the params of the
 // NullBool_starGenType type
-type MoqNullBool_starGenType_Scan_params struct{ Value interface{} }
+type MoqNullBool_starGenType_Scan_params struct{ Value any }
 
 // MoqNullBool_starGenType_Scan_paramsKey holds the map key params of the
 // NullBool_starGenType type
 type MoqNullBool_starGenType_Scan_paramsKey struct {
-	Params struct{ Value interface{} }
+	Params struct{ Value any }
 	Hashes struct{ Value hash.Hash }
 }
 
@@ -73,11 +73,11 @@ type MoqNullBool_starGenType_Scan_resultsByParams struct {
 
 // MoqNullBool_starGenType_Scan_doFn defines the type of function needed when
 // calling AndDo for the NullBool_starGenType type
-type MoqNullBool_starGenType_Scan_doFn func(value interface{})
+type MoqNullBool_starGenType_Scan_doFn func(value any)
 
 // MoqNullBool_starGenType_Scan_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the NullBool_starGenType type
-type MoqNullBool_starGenType_Scan_doReturnFn func(value interface{}) error
+type MoqNullBool_starGenType_Scan_doReturnFn func(value any) error
 
 // MoqNullBool_starGenType_Scan_results holds the results of the
 // NullBool_starGenType type
@@ -136,7 +136,7 @@ func NewMoqNullBool_starGenType(scene *moq.Scene, config *moq.Config) *MoqNullBo
 			Scan: struct {
 				Value moq.ParamIndexing
 			}{
-				Value: moq.ParamIndexByHash,
+				Value: moq.ParamIndexByValue,
 			},
 		}},
 	}
@@ -149,7 +149,7 @@ func NewMoqNullBool_starGenType(scene *moq.Scene, config *moq.Config) *MoqNullBo
 // Mock returns the mock implementation of the NullBool_starGenType type
 func (m *MoqNullBool_starGenType) Mock() *MoqNullBool_starGenType_mock { return m.Moq }
 
-func (m *MoqNullBool_starGenType_mock) Scan(value interface{}) (result1 error) {
+func (m *MoqNullBool_starGenType_mock) Scan(value any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqNullBool_starGenType_Scan_params{
 		Value: value,
@@ -209,7 +209,7 @@ func (m *MoqNullBool_starGenType) OnCall() *MoqNullBool_starGenType_recorder {
 	}
 }
 
-func (m *MoqNullBool_starGenType_recorder) Scan(value interface{}) *MoqNullBool_starGenType_Scan_fnRecorder {
+func (m *MoqNullBool_starGenType_recorder) Scan(value any) *MoqNullBool_starGenType_Scan_fnRecorder {
 	return &MoqNullBool_starGenType_Scan_fnRecorder{
 		Params: MoqNullBool_starGenType_Scan_params{
 			Value: value,
@@ -393,7 +393,7 @@ func (m *MoqNullBool_starGenType) PrettyParams_Scan(params MoqNullBool_starGenTy
 
 func (m *MoqNullBool_starGenType) ParamsKey_Scan(params MoqNullBool_starGenType_Scan_params, anyParams uint64) MoqNullBool_starGenType_Scan_paramsKey {
 	m.Scene.T.Helper()
-	var valueUsed interface{}
+	var valueUsed any
 	var valueUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Scan.Value == moq.ParamIndexByValue {
@@ -403,7 +403,7 @@ func (m *MoqNullBool_starGenType) ParamsKey_Scan(params MoqNullBool_starGenType_
 		}
 	}
 	return MoqNullBool_starGenType_Scan_paramsKey{
-		Params: struct{ Value interface{} }{
+		Params: struct{ Value any }{
 			Value: valueUsed,
 		},
 		Hashes: struct{ Value hash.Hash }{

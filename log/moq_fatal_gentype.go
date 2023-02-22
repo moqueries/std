@@ -13,7 +13,7 @@ import (
 
 // Fatal_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Fatal_genType func(v ...interface{})
+type Fatal_genType func(v ...any)
 
 // MoqFatal_genType holds the state of a moq of the Fatal_genType type
 type MoqFatal_genType struct {
@@ -36,7 +36,7 @@ type MoqFatal_genType_mock struct {
 }
 
 // MoqFatal_genType_params holds the params of the Fatal_genType type
-type MoqFatal_genType_params struct{ V []interface{} }
+type MoqFatal_genType_params struct{ V []any }
 
 // MoqFatal_genType_paramsKey holds the map key params of the Fatal_genType
 // type
@@ -55,11 +55,11 @@ type MoqFatal_genType_resultsByParams struct {
 
 // MoqFatal_genType_doFn defines the type of function needed when calling AndDo
 // for the Fatal_genType type
-type MoqFatal_genType_doFn func(v ...interface{})
+type MoqFatal_genType_doFn func(v ...any)
 
 // MoqFatal_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Fatal_genType type
-type MoqFatal_genType_doReturnFn func(v ...interface{})
+type MoqFatal_genType_doReturnFn func(v ...any)
 
 // MoqFatal_genType_results holds the results of the Fatal_genType type
 type MoqFatal_genType_results struct {
@@ -118,10 +118,10 @@ func NewMoqFatal_genType(scene *moq.Scene, config *moq.Config) *MoqFatal_genType
 
 // Mock returns the moq implementation of the Fatal_genType type
 func (m *MoqFatal_genType) Mock() Fatal_genType {
-	return func(v ...interface{}) { m.Scene.T.Helper(); moq := &MoqFatal_genType_mock{Moq: m}; moq.Fn(v...) }
+	return func(v ...any) { m.Scene.T.Helper(); moq := &MoqFatal_genType_mock{Moq: m}; moq.Fn(v...) }
 }
 
-func (m *MoqFatal_genType_mock) Fn(v ...interface{}) {
+func (m *MoqFatal_genType_mock) Fn(v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFatal_genType_params{
 		V: v,
@@ -171,7 +171,7 @@ func (m *MoqFatal_genType_mock) Fn(v ...interface{}) {
 	return
 }
 
-func (m *MoqFatal_genType) OnCall(v ...interface{}) *MoqFatal_genType_fnRecorder {
+func (m *MoqFatal_genType) OnCall(v ...any) *MoqFatal_genType_fnRecorder {
 	return &MoqFatal_genType_fnRecorder{
 		Params: MoqFatal_genType_params{
 			V: v,

@@ -13,7 +13,7 @@ import (
 
 // JSEscaper_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type JSEscaper_genType func(args ...interface{}) string
+type JSEscaper_genType func(args ...any) string
 
 // MoqJSEscaper_genType holds the state of a moq of the JSEscaper_genType type
 type MoqJSEscaper_genType struct {
@@ -37,7 +37,7 @@ type MoqJSEscaper_genType_mock struct {
 }
 
 // MoqJSEscaper_genType_params holds the params of the JSEscaper_genType type
-type MoqJSEscaper_genType_params struct{ Args []interface{} }
+type MoqJSEscaper_genType_params struct{ Args []any }
 
 // MoqJSEscaper_genType_paramsKey holds the map key params of the
 // JSEscaper_genType type
@@ -56,11 +56,11 @@ type MoqJSEscaper_genType_resultsByParams struct {
 
 // MoqJSEscaper_genType_doFn defines the type of function needed when calling
 // AndDo for the JSEscaper_genType type
-type MoqJSEscaper_genType_doFn func(args ...interface{})
+type MoqJSEscaper_genType_doFn func(args ...any)
 
 // MoqJSEscaper_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the JSEscaper_genType type
-type MoqJSEscaper_genType_doReturnFn func(args ...interface{}) string
+type MoqJSEscaper_genType_doReturnFn func(args ...any) string
 
 // MoqJSEscaper_genType_results holds the results of the JSEscaper_genType type
 type MoqJSEscaper_genType_results struct {
@@ -121,14 +121,14 @@ func NewMoqJSEscaper_genType(scene *moq.Scene, config *moq.Config) *MoqJSEscaper
 
 // Mock returns the moq implementation of the JSEscaper_genType type
 func (m *MoqJSEscaper_genType) Mock() JSEscaper_genType {
-	return func(args ...interface{}) string {
+	return func(args ...any) string {
 		m.Scene.T.Helper()
 		moq := &MoqJSEscaper_genType_mock{Moq: m}
 		return moq.Fn(args...)
 	}
 }
 
-func (m *MoqJSEscaper_genType_mock) Fn(args ...interface{}) (result1 string) {
+func (m *MoqJSEscaper_genType_mock) Fn(args ...any) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqJSEscaper_genType_params{
 		Args: args,
@@ -181,7 +181,7 @@ func (m *MoqJSEscaper_genType_mock) Fn(args ...interface{}) (result1 string) {
 	return
 }
 
-func (m *MoqJSEscaper_genType) OnCall(args ...interface{}) *MoqJSEscaper_genType_fnRecorder {
+func (m *MoqJSEscaper_genType) OnCall(args ...any) *MoqJSEscaper_genType_fnRecorder {
 	return &MoqJSEscaper_genType_fnRecorder{
 		Params: MoqJSEscaper_genType_params{
 			Args: args,

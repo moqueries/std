@@ -13,7 +13,7 @@ import (
 
 // Size_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Size_genType func(v interface{}) int
+type Size_genType func(v any) int
 
 // MoqSize_genType holds the state of a moq of the Size_genType type
 type MoqSize_genType struct {
@@ -36,11 +36,11 @@ type MoqSize_genType_mock struct {
 }
 
 // MoqSize_genType_params holds the params of the Size_genType type
-type MoqSize_genType_params struct{ V interface{} }
+type MoqSize_genType_params struct{ V any }
 
 // MoqSize_genType_paramsKey holds the map key params of the Size_genType type
 type MoqSize_genType_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -54,11 +54,11 @@ type MoqSize_genType_resultsByParams struct {
 
 // MoqSize_genType_doFn defines the type of function needed when calling AndDo
 // for the Size_genType type
-type MoqSize_genType_doFn func(v interface{})
+type MoqSize_genType_doFn func(v any)
 
 // MoqSize_genType_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Size_genType type
-type MoqSize_genType_doReturnFn func(v interface{}) int
+type MoqSize_genType_doReturnFn func(v any) int
 
 // MoqSize_genType_results holds the results of the Size_genType type
 type MoqSize_genType_results struct {
@@ -108,7 +108,7 @@ func NewMoqSize_genType(scene *moq.Scene, config *moq.Config) *MoqSize_genType {
 		}{ParameterIndexing: struct {
 			V moq.ParamIndexing
 		}{
-			V: moq.ParamIndexByHash,
+			V: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -119,10 +119,10 @@ func NewMoqSize_genType(scene *moq.Scene, config *moq.Config) *MoqSize_genType {
 
 // Mock returns the moq implementation of the Size_genType type
 func (m *MoqSize_genType) Mock() Size_genType {
-	return func(v interface{}) int { m.Scene.T.Helper(); moq := &MoqSize_genType_mock{Moq: m}; return moq.Fn(v) }
+	return func(v any) int { m.Scene.T.Helper(); moq := &MoqSize_genType_mock{Moq: m}; return moq.Fn(v) }
 }
 
-func (m *MoqSize_genType_mock) Fn(v interface{}) (result1 int) {
+func (m *MoqSize_genType_mock) Fn(v any) (result1 int) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSize_genType_params{
 		V: v,
@@ -175,7 +175,7 @@ func (m *MoqSize_genType_mock) Fn(v interface{}) (result1 int) {
 	return
 }
 
-func (m *MoqSize_genType) OnCall(v interface{}) *MoqSize_genType_fnRecorder {
+func (m *MoqSize_genType) OnCall(v any) *MoqSize_genType_fnRecorder {
 	return &MoqSize_genType_fnRecorder{
 		Params: MoqSize_genType_params{
 			V: v,
@@ -359,7 +359,7 @@ func (m *MoqSize_genType) PrettyParams(params MoqSize_genType_params) string {
 
 func (m *MoqSize_genType) ParamsKey(params MoqSize_genType_params, anyParams uint64) MoqSize_genType_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.V == moq.ParamIndexByValue {
@@ -369,7 +369,7 @@ func (m *MoqSize_genType) ParamsKey(params MoqSize_genType_params, anyParams uin
 		}
 	}
 	return MoqSize_genType_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{

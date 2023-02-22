@@ -116,12 +116,12 @@ type MoqServerCodec_ReadRequestHeader_anyParams struct {
 
 // MoqServerCodec_ReadRequestBody_params holds the params of the ServerCodec
 // type
-type MoqServerCodec_ReadRequestBody_params struct{ Param1 interface{} }
+type MoqServerCodec_ReadRequestBody_params struct{ Param1 any }
 
 // MoqServerCodec_ReadRequestBody_paramsKey holds the map key params of the
 // ServerCodec type
 type MoqServerCodec_ReadRequestBody_paramsKey struct {
-	Params struct{ Param1 interface{} }
+	Params struct{ Param1 any }
 	Hashes struct{ Param1 hash.Hash }
 }
 
@@ -135,11 +135,11 @@ type MoqServerCodec_ReadRequestBody_resultsByParams struct {
 
 // MoqServerCodec_ReadRequestBody_doFn defines the type of function needed when
 // calling AndDo for the ServerCodec type
-type MoqServerCodec_ReadRequestBody_doFn func(interface{})
+type MoqServerCodec_ReadRequestBody_doFn func(any)
 
 // MoqServerCodec_ReadRequestBody_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the ServerCodec type
-type MoqServerCodec_ReadRequestBody_doReturnFn func(interface{}) error
+type MoqServerCodec_ReadRequestBody_doReturnFn func(any) error
 
 // MoqServerCodec_ReadRequestBody_results holds the results of the ServerCodec
 // type
@@ -176,7 +176,7 @@ type MoqServerCodec_ReadRequestBody_anyParams struct {
 // MoqServerCodec_WriteResponse_params holds the params of the ServerCodec type
 type MoqServerCodec_WriteResponse_params struct {
 	Param1 *rpc.Response
-	Param2 interface{}
+	Param2 any
 }
 
 // MoqServerCodec_WriteResponse_paramsKey holds the map key params of the
@@ -184,7 +184,7 @@ type MoqServerCodec_WriteResponse_params struct {
 type MoqServerCodec_WriteResponse_paramsKey struct {
 	Params struct {
 		Param1 *rpc.Response
-		Param2 interface{}
+		Param2 any
 	}
 	Hashes struct {
 		Param1 hash.Hash
@@ -202,11 +202,11 @@ type MoqServerCodec_WriteResponse_resultsByParams struct {
 
 // MoqServerCodec_WriteResponse_doFn defines the type of function needed when
 // calling AndDo for the ServerCodec type
-type MoqServerCodec_WriteResponse_doFn func(*rpc.Response, interface{})
+type MoqServerCodec_WriteResponse_doFn func(*rpc.Response, any)
 
 // MoqServerCodec_WriteResponse_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the ServerCodec type
-type MoqServerCodec_WriteResponse_doReturnFn func(*rpc.Response, interface{}) error
+type MoqServerCodec_WriteResponse_doReturnFn func(*rpc.Response, any) error
 
 // MoqServerCodec_WriteResponse_results holds the results of the ServerCodec
 // type
@@ -342,14 +342,14 @@ func NewMoqServerCodec(scene *moq.Scene, config *moq.Config) *MoqServerCodec {
 			ReadRequestBody: struct {
 				Param1 moq.ParamIndexing
 			}{
-				Param1: moq.ParamIndexByHash,
+				Param1: moq.ParamIndexByValue,
 			},
 			WriteResponse: struct {
 				Param1 moq.ParamIndexing
 				Param2 moq.ParamIndexing
 			}{
 				Param1: moq.ParamIndexByHash,
-				Param2: moq.ParamIndexByHash,
+				Param2: moq.ParamIndexByValue,
 			},
 			Close: struct{}{},
 		}},
@@ -416,7 +416,7 @@ func (m *MoqServerCodec_mock) ReadRequestHeader(param1 *rpc.Request) (result1 er
 	return
 }
 
-func (m *MoqServerCodec_mock) ReadRequestBody(param1 interface{}) (result1 error) {
+func (m *MoqServerCodec_mock) ReadRequestBody(param1 any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqServerCodec_ReadRequestBody_params{
 		Param1: param1,
@@ -469,7 +469,7 @@ func (m *MoqServerCodec_mock) ReadRequestBody(param1 interface{}) (result1 error
 	return
 }
 
-func (m *MoqServerCodec_mock) WriteResponse(param1 *rpc.Response, param2 interface{}) (result1 error) {
+func (m *MoqServerCodec_mock) WriteResponse(param1 *rpc.Response, param2 any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqServerCodec_WriteResponse_params{
 		Param1: param1,
@@ -784,7 +784,7 @@ func (m *MoqServerCodec) ParamsKey_ReadRequestHeader(params MoqServerCodec_ReadR
 	}
 }
 
-func (m *MoqServerCodec_recorder) ReadRequestBody(param1 interface{}) *MoqServerCodec_ReadRequestBody_fnRecorder {
+func (m *MoqServerCodec_recorder) ReadRequestBody(param1 any) *MoqServerCodec_ReadRequestBody_fnRecorder {
 	return &MoqServerCodec_ReadRequestBody_fnRecorder{
 		Params: MoqServerCodec_ReadRequestBody_params{
 			Param1: param1,
@@ -968,7 +968,7 @@ func (m *MoqServerCodec) PrettyParams_ReadRequestBody(params MoqServerCodec_Read
 
 func (m *MoqServerCodec) ParamsKey_ReadRequestBody(params MoqServerCodec_ReadRequestBody_params, anyParams uint64) MoqServerCodec_ReadRequestBody_paramsKey {
 	m.Scene.T.Helper()
-	var param1Used interface{}
+	var param1Used any
 	var param1UsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.ReadRequestBody.Param1 == moq.ParamIndexByValue {
@@ -978,7 +978,7 @@ func (m *MoqServerCodec) ParamsKey_ReadRequestBody(params MoqServerCodec_ReadReq
 		}
 	}
 	return MoqServerCodec_ReadRequestBody_paramsKey{
-		Params: struct{ Param1 interface{} }{
+		Params: struct{ Param1 any }{
 			Param1: param1Used,
 		},
 		Hashes: struct{ Param1 hash.Hash }{
@@ -987,7 +987,7 @@ func (m *MoqServerCodec) ParamsKey_ReadRequestBody(params MoqServerCodec_ReadReq
 	}
 }
 
-func (m *MoqServerCodec_recorder) WriteResponse(param1 *rpc.Response, param2 interface{}) *MoqServerCodec_WriteResponse_fnRecorder {
+func (m *MoqServerCodec_recorder) WriteResponse(param1 *rpc.Response, param2 any) *MoqServerCodec_WriteResponse_fnRecorder {
 	return &MoqServerCodec_WriteResponse_fnRecorder{
 		Params: MoqServerCodec_WriteResponse_params{
 			Param1: param1,
@@ -1186,7 +1186,7 @@ func (m *MoqServerCodec) ParamsKey_WriteResponse(params MoqServerCodec_WriteResp
 			param1UsedHash = hash.DeepHash(params.Param1)
 		}
 	}
-	var param2Used interface{}
+	var param2Used any
 	var param2UsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.WriteResponse.Param2 == moq.ParamIndexByValue {
@@ -1198,7 +1198,7 @@ func (m *MoqServerCodec) ParamsKey_WriteResponse(params MoqServerCodec_WriteResp
 	return MoqServerCodec_WriteResponse_paramsKey{
 		Params: struct {
 			Param1 *rpc.Response
-			Param2 interface{}
+			Param2 any
 		}{
 			Param1: param1Used,
 			Param2: param2Used,

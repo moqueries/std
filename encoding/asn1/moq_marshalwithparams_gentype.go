@@ -13,7 +13,7 @@ import (
 
 // MarshalWithParams_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type MarshalWithParams_genType func(val interface{}, params string) ([]byte, error)
+type MarshalWithParams_genType func(val any, params string) ([]byte, error)
 
 // MoqMarshalWithParams_genType holds the state of a moq of the
 // MarshalWithParams_genType type
@@ -41,7 +41,7 @@ type MoqMarshalWithParams_genType_mock struct {
 // MoqMarshalWithParams_genType_params holds the params of the
 // MarshalWithParams_genType type
 type MoqMarshalWithParams_genType_params struct {
-	Val    interface{}
+	Val    any
 	Param2 string
 }
 
@@ -49,7 +49,7 @@ type MoqMarshalWithParams_genType_params struct {
 // MarshalWithParams_genType type
 type MoqMarshalWithParams_genType_paramsKey struct {
 	Params struct {
-		Val    interface{}
+		Val    any
 		Param2 string
 	}
 	Hashes struct {
@@ -68,11 +68,11 @@ type MoqMarshalWithParams_genType_resultsByParams struct {
 
 // MoqMarshalWithParams_genType_doFn defines the type of function needed when
 // calling AndDo for the MarshalWithParams_genType type
-type MoqMarshalWithParams_genType_doFn func(val interface{}, params string)
+type MoqMarshalWithParams_genType_doFn func(val any, params string)
 
 // MoqMarshalWithParams_genType_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the MarshalWithParams_genType type
-type MoqMarshalWithParams_genType_doReturnFn func(val interface{}, params string) ([]byte, error)
+type MoqMarshalWithParams_genType_doReturnFn func(val any, params string) ([]byte, error)
 
 // MoqMarshalWithParams_genType_results holds the results of the
 // MarshalWithParams_genType type
@@ -127,7 +127,7 @@ func NewMoqMarshalWithParams_genType(scene *moq.Scene, config *moq.Config) *MoqM
 			Val    moq.ParamIndexing
 			Param2 moq.ParamIndexing
 		}{
-			Val:    moq.ParamIndexByHash,
+			Val:    moq.ParamIndexByValue,
 			Param2: moq.ParamIndexByValue,
 		}},
 	}
@@ -139,14 +139,14 @@ func NewMoqMarshalWithParams_genType(scene *moq.Scene, config *moq.Config) *MoqM
 
 // Mock returns the moq implementation of the MarshalWithParams_genType type
 func (m *MoqMarshalWithParams_genType) Mock() MarshalWithParams_genType {
-	return func(val interface{}, param2 string) ([]byte, error) {
+	return func(val any, param2 string) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqMarshalWithParams_genType_mock{Moq: m}
 		return moq.Fn(val, param2)
 	}
 }
 
-func (m *MoqMarshalWithParams_genType_mock) Fn(val interface{}, param2 string) (result1 []byte, result2 error) {
+func (m *MoqMarshalWithParams_genType_mock) Fn(val any, param2 string) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMarshalWithParams_genType_params{
 		Val:    val,
@@ -201,7 +201,7 @@ func (m *MoqMarshalWithParams_genType_mock) Fn(val interface{}, param2 string) (
 	return
 }
 
-func (m *MoqMarshalWithParams_genType) OnCall(val interface{}, param2 string) *MoqMarshalWithParams_genType_fnRecorder {
+func (m *MoqMarshalWithParams_genType) OnCall(val any, param2 string) *MoqMarshalWithParams_genType_fnRecorder {
 	return &MoqMarshalWithParams_genType_fnRecorder{
 		Params: MoqMarshalWithParams_genType_params{
 			Val:    val,
@@ -396,7 +396,7 @@ func (m *MoqMarshalWithParams_genType) PrettyParams(params MoqMarshalWithParams_
 
 func (m *MoqMarshalWithParams_genType) ParamsKey(params MoqMarshalWithParams_genType_params, anyParams uint64) MoqMarshalWithParams_genType_paramsKey {
 	m.Scene.T.Helper()
-	var valUsed interface{}
+	var valUsed any
 	var valUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Val == moq.ParamIndexByValue {
@@ -416,7 +416,7 @@ func (m *MoqMarshalWithParams_genType) ParamsKey(params MoqMarshalWithParams_gen
 	}
 	return MoqMarshalWithParams_genType_paramsKey{
 		Params: struct {
-			Val    interface{}
+			Val    any
 			Param2 string
 		}{
 			Val:    valUsed,

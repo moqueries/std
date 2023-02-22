@@ -13,7 +13,7 @@ import (
 
 // Println_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Println_genType func(a ...interface{}) (n int, err error)
+type Println_genType func(a ...any) (n int, err error)
 
 // MoqPrintln_genType holds the state of a moq of the Println_genType type
 type MoqPrintln_genType struct {
@@ -37,7 +37,7 @@ type MoqPrintln_genType_mock struct {
 }
 
 // MoqPrintln_genType_params holds the params of the Println_genType type
-type MoqPrintln_genType_params struct{ A []interface{} }
+type MoqPrintln_genType_params struct{ A []any }
 
 // MoqPrintln_genType_paramsKey holds the map key params of the Println_genType
 // type
@@ -56,11 +56,11 @@ type MoqPrintln_genType_resultsByParams struct {
 
 // MoqPrintln_genType_doFn defines the type of function needed when calling
 // AndDo for the Println_genType type
-type MoqPrintln_genType_doFn func(a ...interface{})
+type MoqPrintln_genType_doFn func(a ...any)
 
 // MoqPrintln_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Println_genType type
-type MoqPrintln_genType_doReturnFn func(a ...interface{}) (n int, err error)
+type MoqPrintln_genType_doReturnFn func(a ...any) (n int, err error)
 
 // MoqPrintln_genType_results holds the results of the Println_genType type
 type MoqPrintln_genType_results struct {
@@ -122,14 +122,14 @@ func NewMoqPrintln_genType(scene *moq.Scene, config *moq.Config) *MoqPrintln_gen
 
 // Mock returns the moq implementation of the Println_genType type
 func (m *MoqPrintln_genType) Mock() Println_genType {
-	return func(a ...interface{}) (_ int, _ error) {
+	return func(a ...any) (_ int, _ error) {
 		m.Scene.T.Helper()
 		moq := &MoqPrintln_genType_mock{Moq: m}
 		return moq.Fn(a...)
 	}
 }
 
-func (m *MoqPrintln_genType_mock) Fn(a ...interface{}) (n int, err error) {
+func (m *MoqPrintln_genType_mock) Fn(a ...any) (n int, err error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPrintln_genType_params{
 		A: a,
@@ -183,7 +183,7 @@ func (m *MoqPrintln_genType_mock) Fn(a ...interface{}) (n int, err error) {
 	return
 }
 
-func (m *MoqPrintln_genType) OnCall(a ...interface{}) *MoqPrintln_genType_fnRecorder {
+func (m *MoqPrintln_genType) OnCall(a ...any) *MoqPrintln_genType_fnRecorder {
 	return &MoqPrintln_genType_fnRecorder{
 		Params: MoqPrintln_genType_params{
 			A: a,

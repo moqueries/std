@@ -20,8 +20,10 @@ var _ RWMutex_starGenType = (*MoqRWMutex_starGenType_mock)(nil)
 // interface type)
 type RWMutex_starGenType interface {
 	RLock()
+	TryRLock() bool
 	RUnlock()
 	Lock()
+	TryLock() bool
 	Unlock()
 	RLocker() sync.Locker
 }
@@ -33,19 +35,23 @@ type MoqRWMutex_starGenType struct {
 	Config moq.Config
 	Moq    *MoqRWMutex_starGenType_mock
 
-	ResultsByParams_RLock   []MoqRWMutex_starGenType_RLock_resultsByParams
-	ResultsByParams_RUnlock []MoqRWMutex_starGenType_RUnlock_resultsByParams
-	ResultsByParams_Lock    []MoqRWMutex_starGenType_Lock_resultsByParams
-	ResultsByParams_Unlock  []MoqRWMutex_starGenType_Unlock_resultsByParams
-	ResultsByParams_RLocker []MoqRWMutex_starGenType_RLocker_resultsByParams
+	ResultsByParams_RLock    []MoqRWMutex_starGenType_RLock_resultsByParams
+	ResultsByParams_TryRLock []MoqRWMutex_starGenType_TryRLock_resultsByParams
+	ResultsByParams_RUnlock  []MoqRWMutex_starGenType_RUnlock_resultsByParams
+	ResultsByParams_Lock     []MoqRWMutex_starGenType_Lock_resultsByParams
+	ResultsByParams_TryLock  []MoqRWMutex_starGenType_TryLock_resultsByParams
+	ResultsByParams_Unlock   []MoqRWMutex_starGenType_Unlock_resultsByParams
+	ResultsByParams_RLocker  []MoqRWMutex_starGenType_RLocker_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
-			RLock   struct{}
-			RUnlock struct{}
-			Lock    struct{}
-			Unlock  struct{}
-			RLocker struct{}
+			RLock    struct{}
+			TryRLock struct{}
+			RUnlock  struct{}
+			Lock     struct{}
+			TryLock  struct{}
+			Unlock   struct{}
+			RLocker  struct{}
 		}
 	}
 }
@@ -117,6 +123,65 @@ type MoqRWMutex_starGenType_RLock_fnRecorder struct {
 // the RWMutex_starGenType type
 type MoqRWMutex_starGenType_RLock_anyParams struct {
 	Recorder *MoqRWMutex_starGenType_RLock_fnRecorder
+}
+
+// MoqRWMutex_starGenType_TryRLock_params holds the params of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_params struct{}
+
+// MoqRWMutex_starGenType_TryRLock_paramsKey holds the map key params of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqRWMutex_starGenType_TryRLock_resultsByParams contains the results for a
+// given set of parameters for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqRWMutex_starGenType_TryRLock_paramsKey]*MoqRWMutex_starGenType_TryRLock_results
+}
+
+// MoqRWMutex_starGenType_TryRLock_doFn defines the type of function needed
+// when calling AndDo for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_doFn func()
+
+// MoqRWMutex_starGenType_TryRLock_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_doReturnFn func() bool
+
+// MoqRWMutex_starGenType_TryRLock_results holds the results of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_results struct {
+	Params  MoqRWMutex_starGenType_TryRLock_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryRLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryRLock_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqRWMutex_starGenType_TryRLock_fnRecorder routes recorded function calls to
+// the MoqRWMutex_starGenType moq
+type MoqRWMutex_starGenType_TryRLock_fnRecorder struct {
+	Params    MoqRWMutex_starGenType_TryRLock_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqRWMutex_starGenType_TryRLock_results
+	Moq       *MoqRWMutex_starGenType
+}
+
+// MoqRWMutex_starGenType_TryRLock_anyParams isolates the any params functions
+// of the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryRLock_anyParams struct {
+	Recorder *MoqRWMutex_starGenType_TryRLock_fnRecorder
 }
 
 // MoqRWMutex_starGenType_RUnlock_params holds the params of the
@@ -231,6 +296,65 @@ type MoqRWMutex_starGenType_Lock_fnRecorder struct {
 // the RWMutex_starGenType type
 type MoqRWMutex_starGenType_Lock_anyParams struct {
 	Recorder *MoqRWMutex_starGenType_Lock_fnRecorder
+}
+
+// MoqRWMutex_starGenType_TryLock_params holds the params of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_params struct{}
+
+// MoqRWMutex_starGenType_TryLock_paramsKey holds the map key params of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqRWMutex_starGenType_TryLock_resultsByParams contains the results for a
+// given set of parameters for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqRWMutex_starGenType_TryLock_paramsKey]*MoqRWMutex_starGenType_TryLock_results
+}
+
+// MoqRWMutex_starGenType_TryLock_doFn defines the type of function needed when
+// calling AndDo for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_doFn func()
+
+// MoqRWMutex_starGenType_TryLock_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_doReturnFn func() bool
+
+// MoqRWMutex_starGenType_TryLock_results holds the results of the
+// RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_results struct {
+	Params  MoqRWMutex_starGenType_TryLock_params
+	Results []struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryLock_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqRWMutex_starGenType_TryLock_fnRecorder routes recorded function calls to
+// the MoqRWMutex_starGenType moq
+type MoqRWMutex_starGenType_TryLock_fnRecorder struct {
+	Params    MoqRWMutex_starGenType_TryLock_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqRWMutex_starGenType_TryLock_results
+	Moq       *MoqRWMutex_starGenType
+}
+
+// MoqRWMutex_starGenType_TryLock_anyParams isolates the any params functions
+// of the RWMutex_starGenType type
+type MoqRWMutex_starGenType_TryLock_anyParams struct {
+	Recorder *MoqRWMutex_starGenType_TryLock_fnRecorder
 }
 
 // MoqRWMutex_starGenType_Unlock_params holds the params of the
@@ -361,24 +485,30 @@ func NewMoqRWMutex_starGenType(scene *moq.Scene, config *moq.Config) *MoqRWMutex
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				RLock   struct{}
-				RUnlock struct{}
-				Lock    struct{}
-				Unlock  struct{}
-				RLocker struct{}
+				RLock    struct{}
+				TryRLock struct{}
+				RUnlock  struct{}
+				Lock     struct{}
+				TryLock  struct{}
+				Unlock   struct{}
+				RLocker  struct{}
 			}
 		}{ParameterIndexing: struct {
-			RLock   struct{}
-			RUnlock struct{}
-			Lock    struct{}
-			Unlock  struct{}
-			RLocker struct{}
+			RLock    struct{}
+			TryRLock struct{}
+			RUnlock  struct{}
+			Lock     struct{}
+			TryLock  struct{}
+			Unlock   struct{}
+			RLocker  struct{}
 		}{
-			RLock:   struct{}{},
-			RUnlock: struct{}{},
-			Lock:    struct{}{},
-			Unlock:  struct{}{},
-			RLocker: struct{}{},
+			RLock:    struct{}{},
+			TryRLock: struct{}{},
+			RUnlock:  struct{}{},
+			Lock:     struct{}{},
+			TryLock:  struct{}{},
+			Unlock:   struct{}{},
+			RLocker:  struct{}{},
 		}},
 	}
 	m.Moq.Moq = m
@@ -434,6 +564,57 @@ func (m *MoqRWMutex_starGenType_mock) RLock() {
 
 	if result.DoReturnFn != nil {
 		result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqRWMutex_starGenType_mock) TryRLock() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqRWMutex_starGenType_TryRLock_params{}
+	var results *MoqRWMutex_starGenType_TryRLock_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TryRLock {
+		paramsKey := m.Moq.ParamsKey_TryRLock(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TryRLock(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TryRLock(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TryRLock(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -530,6 +711,57 @@ func (m *MoqRWMutex_starGenType_mock) Lock() {
 
 	if result.DoReturnFn != nil {
 		result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqRWMutex_starGenType_mock) TryLock() (result1 bool) {
+	m.Moq.Scene.T.Helper()
+	params := MoqRWMutex_starGenType_TryLock_params{}
+	var results *MoqRWMutex_starGenType_TryLock_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TryLock {
+		paramsKey := m.Moq.ParamsKey_TryLock(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TryLock(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TryLock(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TryLock(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
 	}
 	return
 }
@@ -808,6 +1040,189 @@ func (m *MoqRWMutex_starGenType) PrettyParams_RLock(params MoqRWMutex_starGenTyp
 func (m *MoqRWMutex_starGenType) ParamsKey_RLock(params MoqRWMutex_starGenType_RLock_params, anyParams uint64) MoqRWMutex_starGenType_RLock_paramsKey {
 	m.Scene.T.Helper()
 	return MoqRWMutex_starGenType_RLock_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqRWMutex_starGenType_recorder) TryRLock() *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	return &MoqRWMutex_starGenType_TryRLock_fnRecorder{
+		Params:   MoqRWMutex_starGenType_TryRLock_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) Any() *MoqRWMutex_starGenType_TryRLock_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryRLock(r.Params))
+		return nil
+	}
+	return &MoqRWMutex_starGenType_TryRLock_anyParams{Recorder: r}
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) Seq() *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryRLock(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) NoSeq() *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryRLock(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) ReturnResults(result1 bool) *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryRLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryRLock_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) AndDo(fn MoqRWMutex_starGenType_TryRLock_doFn) *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) DoReturnResults(fn MoqRWMutex_starGenType_TryRLock_doReturnFn) *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryRLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryRLock_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqRWMutex_starGenType_TryRLock_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TryRLock {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqRWMutex_starGenType_TryRLock_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqRWMutex_starGenType_TryRLock_paramsKey]*MoqRWMutex_starGenType_TryRLock_results{},
+		}
+		r.Moq.ResultsByParams_TryRLock = append(r.Moq.ResultsByParams_TryRLock, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TryRLock) {
+			copy(r.Moq.ResultsByParams_TryRLock[insertAt+1:], r.Moq.ResultsByParams_TryRLock[insertAt:0])
+			r.Moq.ResultsByParams_TryRLock[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TryRLock(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqRWMutex_starGenType_TryRLock_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqRWMutex_starGenType_TryRLock_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRWMutex_starGenType_TryRLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqRWMutex_starGenType_TryRLock_doFn
+				DoReturnFn MoqRWMutex_starGenType_TryRLock_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqRWMutex_starGenType) PrettyParams_TryRLock(params MoqRWMutex_starGenType_TryRLock_params) string {
+	return fmt.Sprintf("TryRLock()")
+}
+
+func (m *MoqRWMutex_starGenType) ParamsKey_TryRLock(params MoqRWMutex_starGenType_TryRLock_params, anyParams uint64) MoqRWMutex_starGenType_TryRLock_paramsKey {
+	m.Scene.T.Helper()
+	return MoqRWMutex_starGenType_TryRLock_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -1154,6 +1569,189 @@ func (m *MoqRWMutex_starGenType) PrettyParams_Lock(params MoqRWMutex_starGenType
 func (m *MoqRWMutex_starGenType) ParamsKey_Lock(params MoqRWMutex_starGenType_Lock_params, anyParams uint64) MoqRWMutex_starGenType_Lock_paramsKey {
 	m.Scene.T.Helper()
 	return MoqRWMutex_starGenType_Lock_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqRWMutex_starGenType_recorder) TryLock() *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	return &MoqRWMutex_starGenType_TryLock_fnRecorder{
+		Params:   MoqRWMutex_starGenType_TryLock_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) Any() *MoqRWMutex_starGenType_TryLock_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryLock(r.Params))
+		return nil
+	}
+	return &MoqRWMutex_starGenType_TryLock_anyParams{Recorder: r}
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) Seq() *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryLock(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) NoSeq() *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TryLock(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) ReturnResults(result1 bool) *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryLock_doReturnFn
+	}{
+		Values: &struct {
+			Result1 bool
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) AndDo(fn MoqRWMutex_starGenType_TryLock_doFn) *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) DoReturnResults(fn MoqRWMutex_starGenType_TryLock_doReturnFn) *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 bool
+		}
+		Sequence   uint32
+		DoFn       MoqRWMutex_starGenType_TryLock_doFn
+		DoReturnFn MoqRWMutex_starGenType_TryLock_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqRWMutex_starGenType_TryLock_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TryLock {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqRWMutex_starGenType_TryLock_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqRWMutex_starGenType_TryLock_paramsKey]*MoqRWMutex_starGenType_TryLock_results{},
+		}
+		r.Moq.ResultsByParams_TryLock = append(r.Moq.ResultsByParams_TryLock, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TryLock) {
+			copy(r.Moq.ResultsByParams_TryLock[insertAt+1:], r.Moq.ResultsByParams_TryLock[insertAt:0])
+			r.Moq.ResultsByParams_TryLock[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TryLock(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqRWMutex_starGenType_TryLock_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqRWMutex_starGenType_TryLock_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqRWMutex_starGenType_TryLock_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 bool
+				}
+				Sequence   uint32
+				DoFn       MoqRWMutex_starGenType_TryLock_doFn
+				DoReturnFn MoqRWMutex_starGenType_TryLock_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqRWMutex_starGenType) PrettyParams_TryLock(params MoqRWMutex_starGenType_TryLock_params) string {
+	return fmt.Sprintf("TryLock()")
+}
+
+func (m *MoqRWMutex_starGenType) ParamsKey_TryLock(params MoqRWMutex_starGenType_TryLock_params, anyParams uint64) MoqRWMutex_starGenType_TryLock_paramsKey {
+	m.Scene.T.Helper()
+	return MoqRWMutex_starGenType_TryLock_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -1518,8 +2116,10 @@ func (m *MoqRWMutex_starGenType) ParamsKey_RLocker(params MoqRWMutex_starGenType
 // Reset resets the state of the moq
 func (m *MoqRWMutex_starGenType) Reset() {
 	m.ResultsByParams_RLock = nil
+	m.ResultsByParams_TryRLock = nil
 	m.ResultsByParams_RUnlock = nil
 	m.ResultsByParams_Lock = nil
+	m.ResultsByParams_TryLock = nil
 	m.ResultsByParams_Unlock = nil
 	m.ResultsByParams_RLocker = nil
 }
@@ -1532,6 +2132,14 @@ func (m *MoqRWMutex_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_RLock(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TryRLock {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TryRLock(results.Params))
 			}
 		}
 	}
@@ -1548,6 +2156,14 @@ func (m *MoqRWMutex_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Lock(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TryLock {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TryLock(results.Params))
 			}
 		}
 	}

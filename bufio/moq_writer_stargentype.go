@@ -24,6 +24,7 @@ type Writer_starGenType interface {
 	Reset(w io.Writer)
 	Flush() error
 	Available() int
+	AvailableBuffer() []byte
 	Buffered() int
 	Write(p []byte) (nn int, err error)
 	WriteByte(c byte) error
@@ -39,16 +40,17 @@ type MoqWriter_starGenType struct {
 	Config moq.Config
 	Moq    *MoqWriter_starGenType_mock
 
-	ResultsByParams_Size        []MoqWriter_starGenType_Size_resultsByParams
-	ResultsByParams_Reset       []MoqWriter_starGenType_Reset_resultsByParams
-	ResultsByParams_Flush       []MoqWriter_starGenType_Flush_resultsByParams
-	ResultsByParams_Available   []MoqWriter_starGenType_Available_resultsByParams
-	ResultsByParams_Buffered    []MoqWriter_starGenType_Buffered_resultsByParams
-	ResultsByParams_Write       []MoqWriter_starGenType_Write_resultsByParams
-	ResultsByParams_WriteByte   []MoqWriter_starGenType_WriteByte_resultsByParams
-	ResultsByParams_WriteRune   []MoqWriter_starGenType_WriteRune_resultsByParams
-	ResultsByParams_WriteString []MoqWriter_starGenType_WriteString_resultsByParams
-	ResultsByParams_ReadFrom    []MoqWriter_starGenType_ReadFrom_resultsByParams
+	ResultsByParams_Size            []MoqWriter_starGenType_Size_resultsByParams
+	ResultsByParams_Reset           []MoqWriter_starGenType_Reset_resultsByParams
+	ResultsByParams_Flush           []MoqWriter_starGenType_Flush_resultsByParams
+	ResultsByParams_Available       []MoqWriter_starGenType_Available_resultsByParams
+	ResultsByParams_AvailableBuffer []MoqWriter_starGenType_AvailableBuffer_resultsByParams
+	ResultsByParams_Buffered        []MoqWriter_starGenType_Buffered_resultsByParams
+	ResultsByParams_Write           []MoqWriter_starGenType_Write_resultsByParams
+	ResultsByParams_WriteByte       []MoqWriter_starGenType_WriteByte_resultsByParams
+	ResultsByParams_WriteRune       []MoqWriter_starGenType_WriteRune_resultsByParams
+	ResultsByParams_WriteString     []MoqWriter_starGenType_WriteString_resultsByParams
+	ResultsByParams_ReadFrom        []MoqWriter_starGenType_ReadFrom_resultsByParams
 
 	Runtime struct {
 		ParameterIndexing struct {
@@ -56,10 +58,11 @@ type MoqWriter_starGenType struct {
 			Reset struct {
 				W moq.ParamIndexing
 			}
-			Flush     struct{}
-			Available struct{}
-			Buffered  struct{}
-			Write     struct {
+			Flush           struct{}
+			Available       struct{}
+			AvailableBuffer struct{}
+			Buffered        struct{}
+			Write           struct {
 				P moq.ParamIndexing
 			}
 			WriteByte struct {
@@ -322,6 +325,65 @@ type MoqWriter_starGenType_Available_fnRecorder struct {
 // of the Writer_starGenType type
 type MoqWriter_starGenType_Available_anyParams struct {
 	Recorder *MoqWriter_starGenType_Available_fnRecorder
+}
+
+// MoqWriter_starGenType_AvailableBuffer_params holds the params of the
+// Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_params struct{}
+
+// MoqWriter_starGenType_AvailableBuffer_paramsKey holds the map key params of
+// the Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqWriter_starGenType_AvailableBuffer_resultsByParams contains the results
+// for a given set of parameters for the Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqWriter_starGenType_AvailableBuffer_paramsKey]*MoqWriter_starGenType_AvailableBuffer_results
+}
+
+// MoqWriter_starGenType_AvailableBuffer_doFn defines the type of function
+// needed when calling AndDo for the Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_doFn func()
+
+// MoqWriter_starGenType_AvailableBuffer_doReturnFn defines the type of
+// function needed when calling DoReturnResults for the Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_doReturnFn func() []byte
+
+// MoqWriter_starGenType_AvailableBuffer_results holds the results of the
+// Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_results struct {
+	Params  MoqWriter_starGenType_AvailableBuffer_params
+	Results []struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_AvailableBuffer_doFn
+		DoReturnFn MoqWriter_starGenType_AvailableBuffer_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqWriter_starGenType_AvailableBuffer_fnRecorder routes recorded function
+// calls to the MoqWriter_starGenType moq
+type MoqWriter_starGenType_AvailableBuffer_fnRecorder struct {
+	Params    MoqWriter_starGenType_AvailableBuffer_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqWriter_starGenType_AvailableBuffer_results
+	Moq       *MoqWriter_starGenType
+}
+
+// MoqWriter_starGenType_AvailableBuffer_anyParams isolates the any params
+// functions of the Writer_starGenType type
+type MoqWriter_starGenType_AvailableBuffer_anyParams struct {
+	Recorder *MoqWriter_starGenType_AvailableBuffer_fnRecorder
 }
 
 // MoqWriter_starGenType_Buffered_params holds the params of the
@@ -698,10 +760,11 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 				Reset struct {
 					W moq.ParamIndexing
 				}
-				Flush     struct{}
-				Available struct{}
-				Buffered  struct{}
-				Write     struct {
+				Flush           struct{}
+				Available       struct{}
+				AvailableBuffer struct{}
+				Buffered        struct{}
+				Write           struct {
 					P moq.ParamIndexing
 				}
 				WriteByte struct {
@@ -722,10 +785,11 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 			Reset struct {
 				W moq.ParamIndexing
 			}
-			Flush     struct{}
-			Available struct{}
-			Buffered  struct{}
-			Write     struct {
+			Flush           struct{}
+			Available       struct{}
+			AvailableBuffer struct{}
+			Buffered        struct{}
+			Write           struct {
 				P moq.ParamIndexing
 			}
 			WriteByte struct {
@@ -747,9 +811,10 @@ func NewMoqWriter_starGenType(scene *moq.Scene, config *moq.Config) *MoqWriter_s
 			}{
 				W: moq.ParamIndexByHash,
 			},
-			Flush:     struct{}{},
-			Available: struct{}{},
-			Buffered:  struct{}{},
+			Flush:           struct{}{},
+			Available:       struct{}{},
+			AvailableBuffer: struct{}{},
+			Buffered:        struct{}{},
 			Write: struct {
 				P moq.ParamIndexing
 			}{
@@ -973,6 +1038,57 @@ func (m *MoqWriter_starGenType_mock) Available() (result1 int) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Available(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqWriter_starGenType_mock) AvailableBuffer() (result1 []byte) {
+	m.Moq.Scene.T.Helper()
+	params := MoqWriter_starGenType_AvailableBuffer_params{}
+	var results *MoqWriter_starGenType_AvailableBuffer_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_AvailableBuffer {
+		paramsKey := m.Moq.ParamsKey_AvailableBuffer(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_AvailableBuffer(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_AvailableBuffer(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_AvailableBuffer(params))
 		}
 	}
 
@@ -2053,6 +2169,189 @@ func (m *MoqWriter_starGenType) PrettyParams_Available(params MoqWriter_starGenT
 func (m *MoqWriter_starGenType) ParamsKey_Available(params MoqWriter_starGenType_Available_params, anyParams uint64) MoqWriter_starGenType_Available_paramsKey {
 	m.Scene.T.Helper()
 	return MoqWriter_starGenType_Available_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqWriter_starGenType_recorder) AvailableBuffer() *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	return &MoqWriter_starGenType_AvailableBuffer_fnRecorder{
+		Params:   MoqWriter_starGenType_AvailableBuffer_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) Any() *MoqWriter_starGenType_AvailableBuffer_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AvailableBuffer(r.Params))
+		return nil
+	}
+	return &MoqWriter_starGenType_AvailableBuffer_anyParams{Recorder: r}
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) Seq() *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AvailableBuffer(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) NoSeq() *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_AvailableBuffer(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) ReturnResults(result1 []byte) *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_AvailableBuffer_doFn
+		DoReturnFn MoqWriter_starGenType_AvailableBuffer_doReturnFn
+	}{
+		Values: &struct {
+			Result1 []byte
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) AndDo(fn MoqWriter_starGenType_AvailableBuffer_doFn) *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) DoReturnResults(fn MoqWriter_starGenType_AvailableBuffer_doReturnFn) *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 []byte
+		}
+		Sequence   uint32
+		DoFn       MoqWriter_starGenType_AvailableBuffer_doFn
+		DoReturnFn MoqWriter_starGenType_AvailableBuffer_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqWriter_starGenType_AvailableBuffer_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_AvailableBuffer {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqWriter_starGenType_AvailableBuffer_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqWriter_starGenType_AvailableBuffer_paramsKey]*MoqWriter_starGenType_AvailableBuffer_results{},
+		}
+		r.Moq.ResultsByParams_AvailableBuffer = append(r.Moq.ResultsByParams_AvailableBuffer, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_AvailableBuffer) {
+			copy(r.Moq.ResultsByParams_AvailableBuffer[insertAt+1:], r.Moq.ResultsByParams_AvailableBuffer[insertAt:0])
+			r.Moq.ResultsByParams_AvailableBuffer[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_AvailableBuffer(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqWriter_starGenType_AvailableBuffer_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqWriter_starGenType_AvailableBuffer_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqWriter_starGenType_AvailableBuffer_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 []byte
+				}
+				Sequence   uint32
+				DoFn       MoqWriter_starGenType_AvailableBuffer_doFn
+				DoReturnFn MoqWriter_starGenType_AvailableBuffer_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqWriter_starGenType) PrettyParams_AvailableBuffer(params MoqWriter_starGenType_AvailableBuffer_params) string {
+	return fmt.Sprintf("AvailableBuffer()")
+}
+
+func (m *MoqWriter_starGenType) ParamsKey_AvailableBuffer(params MoqWriter_starGenType_AvailableBuffer_params, anyParams uint64) MoqWriter_starGenType_AvailableBuffer_paramsKey {
+	m.Scene.T.Helper()
+	return MoqWriter_starGenType_AvailableBuffer_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -3278,6 +3577,7 @@ func (m *MoqWriter_starGenType) Reset() {
 	m.ResultsByParams_Reset = nil
 	m.ResultsByParams_Flush = nil
 	m.ResultsByParams_Available = nil
+	m.ResultsByParams_AvailableBuffer = nil
 	m.ResultsByParams_Buffered = nil
 	m.ResultsByParams_Write = nil
 	m.ResultsByParams_WriteByte = nil
@@ -3318,6 +3618,14 @@ func (m *MoqWriter_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Available(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_AvailableBuffer {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_AvailableBuffer(results.Params))
 			}
 		}
 	}

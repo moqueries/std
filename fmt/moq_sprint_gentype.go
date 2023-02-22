@@ -13,7 +13,7 @@ import (
 
 // Sprint_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Sprint_genType func(a ...interface{}) string
+type Sprint_genType func(a ...any) string
 
 // MoqSprint_genType holds the state of a moq of the Sprint_genType type
 type MoqSprint_genType struct {
@@ -37,7 +37,7 @@ type MoqSprint_genType_mock struct {
 }
 
 // MoqSprint_genType_params holds the params of the Sprint_genType type
-type MoqSprint_genType_params struct{ A []interface{} }
+type MoqSprint_genType_params struct{ A []any }
 
 // MoqSprint_genType_paramsKey holds the map key params of the Sprint_genType
 // type
@@ -56,11 +56,11 @@ type MoqSprint_genType_resultsByParams struct {
 
 // MoqSprint_genType_doFn defines the type of function needed when calling
 // AndDo for the Sprint_genType type
-type MoqSprint_genType_doFn func(a ...interface{})
+type MoqSprint_genType_doFn func(a ...any)
 
 // MoqSprint_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Sprint_genType type
-type MoqSprint_genType_doReturnFn func(a ...interface{}) string
+type MoqSprint_genType_doReturnFn func(a ...any) string
 
 // MoqSprint_genType_results holds the results of the Sprint_genType type
 type MoqSprint_genType_results struct {
@@ -121,14 +121,10 @@ func NewMoqSprint_genType(scene *moq.Scene, config *moq.Config) *MoqSprint_genTy
 
 // Mock returns the moq implementation of the Sprint_genType type
 func (m *MoqSprint_genType) Mock() Sprint_genType {
-	return func(a ...interface{}) string {
-		m.Scene.T.Helper()
-		moq := &MoqSprint_genType_mock{Moq: m}
-		return moq.Fn(a...)
-	}
+	return func(a ...any) string { m.Scene.T.Helper(); moq := &MoqSprint_genType_mock{Moq: m}; return moq.Fn(a...) }
 }
 
-func (m *MoqSprint_genType_mock) Fn(a ...interface{}) (result1 string) {
+func (m *MoqSprint_genType_mock) Fn(a ...any) (result1 string) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSprint_genType_params{
 		A: a,
@@ -181,7 +177,7 @@ func (m *MoqSprint_genType_mock) Fn(a ...interface{}) (result1 string) {
 	return
 }
 
-func (m *MoqSprint_genType) OnCall(a ...interface{}) *MoqSprint_genType_fnRecorder {
+func (m *MoqSprint_genType) OnCall(a ...any) *MoqSprint_genType_fnRecorder {
 	return &MoqSprint_genType_fnRecorder{
 		Params: MoqSprint_genType_params{
 			A: a,

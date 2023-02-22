@@ -13,7 +13,7 @@ import (
 
 // MarshalPKCS8PrivateKey_genType is the fabricated implementation type of this
 // mock (emitted when mocking functions directly and not from a function type)
-type MarshalPKCS8PrivateKey_genType func(key interface{}) ([]byte, error)
+type MarshalPKCS8PrivateKey_genType func(key any) ([]byte, error)
 
 // MoqMarshalPKCS8PrivateKey_genType holds the state of a moq of the
 // MarshalPKCS8PrivateKey_genType type
@@ -39,12 +39,12 @@ type MoqMarshalPKCS8PrivateKey_genType_mock struct {
 
 // MoqMarshalPKCS8PrivateKey_genType_params holds the params of the
 // MarshalPKCS8PrivateKey_genType type
-type MoqMarshalPKCS8PrivateKey_genType_params struct{ Key interface{} }
+type MoqMarshalPKCS8PrivateKey_genType_params struct{ Key any }
 
 // MoqMarshalPKCS8PrivateKey_genType_paramsKey holds the map key params of the
 // MarshalPKCS8PrivateKey_genType type
 type MoqMarshalPKCS8PrivateKey_genType_paramsKey struct {
-	Params struct{ Key interface{} }
+	Params struct{ Key any }
 	Hashes struct{ Key hash.Hash }
 }
 
@@ -58,12 +58,12 @@ type MoqMarshalPKCS8PrivateKey_genType_resultsByParams struct {
 
 // MoqMarshalPKCS8PrivateKey_genType_doFn defines the type of function needed
 // when calling AndDo for the MarshalPKCS8PrivateKey_genType type
-type MoqMarshalPKCS8PrivateKey_genType_doFn func(key interface{})
+type MoqMarshalPKCS8PrivateKey_genType_doFn func(key any)
 
 // MoqMarshalPKCS8PrivateKey_genType_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the MarshalPKCS8PrivateKey_genType
 // type
-type MoqMarshalPKCS8PrivateKey_genType_doReturnFn func(key interface{}) ([]byte, error)
+type MoqMarshalPKCS8PrivateKey_genType_doReturnFn func(key any) ([]byte, error)
 
 // MoqMarshalPKCS8PrivateKey_genType_results holds the results of the
 // MarshalPKCS8PrivateKey_genType type
@@ -116,7 +116,7 @@ func NewMoqMarshalPKCS8PrivateKey_genType(scene *moq.Scene, config *moq.Config) 
 		}{ParameterIndexing: struct {
 			Key moq.ParamIndexing
 		}{
-			Key: moq.ParamIndexByHash,
+			Key: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -128,14 +128,14 @@ func NewMoqMarshalPKCS8PrivateKey_genType(scene *moq.Scene, config *moq.Config) 
 // Mock returns the moq implementation of the MarshalPKCS8PrivateKey_genType
 // type
 func (m *MoqMarshalPKCS8PrivateKey_genType) Mock() MarshalPKCS8PrivateKey_genType {
-	return func(key interface{}) ([]byte, error) {
+	return func(key any) ([]byte, error) {
 		m.Scene.T.Helper()
 		moq := &MoqMarshalPKCS8PrivateKey_genType_mock{Moq: m}
 		return moq.Fn(key)
 	}
 }
 
-func (m *MoqMarshalPKCS8PrivateKey_genType_mock) Fn(key interface{}) (result1 []byte, result2 error) {
+func (m *MoqMarshalPKCS8PrivateKey_genType_mock) Fn(key any) (result1 []byte, result2 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqMarshalPKCS8PrivateKey_genType_params{
 		Key: key,
@@ -189,7 +189,7 @@ func (m *MoqMarshalPKCS8PrivateKey_genType_mock) Fn(key interface{}) (result1 []
 	return
 }
 
-func (m *MoqMarshalPKCS8PrivateKey_genType) OnCall(key interface{}) *MoqMarshalPKCS8PrivateKey_genType_fnRecorder {
+func (m *MoqMarshalPKCS8PrivateKey_genType) OnCall(key any) *MoqMarshalPKCS8PrivateKey_genType_fnRecorder {
 	return &MoqMarshalPKCS8PrivateKey_genType_fnRecorder{
 		Params: MoqMarshalPKCS8PrivateKey_genType_params{
 			Key: key,
@@ -378,7 +378,7 @@ func (m *MoqMarshalPKCS8PrivateKey_genType) PrettyParams(params MoqMarshalPKCS8P
 
 func (m *MoqMarshalPKCS8PrivateKey_genType) ParamsKey(params MoqMarshalPKCS8PrivateKey_genType_params, anyParams uint64) MoqMarshalPKCS8PrivateKey_genType_paramsKey {
 	m.Scene.T.Helper()
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Key == moq.ParamIndexByValue {
@@ -388,7 +388,7 @@ func (m *MoqMarshalPKCS8PrivateKey_genType) ParamsKey(params MoqMarshalPKCS8Priv
 		}
 	}
 	return MoqMarshalPKCS8PrivateKey_genType_paramsKey{
-		Params: struct{ Key interface{} }{
+		Params: struct{ Key any }{
 			Key: keyUsed,
 		},
 		Hashes: struct{ Key hash.Hash }{

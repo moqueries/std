@@ -21,6 +21,10 @@ var _ Named_starGenType = (*MoqNamed_starGenType_mock)(nil)
 // interface type)
 type Named_starGenType interface {
 	Obj() *types.TypeName
+	Origin() *types.Named
+	TypeParams() *types.TypeParamList
+	SetTypeParams(tparams []*types.TypeParam)
+	TypeArgs() *types.TypeList
 	NumMethods() int
 	Method(i int) *types.Func
 	SetUnderlying(underlying types.Type)
@@ -36,6 +40,10 @@ type MoqNamed_starGenType struct {
 	Moq    *MoqNamed_starGenType_mock
 
 	ResultsByParams_Obj           []MoqNamed_starGenType_Obj_resultsByParams
+	ResultsByParams_Origin        []MoqNamed_starGenType_Origin_resultsByParams
+	ResultsByParams_TypeParams    []MoqNamed_starGenType_TypeParams_resultsByParams
+	ResultsByParams_SetTypeParams []MoqNamed_starGenType_SetTypeParams_resultsByParams
+	ResultsByParams_TypeArgs      []MoqNamed_starGenType_TypeArgs_resultsByParams
 	ResultsByParams_NumMethods    []MoqNamed_starGenType_NumMethods_resultsByParams
 	ResultsByParams_Method        []MoqNamed_starGenType_Method_resultsByParams
 	ResultsByParams_SetUnderlying []MoqNamed_starGenType_SetUnderlying_resultsByParams
@@ -45,7 +53,13 @@ type MoqNamed_starGenType struct {
 
 	Runtime struct {
 		ParameterIndexing struct {
-			Obj        struct{}
+			Obj           struct{}
+			Origin        struct{}
+			TypeParams    struct{}
+			SetTypeParams struct {
+				Tparams moq.ParamIndexing
+			}
+			TypeArgs   struct{}
 			NumMethods struct{}
 			Method     struct {
 				Param1 moq.ParamIndexing
@@ -131,6 +145,240 @@ type MoqNamed_starGenType_Obj_fnRecorder struct {
 // Named_starGenType type
 type MoqNamed_starGenType_Obj_anyParams struct {
 	Recorder *MoqNamed_starGenType_Obj_fnRecorder
+}
+
+// MoqNamed_starGenType_Origin_params holds the params of the Named_starGenType
+// type
+type MoqNamed_starGenType_Origin_params struct{}
+
+// MoqNamed_starGenType_Origin_paramsKey holds the map key params of the
+// Named_starGenType type
+type MoqNamed_starGenType_Origin_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqNamed_starGenType_Origin_resultsByParams contains the results for a given
+// set of parameters for the Named_starGenType type
+type MoqNamed_starGenType_Origin_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqNamed_starGenType_Origin_paramsKey]*MoqNamed_starGenType_Origin_results
+}
+
+// MoqNamed_starGenType_Origin_doFn defines the type of function needed when
+// calling AndDo for the Named_starGenType type
+type MoqNamed_starGenType_Origin_doFn func()
+
+// MoqNamed_starGenType_Origin_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Named_starGenType type
+type MoqNamed_starGenType_Origin_doReturnFn func() *types.Named
+
+// MoqNamed_starGenType_Origin_results holds the results of the
+// Named_starGenType type
+type MoqNamed_starGenType_Origin_results struct {
+	Params  MoqNamed_starGenType_Origin_params
+	Results []struct {
+		Values *struct {
+			Result1 *types.Named
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_Origin_doFn
+		DoReturnFn MoqNamed_starGenType_Origin_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqNamed_starGenType_Origin_fnRecorder routes recorded function calls to the
+// MoqNamed_starGenType moq
+type MoqNamed_starGenType_Origin_fnRecorder struct {
+	Params    MoqNamed_starGenType_Origin_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqNamed_starGenType_Origin_results
+	Moq       *MoqNamed_starGenType
+}
+
+// MoqNamed_starGenType_Origin_anyParams isolates the any params functions of
+// the Named_starGenType type
+type MoqNamed_starGenType_Origin_anyParams struct {
+	Recorder *MoqNamed_starGenType_Origin_fnRecorder
+}
+
+// MoqNamed_starGenType_TypeParams_params holds the params of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeParams_params struct{}
+
+// MoqNamed_starGenType_TypeParams_paramsKey holds the map key params of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeParams_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqNamed_starGenType_TypeParams_resultsByParams contains the results for a
+// given set of parameters for the Named_starGenType type
+type MoqNamed_starGenType_TypeParams_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqNamed_starGenType_TypeParams_paramsKey]*MoqNamed_starGenType_TypeParams_results
+}
+
+// MoqNamed_starGenType_TypeParams_doFn defines the type of function needed
+// when calling AndDo for the Named_starGenType type
+type MoqNamed_starGenType_TypeParams_doFn func()
+
+// MoqNamed_starGenType_TypeParams_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Named_starGenType type
+type MoqNamed_starGenType_TypeParams_doReturnFn func() *types.TypeParamList
+
+// MoqNamed_starGenType_TypeParams_results holds the results of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeParams_results struct {
+	Params  MoqNamed_starGenType_TypeParams_params
+	Results []struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_TypeParams_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqNamed_starGenType_TypeParams_fnRecorder routes recorded function calls to
+// the MoqNamed_starGenType moq
+type MoqNamed_starGenType_TypeParams_fnRecorder struct {
+	Params    MoqNamed_starGenType_TypeParams_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqNamed_starGenType_TypeParams_results
+	Moq       *MoqNamed_starGenType
+}
+
+// MoqNamed_starGenType_TypeParams_anyParams isolates the any params functions
+// of the Named_starGenType type
+type MoqNamed_starGenType_TypeParams_anyParams struct {
+	Recorder *MoqNamed_starGenType_TypeParams_fnRecorder
+}
+
+// MoqNamed_starGenType_SetTypeParams_params holds the params of the
+// Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_params struct{ Tparams []*types.TypeParam }
+
+// MoqNamed_starGenType_SetTypeParams_paramsKey holds the map key params of the
+// Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_paramsKey struct {
+	Params struct{}
+	Hashes struct{ Tparams hash.Hash }
+}
+
+// MoqNamed_starGenType_SetTypeParams_resultsByParams contains the results for
+// a given set of parameters for the Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqNamed_starGenType_SetTypeParams_paramsKey]*MoqNamed_starGenType_SetTypeParams_results
+}
+
+// MoqNamed_starGenType_SetTypeParams_doFn defines the type of function needed
+// when calling AndDo for the Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_doFn func(tparams []*types.TypeParam)
+
+// MoqNamed_starGenType_SetTypeParams_doReturnFn defines the type of function
+// needed when calling DoReturnResults for the Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_doReturnFn func(tparams []*types.TypeParam)
+
+// MoqNamed_starGenType_SetTypeParams_results holds the results of the
+// Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_results struct {
+	Params  MoqNamed_starGenType_SetTypeParams_params
+	Results []struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_SetTypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_SetTypeParams_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqNamed_starGenType_SetTypeParams_fnRecorder routes recorded function calls
+// to the MoqNamed_starGenType moq
+type MoqNamed_starGenType_SetTypeParams_fnRecorder struct {
+	Params    MoqNamed_starGenType_SetTypeParams_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqNamed_starGenType_SetTypeParams_results
+	Moq       *MoqNamed_starGenType
+}
+
+// MoqNamed_starGenType_SetTypeParams_anyParams isolates the any params
+// functions of the Named_starGenType type
+type MoqNamed_starGenType_SetTypeParams_anyParams struct {
+	Recorder *MoqNamed_starGenType_SetTypeParams_fnRecorder
+}
+
+// MoqNamed_starGenType_TypeArgs_params holds the params of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_params struct{}
+
+// MoqNamed_starGenType_TypeArgs_paramsKey holds the map key params of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_paramsKey struct {
+	Params struct{}
+	Hashes struct{}
+}
+
+// MoqNamed_starGenType_TypeArgs_resultsByParams contains the results for a
+// given set of parameters for the Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_resultsByParams struct {
+	AnyCount  int
+	AnyParams uint64
+	Results   map[MoqNamed_starGenType_TypeArgs_paramsKey]*MoqNamed_starGenType_TypeArgs_results
+}
+
+// MoqNamed_starGenType_TypeArgs_doFn defines the type of function needed when
+// calling AndDo for the Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_doFn func()
+
+// MoqNamed_starGenType_TypeArgs_doReturnFn defines the type of function needed
+// when calling DoReturnResults for the Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_doReturnFn func() *types.TypeList
+
+// MoqNamed_starGenType_TypeArgs_results holds the results of the
+// Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_results struct {
+	Params  MoqNamed_starGenType_TypeArgs_params
+	Results []struct {
+		Values *struct {
+			Result1 *types.TypeList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeArgs_doFn
+		DoReturnFn MoqNamed_starGenType_TypeArgs_doReturnFn
+	}
+	Index  uint32
+	Repeat *moq.RepeatVal
+}
+
+// MoqNamed_starGenType_TypeArgs_fnRecorder routes recorded function calls to
+// the MoqNamed_starGenType moq
+type MoqNamed_starGenType_TypeArgs_fnRecorder struct {
+	Params    MoqNamed_starGenType_TypeArgs_params
+	AnyParams uint64
+	Sequence  bool
+	Results   *MoqNamed_starGenType_TypeArgs_results
+	Moq       *MoqNamed_starGenType
+}
+
+// MoqNamed_starGenType_TypeArgs_anyParams isolates the any params functions of
+// the Named_starGenType type
+type MoqNamed_starGenType_TypeArgs_anyParams struct {
+	Recorder *MoqNamed_starGenType_TypeArgs_fnRecorder
 }
 
 // MoqNamed_starGenType_NumMethods_params holds the params of the
@@ -495,7 +743,13 @@ func NewMoqNamed_starGenType(scene *moq.Scene, config *moq.Config) *MoqNamed_sta
 
 		Runtime: struct {
 			ParameterIndexing struct {
-				Obj        struct{}
+				Obj           struct{}
+				Origin        struct{}
+				TypeParams    struct{}
+				SetTypeParams struct {
+					Tparams moq.ParamIndexing
+				}
+				TypeArgs   struct{}
 				NumMethods struct{}
 				Method     struct {
 					Param1 moq.ParamIndexing
@@ -510,7 +764,13 @@ func NewMoqNamed_starGenType(scene *moq.Scene, config *moq.Config) *MoqNamed_sta
 				String     struct{}
 			}
 		}{ParameterIndexing: struct {
-			Obj        struct{}
+			Obj           struct{}
+			Origin        struct{}
+			TypeParams    struct{}
+			SetTypeParams struct {
+				Tparams moq.ParamIndexing
+			}
+			TypeArgs   struct{}
 			NumMethods struct{}
 			Method     struct {
 				Param1 moq.ParamIndexing
@@ -525,6 +785,14 @@ func NewMoqNamed_starGenType(scene *moq.Scene, config *moq.Config) *MoqNamed_sta
 			String     struct{}
 		}{
 			Obj:        struct{}{},
+			Origin:     struct{}{},
+			TypeParams: struct{}{},
+			SetTypeParams: struct {
+				Tparams moq.ParamIndexing
+			}{
+				Tparams: moq.ParamIndexByHash,
+			},
+			TypeArgs:   struct{}{},
 			NumMethods: struct{}{},
 			Method: struct {
 				Param1 moq.ParamIndexing
@@ -589,6 +857,209 @@ func (m *MoqNamed_starGenType_mock) Obj() (result1 *types.TypeName) {
 		sequence := m.Moq.Scene.NextMockSequence()
 		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
 			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Obj(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqNamed_starGenType_mock) Origin() (result1 *types.Named) {
+	m.Moq.Scene.T.Helper()
+	params := MoqNamed_starGenType_Origin_params{}
+	var results *MoqNamed_starGenType_Origin_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_Origin {
+		paramsKey := m.Moq.ParamsKey_Origin(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_Origin(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_Origin(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_Origin(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqNamed_starGenType_mock) TypeParams() (result1 *types.TypeParamList) {
+	m.Moq.Scene.T.Helper()
+	params := MoqNamed_starGenType_TypeParams_params{}
+	var results *MoqNamed_starGenType_TypeParams_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TypeParams {
+		paramsKey := m.Moq.ParamsKey_TypeParams(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TypeParams(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TypeParams(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TypeParams(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn()
+	}
+
+	if result.Values != nil {
+		result1 = result.Values.Result1
+	}
+	if result.DoReturnFn != nil {
+		result1 = result.DoReturnFn()
+	}
+	return
+}
+
+func (m *MoqNamed_starGenType_mock) SetTypeParams(tparams []*types.TypeParam) {
+	m.Moq.Scene.T.Helper()
+	params := MoqNamed_starGenType_SetTypeParams_params{
+		Tparams: tparams,
+	}
+	var results *MoqNamed_starGenType_SetTypeParams_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_SetTypeParams {
+		paramsKey := m.Moq.ParamsKey_SetTypeParams(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_SetTypeParams(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_SetTypeParams(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_SetTypeParams(params))
+		}
+	}
+
+	if result.DoFn != nil {
+		result.DoFn(tparams)
+	}
+
+	if result.DoReturnFn != nil {
+		result.DoReturnFn(tparams)
+	}
+	return
+}
+
+func (m *MoqNamed_starGenType_mock) TypeArgs() (result1 *types.TypeList) {
+	m.Moq.Scene.T.Helper()
+	params := MoqNamed_starGenType_TypeArgs_params{}
+	var results *MoqNamed_starGenType_TypeArgs_results
+	for _, resultsByParams := range m.Moq.ResultsByParams_TypeArgs {
+		paramsKey := m.Moq.ParamsKey_TypeArgs(params, resultsByParams.AnyParams)
+		var ok bool
+		results, ok = resultsByParams.Results[paramsKey]
+		if ok {
+			break
+		}
+	}
+	if results == nil {
+		if m.Moq.Config.Expectation == moq.Strict {
+			m.Moq.Scene.T.Fatalf("Unexpected call to %s", m.Moq.PrettyParams_TypeArgs(params))
+		}
+		return
+	}
+
+	i := int(atomic.AddUint32(&results.Index, 1)) - 1
+	if i >= results.Repeat.ResultCount {
+		if !results.Repeat.AnyTimes {
+			if m.Moq.Config.Expectation == moq.Strict {
+				m.Moq.Scene.T.Fatalf("Too many calls to %s", m.Moq.PrettyParams_TypeArgs(params))
+			}
+			return
+		}
+		i = results.Repeat.ResultCount - 1
+	}
+
+	result := results.Results[i]
+	if result.Sequence != 0 {
+		sequence := m.Moq.Scene.NextMockSequence()
+		if (!results.Repeat.AnyTimes && result.Sequence != sequence) || result.Sequence > sequence {
+			m.Moq.Scene.T.Fatalf("Call sequence does not match call to %s", m.Moq.PrettyParams_TypeArgs(params))
 		}
 	}
 
@@ -1096,6 +1567,744 @@ func (m *MoqNamed_starGenType) PrettyParams_Obj(params MoqNamed_starGenType_Obj_
 func (m *MoqNamed_starGenType) ParamsKey_Obj(params MoqNamed_starGenType_Obj_params, anyParams uint64) MoqNamed_starGenType_Obj_paramsKey {
 	m.Scene.T.Helper()
 	return MoqNamed_starGenType_Obj_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqNamed_starGenType_recorder) Origin() *MoqNamed_starGenType_Origin_fnRecorder {
+	return &MoqNamed_starGenType_Origin_fnRecorder{
+		Params:   MoqNamed_starGenType_Origin_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) Any() *MoqNamed_starGenType_Origin_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Origin(r.Params))
+		return nil
+	}
+	return &MoqNamed_starGenType_Origin_anyParams{Recorder: r}
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) Seq() *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Origin(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) NoSeq() *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_Origin(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) ReturnResults(result1 *types.Named) *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.Named
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_Origin_doFn
+		DoReturnFn MoqNamed_starGenType_Origin_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *types.Named
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) AndDo(fn MoqNamed_starGenType_Origin_doFn) *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) DoReturnResults(fn MoqNamed_starGenType_Origin_doReturnFn) *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.Named
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_Origin_doFn
+		DoReturnFn MoqNamed_starGenType_Origin_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqNamed_starGenType_Origin_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_Origin {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqNamed_starGenType_Origin_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqNamed_starGenType_Origin_paramsKey]*MoqNamed_starGenType_Origin_results{},
+		}
+		r.Moq.ResultsByParams_Origin = append(r.Moq.ResultsByParams_Origin, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_Origin) {
+			copy(r.Moq.ResultsByParams_Origin[insertAt+1:], r.Moq.ResultsByParams_Origin[insertAt:0])
+			r.Moq.ResultsByParams_Origin[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_Origin(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqNamed_starGenType_Origin_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqNamed_starGenType_Origin_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqNamed_starGenType_Origin_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *types.Named
+				}
+				Sequence   uint32
+				DoFn       MoqNamed_starGenType_Origin_doFn
+				DoReturnFn MoqNamed_starGenType_Origin_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqNamed_starGenType) PrettyParams_Origin(params MoqNamed_starGenType_Origin_params) string {
+	return fmt.Sprintf("Origin()")
+}
+
+func (m *MoqNamed_starGenType) ParamsKey_Origin(params MoqNamed_starGenType_Origin_params, anyParams uint64) MoqNamed_starGenType_Origin_paramsKey {
+	m.Scene.T.Helper()
+	return MoqNamed_starGenType_Origin_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqNamed_starGenType_recorder) TypeParams() *MoqNamed_starGenType_TypeParams_fnRecorder {
+	return &MoqNamed_starGenType_TypeParams_fnRecorder{
+		Params:   MoqNamed_starGenType_TypeParams_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) Any() *MoqNamed_starGenType_TypeParams_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	return &MoqNamed_starGenType_TypeParams_anyParams{Recorder: r}
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) Seq() *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) NoSeq() *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) ReturnResults(result1 *types.TypeParamList) *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_TypeParams_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *types.TypeParamList
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) AndDo(fn MoqNamed_starGenType_TypeParams_doFn) *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) DoReturnResults(fn MoqNamed_starGenType_TypeParams_doReturnFn) *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeParamList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_TypeParams_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqNamed_starGenType_TypeParams_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TypeParams {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqNamed_starGenType_TypeParams_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqNamed_starGenType_TypeParams_paramsKey]*MoqNamed_starGenType_TypeParams_results{},
+		}
+		r.Moq.ResultsByParams_TypeParams = append(r.Moq.ResultsByParams_TypeParams, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TypeParams) {
+			copy(r.Moq.ResultsByParams_TypeParams[insertAt+1:], r.Moq.ResultsByParams_TypeParams[insertAt:0])
+			r.Moq.ResultsByParams_TypeParams[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TypeParams(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqNamed_starGenType_TypeParams_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqNamed_starGenType_TypeParams_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqNamed_starGenType_TypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *types.TypeParamList
+				}
+				Sequence   uint32
+				DoFn       MoqNamed_starGenType_TypeParams_doFn
+				DoReturnFn MoqNamed_starGenType_TypeParams_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqNamed_starGenType) PrettyParams_TypeParams(params MoqNamed_starGenType_TypeParams_params) string {
+	return fmt.Sprintf("TypeParams()")
+}
+
+func (m *MoqNamed_starGenType) ParamsKey_TypeParams(params MoqNamed_starGenType_TypeParams_params, anyParams uint64) MoqNamed_starGenType_TypeParams_paramsKey {
+	m.Scene.T.Helper()
+	return MoqNamed_starGenType_TypeParams_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{}{},
+	}
+}
+
+func (m *MoqNamed_starGenType_recorder) SetTypeParams(tparams []*types.TypeParam) *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	return &MoqNamed_starGenType_SetTypeParams_fnRecorder{
+		Params: MoqNamed_starGenType_SetTypeParams_params{
+			Tparams: tparams,
+		},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) Any() *MoqNamed_starGenType_SetTypeParams_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetTypeParams(r.Params))
+		return nil
+	}
+	return &MoqNamed_starGenType_SetTypeParams_anyParams{Recorder: r}
+}
+
+func (a *MoqNamed_starGenType_SetTypeParams_anyParams) Tparams() *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	a.Recorder.AnyParams |= 1 << 0
+	return a.Recorder
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) Seq() *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetTypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) NoSeq() *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_SetTypeParams(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) ReturnResults() *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_SetTypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_SetTypeParams_doReturnFn
+	}{
+		Values:   &struct{}{},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) AndDo(fn MoqNamed_starGenType_SetTypeParams_doFn) *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) DoReturnResults(fn MoqNamed_starGenType_SetTypeParams_doReturnFn) *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values     *struct{}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_SetTypeParams_doFn
+		DoReturnFn MoqNamed_starGenType_SetTypeParams_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqNamed_starGenType_SetTypeParams_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_SetTypeParams {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqNamed_starGenType_SetTypeParams_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqNamed_starGenType_SetTypeParams_paramsKey]*MoqNamed_starGenType_SetTypeParams_results{},
+		}
+		r.Moq.ResultsByParams_SetTypeParams = append(r.Moq.ResultsByParams_SetTypeParams, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_SetTypeParams) {
+			copy(r.Moq.ResultsByParams_SetTypeParams[insertAt+1:], r.Moq.ResultsByParams_SetTypeParams[insertAt:0])
+			r.Moq.ResultsByParams_SetTypeParams[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_SetTypeParams(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqNamed_starGenType_SetTypeParams_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqNamed_starGenType_SetTypeParams_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqNamed_starGenType_SetTypeParams_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values     *struct{}
+				Sequence   uint32
+				DoFn       MoqNamed_starGenType_SetTypeParams_doFn
+				DoReturnFn MoqNamed_starGenType_SetTypeParams_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqNamed_starGenType) PrettyParams_SetTypeParams(params MoqNamed_starGenType_SetTypeParams_params) string {
+	return fmt.Sprintf("SetTypeParams(%#v)", params.Tparams)
+}
+
+func (m *MoqNamed_starGenType) ParamsKey_SetTypeParams(params MoqNamed_starGenType_SetTypeParams_params, anyParams uint64) MoqNamed_starGenType_SetTypeParams_paramsKey {
+	m.Scene.T.Helper()
+	var tparamsUsedHash hash.Hash
+	if anyParams&(1<<0) == 0 {
+		if m.Runtime.ParameterIndexing.SetTypeParams.Tparams == moq.ParamIndexByValue {
+			m.Scene.T.Fatalf("The tparams parameter of the SetTypeParams function can't be indexed by value")
+		}
+		tparamsUsedHash = hash.DeepHash(params.Tparams)
+	}
+	return MoqNamed_starGenType_SetTypeParams_paramsKey{
+		Params: struct{}{},
+		Hashes: struct{ Tparams hash.Hash }{
+			Tparams: tparamsUsedHash,
+		},
+	}
+}
+
+func (m *MoqNamed_starGenType_recorder) TypeArgs() *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	return &MoqNamed_starGenType_TypeArgs_fnRecorder{
+		Params:   MoqNamed_starGenType_TypeArgs_params{},
+		Sequence: m.Moq.Config.Sequence == moq.SeqDefaultOn,
+		Moq:      m.Moq,
+	}
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) Any() *MoqNamed_starGenType_TypeArgs_anyParams {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Any functions must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeArgs(r.Params))
+		return nil
+	}
+	return &MoqNamed_starGenType_TypeArgs_anyParams{Recorder: r}
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) Seq() *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("Seq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeArgs(r.Params))
+		return nil
+	}
+	r.Sequence = true
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) NoSeq() *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Moq.Scene.T.Fatalf("NoSeq must be called before ReturnResults or DoReturnResults calls, recording %s", r.Moq.PrettyParams_TypeArgs(r.Params))
+		return nil
+	}
+	r.Sequence = false
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) ReturnResults(result1 *types.TypeList) *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeArgs_doFn
+		DoReturnFn MoqNamed_starGenType_TypeArgs_doReturnFn
+	}{
+		Values: &struct {
+			Result1 *types.TypeList
+		}{
+			Result1: result1,
+		},
+		Sequence: sequence,
+	})
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) AndDo(fn MoqNamed_starGenType_TypeArgs_doFn) *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults must be called before calling AndDo")
+		return nil
+	}
+	last := &r.Results.Results[len(r.Results.Results)-1]
+	last.DoFn = fn
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) DoReturnResults(fn MoqNamed_starGenType_TypeArgs_doReturnFn) *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	r.FindResults()
+
+	var sequence uint32
+	if r.Sequence {
+		sequence = r.Moq.Scene.NextRecorderSequence()
+	}
+
+	r.Results.Results = append(r.Results.Results, struct {
+		Values *struct {
+			Result1 *types.TypeList
+		}
+		Sequence   uint32
+		DoFn       MoqNamed_starGenType_TypeArgs_doFn
+		DoReturnFn MoqNamed_starGenType_TypeArgs_doReturnFn
+	}{Sequence: sequence, DoReturnFn: fn})
+	return r
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) FindResults() {
+	r.Moq.Scene.T.Helper()
+	if r.Results != nil {
+		r.Results.Repeat.Increment(r.Moq.Scene.T)
+		return
+	}
+
+	anyCount := bits.OnesCount64(r.AnyParams)
+	insertAt := -1
+	var results *MoqNamed_starGenType_TypeArgs_resultsByParams
+	for n, res := range r.Moq.ResultsByParams_TypeArgs {
+		if res.AnyParams == r.AnyParams {
+			results = &res
+			break
+		}
+		if res.AnyCount > anyCount {
+			insertAt = n
+		}
+	}
+	if results == nil {
+		results = &MoqNamed_starGenType_TypeArgs_resultsByParams{
+			AnyCount:  anyCount,
+			AnyParams: r.AnyParams,
+			Results:   map[MoqNamed_starGenType_TypeArgs_paramsKey]*MoqNamed_starGenType_TypeArgs_results{},
+		}
+		r.Moq.ResultsByParams_TypeArgs = append(r.Moq.ResultsByParams_TypeArgs, *results)
+		if insertAt != -1 && insertAt+1 < len(r.Moq.ResultsByParams_TypeArgs) {
+			copy(r.Moq.ResultsByParams_TypeArgs[insertAt+1:], r.Moq.ResultsByParams_TypeArgs[insertAt:0])
+			r.Moq.ResultsByParams_TypeArgs[insertAt] = *results
+		}
+	}
+
+	paramsKey := r.Moq.ParamsKey_TypeArgs(r.Params, r.AnyParams)
+
+	var ok bool
+	r.Results, ok = results.Results[paramsKey]
+	if !ok {
+		r.Results = &MoqNamed_starGenType_TypeArgs_results{
+			Params:  r.Params,
+			Results: nil,
+			Index:   0,
+			Repeat:  &moq.RepeatVal{},
+		}
+		results.Results[paramsKey] = r.Results
+	}
+
+	r.Results.Repeat.Increment(r.Moq.Scene.T)
+}
+
+func (r *MoqNamed_starGenType_TypeArgs_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqNamed_starGenType_TypeArgs_fnRecorder {
+	r.Moq.Scene.T.Helper()
+	if r.Results == nil {
+		r.Moq.Scene.T.Fatalf("ReturnResults or DoReturnResults must be called before calling Repeat")
+		return nil
+	}
+	r.Results.Repeat.Repeat(r.Moq.Scene.T, repeaters)
+	last := r.Results.Results[len(r.Results.Results)-1]
+	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
+		if r.Sequence {
+			last = struct {
+				Values *struct {
+					Result1 *types.TypeList
+				}
+				Sequence   uint32
+				DoFn       MoqNamed_starGenType_TypeArgs_doFn
+				DoReturnFn MoqNamed_starGenType_TypeArgs_doReturnFn
+			}{
+				Values:   last.Values,
+				Sequence: r.Moq.Scene.NextRecorderSequence(),
+			}
+		}
+		r.Results.Results = append(r.Results.Results, last)
+	}
+	return r
+}
+
+func (m *MoqNamed_starGenType) PrettyParams_TypeArgs(params MoqNamed_starGenType_TypeArgs_params) string {
+	return fmt.Sprintf("TypeArgs()")
+}
+
+func (m *MoqNamed_starGenType) ParamsKey_TypeArgs(params MoqNamed_starGenType_TypeArgs_params, anyParams uint64) MoqNamed_starGenType_TypeArgs_paramsKey {
+	m.Scene.T.Helper()
+	return MoqNamed_starGenType_TypeArgs_paramsKey{
 		Params: struct{}{},
 		Hashes: struct{}{},
 	}
@@ -2242,6 +3451,10 @@ func (m *MoqNamed_starGenType) ParamsKey_String(params MoqNamed_starGenType_Stri
 // Reset resets the state of the moq
 func (m *MoqNamed_starGenType) Reset() {
 	m.ResultsByParams_Obj = nil
+	m.ResultsByParams_Origin = nil
+	m.ResultsByParams_TypeParams = nil
+	m.ResultsByParams_SetTypeParams = nil
+	m.ResultsByParams_TypeArgs = nil
 	m.ResultsByParams_NumMethods = nil
 	m.ResultsByParams_Method = nil
 	m.ResultsByParams_SetUnderlying = nil
@@ -2258,6 +3471,38 @@ func (m *MoqNamed_starGenType) AssertExpectationsMet() {
 			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
 			if missing > 0 {
 				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Obj(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_Origin {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_Origin(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TypeParams {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TypeParams(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_SetTypeParams {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_SetTypeParams(results.Params))
+			}
+		}
+	}
+	for _, res := range m.ResultsByParams_TypeArgs {
+		for _, results := range res.Results {
+			missing := results.Repeat.MinTimes - int(atomic.LoadUint32(&results.Index))
+			if missing > 0 {
+				m.Scene.T.Errorf("Expected %d additional call(s) to %s", missing, m.PrettyParams_TypeArgs(results.Params))
 			}
 		}
 	}

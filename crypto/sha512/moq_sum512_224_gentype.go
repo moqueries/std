@@ -14,7 +14,7 @@ import (
 
 // Sum512_224_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type Sum512_224_genType func(data []byte) (sum224 [sha512.Size224]byte)
+type Sum512_224_genType func(data []byte) [sha512.Size224]byte
 
 // MoqSum512_224_genType holds the state of a moq of the Sum512_224_genType
 // type
@@ -62,14 +62,16 @@ type MoqSum512_224_genType_doFn func(data []byte)
 
 // MoqSum512_224_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Sum512_224_genType type
-type MoqSum512_224_genType_doReturnFn func(data []byte) (sum224 [sha512.Size224]byte)
+type MoqSum512_224_genType_doReturnFn func(data []byte) [sha512.Size224]byte
 
 // MoqSum512_224_genType_results holds the results of the Sum512_224_genType
 // type
 type MoqSum512_224_genType_results struct {
 	Params  MoqSum512_224_genType_params
 	Results []struct {
-		Values     *struct{ Sum224 [sha512.Size224]byte }
+		Values *struct {
+			Result1 [sha512.Size224]byte
+		}
 		Sequence   uint32
 		DoFn       MoqSum512_224_genType_doFn
 		DoReturnFn MoqSum512_224_genType_doReturnFn
@@ -122,14 +124,14 @@ func NewMoqSum512_224_genType(scene *moq.Scene, config *moq.Config) *MoqSum512_2
 
 // Mock returns the moq implementation of the Sum512_224_genType type
 func (m *MoqSum512_224_genType) Mock() Sum512_224_genType {
-	return func(data []byte) (_ [sha512.Size224]byte) {
+	return func(data []byte) [sha512.Size224]byte {
 		m.Scene.T.Helper()
 		moq := &MoqSum512_224_genType_mock{Moq: m}
 		return moq.Fn(data)
 	}
 }
 
-func (m *MoqSum512_224_genType_mock) Fn(data []byte) (sum224 [sha512.Size224]byte) {
+func (m *MoqSum512_224_genType_mock) Fn(data []byte) (result1 [sha512.Size224]byte) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSum512_224_genType_params{
 		Data: data,
@@ -174,10 +176,10 @@ func (m *MoqSum512_224_genType_mock) Fn(data []byte) (sum224 [sha512.Size224]byt
 	}
 
 	if result.Values != nil {
-		sum224 = result.Values.Sum224
+		result1 = result.Values.Result1
 	}
 	if result.DoReturnFn != nil {
-		sum224 = result.DoReturnFn(data)
+		result1 = result.DoReturnFn(data)
 	}
 	return
 }
@@ -226,7 +228,7 @@ func (r *MoqSum512_224_genType_fnRecorder) NoSeq() *MoqSum512_224_genType_fnReco
 	return r
 }
 
-func (r *MoqSum512_224_genType_fnRecorder) ReturnResults(sum224 [sha512.Size224]byte) *MoqSum512_224_genType_fnRecorder {
+func (r *MoqSum512_224_genType_fnRecorder) ReturnResults(result1 [sha512.Size224]byte) *MoqSum512_224_genType_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -236,13 +238,17 @@ func (r *MoqSum512_224_genType_fnRecorder) ReturnResults(sum224 [sha512.Size224]
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Sum224 [sha512.Size224]byte }
+		Values *struct {
+			Result1 [sha512.Size224]byte
+		}
 		Sequence   uint32
 		DoFn       MoqSum512_224_genType_doFn
 		DoReturnFn MoqSum512_224_genType_doReturnFn
 	}{
-		Values: &struct{ Sum224 [sha512.Size224]byte }{
-			Sum224: sum224,
+		Values: &struct {
+			Result1 [sha512.Size224]byte
+		}{
+			Result1: result1,
 		},
 		Sequence: sequence,
 	})
@@ -270,7 +276,9 @@ func (r *MoqSum512_224_genType_fnRecorder) DoReturnResults(fn MoqSum512_224_genT
 	}
 
 	r.Results.Results = append(r.Results.Results, struct {
-		Values     *struct{ Sum224 [sha512.Size224]byte }
+		Values *struct {
+			Result1 [sha512.Size224]byte
+		}
 		Sequence   uint32
 		DoFn       MoqSum512_224_genType_doFn
 		DoReturnFn MoqSum512_224_genType_doReturnFn
@@ -338,7 +346,9 @@ func (r *MoqSum512_224_genType_fnRecorder) Repeat(repeaters ...moq.Repeater) *Mo
 	for n := 0; n < r.Results.Repeat.ResultCount-1; n++ {
 		if r.Sequence {
 			last = struct {
-				Values     *struct{ Sum224 [sha512.Size224]byte }
+				Values *struct {
+					Result1 [sha512.Size224]byte
+				}
 				Sequence   uint32
 				DoFn       MoqSum512_224_genType_doFn
 				DoReturnFn MoqSum512_224_genType_doReturnFn

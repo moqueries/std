@@ -52,14 +52,14 @@ type MoqFunc_doFn func()
 
 // MoqFunc_doReturnFn defines the type of function needed when calling
 // DoReturnResults for the Func type
-type MoqFunc_doReturnFn func() interface{}
+type MoqFunc_doReturnFn func() any
 
 // MoqFunc_results holds the results of the Func type
 type MoqFunc_results struct {
 	Params  MoqFunc_params
 	Results []struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_doFn
@@ -105,10 +105,10 @@ func NewMoqFunc(scene *moq.Scene, config *moq.Config) *MoqFunc {
 
 // Mock returns the moq implementation of the Func type
 func (m *MoqFunc) Mock() expvar.Func {
-	return func() interface{} { m.Scene.T.Helper(); moq := &MoqFunc_mock{Moq: m}; return moq.Fn() }
+	return func() any { m.Scene.T.Helper(); moq := &MoqFunc_mock{Moq: m}; return moq.Fn() }
 }
 
-func (m *MoqFunc_mock) Fn() (result1 interface{}) {
+func (m *MoqFunc_mock) Fn() (result1 any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqFunc_params{}
 	var results *MoqFunc_results
@@ -196,7 +196,7 @@ func (r *MoqFunc_fnRecorder) NoSeq() *MoqFunc_fnRecorder {
 	return r
 }
 
-func (r *MoqFunc_fnRecorder) ReturnResults(result1 interface{}) *MoqFunc_fnRecorder {
+func (r *MoqFunc_fnRecorder) ReturnResults(result1 any) *MoqFunc_fnRecorder {
 	r.Moq.Scene.T.Helper()
 	r.FindResults()
 
@@ -207,14 +207,14 @@ func (r *MoqFunc_fnRecorder) ReturnResults(result1 interface{}) *MoqFunc_fnRecor
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_doFn
 		DoReturnFn MoqFunc_doReturnFn
 	}{
 		Values: &struct {
-			Result1 interface{}
+			Result1 any
 		}{
 			Result1: result1,
 		},
@@ -245,7 +245,7 @@ func (r *MoqFunc_fnRecorder) DoReturnResults(fn MoqFunc_doReturnFn) *MoqFunc_fnR
 
 	r.Results.Results = append(r.Results.Results, struct {
 		Values *struct {
-			Result1 interface{}
+			Result1 any
 		}
 		Sequence   uint32
 		DoFn       MoqFunc_doFn
@@ -315,7 +315,7 @@ func (r *MoqFunc_fnRecorder) Repeat(repeaters ...moq.Repeater) *MoqFunc_fnRecord
 		if r.Sequence {
 			last = struct {
 				Values *struct {
-					Result1 interface{}
+					Result1 any
 				}
 				Sequence   uint32
 				DoFn       MoqFunc_doFn

@@ -13,7 +13,7 @@ import (
 
 // Panicf_genType is the fabricated implementation type of this mock (emitted
 // when mocking functions directly and not from a function type)
-type Panicf_genType func(format string, v ...interface{})
+type Panicf_genType func(format string, v ...any)
 
 // MoqPanicf_genType holds the state of a moq of the Panicf_genType type
 type MoqPanicf_genType struct {
@@ -40,7 +40,7 @@ type MoqPanicf_genType_mock struct {
 // MoqPanicf_genType_params holds the params of the Panicf_genType type
 type MoqPanicf_genType_params struct {
 	Format string
-	V      []interface{}
+	V      []any
 }
 
 // MoqPanicf_genType_paramsKey holds the map key params of the Panicf_genType
@@ -63,11 +63,11 @@ type MoqPanicf_genType_resultsByParams struct {
 
 // MoqPanicf_genType_doFn defines the type of function needed when calling
 // AndDo for the Panicf_genType type
-type MoqPanicf_genType_doFn func(format string, v ...interface{})
+type MoqPanicf_genType_doFn func(format string, v ...any)
 
 // MoqPanicf_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the Panicf_genType type
-type MoqPanicf_genType_doReturnFn func(format string, v ...interface{})
+type MoqPanicf_genType_doReturnFn func(format string, v ...any)
 
 // MoqPanicf_genType_results holds the results of the Panicf_genType type
 type MoqPanicf_genType_results struct {
@@ -129,14 +129,14 @@ func NewMoqPanicf_genType(scene *moq.Scene, config *moq.Config) *MoqPanicf_genTy
 
 // Mock returns the moq implementation of the Panicf_genType type
 func (m *MoqPanicf_genType) Mock() Panicf_genType {
-	return func(format string, v ...interface{}) {
+	return func(format string, v ...any) {
 		m.Scene.T.Helper()
 		moq := &MoqPanicf_genType_mock{Moq: m}
 		moq.Fn(format, v...)
 	}
 }
 
-func (m *MoqPanicf_genType_mock) Fn(format string, v ...interface{}) {
+func (m *MoqPanicf_genType_mock) Fn(format string, v ...any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqPanicf_genType_params{
 		Format: format,
@@ -187,7 +187,7 @@ func (m *MoqPanicf_genType_mock) Fn(format string, v ...interface{}) {
 	return
 }
 
-func (m *MoqPanicf_genType) OnCall(format string, v ...interface{}) *MoqPanicf_genType_fnRecorder {
+func (m *MoqPanicf_genType) OnCall(format string, v ...any) *MoqPanicf_genType_fnRecorder {
 	return &MoqPanicf_genType_fnRecorder{
 		Params: MoqPanicf_genType_params{
 			Format: format,

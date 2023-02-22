@@ -14,7 +14,7 @@ import (
 
 // WithValue_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type WithValue_genType func(parent context.Context, key, val interface{}) context.Context
+type WithValue_genType func(parent context.Context, key, val any) context.Context
 
 // MoqWithValue_genType holds the state of a moq of the WithValue_genType type
 type MoqWithValue_genType struct {
@@ -42,7 +42,7 @@ type MoqWithValue_genType_mock struct {
 // MoqWithValue_genType_params holds the params of the WithValue_genType type
 type MoqWithValue_genType_params struct {
 	Parent   context.Context
-	Key, Val interface{}
+	Key, Val any
 }
 
 // MoqWithValue_genType_paramsKey holds the map key params of the
@@ -50,7 +50,7 @@ type MoqWithValue_genType_params struct {
 type MoqWithValue_genType_paramsKey struct {
 	Params struct {
 		Parent   context.Context
-		Key, Val interface{}
+		Key, Val any
 	}
 	Hashes struct {
 		Parent   hash.Hash
@@ -68,11 +68,11 @@ type MoqWithValue_genType_resultsByParams struct {
 
 // MoqWithValue_genType_doFn defines the type of function needed when calling
 // AndDo for the WithValue_genType type
-type MoqWithValue_genType_doFn func(parent context.Context, key, val interface{})
+type MoqWithValue_genType_doFn func(parent context.Context, key, val any)
 
 // MoqWithValue_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the WithValue_genType type
-type MoqWithValue_genType_doReturnFn func(parent context.Context, key, val interface{}) context.Context
+type MoqWithValue_genType_doReturnFn func(parent context.Context, key, val any) context.Context
 
 // MoqWithValue_genType_results holds the results of the WithValue_genType type
 type MoqWithValue_genType_results struct {
@@ -127,8 +127,8 @@ func NewMoqWithValue_genType(scene *moq.Scene, config *moq.Config) *MoqWithValue
 			Val    moq.ParamIndexing
 		}{
 			Parent: moq.ParamIndexByHash,
-			Key:    moq.ParamIndexByHash,
-			Val:    moq.ParamIndexByHash,
+			Key:    moq.ParamIndexByValue,
+			Val:    moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -139,14 +139,14 @@ func NewMoqWithValue_genType(scene *moq.Scene, config *moq.Config) *MoqWithValue
 
 // Mock returns the moq implementation of the WithValue_genType type
 func (m *MoqWithValue_genType) Mock() WithValue_genType {
-	return func(parent context.Context, key, val interface{}) context.Context {
+	return func(parent context.Context, key, val any) context.Context {
 		m.Scene.T.Helper()
 		moq := &MoqWithValue_genType_mock{Moq: m}
 		return moq.Fn(parent, key, val)
 	}
 }
 
-func (m *MoqWithValue_genType_mock) Fn(parent context.Context, key, val interface{}) (result1 context.Context) {
+func (m *MoqWithValue_genType_mock) Fn(parent context.Context, key, val any) (result1 context.Context) {
 	m.Moq.Scene.T.Helper()
 	params := MoqWithValue_genType_params{
 		Parent: parent,
@@ -201,7 +201,7 @@ func (m *MoqWithValue_genType_mock) Fn(parent context.Context, key, val interfac
 	return
 }
 
-func (m *MoqWithValue_genType) OnCall(parent context.Context, key, val interface{}) *MoqWithValue_genType_fnRecorder {
+func (m *MoqWithValue_genType) OnCall(parent context.Context, key, val any) *MoqWithValue_genType_fnRecorder {
 	return &MoqWithValue_genType_fnRecorder{
 		Params: MoqWithValue_genType_params{
 			Parent: parent,
@@ -406,7 +406,7 @@ func (m *MoqWithValue_genType) ParamsKey(params MoqWithValue_genType_params, any
 			parentUsedHash = hash.DeepHash(params.Parent)
 		}
 	}
-	var keyUsed interface{}
+	var keyUsed any
 	var keyUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Key == moq.ParamIndexByValue {
@@ -415,7 +415,7 @@ func (m *MoqWithValue_genType) ParamsKey(params MoqWithValue_genType_params, any
 			keyUsedHash = hash.DeepHash(params.Key)
 		}
 	}
-	var valUsed interface{}
+	var valUsed any
 	var valUsedHash hash.Hash
 	if anyParams&(1<<2) == 0 {
 		if m.Runtime.ParameterIndexing.Val == moq.ParamIndexByValue {
@@ -427,7 +427,7 @@ func (m *MoqWithValue_genType) ParamsKey(params MoqWithValue_genType_params, any
 	return MoqWithValue_genType_paramsKey{
 		Params: struct {
 			Parent   context.Context
-			Key, Val interface{}
+			Key, Val any
 		}{
 			Parent: parentUsed,
 			Key:    keyUsed,

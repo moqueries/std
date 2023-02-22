@@ -13,7 +13,7 @@ import (
 
 // SetFinalizer_genType is the fabricated implementation type of this mock
 // (emitted when mocking functions directly and not from a function type)
-type SetFinalizer_genType func(obj interface{}, finalizer interface{})
+type SetFinalizer_genType func(obj any, finalizer any)
 
 // MoqSetFinalizer_genType holds the state of a moq of the SetFinalizer_genType
 // type
@@ -41,16 +41,16 @@ type MoqSetFinalizer_genType_mock struct {
 // MoqSetFinalizer_genType_params holds the params of the SetFinalizer_genType
 // type
 type MoqSetFinalizer_genType_params struct {
-	Obj       interface{}
-	Finalizer interface{}
+	Obj       any
+	Finalizer any
 }
 
 // MoqSetFinalizer_genType_paramsKey holds the map key params of the
 // SetFinalizer_genType type
 type MoqSetFinalizer_genType_paramsKey struct {
 	Params struct {
-		Obj       interface{}
-		Finalizer interface{}
+		Obj       any
+		Finalizer any
 	}
 	Hashes struct {
 		Obj       hash.Hash
@@ -68,11 +68,11 @@ type MoqSetFinalizer_genType_resultsByParams struct {
 
 // MoqSetFinalizer_genType_doFn defines the type of function needed when
 // calling AndDo for the SetFinalizer_genType type
-type MoqSetFinalizer_genType_doFn func(obj interface{}, finalizer interface{})
+type MoqSetFinalizer_genType_doFn func(obj any, finalizer any)
 
 // MoqSetFinalizer_genType_doReturnFn defines the type of function needed when
 // calling DoReturnResults for the SetFinalizer_genType type
-type MoqSetFinalizer_genType_doReturnFn func(obj interface{}, finalizer interface{})
+type MoqSetFinalizer_genType_doReturnFn func(obj any, finalizer any)
 
 // MoqSetFinalizer_genType_results holds the results of the
 // SetFinalizer_genType type
@@ -124,8 +124,8 @@ func NewMoqSetFinalizer_genType(scene *moq.Scene, config *moq.Config) *MoqSetFin
 			Obj       moq.ParamIndexing
 			Finalizer moq.ParamIndexing
 		}{
-			Obj:       moq.ParamIndexByHash,
-			Finalizer: moq.ParamIndexByHash,
+			Obj:       moq.ParamIndexByValue,
+			Finalizer: moq.ParamIndexByValue,
 		}},
 	}
 	m.Moq.Moq = m
@@ -136,14 +136,14 @@ func NewMoqSetFinalizer_genType(scene *moq.Scene, config *moq.Config) *MoqSetFin
 
 // Mock returns the moq implementation of the SetFinalizer_genType type
 func (m *MoqSetFinalizer_genType) Mock() SetFinalizer_genType {
-	return func(obj interface{}, finalizer interface{}) {
+	return func(obj any, finalizer any) {
 		m.Scene.T.Helper()
 		moq := &MoqSetFinalizer_genType_mock{Moq: m}
 		moq.Fn(obj, finalizer)
 	}
 }
 
-func (m *MoqSetFinalizer_genType_mock) Fn(obj interface{}, finalizer interface{}) {
+func (m *MoqSetFinalizer_genType_mock) Fn(obj any, finalizer any) {
 	m.Moq.Scene.T.Helper()
 	params := MoqSetFinalizer_genType_params{
 		Obj:       obj,
@@ -194,7 +194,7 @@ func (m *MoqSetFinalizer_genType_mock) Fn(obj interface{}, finalizer interface{}
 	return
 }
 
-func (m *MoqSetFinalizer_genType) OnCall(obj interface{}, finalizer interface{}) *MoqSetFinalizer_genType_fnRecorder {
+func (m *MoqSetFinalizer_genType) OnCall(obj any, finalizer any) *MoqSetFinalizer_genType_fnRecorder {
 	return &MoqSetFinalizer_genType_fnRecorder{
 		Params: MoqSetFinalizer_genType_params{
 			Obj:       obj,
@@ -374,7 +374,7 @@ func (m *MoqSetFinalizer_genType) PrettyParams(params MoqSetFinalizer_genType_pa
 
 func (m *MoqSetFinalizer_genType) ParamsKey(params MoqSetFinalizer_genType_params, anyParams uint64) MoqSetFinalizer_genType_paramsKey {
 	m.Scene.T.Helper()
-	var objUsed interface{}
+	var objUsed any
 	var objUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Obj == moq.ParamIndexByValue {
@@ -383,7 +383,7 @@ func (m *MoqSetFinalizer_genType) ParamsKey(params MoqSetFinalizer_genType_param
 			objUsedHash = hash.DeepHash(params.Obj)
 		}
 	}
-	var finalizerUsed interface{}
+	var finalizerUsed any
 	var finalizerUsedHash hash.Hash
 	if anyParams&(1<<1) == 0 {
 		if m.Runtime.ParameterIndexing.Finalizer == moq.ParamIndexByValue {
@@ -394,8 +394,8 @@ func (m *MoqSetFinalizer_genType) ParamsKey(params MoqSetFinalizer_genType_param
 	}
 	return MoqSetFinalizer_genType_paramsKey{
 		Params: struct {
-			Obj       interface{}
-			Finalizer interface{}
+			Obj       any
+			Finalizer any
 		}{
 			Obj:       objUsed,
 			Finalizer: finalizerUsed,

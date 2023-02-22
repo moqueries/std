@@ -20,8 +20,8 @@ var _ Decoder_starGenType = (*MoqDecoder_starGenType_mock)(nil)
 // (emitted when mocking a collections of methods directly and not from an
 // interface type)
 type Decoder_starGenType interface {
-	Decode(v interface{}) error
-	DecodeElement(v interface{}, start *xml.StartElement) error
+	Decode(v any) error
+	DecodeElement(v any, start *xml.StartElement) error
 	Skip() error
 	Token() (xml.Token, error)
 	RawToken() (xml.Token, error)
@@ -73,12 +73,12 @@ type MoqDecoder_starGenType_recorder struct {
 
 // MoqDecoder_starGenType_Decode_params holds the params of the
 // Decoder_starGenType type
-type MoqDecoder_starGenType_Decode_params struct{ V interface{} }
+type MoqDecoder_starGenType_Decode_params struct{ V any }
 
 // MoqDecoder_starGenType_Decode_paramsKey holds the map key params of the
 // Decoder_starGenType type
 type MoqDecoder_starGenType_Decode_paramsKey struct {
-	Params struct{ V interface{} }
+	Params struct{ V any }
 	Hashes struct{ V hash.Hash }
 }
 
@@ -92,11 +92,11 @@ type MoqDecoder_starGenType_Decode_resultsByParams struct {
 
 // MoqDecoder_starGenType_Decode_doFn defines the type of function needed when
 // calling AndDo for the Decoder_starGenType type
-type MoqDecoder_starGenType_Decode_doFn func(v interface{})
+type MoqDecoder_starGenType_Decode_doFn func(v any)
 
 // MoqDecoder_starGenType_Decode_doReturnFn defines the type of function needed
 // when calling DoReturnResults for the Decoder_starGenType type
-type MoqDecoder_starGenType_Decode_doReturnFn func(v interface{}) error
+type MoqDecoder_starGenType_Decode_doReturnFn func(v any) error
 
 // MoqDecoder_starGenType_Decode_results holds the results of the
 // Decoder_starGenType type
@@ -133,7 +133,7 @@ type MoqDecoder_starGenType_Decode_anyParams struct {
 // MoqDecoder_starGenType_DecodeElement_params holds the params of the
 // Decoder_starGenType type
 type MoqDecoder_starGenType_DecodeElement_params struct {
-	V     interface{}
+	V     any
 	Start *xml.StartElement
 }
 
@@ -141,7 +141,7 @@ type MoqDecoder_starGenType_DecodeElement_params struct {
 // the Decoder_starGenType type
 type MoqDecoder_starGenType_DecodeElement_paramsKey struct {
 	Params struct {
-		V     interface{}
+		V     any
 		Start *xml.StartElement
 	}
 	Hashes struct {
@@ -160,11 +160,11 @@ type MoqDecoder_starGenType_DecodeElement_resultsByParams struct {
 
 // MoqDecoder_starGenType_DecodeElement_doFn defines the type of function
 // needed when calling AndDo for the Decoder_starGenType type
-type MoqDecoder_starGenType_DecodeElement_doFn func(v interface{}, start *xml.StartElement)
+type MoqDecoder_starGenType_DecodeElement_doFn func(v any, start *xml.StartElement)
 
 // MoqDecoder_starGenType_DecodeElement_doReturnFn defines the type of function
 // needed when calling DoReturnResults for the Decoder_starGenType type
-type MoqDecoder_starGenType_DecodeElement_doReturnFn func(v interface{}, start *xml.StartElement) error
+type MoqDecoder_starGenType_DecodeElement_doReturnFn func(v any, start *xml.StartElement) error
 
 // MoqDecoder_starGenType_DecodeElement_results holds the results of the
 // Decoder_starGenType type
@@ -476,13 +476,13 @@ func NewMoqDecoder_starGenType(scene *moq.Scene, config *moq.Config) *MoqDecoder
 			Decode: struct {
 				V moq.ParamIndexing
 			}{
-				V: moq.ParamIndexByHash,
+				V: moq.ParamIndexByValue,
 			},
 			DecodeElement: struct {
 				V     moq.ParamIndexing
 				Start moq.ParamIndexing
 			}{
-				V:     moq.ParamIndexByHash,
+				V:     moq.ParamIndexByValue,
 				Start: moq.ParamIndexByHash,
 			},
 			Skip:        struct{}{},
@@ -500,7 +500,7 @@ func NewMoqDecoder_starGenType(scene *moq.Scene, config *moq.Config) *MoqDecoder
 // Mock returns the mock implementation of the Decoder_starGenType type
 func (m *MoqDecoder_starGenType) Mock() *MoqDecoder_starGenType_mock { return m.Moq }
 
-func (m *MoqDecoder_starGenType_mock) Decode(v interface{}) (result1 error) {
+func (m *MoqDecoder_starGenType_mock) Decode(v any) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDecoder_starGenType_Decode_params{
 		V: v,
@@ -553,7 +553,7 @@ func (m *MoqDecoder_starGenType_mock) Decode(v interface{}) (result1 error) {
 	return
 }
 
-func (m *MoqDecoder_starGenType_mock) DecodeElement(v interface{}, start *xml.StartElement) (result1 error) {
+func (m *MoqDecoder_starGenType_mock) DecodeElement(v any, start *xml.StartElement) (result1 error) {
 	m.Moq.Scene.T.Helper()
 	params := MoqDecoder_starGenType_DecodeElement_params{
 		V:     v,
@@ -820,7 +820,7 @@ func (m *MoqDecoder_starGenType) OnCall() *MoqDecoder_starGenType_recorder {
 	}
 }
 
-func (m *MoqDecoder_starGenType_recorder) Decode(v interface{}) *MoqDecoder_starGenType_Decode_fnRecorder {
+func (m *MoqDecoder_starGenType_recorder) Decode(v any) *MoqDecoder_starGenType_Decode_fnRecorder {
 	return &MoqDecoder_starGenType_Decode_fnRecorder{
 		Params: MoqDecoder_starGenType_Decode_params{
 			V: v,
@@ -1004,7 +1004,7 @@ func (m *MoqDecoder_starGenType) PrettyParams_Decode(params MoqDecoder_starGenTy
 
 func (m *MoqDecoder_starGenType) ParamsKey_Decode(params MoqDecoder_starGenType_Decode_params, anyParams uint64) MoqDecoder_starGenType_Decode_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.Decode.V == moq.ParamIndexByValue {
@@ -1014,7 +1014,7 @@ func (m *MoqDecoder_starGenType) ParamsKey_Decode(params MoqDecoder_starGenType_
 		}
 	}
 	return MoqDecoder_starGenType_Decode_paramsKey{
-		Params: struct{ V interface{} }{
+		Params: struct{ V any }{
 			V: vUsed,
 		},
 		Hashes: struct{ V hash.Hash }{
@@ -1023,7 +1023,7 @@ func (m *MoqDecoder_starGenType) ParamsKey_Decode(params MoqDecoder_starGenType_
 	}
 }
 
-func (m *MoqDecoder_starGenType_recorder) DecodeElement(v interface{}, start *xml.StartElement) *MoqDecoder_starGenType_DecodeElement_fnRecorder {
+func (m *MoqDecoder_starGenType_recorder) DecodeElement(v any, start *xml.StartElement) *MoqDecoder_starGenType_DecodeElement_fnRecorder {
 	return &MoqDecoder_starGenType_DecodeElement_fnRecorder{
 		Params: MoqDecoder_starGenType_DecodeElement_params{
 			V:     v,
@@ -1213,7 +1213,7 @@ func (m *MoqDecoder_starGenType) PrettyParams_DecodeElement(params MoqDecoder_st
 
 func (m *MoqDecoder_starGenType) ParamsKey_DecodeElement(params MoqDecoder_starGenType_DecodeElement_params, anyParams uint64) MoqDecoder_starGenType_DecodeElement_paramsKey {
 	m.Scene.T.Helper()
-	var vUsed interface{}
+	var vUsed any
 	var vUsedHash hash.Hash
 	if anyParams&(1<<0) == 0 {
 		if m.Runtime.ParameterIndexing.DecodeElement.V == moq.ParamIndexByValue {
@@ -1233,7 +1233,7 @@ func (m *MoqDecoder_starGenType) ParamsKey_DecodeElement(params MoqDecoder_starG
 	}
 	return MoqDecoder_starGenType_DecodeElement_paramsKey{
 		Params: struct {
-			V     interface{}
+			V     any
 			Start *xml.StartElement
 		}{
 			V:     vUsed,
